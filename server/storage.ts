@@ -1,0 +1,480 @@
+import { Job, JobWithRelations, Company, Category, Location, Skill, InsertJob, InsertCompany, InsertCategory, InsertLocation, InsertSkill, jobs, companies, categories, locations, skills, jobSkills } from "@shared/schema";
+
+export interface IStorage {
+  // Jobs
+  getAllJobs(): Promise<JobWithRelations[]>;
+  getJobById(id: number): Promise<JobWithRelations | undefined>;
+  getJobBySlug(slug: string): Promise<JobWithRelations | undefined>;
+  getJobsByCategory(categorySlug: string): Promise<JobWithRelations[]>;
+  getJobsByLocation(locationSlug: string): Promise<JobWithRelations[]>;
+  getJobsBySearch(query: string): Promise<JobWithRelations[]>;
+  createJob(job: InsertJob, skillIds: number[]): Promise<Job>;
+  
+  // Companies
+  getAllCompanies(): Promise<Company[]>;
+  getCompanyById(id: number): Promise<Company | undefined>;
+  createCompany(company: InsertCompany): Promise<Company>;
+  
+  // Categories
+  getAllCategories(): Promise<Category[]>;
+  getCategoryBySlug(slug: string): Promise<Category | undefined>;
+  createCategory(category: InsertCategory): Promise<Category>;
+  
+  // Locations
+  getAllLocations(): Promise<Location[]>;
+  getLocationBySlug(slug: string): Promise<Location | undefined>;
+  createLocation(location: InsertLocation): Promise<Location>;
+  
+  // Skills
+  getAllSkills(): Promise<Skill[]>;
+  getSkillById(id: number): Promise<Skill | undefined>;
+  createSkill(skill: InsertSkill): Promise<Skill>;
+  
+  // Stats
+  getJobCount(): Promise<number>;
+  getCategoryCount(): Promise<number>;
+  getLocationCount(): Promise<number>;
+}
+
+export class MemStorage implements IStorage {
+  private jobsData: Map<number, Job>;
+  private companiesData: Map<number, Company>;
+  private categoriesData: Map<number, Category>;
+  private locationsData: Map<number, Location>;
+  private skillsData: Map<number, Skill>;
+  private jobSkillsData: Map<string, number[]>;
+  
+  private currentJobId: number;
+  private currentCompanyId: number;
+  private currentCategoryId: number;
+  private currentLocationId: number;
+  private currentSkillId: number;
+  
+  constructor() {
+    this.jobsData = new Map();
+    this.companiesData = new Map();
+    this.categoriesData = new Map();
+    this.locationsData = new Map();
+    this.skillsData = new Map();
+    this.jobSkillsData = new Map();
+    
+    this.currentJobId = 1;
+    this.currentCompanyId = 1;
+    this.currentCategoryId = 1;
+    this.currentLocationId = 1;
+    this.currentSkillId = 1;
+    
+    // Initialize with seed data
+    this.seedData();
+  }
+  
+  async getAllJobs(): Promise<JobWithRelations[]> {
+    const allJobs: JobWithRelations[] = [];
+    
+    for (const job of this.jobsData.values()) {
+      const jobWithRelations = this.buildJobWithRelations(job);
+      if (jobWithRelations) {
+        allJobs.push(jobWithRelations);
+      }
+    }
+    
+    return allJobs.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime();
+    });
+  }
+  
+  async getJobById(id: number): Promise<JobWithRelations | undefined> {
+    const job = this.jobsData.get(id);
+    if (!job) return undefined;
+    
+    return this.buildJobWithRelations(job);
+  }
+  
+  async getJobBySlug(slug: string): Promise<JobWithRelations | undefined> {
+    for (const job of this.jobsData.values()) {
+      if (job.slug === slug) {
+        return this.buildJobWithRelations(job);
+      }
+    }
+    return undefined;
+  }
+  
+  async getJobsByCategory(categorySlug: string): Promise<JobWithRelations[]> {
+    let categoryId: number | undefined;
+    
+    for (const category of this.categoriesData.values()) {
+      if (category.slug === categorySlug) {
+        categoryId = category.id;
+        break;
+      }
+    }
+    
+    if (!categoryId) return [];
+    
+    const categoryJobs: JobWithRelations[] = [];
+    
+    for (const job of this.jobsData.values()) {
+      if (job.categoryId === categoryId) {
+        const jobWithRelations = this.buildJobWithRelations(job);
+        if (jobWithRelations) {
+          categoryJobs.push(jobWithRelations);
+        }
+      }
+    }
+    
+    return categoryJobs.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime();
+    });
+  }
+  
+  async getJobsByLocation(locationSlug: string): Promise<JobWithRelations[]> {
+    let locationId: number | undefined;
+    
+    for (const location of this.locationsData.values()) {
+      if (location.slug === locationSlug) {
+        locationId = location.id;
+        break;
+      }
+    }
+    
+    if (!locationId) return [];
+    
+    const locationJobs: JobWithRelations[] = [];
+    
+    for (const job of this.jobsData.values()) {
+      if (job.locationId === locationId) {
+        const jobWithRelations = this.buildJobWithRelations(job);
+        if (jobWithRelations) {
+          locationJobs.push(jobWithRelations);
+        }
+      }
+    }
+    
+    return locationJobs.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime();
+    });
+  }
+  
+  async getJobsBySearch(query: string): Promise<JobWithRelations[]> {
+    if (!query) return this.getAllJobs();
+    
+    const lowerQuery = query.toLowerCase();
+    const searchResults: JobWithRelations[] = [];
+    
+    for (const job of this.jobsData.values()) {
+      if (
+        job.title.toLowerCase().includes(lowerQuery) ||
+        job.description.toLowerCase().includes(lowerQuery)
+      ) {
+        const jobWithRelations = this.buildJobWithRelations(job);
+        if (jobWithRelations) {
+          searchResults.push(jobWithRelations);
+        }
+      }
+    }
+    
+    return searchResults.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime();
+    });
+  }
+  
+  async createJob(job: InsertJob, skillIds: number[]): Promise<Job> {
+    const id = this.currentJobId++;
+    const newJob: Job = { id, ...job };
+    
+    this.jobsData.set(id, newJob);
+    
+    // Associate skills with the job
+    this.jobSkillsData.set(`job-${id}`, skillIds);
+    
+    return newJob;
+  }
+  
+  async getAllCompanies(): Promise<Company[]> {
+    return Array.from(this.companiesData.values());
+  }
+  
+  async getCompanyById(id: number): Promise<Company | undefined> {
+    return this.companiesData.get(id);
+  }
+  
+  async createCompany(company: InsertCompany): Promise<Company> {
+    const id = this.currentCompanyId++;
+    const newCompany: Company = { id, ...company };
+    
+    this.companiesData.set(id, newCompany);
+    
+    return newCompany;
+  }
+  
+  async getAllCategories(): Promise<Category[]> {
+    return Array.from(this.categoriesData.values());
+  }
+  
+  async getCategoryBySlug(slug: string): Promise<Category | undefined> {
+    for (const category of this.categoriesData.values()) {
+      if (category.slug === slug) {
+        return category;
+      }
+    }
+    return undefined;
+  }
+  
+  async createCategory(category: InsertCategory): Promise<Category> {
+    const id = this.currentCategoryId++;
+    const newCategory: Category = { id, ...category };
+    
+    this.categoriesData.set(id, newCategory);
+    
+    return newCategory;
+  }
+  
+  async getAllLocations(): Promise<Location[]> {
+    return Array.from(this.locationsData.values());
+  }
+  
+  async getLocationBySlug(slug: string): Promise<Location | undefined> {
+    for (const location of this.locationsData.values()) {
+      if (location.slug === slug) {
+        return location;
+      }
+    }
+    return undefined;
+  }
+  
+  async createLocation(location: InsertLocation): Promise<Location> {
+    const id = this.currentLocationId++;
+    const newLocation: Location = { id, ...location };
+    
+    this.locationsData.set(id, newLocation);
+    
+    return newLocation;
+  }
+  
+  async getAllSkills(): Promise<Skill[]> {
+    return Array.from(this.skillsData.values());
+  }
+  
+  async getSkillById(id: number): Promise<Skill | undefined> {
+    return this.skillsData.get(id);
+  }
+  
+  async createSkill(skill: InsertSkill): Promise<Skill> {
+    const id = this.currentSkillId++;
+    const newSkill: Skill = { id, ...skill };
+    
+    this.skillsData.set(id, newSkill);
+    
+    return newSkill;
+  }
+  
+  async getJobCount(): Promise<number> {
+    return this.jobsData.size;
+  }
+  
+  async getCategoryCount(): Promise<number> {
+    return this.categoriesData.size;
+  }
+  
+  async getLocationCount(): Promise<number> {
+    return this.locationsData.size;
+  }
+  
+  private buildJobWithRelations(job: Job): JobWithRelations | undefined {
+    const company = this.companiesData.get(job.companyId);
+    const category = this.categoriesData.get(job.categoryId);
+    const location = this.locationsData.get(job.locationId);
+    
+    if (!company || !category || !location) {
+      return undefined;
+    }
+    
+    const skillIds = this.jobSkillsData.get(`job-${job.id}`) || [];
+    const jobSkills: Skill[] = [];
+    
+    for (const skillId of skillIds) {
+      const skill = this.skillsData.get(skillId);
+      if (skill) {
+        jobSkills.push(skill);
+      }
+    }
+    
+    return {
+      ...job,
+      company,
+      category,
+      location,
+      skills: jobSkills,
+    };
+  }
+  
+  private seedData() {
+    // Seed categories
+    const developmentCategory = this.seedCategory("Development", "development");
+    const designCategory = this.seedCategory("Design", "design");
+    const marketingCategory = this.seedCategory("Marketing", "marketing");
+    const customerSupportCategory = this.seedCategory("Customer Support", "customer-support");
+    
+    // Seed locations
+    const worldwideLocation = this.seedLocation("Worldwide", "worldwide", "Global");
+    const usLocation = this.seedLocation("US Time Zones", "us-time-zones", "Americas");
+    const euLocation = this.seedLocation("EU Time Zones", "eu-time-zones", "Europe");
+    const apacLocation = this.seedLocation("APAC Time Zones", "apac-time-zones", "Asia");
+    
+    // Seed companies
+    const techCorpCompany = this.seedCompany("TechCorp Solutions", "https://example.com/logo1.svg", "https://techcorp.com");
+    const designHubCompany = this.seedCompany("DesignHub", "https://example.com/logo2.svg", "https://designhub.com");
+    const growthGeniusCompany = this.seedCompany("GrowthGenius", "https://example.com/logo3.svg", "https://growthgenius.com");
+    const remoteHelpCompany = this.seedCompany("RemoteHelp", "https://example.com/logo4.svg", "https://remotehelp.com");
+    const worldStackCompany = this.seedCompany("WorldStack", "https://example.com/logo5.svg", "https://worldstack.com");
+    
+    // Seed skills
+    const reactSkill = this.seedSkill("React");
+    const typescriptSkill = this.seedSkill("TypeScript");
+    const cssSkill = this.seedSkill("CSS");
+    const reduxSkill = this.seedSkill("Redux");
+    const figmaSkill = this.seedSkill("Figma");
+    const uiDesignSkill = this.seedSkill("UI Design");
+    const prototypingSkill = this.seedSkill("Prototyping");
+    const userResearchSkill = this.seedSkill("User Research");
+    const seoSkill = this.seedSkill("SEO");
+    const contentStrategySkill = this.seedSkill("Content Strategy");
+    const socialMediaSkill = this.seedSkill("Social Media");
+    const emailMarketingSkill = this.seedSkill("Email Marketing");
+    const customerServiceSkill = this.seedSkill("Customer Service");
+    const communicationSkill = this.seedSkill("Communication");
+    const problemSolvingSkill = this.seedSkill("Problem Solving");
+    const zendeskSkill = this.seedSkill("Zendesk");
+    const pythonSkill = this.seedSkill("Python");
+    const djangoSkill = this.seedSkill("Django");
+    const awsSkill = this.seedSkill("AWS");
+    const postgresqlSkill = this.seedSkill("PostgreSQL");
+    
+    // Seed jobs
+    const job1 = this.seedJob({
+      title: "Remote Frontend Developer",
+      slug: "remote-frontend-developer",
+      description: "We are looking for a skilled Frontend Developer proficient in React.js to join our remote team. You'll work on exciting projects and collaborate with a global team of experts to deliver outstanding user experiences.",
+      companyId: techCorpCompany.id,
+      categoryId: developmentCategory.id,
+      locationId: usLocation.id,
+      type: "full-time",
+      salaryMin: 90000,
+      salaryMax: 120000,
+      featured: true,
+      postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+      timezone: "UTC -4 to -10",
+      experienceLevel: "mid"
+    }, [reactSkill.id, typescriptSkill.id, cssSkill.id, reduxSkill.id]);
+    
+    const job2 = this.seedJob({
+      title: "Senior UX/UI Designer",
+      slug: "senior-ux-ui-designer",
+      description: "Join our creative team as a Senior UX/UI Designer to create beautiful, intuitive interfaces for our clients. You'll collaborate with product managers and developers to deliver high-quality designs.",
+      companyId: designHubCompany.id,
+      categoryId: designCategory.id,
+      locationId: euLocation.id,
+      type: "full-time",
+      salaryMin: 65000,
+      salaryMax: 85000,
+      featured: false,
+      postedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+      timezone: "UTC -1 to +3",
+      experienceLevel: "senior"
+    }, [figmaSkill.id, uiDesignSkill.id, prototypingSkill.id, userResearchSkill.id]);
+    
+    const job3 = this.seedJob({
+      title: "Content Marketing Manager",
+      slug: "content-marketing-manager",
+      description: "We're searching for a Content Marketing Manager to develop and execute our content strategy. You'll oversee our blog, social media channels, and email campaigns to drive growth.",
+      companyId: growthGeniusCompany.id,
+      categoryId: marketingCategory.id,
+      locationId: worldwideLocation.id,
+      type: "full-time",
+      salaryMin: 70000,
+      salaryMax: 90000,
+      featured: false,
+      postedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+      timezone: "Flexible",
+      experienceLevel: "mid"
+    }, [seoSkill.id, contentStrategySkill.id, socialMediaSkill.id, emailMarketingSkill.id]);
+    
+    const job4 = this.seedJob({
+      title: "Customer Support Specialist",
+      slug: "customer-support-specialist",
+      description: "Join our dedicated support team to help our customers with product-related inquiries. You'll provide exceptional customer service via chat, email, and occasional calls.",
+      companyId: remoteHelpCompany.id,
+      categoryId: customerSupportCategory.id,
+      locationId: apacLocation.id,
+      type: "part-time",
+      salaryMin: 25 * 2080, // hourly rate * full-time hours per year
+      salaryMax: 30 * 2080,
+      featured: false,
+      postedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+      timezone: "UTC +5 to +12",
+      experienceLevel: "entry"
+    }, [customerServiceSkill.id, communicationSkill.id, problemSolvingSkill.id, zendeskSkill.id]);
+    
+    const job5 = this.seedJob({
+      title: "Backend Developer (Python)",
+      slug: "backend-developer-python",
+      description: "Looking for a skilled Python developer to join our backend team. You'll work on our cloud infrastructure, APIs, and help scale our platforms to serve millions of users worldwide.",
+      companyId: worldStackCompany.id,
+      categoryId: developmentCategory.id,
+      locationId: worldwideLocation.id,
+      type: "full-time",
+      salaryMin: 100000,
+      salaryMax: 130000,
+      featured: true,
+      postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+      timezone: "Flexible",
+      experienceLevel: "senior"
+    }, [pythonSkill.id, djangoSkill.id, awsSkill.id, postgresqlSkill.id]);
+  }
+  
+  private seedCategory(name: string, slug: string): Category {
+    const id = this.currentCategoryId++;
+    const category: Category = { id, name, slug };
+    this.categoriesData.set(id, category);
+    return category;
+  }
+  
+  private seedLocation(name: string, slug: string, region: string): Location {
+    const id = this.currentLocationId++;
+    const location: Location = { id, name, slug, region };
+    this.locationsData.set(id, location);
+    return location;
+  }
+  
+  private seedCompany(name: string, logo: string, website: string): Company {
+    const id = this.currentCompanyId++;
+    const company: Company = { id, name, logo, website };
+    this.companiesData.set(id, company);
+    return company;
+  }
+  
+  private seedSkill(name: string): Skill {
+    const id = this.currentSkillId++;
+    const skill: Skill = { id, name };
+    this.skillsData.set(id, skill);
+    return skill;
+  }
+  
+  private seedJob(job: Omit<Job, "id">, skillIds: number[]): Job {
+    const id = this.currentJobId++;
+    const newJob: Job = { id, ...job };
+    this.jobsData.set(id, newJob);
+    this.jobSkillsData.set(`job-${id}`, skillIds);
+    return newJob;
+  }
+}
+
+export const storage = new MemStorage();
