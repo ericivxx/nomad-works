@@ -34,7 +34,7 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
           <input
             type="text"
             placeholder="Job title, skill or keyword"
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />
@@ -57,7 +57,7 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
           <input 
             type="text" 
             placeholder="Job title, skill or keyword" 
-            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
           />
@@ -68,12 +68,12 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
       <div className="flex-grow mb-2 md:mb-0 md:mr-4 w-full md:w-auto">
         <div className="relative">
           <select 
-            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none"
+            className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent appearance-none text-gray-900"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           >
             <option value="">All Locations</option>
-            {locations?.map((loc) => (
+            {locations?.map((loc: any) => (
               <option key={loc.id} value={loc.slug}>{loc.name}</option>
             ))}
           </select>

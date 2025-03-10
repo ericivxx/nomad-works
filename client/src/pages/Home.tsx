@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import SearchForm from "@/components/SearchForm";
 import JobList from "@/components/JobList";
 import SEOHead from "@/components/SEOHead";
+import KeywordLinks from "@/components/KeywordLinks";
 
 export default function Home() {
   const { data: categories } = useQuery({
@@ -62,6 +63,26 @@ export default function Home() {
                 View All Jobs
               </Link>
             </div>
+          </div>
+        </div>
+        {/* Popular Keywords Section */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Popular Digital Nomad Job Keywords</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Browse remote jobs by popular digital nomad job categories and keywords
+            </p>
+          </div>
+          
+          <KeywordLinks limit={20} />
+          
+          <div className="mt-4 text-center">
+            <Link 
+              href="/keywords/digital-nomad-jobs" 
+              className="inline-block text-primary font-semibold hover:underline"
+            >
+              View All Keywords
+            </Link>
           </div>
         </div>
       </main>

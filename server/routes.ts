@@ -11,6 +11,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const locationSlug = req.query.location as string | undefined;
       const type = req.query.type as string | undefined;
       const experienceLevel = req.query.experience as string | undefined;
+      const countOnly = req.query.count === 'true';
       
       let jobs = await storage.getAllJobs();
       
@@ -36,6 +37,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (experienceLevel) {
         const levels = experienceLevel.split(',');
         jobs = jobs.filter(job => levels.includes(job.experienceLevel || ''));
+      }
+      
+      // If count parameter is true, just return the count
+      if (countOnly) {
+        return res.json({
+          count: jobs.length
+        });
       }
       
       // Pagination
