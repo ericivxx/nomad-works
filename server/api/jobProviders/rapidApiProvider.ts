@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { JobProvider, JobProviderResponse, JobSearchParams } from './types';
-import { JobWithRelations } from '@shared/schema';
+import { JobWithRelations, Category, Skill } from '@shared/schema';
 import { storage } from '../../storage';
 
 interface RapidApiJob {
@@ -131,7 +131,7 @@ export class RapidApiProvider implements JobProvider {
 
     // Transform the job
     return {
-      id: job.job_id,
+      id: parseInt(job.job_id, 10),
       title: job.job_title,
       description: job.job_description,
       company,
@@ -152,7 +152,7 @@ export class RapidApiProvider implements JobProvider {
     };
   }
 
-  private async determineCategory(title: string, description: string): Promise<typeof storage.categories.$inferSelect> {
+  private async determineCategory(title: string, description: string): Promise<Category> {
     // Simple keyword matching for now, could be enhanced with AI/ML
     const titleAndDesc = (title + ' ' + description).toLowerCase();
     
@@ -225,7 +225,7 @@ export class RapidApiProvider implements JobProvider {
     return 'mid'; // Default to mid-level
   }
 
-  private async extractSkills(description: string): Promise<Array<typeof storage.skills.$inferSelect>> {
+  private async extractSkills(description: string): Promise<Skill[]> {
     const skills: string[] = [];
     
     // Common programming languages and frameworks

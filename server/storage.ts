@@ -44,11 +44,11 @@ export class MemStorage implements IStorage {
   private skillsData: Map<number, Skill>;
   private jobSkillsData: Map<string, number[]>;
   
-  private currentJobId: number;
-  private currentCompanyId: number;
-  private currentCategoryId: number;
-  private currentLocationId: number;
-  private currentSkillId: number;
+  private currentJobId = 1;
+  private currentCompanyId = 1;
+  private currentCategoryId = 1;
+  private currentLocationId = 1;
+  private currentSkillId = 1;
   
   constructor() {
     this.jobsData = new Map();

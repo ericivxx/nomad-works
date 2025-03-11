@@ -132,4 +132,8 @@ export type JobWithRelations = Job & {
   category: Category;
   location: Location;
   skills: Skill[];
+  // Optional fields for job provider sources
+  source?: string;
+  externalId?: string;
+  applyUrl?: string;
 };
