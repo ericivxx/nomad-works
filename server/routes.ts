@@ -9,13 +9,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       console.log("Query parameters:", req.query);
       
-      const search = req.query.search as string | undefined;
+      // Support both 'q' and 'search' parameters for better compatibility
+      const search = (req.query.q || req.query.search) as string | undefined;
       const categorySlug = req.query.category as string | undefined;
       const locationSlug = req.query.location as string | undefined;
       const type = req.query.type as string | undefined;
       const experienceLevel = req.query.experience as string | undefined;
       const salary = req.query.salary as string | undefined;
       const timezone = req.query.timezone as string | undefined;
+      const sort = req.query.sort as string | undefined;
       const countOnly = req.query.count === 'true';
       const page = parseInt(req.query.page as string || '1');
       const limit = parseInt(req.query.limit as string || '10');
