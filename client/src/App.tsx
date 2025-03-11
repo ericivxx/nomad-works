@@ -10,6 +10,7 @@ import CategoryPage from "@/pages/CategoryPage";
 import LocationPage from "@/pages/LocationPage";
 import SearchResults from "@/pages/SearchResults";
 import KeywordLandingPage from "@/pages/KeywordLandingPage";
+import SitemapPage from "@/pages/SitemapPage";
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/locations/:slug" component={LocationPage} />
         <Route path="/search" component={SearchResults} />
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
+        <Route path="/sitemap" component={SitemapPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

@@ -1,153 +1,144 @@
-import { useParams } from "wouter";
+import { useParams, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import FilterSidebar from "@/components/FilterSidebar";
 import JobList from "@/components/JobList";
 import SEOHead from "@/components/SEOHead";
-import SearchForm from "@/components/SearchForm";
-import { Loader } from "lucide-react";
+import KeywordLinks from "@/components/KeywordLinks";
+import { processedKeywords } from "@/components/KeywordLinks";
+
+// Function to find related keywords - returns 5 similar keywords
+function findRelatedKeywords(currentKeyword: string): string[] {
+  // Convert the current keyword to regular form for comparison
+  const normalizedKeyword = currentKeyword.replace(/-/g, ' ');
+  
+  // Find keywords that share words with the current keyword
+  const words = normalizedKeyword.split(' ');
+  
+  // Filter to find keywords that contain at least one word from the current keyword
+  const related = processedKeywords
+    .filter(k => {
+      const kNormalized = k.replace(/-/g, ' ');
+      return (
+        kNormalized !== normalizedKeyword && 
+        words.some(word => kNormalized.includes(word))
+      );
+    })
+    .slice(0, 5);
+  
+  return related;
+}
+
+// Generate SEO-friendly title and description based on the keyword
+function generateSEOContent(keyword: string) {
+  const readableKeyword = keyword.replace(/-/g, ' ');
+  
+  // Capitalized version for titles
+  const capitalizedKeyword = readableKeyword
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
+  return {
+    title: `${capitalizedKeyword} | NomadWorks`,
+    description: `Find the best ${readableKeyword} for digital nomads. Browse our curated selection of remote opportunities that allow you to work from anywhere in the world.`,
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "JobPosting",
+      "title": `${capitalizedKeyword}`,
+      "description": `Find remote ${readableKeyword} that let you work from anywhere.`,
+      "datePosted": new Date().toISOString(),
+      "validThrough": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      "employmentType": "REMOTE",
+      "jobLocationType": "TELECOMMUTE"
+    }
+  };
+}
 
 export default function KeywordLandingPage() {
   const { keyword } = useParams();
+  const decodedKeyword = keyword ? decodeURIComponent(keyword) : '';
+  const seoContent = generateSEOContent(decodedKeyword);
   
-  // Format keyword for display (replace hyphens with spaces, capitalize)
-  const formattedKeyword = keyword
-    ? keyword
-        .split("-")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")
-    : "";
-  
-  // Query endpoint using the keyword
-  const endpoint = `/api/jobs?search=${keyword}`;
-  
-  // Load job count for this keyword
-  const { data, isLoading, error } = useQuery({
-    queryKey: [endpoint + '&count=true'],
+  // Get job count for this keyword
+  const { data: jobCountData } = useQuery({
+    queryKey: [`/api/jobs?search=${decodedKeyword.replace(/-/g, ' ')}&count=true`],
   });
   
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-12 flex justify-center">
-        <Loader className="h-8 w-8 text-primary animate-spin" />
-      </div>
-    );
-  }
+  const jobCount = jobCountData?.count || 0;
+  const relatedKeywords = findRelatedKeywords(decodedKeyword);
   
-  if (error) {
-    return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="bg-red-50 border border-red-200 p-6 rounded-lg text-center">
-          <h1 className="text-2xl font-bold text-red-800 mb-2">Error Loading Jobs</h1>
-          <p className="text-red-600">Unable to load job listings. Please try again later.</p>
-        </div>
-      </div>
-    );
-  }
-  
-  const jobCount = data?.count || 0;
-  
-  // Create SEO-optimized meta content
-  const title = `${formattedKeyword} Remote Jobs for Digital Nomads`;
-  const description = `Find remote ${formattedKeyword.toLowerCase()} jobs for digital nomads. Browse ${jobCount}+ remote positions for ${formattedKeyword.toLowerCase()} professionals worldwide.`;
-  
-  // Generate page content based on keyword type
-  let pageContent = {
-    tagline: `Find the best remote ${formattedKeyword.toLowerCase()} opportunities for digital nomads`,
-    benefitTitle: `Why Remote ${formattedKeyword} Jobs Are Perfect for Digital Nomads`,
-    benefits: [
-      `Freedom to work from anywhere while using your ${formattedKeyword.toLowerCase()} skills`,
-      `Competitive salaries and flexible schedules`,
-      `Connect with global teams and expand your professional network`,
-      `Achieve better work-life balance while advancing your career`
-    ],
-    callToAction: `Find Your Next Remote ${formattedKeyword} Role Today`
-  };
-
   return (
     <>
       <SEOHead 
-        title={title}
-        description={description}
-        canonicalUrl={`/keywords/${keyword}`}
+        title={seoContent.title}
+        description={seoContent.description}
+        structuredData={seoContent.structuredData}
       />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-8 md:py-16">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-8 md:py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
-            <p className="text-lg md:text-xl text-blue-100 mb-8">
-              {pageContent.tagline}
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-2xl md:text-4xl font-bold mb-4">
+              {decodedKeyword.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} for Digital Nomads
+            </h1>
+            <p className="text-lg mb-6 text-blue-100">
+              Discover {jobCount} remote opportunities for {decodedKeyword.replace(/-/g, ' ')}
             </p>
-            
-            <SearchForm variant="compact" />
           </div>
         </div>
-      </section>
+      </div>
       
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          <FilterSidebar />
-          
-          <div className="lg:w-3/4">
-            {/* Information Section */}
+          <div className="lg:w-2/3">
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{pageContent.benefitTitle}</h2>
-              <div className="prose max-w-none text-gray-700">
-                <p>
-                  Remote {formattedKeyword} positions offer digital nomads the perfect combination of 
-                  professional opportunity and lifestyle flexibility. Whether you're working from a beach 
-                  in Bali, a café in Barcelona, or a co-working space in Bangkok, these jobs enable you 
-                  to pursue your career while exploring the world.
-                </p>
-                <h3 className="text-xl font-semibold mt-6 mb-4">Key Benefits:</h3>
-                <ul className="space-y-2">
-                  {pageContent.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-6">
-                  Browse our curated list of remote {formattedKeyword.toLowerCase()} jobs below and 
-                  apply today to start your digital nomad journey.
-                </p>
-              </div>
-            </div>
-            
-            {/* Job Listings */}
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              {jobCount > 0 
-                ? `${jobCount} Remote ${formattedKeyword} Jobs Available`
-                : `Remote ${formattedKeyword} Jobs`
-              }
-            </h2>
-            
-            <JobList 
-              endpoint={endpoint}
-              showSorting={true}
-            />
-            
-            {/* Additional Information */}
-            <div className="bg-gray-50 rounded-lg p-6 mt-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">About Remote {formattedKeyword} Jobs</h3>
+              <h2 className="text-xl font-bold mb-4">About {decodedKeyword.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}</h2>
               <p className="text-gray-700 mb-4">
-                Remote {formattedKeyword.toLowerCase()} positions typically require strong skills in 
-                communication, self-management, and technical expertise. Companies hiring remote 
-                {formattedKeyword.toLowerCase()} professionals generally offer competitive salaries, 
-                flexible schedules, and opportunities for career advancement.
+                {decodedKeyword.replace(/-/g, ' ')} are in high demand for digital nomads who want to work remotely while traveling the world. 
+                These opportunities allow you to have a flexible schedule and work from anywhere with an internet connection.
               </p>
               <p className="text-gray-700">
-                To stand out in your application, highlight your relevant experience, showcase 
-                your portfolio, and emphasize your ability to work independently while 
-                collaborating effectively with remote teams.
+                Browse our curated list of {decodedKeyword.replace(/-/g, ' ')} below and find your next remote opportunity today.
               </p>
+            </div>
+            
+            <JobList 
+              endpoint={`/api/jobs?search=${decodedKeyword.replace(/-/g, ' ')}`}
+              title={`${decodedKeyword.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Available Now`}
+              subtitle={`Browse ${jobCount} open positions`}
+            />
+          </div>
+          
+          <div className="lg:w-1/3">
+            {relatedKeywords.length > 0 && (
+              <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 className="text-xl font-bold mb-4">Related Keywords</h2>
+                <div className="flex flex-wrap gap-2">
+                  {relatedKeywords.map((relKeyword, index) => (
+                    <Link 
+                      key={index} 
+                      href={`/keywords/${relKeyword}`}
+                      className="inline-block bg-blue-50 hover:bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full transition-colors"
+                    >
+                      {relKeyword.replace(/-/g, ' ')}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+              <h2 className="text-xl font-bold mb-4">Why Choose Remote Work?</h2>
+              <ul className="list-disc pl-5 text-gray-700 space-y-2">
+                <li>Work from anywhere in the world</li>
+                <li>Create your own schedule</li>
+                <li>Avoid long commutes</li>
+                <li>Improve work-life balance</li>
+                <li>Access global job opportunities</li>
+              </ul>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
