@@ -212,10 +212,36 @@ export class AdzunaProvider implements JobProvider {
 
   private extractSkills(description: string): { id: number; name: string; }[] {
     const commonSkills = [
+      // Development skills
       'javascript', 'python', 'java', 'react', 'angular', 'vue', 'node', 'aws',
       'docker', 'kubernetes', 'sql', 'nosql', 'mongodb', 'typescript', 'git',
       'css', 'html', 'php', 'ruby', 'c++', 'c#', '.net', 'scala', 'golang',
-      'agile', 'scrum', 'jira', 'photoshop', 'illustrator', 'figma', 'sketch'
+      'agile', 'scrum', 'jira',
+      
+      // Design skills
+      'photoshop', 'illustrator', 'figma', 'sketch', 'adobe', 'indesign', 'ui/ux',
+      'wireframing', 'prototyping',
+      
+      // Marketing skills
+      'seo', 'content marketing', 'social media', 'google analytics', 'ppc',
+      'facebook ads', 'email marketing', 'marketing automation', 'hubspot',
+      'mailchimp', 'copywriting', 'google ads', 'campaign management',
+      
+      // Sales skills
+      'sales', 'cold calling', 'negotiations', 'crm', 'salesforce', 'hubspot', 'pipedrive',
+      'lead generation', 'account management', 'business development',
+      
+      // Finance skills
+      'accounting', 'financial analysis', 'quickbooks', 'xero', 'bookkeeping',
+      'financial modeling', 'excel', 'tax', 'audit', 'budgeting',
+      
+      // HR skills
+      'recruiting', 'onboarding', 'benefits', 'compensation', 'employee relations',
+      'hr management', 'talent acquisition', 'performance management', 'workday', 'adp',
+      
+      // Data skills
+      'data analysis', 'sql', 'python', 'r', 'tableau', 'power bi', 'excel',
+      'machine learning', 'statistics', 'data visualization', 'big data'
     ];
 
     const foundSkills = commonSkills.filter(skill => 
@@ -234,11 +260,15 @@ export class AdzunaProvider implements JobProvider {
       'design': 'design-jobs',
       'marketing': 'marketing-jobs',
       'customer-service': 'customer-services-jobs',
+      'customer-support': 'customer-services-jobs',
       'sales': 'sales-jobs',
       'management': 'manager-jobs',
       'finance': 'finance-jobs',
       'human-resources': 'hr-jobs',
-      'product': 'consulting-jobs'
+      'product': 'consulting-jobs',
+      'writing': 'pr-communications-jobs',
+      'data': 'scientific-qa-jobs',
+      'education': 'teaching-jobs'
     };
 
     return categoryMap[category.toLowerCase()] || null;
@@ -260,11 +290,21 @@ export class AdzunaProvider implements JobProvider {
       'IT Jobs': 'Development',
       'Design Jobs': 'Design',
       'Marketing Jobs': 'Marketing',
-      'Customer Services Jobs': 'Customer Service',
+      'Customer Services Jobs': 'Customer Support',
       'Sales Jobs': 'Sales',
       'Consulting Jobs': 'Product',
       'Finance Jobs': 'Finance',
-      'HR Jobs': 'Human Resources'
+      'HR Jobs': 'Human Resources',
+      'PR / Communications Jobs': 'Writing',
+      'Scientific / QA Jobs': 'Data',
+      'Teaching Jobs': 'Education',
+      'Healthcare & Nursing Jobs': 'Healthcare',
+      'Social work Jobs': 'Social Care',
+      'Travel Jobs': 'Travel',
+      'Creative & Design Jobs': 'Design',
+      'Logistics & Warehouse Jobs': 'Logistics',
+      'Charity & Voluntary Jobs': 'Nonprofit',
+      'Engineering Jobs': 'Engineering'
     };
 
     const name = categoryMap[adzunaCategory] || 'Other';

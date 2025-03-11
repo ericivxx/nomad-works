@@ -206,15 +206,18 @@ export class RemoteOkProvider implements JobProvider {
   
   private getCategoryFromTags(tags: string[]): string {
     const categoryMapping: Record<string, string[]> = {
-      'Development': ['dev', 'developer', 'programming', 'code', 'software', 'engineer', 'engineering', 'fullstack', 'frontend', 'backend', 'devops', 'mobile'],
-      'Design': ['design', 'ui', 'ux', 'graphic', 'product design'],
-      'Marketing': ['marketing', 'seo', 'content', 'social media', 'growth'],
-      'Customer Service': ['customer', 'support', 'success', 'service'],
-      'Sales': ['sales', 'business development', 'account', 'enterprise'],
-      'Management': ['manager', 'director', 'head', 'lead', 'executive', 'ceo', 'cto', 'coo'],
-      'Finance': ['finance', 'accounting', 'bookkeeping'],
-      'Human Resources': ['hr', 'recruit', 'hiring', 'people', 'talent'],
-      'Product': ['product', 'pm']
+      'Development': ['dev', 'developer', 'programming', 'code', 'software', 'engineer', 'engineering', 'fullstack', 'frontend', 'backend', 'devops', 'mobile', 'qa', 'testing'],
+      'Design': ['design', 'ui', 'ux', 'graphic', 'product design', 'creative', 'visual', 'art', 'branding'],
+      'Marketing': ['marketing', 'seo', 'content', 'social media', 'growth', 'digital', 'ppc', 'campaign', 'email marketing', 'analytics'],
+      'Customer Support': ['customer', 'support', 'success', 'service', 'operations', 'client', 'onboarding'],
+      'Sales': ['sales', 'business development', 'account', 'enterprise', 'partnership', 'revenue', 'lead'],
+      'Management': ['manager', 'director', 'head', 'lead', 'executive', 'ceo', 'cto', 'coo', 'chief'],
+      'Finance': ['finance', 'accounting', 'bookkeeping', 'cfo', 'financial', 'tax', 'payroll'],
+      'Human Resources': ['hr', 'recruit', 'hiring', 'people', 'talent', 'personnel', 'benefits'],
+      'Product': ['product', 'pm', 'product manager', 'product owner'],
+      'Writing': ['writer', 'content writer', 'copywriter', 'editor', 'journalist', 'blog', 'author'],
+      'Data': ['data', 'analyst', 'scientist', 'ai', 'machine learning', 'analytics', 'business intelligence'],
+      'Education': ['teacher', 'instructor', 'tutor', 'professor', 'education', 'teaching', 'coach', 'trainer']
     };
     
     // Lowercase all tags for comparison
@@ -237,11 +240,15 @@ export class RemoteOkProvider implements JobProvider {
       'design': 'design',
       'marketing': 'marketing',
       'customer-service': 'customer-support',
+      'customer-support': 'customer-support',
       'sales': 'sales',
       'management': 'exec',
       'finance': 'finance',
       'human-resources': 'hr',
-      'product': 'product'
+      'product': 'product',
+      'writing': 'copywriting',
+      'data': 'data',
+      'education': 'teaching'
     };
     
     return categoryMap[category.toLowerCase()] || 'dev';

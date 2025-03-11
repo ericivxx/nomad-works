@@ -322,6 +322,13 @@ export class MemStorage implements IStorage {
     const designCategory = this.seedCategory("Design", "design");
     const marketingCategory = this.seedCategory("Marketing", "marketing");
     const customerSupportCategory = this.seedCategory("Customer Support", "customer-support");
+    const salesCategory = this.seedCategory("Sales", "sales");
+    const financeCategory = this.seedCategory("Finance", "finance");
+    const humanResourcesCategory = this.seedCategory("Human Resources", "human-resources");
+    const productCategory = this.seedCategory("Product", "product");
+    const managementCategory = this.seedCategory("Management", "management");
+    const writingCategory = this.seedCategory("Writing", "writing");
+    const dataCategory = this.seedCategory("Data", "data");
     
     // Seed locations
     const worldwideLocation = this.seedLocation("Worldwide", "worldwide", "Global");
