@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Briefcase, MapPin, DollarSign } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { JobWithRelations } from "@shared/schema";
+import { stripHtml } from "@/lib/utils";
 
 interface JobCardProps {
   job: JobWithRelations;
@@ -75,7 +76,7 @@ export default function JobCard({ job }: JobCardProps) {
           </div>
         </div>
         <div className="mt-4">
-          <p className="text-gray-600 line-clamp-2">{job.description}</p>
+          <p className="text-gray-600 line-clamp-2">{stripHtml(job.description)}</p>
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {job.skills.map((skill) => (

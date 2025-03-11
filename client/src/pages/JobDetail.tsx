@@ -3,6 +3,7 @@ import { useParams, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { stripHtml } from "@/lib/utils";
 import { Briefcase, MapPin, DollarSign, Calendar, Globe, BarChart, ArrowLeft } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
 import SEOHead from "@/components/SEOHead";
@@ -249,7 +250,7 @@ export default function JobDetail() {
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Job Description</h2>
               <div className="prose max-w-none">
-                <p className="whitespace-pre-line">{job.description}</p>
+                <p className="whitespace-pre-line">{stripHtml(job.description)}</p>
               </div>
             </div>
             
