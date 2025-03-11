@@ -596,19 +596,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" className="h-8 w-auto">
-                          <g fill="#1C7ED6">
-                            <path d="M10 10h21v5.5H17.5v4.5h12v5.5h-12v10.5H10V10z"/>
-                            <path d="M35 18h6v3c.8-1.2 1.8-2 3-2.6 1.1-.5 2.4-.8 3.8-.8l.8.1-1 6.2c-.5-.1-1-.2-1.5-.2-1.2 0-2.2.4-2.9 1.3-.7.9-1 2.5-1 4.9V36h-6.6V18H35z"/>
-                            <path d="M62 12c-3.3 0-6.3 1.5-8.1 3.9V12h-6.6v26h6.6V23c0-1.6.6-2.9 1.7-4 1.2-1.1 2.6-1.6 4.3-1.6 1.7 0 3.1.5 4.1 1.6 1.1 1.1 1.6 2.4 1.6 4.1V38h6.6V23c0-3.4-.9-6-2.8-7.9-1.9-2-4.5-3-7.4-3z"/>
-                            <path d="M73 18h6v3c1-1.1 2-1.9 3.2-2.5.9-.5 2.1-.7 3.5-.7 2.3 0 4.2.7 5.6 2 1.4 1.3 2.1 3.2 2.1 5.8V38h-6.6V26c0-1.2-.3-2.1-.9-2.8-.6-.7-1.5-1-2.6-1-1.3 0-2.3.4-3 1.3-.7.9-1.1 2.2-1.1 3.9V38h-6.6V18H73z"/>
-                            <path d="M110 18c-1.7 0-3.2.2-4.5.7-1.3.5-2.5 1.2-3.4 2.2-1 1-1.7 2.2-2.2 3.6-.5 1.4-.7 3-.7 4.7 0 1.7.2 3.3.7 4.7.5 1.4 1.2 2.6 2.2 3.6 1 1 2.1 1.7 3.4 2.2 1.3.5 2.8.7 4.5.7 1.7 0 3.2-.2 4.5-.7 1.3-.5 2.5-1.2 3.4-2.2 1-1 1.7-2.2 2.2-3.6.5-1.4.7-3 .7-4.7 0-1.7-.2-3.3-.7-4.7-.5-1.4-1.2-2.6-2.2-3.6-1-1-2.1-1.7-3.4-2.2-1.3-.5-2.8-.7-4.5-.7zm0 15.2c-1 0-1.8-.4-2.5-1.1-.7-.8-1-1.7-1-2.9 0-1.1.3-2.1 1-2.9.7-.8 1.5-1.1 2.5-1.1s1.8.4 2.5 1.1c.7.8 1 1.7 1 2.9 0 1.1-.3 2.1-1 2.9-.7.8-1.5 1.1-2.5 1.1z"/>
-                            <path d="M127 10h6.6v6.3h3.9v5.2h-3.9v6.8c0 .7.1 1.3.3 1.6.2.4.7.6 1.5.6h.8l.9-.2.4 5.1c-.5.2-1.1.3-1.9.5-.7.1-1.5.2-2.2.2-2.4 0-4.2-.6-5.3-1.7-1.1-1.1-1.7-2.9-1.7-5.1v-7.8h-2.2v-5.2h2.2V10h.6z"/>
-                            <path d="M152 10h6.6v13.3l5.2-5.4h7.8l-6.8 6.4 7.5 13.4h-7.5l-4.6-8.6-1.7 1.7v6.8h-6.6V10h.1z"/>
-                            <path d="M197 28h-14.7c.1 1.1.5 2 1.2 2.5.6.5 1.5.8 2.6.8.8 0 1.4-.2 1.9-.5.5-.3 1.1-.9 1.8-1.7h6.8c-.6 1.7-1.4 3.1-2.4 4.3-1 1.2-2.3 2.1-3.7 2.6-1.4.6-3 .9-4.8.9-2 0-3.8-.4-5.4-1.1-1.6-.7-2.8-1.9-3.7-3.5-1-1.6-1.4-3.4-1.4-5.5 0-2.3.5-4.2 1.4-5.8 1-1.7 2.3-2.9 3.9-3.7 1.6-.8 3.4-1.2 5.3-1.2 1.9 0 3.6.4 5.2 1.1 1.5.8 2.8 1.9 3.6 3.4.9 1.5 1.3 3.2 1.3 5.3 0 .7-.2 1.6-.3 2.1h-1.4z"/>
-                            <path d="M188 25c-.1-1.1-.5-1.9-1.2-2.4-.7-.5-1.5-.8-2.5-.8-1.1 0-1.9.3-2.7.8-.7.5-1.1 1.3-1.2 2.4h7.6z"/>
-                          </g>
-                        </svg>
+                        <div className="text-blue-600 font-bold text-xl">FlexJobs</div>
                       </div>
                       <CardTitle>FlexJobs</CardTitle>
                       <CardDescription>Premium remote job board with career services</CardDescription>
@@ -651,17 +639,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" className="h-8 w-auto">
-                          <path d="M29 0H0v30h29V0z" fill="#4a8cff"/>
-                          <path d="M58 0H29v30h29V0z" fill="#4a8cff"/>
-                          <path d="M41 5.5l8 19h-4.4l-3.5-8.8-3.4 8.8h-4.4l7.7-19z" fill="white"/>
-                          <path d="M17.4 5.5V25H13v-14l-5 14H4.5L0 12v13h-1V5.5h5.5l5.8 15 5.8-15h1.3z" fill="white"/>
-                          <path d="M65 5.5h4.4V25H65V5.5zm23.5 0V25h-3.9V8.8L78.3 25h-4V5.5h4v15.3l6-15.3h4.2z" fill="#4a8cff"/>
-                          <path d="M95.4 25H91V5.5h4.4V25z" fill="#4a8cff"/>
-                          <path d="M119 9.2V25h-4.4V9.2H108V5.5h17.2v3.7H119z" fill="#4a8cff"/>
-                          <path d="M152 18h-10.5v2.8h12.4v3.7h-16.8V5.5h16.6v3.7h-12.2v5.1H152V18z" fill="#4a8cff"/>
-                          <path d="M170 5.5c6 0 10.4 4.4 10.4 9.5s-4.4 9.5-10.4 9.5h-10.3V5.5H170zm-.6 3.7h-5.2v11.6h5.2c3.7 0 6.2-2.5 6.2-5.8 0-3.3-2.5-5.8-6.2-5.8z" fill="#4a8cff"/>
-                        </svg>
+                        <div className="text-blue-600 font-bold text-xl">Novoresume</div>
                       </div>
                       <CardTitle>Novoresume</CardTitle>
                       <CardDescription>ATS-friendly resume builder for remote jobs</CardDescription>
