@@ -4,21 +4,75 @@ import FilterSidebar from "@/components/FilterSidebar";
 import JobList from "@/components/JobList";
 import JobCard from "@/components/JobCard";
 import SEOHead from "@/components/SEOHead";
-import { Loader } from "lucide-react";
+import { Loader, CheckCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { type ReactNode } from "react";
+import { JobWithRelations } from "@shared/schema";
+
+// Define types for our data structure
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface Company {
+  id: number;
+  name: string;
+  logo: string;
+}
+
+interface Location {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface Skill {
+  id: number;
+  name: string;
+}
+
+interface Job {
+  id: number | string;
+  title: string;
+  description: string;
+  company: Company;
+  category: Category;
+  location: Location;
+  skills: Skill[];
+  salary: string;
+  postedAt: string;
+  experienceLevel: string;
+  type: string;
+  slug: string;
+}
+
+interface CategoryData {
+  category: Category;
+  count: number;
+  jobs: JobWithRelations[];
+}
+
+interface CategoryContent {
+  intro: string;
+  skills: string[];
+  benefits: string;
+  outlook: string;
+}
 
 export default function CategoryPage() {
   const { slug } = useParams();
   
-  const { data: categoryData, isLoading, error } = useQuery({
+  const { data: categoryData, isLoading, error } = useQuery<CategoryData>({
     queryKey: [`/api/categories/${slug}`],
   });
   
   // Fetch all categories for the category list
-  const { data: allCategories } = useQuery({
+  const { data: allCategories = [] } = useQuery<Category[]>({
     queryKey: ['/api/categories'],
   });
-  
-  console.log("Category data:", categoryData);
   
   if (isLoading) {
     return (
@@ -73,27 +127,54 @@ export default function CategoryPage() {
     })) || []
   };
 
-  // Generate category-specific content
+  // Generate category-specific content with expanded information
   const getCategoryContent = () => {
+    const currentYear = new Date().getFullYear();
+    
     switch(category.slug) {
       case 'development':
-        return `Remote ${category.name.toLowerCase()} jobs are perfect for programmers, software engineers, and web developers who want to code from anywhere. These roles typically offer excellent compensation and the freedom to work asynchronously.`;
+        return {
+          intro: `Remote ${category.name.toLowerCase()} jobs are among the most sought-after positions for digital nomads in ${currentYear}. Software engineers, full-stack developers, and coding specialists can earn competitive salaries while working from anywhere with a reliable internet connection.`,
+          skills: ['JavaScript', 'Python', 'React', 'Node.js', 'TypeScript', 'Cloud architecture'],
+          benefits: `These roles typically offer excellent compensation packages, asynchronous work schedules, and the opportunity to collaborate with global tech teams. Many companies now prioritize skills and output over location, making this field ideal for location independence.`,
+          outlook: `The demand for remote development talent continues to grow as companies embrace distributed teams. Digital nomad developers typically earn between $70,000-$150,000 annually depending on specialization and experience level.`
+        };
       case 'design':
-        return `Remote ${category.name.toLowerCase()} positions allow UX/UI designers, graphic artists, and creative professionals to showcase their talents while enjoying location independence.`;
+        return {
+          intro: `Remote ${category.name.toLowerCase()} positions are perfect for UX/UI designers, graphic artists, and creative professionals who want to combine creative work with travel in ${currentYear}.`,
+          skills: ['UI/UX Design', 'Figma', 'Adobe Creative Suite', 'Prototyping', 'Visual communication'],
+          benefits: `Design roles offer excellent location flexibility, as they often require minimal real-time collaboration. Many digital nomad designers work with multiple clients across time zones, creating additional income streams while traveling.`,
+          outlook: `Companies increasingly seek designers who understand global markets and diverse user experiences, making location-independent designers particularly valuable. Remote design roles typically pay between $60,000-$120,000 annually.`
+        };
       case 'marketing':
-        return `Remote ${category.name.toLowerCase()} roles are ideal for digital marketers, SEO specialists, and content creators who want to help businesses grow while maintaining a flexible lifestyle.`;
+        return {
+          intro: `Remote ${category.name.toLowerCase()} roles are ideal for digital marketers, SEO specialists, and content creators who want to help businesses grow while maintaining a flexible lifestyle in ${currentYear}.`,
+          skills: ['SEO/SEM', 'Content strategy', 'Social media management', 'Data analysis', 'Email marketing'],
+          benefits: `Marketing professionals can often set their own hours, making it easier to balance work with exploration. The global perspective gained while traveling can provide valuable insights into different markets and consumer behaviors.`,
+          outlook: `As businesses expand globally, remote marketers with international experience are increasingly valuable. Digital nomad marketers typically earn between $55,000-$110,000 annually, with specialized roles commanding premium rates.`
+        };
       case 'customer-service':
-        return `Remote ${category.name.toLowerCase()} positions are excellent for support specialists and customer success managers who enjoy helping others while working from their preferred location.`;
+        return {
+          intro: `Remote ${category.name.toLowerCase()} positions are excellent entry points to the digital nomad lifestyle in ${currentYear}, offering stable income for support specialists and customer success managers who enjoy helping others.`,
+          skills: ['Communication', 'Problem-solving', 'CRM software', 'Technical troubleshooting', 'Empathy'],
+          benefits: `These roles often provide structured schedules but with the flexibility to work from anywhere. Many companies offer comprehensive training and clear advancement paths for customer service professionals.`,
+          outlook: `With the rise of global user bases, multilingual customer service professionals are particularly in demand. Remote customer service roles typically pay between $40,000-$75,000 annually.`
+        };
       default:
-        return `Remote ${category.name.toLowerCase()} jobs are a great opportunity for digital nomads looking to work in this field while traveling. These positions offer flexibility, competitive pay, and the ability to work from anywhere in the world.`;
+        return {
+          intro: `Remote ${category.name.toLowerCase()} jobs offer digital nomads the perfect combination of career growth and location freedom in ${currentYear}. These positions typically provide competitive compensation while allowing professionals to work from anywhere in the world.`,
+          skills: ['Remote collaboration', 'Time management', 'Digital communication', 'Self-motivation', 'Adaptability'],
+          benefits: `Working remotely in ${category.name.toLowerCase()} allows professionals to design their ideal lifestyle while advancing their careers. Many digital nomads find that changing environments stimulates creativity and productivity.`,
+          outlook: `As remote work becomes the norm rather than the exception, more opportunities continue to emerge in the ${category.name.toLowerCase()} field for location-independent professionals.`
+        };
     }
   };
 
   return (
     <>
       <SEOHead 
-        title={`${category.name} Remote Jobs | NomadWorks`}
-        description={`Find remote ${category.name.toLowerCase()} jobs for digital nomads. Browse ${count}+ remote positions in ${category.name.toLowerCase()} for professionals worldwide.`}
+        title={`${category.name} Remote Jobs for Digital Nomads in ${new Date().getFullYear()}`}
+        description={`Find the best remote ${category.name.toLowerCase()} jobs for digital nomads. Browse ${count}+ positions with top companies hiring ${category.name.toLowerCase()} professionals worldwide.`}
         structuredData={structuredData}
       />
       
@@ -114,12 +195,48 @@ export default function CategoryPage() {
         {/* Category Info Box - DISPLAYED ABOVE EVERYTHING */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-bold mb-4">About Remote {category.name} Jobs</h2>
-          <p className="text-gray-700 mb-4">
-            {getCategoryContent()}
-          </p>
-          <p className="text-gray-700 mb-4">
-            Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
-          </p>
+          
+          {/* Render the expanded content format */}
+          {(() => {
+            const content = getCategoryContent() as CategoryContent;
+            
+            return (
+              <div className="space-y-6">
+                {/* Introduction */}
+                <p className="text-gray-700">{content.intro}</p>
+                
+                {/* Skills Section */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Top Skills for Remote {category.name} Professionals</h3>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {content.skills.map((skill, index) => (
+                      <Badge key={index} variant="secondary" className="px-3 py-1 text-sm">
+                        <CheckCircle className="w-3.5 h-3.5 mr-1.5" /> {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Benefits Section */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Benefits of Remote {category.name} Work</h3>
+                  <p className="text-gray-700">{content.benefits}</p>
+                </div>
+                
+                {/* Outlook Section */}
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Job Market Outlook</h3>
+                  <p className="text-gray-700">{content.outlook}</p>
+                </div>
+                
+                <Separator className="my-2" />
+                
+                <p className="text-gray-700">
+                  Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
+                </p>
+              </div>
+            );
+          })()}
           
           {/* Available Categories Section */}
           <div className="mt-6 pt-6 border-t border-gray-200">
