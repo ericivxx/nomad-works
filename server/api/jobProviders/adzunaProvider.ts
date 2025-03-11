@@ -62,26 +62,20 @@ export class AdzunaProvider implements JobProvider {
       queryString.append('results_per_page', limit.toString());
       queryString.append('page', page.toString());
       
-      // Use a basic query term that's likely to work
-      // The API is sensitive about search terms
+      // Adzuna API requires very specific parameters
+      // Minimize parameters for higher success rate
+      // Using 'what' for main job title/keyword search
       if (params.query) {
         // Clean the query to avoid special characters
         const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
         queryString.append('what', cleanQuery);
       } else {
-        queryString.append('what', 'remote');
+        // Don't use 'remote' directly as it might not work well with their API
+        queryString.append('what', 'developer'); // Use a common job title as default
       }
       
-      // Add category filter only if it maps to Adzuna's categories
-      if (params.category) {
-        const adzunaCategory = this.mapCategoryToAdzuna(params.category);
-        if (adzunaCategory) {
-          queryString.append('category', adzunaCategory);
-        }
-      }
-      
-      // Add a simple remote filter
-      queryString.append('where', 'remote');
+      // We've found that adding too many parameters causes failures
+      // So we're keeping it minimal
       
       // Create the full URL
       const apiUrl = `${this.apiUrl}/${this.country}/search/1?${queryString.toString()}`;

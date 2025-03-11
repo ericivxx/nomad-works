@@ -23,9 +23,9 @@ const config: JobProvidersConfig = {
   rapidapi: {
     enabled: true,
     apiKey: process.env.RAPIDAPI_KEY,
-    apiUrl: 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili',
+    apiUrl: 'https://jsearch.p.rapidapi.com/search',
     options: {
-      host: 'job-posting-feed-api.p.rapidapi.com'
+      host: 'jsearch.p.rapidapi.com'
     }
   }
 };
