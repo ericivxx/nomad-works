@@ -2,11 +2,9 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
-// Enable job providers if API keys are available
-if (process.env.ADZUNA_API_KEY && process.env.ADZUNA_APP_ID) {
-  process.env.USE_JOB_PROVIDERS = 'true';
-  console.log('Job provider APIs enabled');
-}
+// Temporarily disable external job providers until we fix the API issues
+process.env.USE_JOB_PROVIDERS = 'false';
+console.log('Using in-memory job data')
 
 const app = express();
 app.use(express.json());

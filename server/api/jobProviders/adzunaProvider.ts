@@ -48,7 +48,7 @@ export class AdzunaProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Build query parameters
+      // Build query parameters - simplify to increase chance of success
       const queryParams = new URLSearchParams({
         app_id: this.appId!,
         app_key: this.apiKey!,
@@ -56,20 +56,17 @@ export class AdzunaProvider implements JobProvider {
         page: (params.page || 1).toString(),
       });
       
-      // Create search query - use 'what' parameter for keyword search
+      // Simplify search query for better API compatibility
       if (params.query) {
-        // Just use the query as is without adding 'remote'
         queryParams.append('what', params.query);
       } else {
-        // Default to remote jobs if no specific query
         queryParams.append('what', 'remote');
       }
       
-      // We can also constrain to remote jobs using 'what_and'
-      queryParams.append('what_and', 'remote');
+      // Do not append too many parameters that could cause conflicts
 
-      // Add category filter
-      if (params.category) {
+      // Add category filter only if query is not provided
+      if (!params.query && params.category) {
         const category = this.mapCategoryToAdzuna(params.category);
         if (category) {
           queryParams.append('category', category);
@@ -89,10 +86,17 @@ export class AdzunaProvider implements JobProvider {
         }
       }
 
-      console.log(`Making Adzuna API request: ${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`);
-      const response = await fetch(
-        `${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`
-      );
+      // Use properly encoded URL
+      const apiUrl = `${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`;
+      console.log(`Making Adzuna API request: ${apiUrl}`);
+      
+      // Make the API request with proper headers
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'NomadWorks Job Board (development@nomadworks.com)'
+        }
+      });
 
       if (!response.ok) {
         console.error(`Adzuna API error: Status ${response.status}, Response:`, await response.text());
@@ -124,11 +128,18 @@ export class AdzunaProvider implements JobProvider {
   
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      const response = await fetch(
-        `${this.apiUrl}/${this.country}/${id}?app_id=${this.appId}&app_key=${this.apiKey}`
-      );
+      const apiUrl = `${this.apiUrl}/${this.country}/${id}?app_id=${this.appId}&app_key=${this.apiKey}`;
+      console.log(`Making Adzuna job detail request: ${apiUrl}`);
+      
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'NomadWorks Job Board (development@nomadworks.com)'
+        }
+      });
       
       if (!response.ok) {
+        console.error(`Adzuna API error: Status ${response.status}, Response:`, await response.text());
         throw new Error(`Adzuna API error: ${response.status} ${response.statusText}`);
       }
       

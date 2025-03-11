@@ -100,9 +100,19 @@ export class RemoteOkProvider implements JobProvider {
 
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      const response = await fetch(`${this.apiUrl}`);
+      const url = `${this.apiUrl}`;
+      console.log(`Making RemoteOK job detail request: ${url}`);
+      
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'NomadWorks Job Board (development@nomadworks.com)',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
       
       if (!response.ok) {
+        console.error(`RemoteOK API error: Status ${response.status}, Response text:`, await response.text());
         throw new Error(`RemoteOK API error: ${response.status} ${response.statusText}`);
       }
       
