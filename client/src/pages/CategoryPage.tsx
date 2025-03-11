@@ -104,25 +104,27 @@ export default function CategoryPage() {
       </section>
       
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 py-10">
+        {/* Category Info Box - DISPLAYED ABOVE EVERYTHING */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-xl font-bold mb-4">About Remote {category.name} Jobs</h2>
+          <p className="text-gray-700 mb-4">
+            {getCategoryContent()}
+          </p>
+          <p className="text-gray-700">
+            Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
+          </p>
+        </div>
+        
+        {/* Two Column Layout */}
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filter Sidebar */}
-          <FilterSidebar />
+          {/* Sidebar */}
+          <div className="lg:w-1/4">
+            <FilterSidebar />
+          </div>
           
-          {/* Main Column */}
+          {/* Main Content Column */}
           <div className="lg:w-3/4">
-            {/* Category Info Box */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-xl font-bold mb-4">About Remote {category.name} Jobs</h2>
-              <p className="text-gray-700 mb-4">
-                {getCategoryContent()}
-              </p>
-              <p className="text-gray-700">
-                Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
-              </p>
-            </div>
-            
-            {/* Job List */}
             <JobList 
               endpoint={`/api/jobs?category=${slug}`}
               title={`Remote ${category.name} Jobs`}
@@ -130,7 +132,7 @@ export default function CategoryPage() {
             />
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -106,25 +106,27 @@ export default function LocationPage() {
       </section>
       
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 py-10">
+        {/* Location Info Box - DISPLAYED ABOVE EVERYTHING */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-xl font-bold mb-4">About Remote Jobs in {location.name}</h2>
+          <p className="text-gray-700 mb-4">
+            {getRegionContent()}
+          </p>
+          <p className="text-gray-700">
+            Browse our curated list of {count} remote jobs in {location.name} below and find your next opportunity today.
+          </p>
+        </div>
+        
+        {/* Two Column Layout */}
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filter Sidebar */}
-          <FilterSidebar />
+          {/* Sidebar */}
+          <div className="lg:w-1/4">
+            <FilterSidebar />
+          </div>
           
-          {/* Main Column */}
+          {/* Main Content Column */}
           <div className="lg:w-3/4">
-            {/* Location Info Box */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-xl font-bold mb-4">About Remote Jobs in {location.name}</h2>
-              <p className="text-gray-700 mb-4">
-                {getRegionContent()}
-              </p>
-              <p className="text-gray-700">
-                Browse our curated list of {count} remote jobs in {location.name} below and find your next opportunity today.
-              </p>
-            </div>
-            
-            {/* Job List */}
             <JobList 
               endpoint={`/api/jobs?location=${slug}`}
               title={`Remote Jobs in ${location.name}`}
@@ -132,7 +134,7 @@ export default function LocationPage() {
             />
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
