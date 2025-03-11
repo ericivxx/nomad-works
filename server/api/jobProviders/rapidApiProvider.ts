@@ -78,6 +78,7 @@ export class RapidApiProvider implements JobProvider {
   private apiKey: string | undefined;
   
   constructor() {
+    // Use the Job Posting Feed API that you're subscribed to
     this.apiUrl = config.rapidapi.apiUrl ?? 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
     this.apiHost = config.rapidapi.options?.host || 'job-posting-feed-api.p.rapidapi.com';
     this.apiKey = config.rapidapi.apiKey;
@@ -101,17 +102,18 @@ export class RapidApiProvider implements JobProvider {
         query = `${cleanQuery} remote`;
       }
       
-      // Add basic parameters for the search
-      queryParams.append('query', query);
+      // Add basic parameters for the search - using job posting feed API format
+      queryParams.append('q', query); // Search query
       queryParams.append('page', (params.page || 1).toString());
-      queryParams.append('num_pages', '1'); // Just get one page at a time
+      queryParams.append('limit', (params.limit || 10).toString()); 
+      queryParams.append('remote', 'true'); // Filter for remote jobs
       
-      // Set the API URL to a more reliable endpoint
-      const apiUrl = 'https://jsearch.p.rapidapi.com/search';
+      // Set the API URL to the Job Posting Feed API that you're subscribed to
+      const apiUrl = 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
       
       // Make the request with the updated parameters and headers
       console.log(`Fetching jobs from RapidAPI: ${apiUrl}?${queryParams.toString()}`);
-      console.log(`Using RapidAPI host: jsearch.p.rapidapi.com`);
+      console.log(`Using RapidAPI host: job-posting-feed-api.p.rapidapi.com`);
       
       // Don't print the actual API key, but log if it exists
       console.log(`RapidAPI key configured: ${this.apiKey ? 'YES' : 'NO'}`);
@@ -120,7 +122,7 @@ export class RapidApiProvider implements JobProvider {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': this.apiKey || '',
-          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+          'X-RapidAPI-Host': 'job-posting-feed-api.p.rapidapi.com',
           'Content-Type': 'application/json',
           'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }
@@ -192,18 +194,18 @@ export class RapidApiProvider implements JobProvider {
 
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      // For JSearch API, job details endpoint is different
+      // For Job Posting Feed API
       const jobId = id.replace('rapidapi:', '');
       const queryParams = new URLSearchParams();
-      queryParams.append('job_id', jobId);
+      queryParams.append('ids', jobId);
       
-      const apiUrl = 'https://jsearch.p.rapidapi.com/job-details';
+      const apiUrl = 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili-by-id';
       
       const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': this.apiKey || '',
-          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+          'X-RapidAPI-Host': 'job-posting-feed-api.p.rapidapi.com',
           'Content-Type': 'application/json',
           'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }
