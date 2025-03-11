@@ -2,6 +2,12 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
+// Enable job providers if API keys are available
+if (process.env.ADZUNA_API_KEY && process.env.ADZUNA_APP_ID) {
+  process.env.USE_JOB_PROVIDERS = 'true';
+  console.log('Job provider APIs enabled');
+}
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

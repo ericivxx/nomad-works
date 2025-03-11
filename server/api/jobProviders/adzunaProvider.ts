@@ -54,7 +54,8 @@ export class AdzunaProvider implements JobProvider {
         app_key: this.apiKey!,
         results_per_page: (params.limit || 10).toString(),
         page: (params.page || 1).toString(),
-        what_phrase: 'remote', // Always include 'remote' in search
+        // Don't use 'what_phrase' until we're sure it works
+        what: 'remote', // Always include 'remote' in search
       });
 
       // Add search query if provided
