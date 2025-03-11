@@ -65,6 +65,22 @@ export default function CategoryPage() {
     })) || []
   };
 
+  // Generate category-specific content
+  const getCategoryContent = () => {
+    switch(category.slug) {
+      case 'development':
+        return `Remote ${category.name.toLowerCase()} jobs are perfect for programmers, software engineers, and web developers who want to code from anywhere. These roles typically offer excellent compensation and the freedom to work asynchronously.`;
+      case 'design':
+        return `Remote ${category.name.toLowerCase()} positions allow UX/UI designers, graphic artists, and creative professionals to showcase their talents while enjoying location independence.`;
+      case 'marketing':
+        return `Remote ${category.name.toLowerCase()} roles are ideal for digital marketers, SEO specialists, and content creators who want to help businesses grow while maintaining a flexible lifestyle.`;
+      case 'customer-service':
+        return `Remote ${category.name.toLowerCase()} positions are excellent for support specialists and customer success managers who enjoy helping others while working from their preferred location.`;
+      default:
+        return `Remote ${category.name.toLowerCase()} jobs are a great opportunity for digital nomads looking to work in this field while traveling. These positions offer flexibility, competitive pay, and the ability to work from anywhere in the world.`;
+    }
+  };
+
   return (
     <>
       <SEOHead 
@@ -88,21 +104,25 @@ export default function CategoryPage() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-8">
-          <FilterSidebar />
+          {/* Filter Sidebar */}
+          <div className="lg:w-1/4">
+            <FilterSidebar />
+          </div>
           
+          {/* Main Column */}
           <div className="lg:w-3/4">
+            {/* Category Info Box */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-xl font-bold mb-4">About Remote {category.name} Jobs</h2>
               <p className="text-gray-700 mb-4">
-                Remote {category.name.toLowerCase()} jobs are a great opportunity for digital nomads 
-                looking to work in this field while traveling. These positions offer flexibility, 
-                competitive pay, and the ability to work from anywhere in the world.
+                {getCategoryContent()}
               </p>
               <p className="text-gray-700">
                 Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
               </p>
             </div>
             
+            {/* Job List */}
             <JobList 
               endpoint={`/api/jobs?category=${slug}`}
               title={`Remote ${category.name} Jobs`}

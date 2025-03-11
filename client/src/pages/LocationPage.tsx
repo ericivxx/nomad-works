@@ -106,9 +106,14 @@ export default function LocationPage() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-8">
-          <FilterSidebar />
+          {/* Filter Sidebar */}
+          <div className="lg:w-1/4">
+            <FilterSidebar />
+          </div>
           
+          {/* Main Column */}
           <div className="lg:w-3/4">
+            {/* Location Info Box */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-xl font-bold mb-4">About Remote Jobs in {location.name}</h2>
               <p className="text-gray-700 mb-4">
@@ -119,6 +124,7 @@ export default function LocationPage() {
               </p>
             </div>
             
+            {/* Job List */}
             <JobList 
               endpoint={`/api/jobs?location=${slug}`}
               title={`Remote Jobs in ${location.name}`}

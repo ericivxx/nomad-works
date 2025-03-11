@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation, useSearch } from "wouter";
+import { useLocation, useSearch, useRoute } from "wouter";
 
 interface FilterSidebarProps {
   onFilterChange?: (filters: Record<string, string[]>) => void;
@@ -10,11 +10,17 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
   const [, navigate] = useLocation();
   const search = useSearch();
   const searchParams = new URLSearchParams(search);
+  const [currentPath] = useLocation();
+  
+  // Track if we're on a category or location page
+  const [isCategoryPage] = useRoute('/categories/:slug');
+  const [isLocationPage] = useRoute('/locations/:slug');
   
   const [filters, setFilters] = useState({
     type: [] as string[],
     experience: [] as string[],
     category: [] as string[],
+    location: [] as string[],
     salary: [] as string[],
     timezone: [] as string[],
   });
@@ -40,6 +46,10 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
       initialFilters.category = searchParams.get('category')!.split(',');
     }
     
+    if (searchParams.has('location')) {
+      initialFilters.location = searchParams.get('location')!.split(',');
+    }
+    
     if (searchParams.has('salary')) {
       initialFilters.salary = searchParams.get('salary')!.split(',');
     }
@@ -49,7 +59,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
     }
     
     setFilters(initialFilters);
-  }, []);
+  }, [search]);
   
   const handleFilterChange = (filterType: keyof typeof filters, value: string) => {
     const updatedFilters = { ...filters };
@@ -80,7 +90,13 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
       }
     });
     
-    navigate(`/search?${params.toString()}`);
+    // If we're already on a specific page (category or location),
+    // apply filters to the current page rather than going to search
+    if (isCategoryPage || isLocationPage) {
+      navigate(`${currentPath}?${params.toString()}`);
+    } else {
+      navigate(`/search?${params.toString()}`);
+    }
   };
   
   const handleClearFilters = () => {
@@ -88,20 +104,36 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
       type: [],
       experience: [],
       category: [],
+      location: [],
       salary: [],
       timezone: [],
     });
     
-    // Keep only search and location parameters
+    // Keep only essential parameters based on current page
     const params = new URLSearchParams();
-    if (searchParams.has('search')) {
-      params.set('search', searchParams.get('search')!);
+    
+    // On category pages, keep the category parameter
+    if (isCategoryPage && searchParams.has('category')) {
+      params.set('category', searchParams.get('category')!);
     }
-    if (searchParams.has('location')) {
+    
+    // On location pages, keep the location parameter
+    if (isLocationPage && searchParams.has('location')) {
       params.set('location', searchParams.get('location')!);
     }
     
-    navigate(`/search?${params.toString()}`);
+    // For search pages, keep the search parameter
+    if (searchParams.has('search')) {
+      params.set('search', searchParams.get('search')!);
+    }
+    
+    // If we're already on a specific page (category or location),
+    // stay on the current page rather than going to search
+    if (isCategoryPage || isLocationPage) {
+      navigate(`${currentPath}?${params.toString()}`);
+    } else {
+      navigate(`/search?${params.toString()}`);
+    }
   };
 
   return (
