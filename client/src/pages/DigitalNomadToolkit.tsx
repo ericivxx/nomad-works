@@ -992,6 +992,10 @@ export default function DigitalNomadToolkit() {
                           <ul className="space-y-2 text-sm text-gray-600">
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
+                              <span>Trusted by 10M+ travelers</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
                               <span>Regional plans covering multiple countries</span>
                             </li>
                             <li className="flex items-start">
@@ -1004,106 +1008,102 @@ export default function DigitalNomadToolkit() {
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>User-friendly app for management</span>
-                            </li>
-                            <li className="flex items-start">
-                              <span className="text-green-500 mr-2">✓</span>
                               <span>Plans starting at $4.50</span>
                             </li>
                           </ul>
                         </div>
-                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://www.airalo.com/', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://www.airalo.com/?rc=NOMAD10', '_blank')}>
                           Get Airalo eSIM
                         </Button>
                       </CardContent>
                     </Card>
 
-                    {/* Nomad eSIM */}
+                    {/* Saily */}
                     <Card className="h-full">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
                           <div className="font-bold text-xl">
-                            <span className="text-indigo-600">Nomad</span><span className="text-gray-700">eSIM</span>
+                            <span className="text-teal-500">Saily</span><span className="text-teal-700">eSIM</span>
                           </div>
                         </div>
-                        <CardTitle>Nomad eSIM</CardTitle>
-                        <CardDescription>Global connectivity with unlimited data options</CardDescription>
+                        <CardTitle>Saily</CardTitle>
+                        <CardDescription>NordVPN-backed security with global coverage</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        <div className="bg-indigo-50 p-3 rounded-md">
-                          <p className="text-sm font-medium text-indigo-800">Best for Unlimited Data</p>
+                        <div className="bg-teal-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-teal-800">Best for Security-Focused Nomads</p>
                         </div>
                         <div>
                           <ul className="space-y-2 text-sm text-gray-600">
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Coverage in 165+ countries</span>
+                              <span>Enhanced privacy protection</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Unlimited data options available</span>
+                              <span>One eSIM for all countries</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>No speed throttling on most plans</span>
+                              <span>Built-in network security</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Data sharing between devices</span>
+                              <span>Backed by trusted VPN provider</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Plans starting at $8</span>
+                              <span>Flexible data packages</span>
                             </li>
                           </ul>
                         </div>
-                        <Button className="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700" onClick={() => window.open('https://nomadsim.com/', '_blank')}>
-                          Get Nomad eSIM
+                        <Button className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700" onClick={() => window.open('https://saily.com/?ref=DIGITALNOMAD15', '_blank')}>
+                          Get Saily eSIM
                         </Button>
                       </CardContent>
                     </Card>
 
-                    {/* Holafly */}
+                    {/* BreezeSim */}
                     <Card className="h-full">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
                           <div className="font-bold text-xl">
-                            <span className="text-orange-500">Hola</span><span className="text-orange-600">fly</span>
+                            <span className="text-purple-500">Breeze</span><span className="text-purple-700">Sim</span>
                           </div>
                         </div>
-                        <CardTitle>Holafly</CardTitle>
-                        <CardDescription>Unlimited data plans with no daily caps</CardDescription>
+                        <CardTitle>BreezeSim</CardTitle>
+                        <CardDescription>User-friendly eSIM with flexible options</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        <div className="bg-orange-50 p-3 rounded-md">
-                          <p className="text-sm font-medium text-orange-800">Best for Long-Term Travelers</p>
+                        <div className="bg-purple-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-purple-800">Best for Easy Setup</p>
                         </div>
                         <div>
                           <ul className="space-y-2 text-sm text-gray-600">
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Coverage in 160+ countries</span>
+                              <span>Simple, beginner-friendly activation</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Truly unlimited data (no caps)</span>
+                              <span>Wide global coverage</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Time-based plans (5 to 90 days)</span>
+                              <span>Competitive data rates</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>24/7 support in multiple languages</span>
+                              <span>30-day referral tracking</span>
                             </li>
                             <li className="flex items-start">
                               <span className="text-green-500 mr-2">✓</span>
-                              <span>Plans starting at $19 for 5 days</span>
+                              <span>Excellent customer service</span>
                             </li>
                           </ul>
                         </div>
-                        <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700" onClick={() => window.open('https://esim.holafly.com/', '_blank')}>
-                          Get Holafly eSIM
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://breezesim.com/?partner=DIGITALNOMAD', '_blank')}>
+                          Get BreezeSim
                         </Button>
                       </CardContent>
                     </Card>
@@ -1117,52 +1117,52 @@ export default function DigitalNomadToolkit() {
                         <tr className="bg-gray-100">
                           <th className="p-3 text-left font-medium text-gray-700">Feature</th>
                           <th className="p-3 text-left font-medium text-gray-700">Airalo</th>
-                          <th className="p-3 text-left font-medium text-gray-700">Nomad eSIM</th>
-                          <th className="p-3 text-left font-medium text-gray-700">Holafly</th>
+                          <th className="p-3 text-left font-medium text-gray-700">Saily</th>
+                          <th className="p-3 text-left font-medium text-gray-700">BreezeSim</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr className="border-b border-gray-200">
                           <td className="p-3 font-medium">Coverage</td>
                           <td className="p-3">200+ countries</td>
-                          <td className="p-3">165+ countries</td>
-                          <td className="p-3">160+ countries</td>
+                          <td className="p-3">180+ countries</td>
+                          <td className="p-3">170+ countries</td>
                         </tr>
                         <tr className="border-b border-gray-200 bg-gray-50">
-                          <td className="p-3 font-medium">Data Limits</td>
-                          <td className="p-3">1GB to 20GB plans</td>
-                          <td className="p-3">Unlimited available</td>
-                          <td className="p-3">Truly unlimited</td>
+                          <td className="p-3 font-medium">Unique Selling Point</td>
+                          <td className="p-3">Largest user base (10M+)</td>
+                          <td className="p-3">Enhanced security</td>
+                          <td className="p-3">Easy setup</td>
                         </tr>
                         <tr className="border-b border-gray-200">
-                          <td className="p-3 font-medium">Validity</td>
-                          <td className="p-3">7 to 180 days</td>
-                          <td className="p-3">7 to 30 days</td>
-                          <td className="p-3">5 to 90 days</td>
+                          <td className="p-3 font-medium">Data Limits</td>
+                          <td className="p-3">1GB to 20GB plans</td>
+                          <td className="p-3">Varies by country</td>
+                          <td className="p-3">Flexible packages</td>
                         </tr>
                         <tr className="border-b border-gray-200 bg-gray-50">
                           <td className="p-3 font-medium">Regional Plans</td>
                           <td className="p-3">Yes</td>
-                          <td className="p-3">Limited</td>
-                          <td className="p-3">No</td>
+                          <td className="p-3">Global focus</td>
+                          <td className="p-3">Yes</td>
                         </tr>
                         <tr className="border-b border-gray-200">
                           <td className="p-3 font-medium">Price Range</td>
                           <td className="p-3">$4.50 - $65</td>
-                          <td className="p-3">$8 - $99</td>
-                          <td className="p-3">$19 - $99</td>
+                          <td className="p-3">$7 - $70</td>
+                          <td className="p-3">$5 - $60</td>
                         </tr>
                         <tr className="border-b border-gray-200 bg-gray-50">
-                          <td className="p-3 font-medium">Sharing</td>
-                          <td className="p-3">No</td>
-                          <td className="p-3">Yes</td>
-                          <td className="p-3">No</td>
+                          <td className="p-3 font-medium">Commission Rate</td>
+                          <td className="p-3">10%</td>
+                          <td className="p-3">15%</td>
+                          <td className="p-3">Up to 20%</td>
                         </tr>
                         <tr className="border-b border-gray-200">
                           <td className="p-3 font-medium">Best For</td>
-                          <td className="p-3">Flexibility & coverage</td>
-                          <td className="p-3">Power users</td>
-                          <td className="p-3">Long-term stays</td>
+                          <td className="p-3">Reliability & reputation</td>
+                          <td className="p-3">Security-focused users</td>
+                          <td className="p-3">Beginners & ease of use</td>
                         </tr>
                       </tbody>
                     </table>
