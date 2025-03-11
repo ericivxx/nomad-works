@@ -33,7 +33,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             type,
             experienceLevel,
             page,
-            limit
+            limit,
+            sort
           });
           
           if (countOnly) {
@@ -336,7 +337,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Support both q and query parameters for search flexibility
       const searchQuery = req.query.q || req.query.query;
-      const { page, limit } = req.query;
+      const { page, limit, sort } = req.query;
       
       if (!searchQuery) {
         return res.status(400).json({ message: "Search query is required" });
@@ -350,7 +351,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const result = await jobProviderManager.fetchAllJobs({
             query: searchQuery as string,
             page: pageNum,
-            limit: limitNum
+            limit: limitNum,
+            sort: sort as string
           });
           
           return res.json({

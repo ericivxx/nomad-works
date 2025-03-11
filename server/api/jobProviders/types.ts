@@ -8,6 +8,7 @@ export interface JobSearchParams {
   limit?: number;
   type?: string;
   experienceLevel?: string;
+  sort?: string;
 }
 
 export interface JobProvider {
