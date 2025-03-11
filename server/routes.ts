@@ -209,7 +209,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get("/api/categories", async (req: Request, res: Response) => {
     try {
-      const categories = await storage.getAllCategories();
+      // Get all categories but ensure we deduplicate them by slug
+      const allCategories = await storage.getAllCategories();
+      
+      // Create a Map to deduplicate categories by slug
+      const uniqueCategories = new Map();
+      
+      // Keep only one instance of each category slug
+      allCategories.forEach(category => {
+        if (!uniqueCategories.has(category.slug)) {
+          uniqueCategories.set(category.slug, category);
+        }
+      });
+      
+      // Convert back to array
+      const categories = Array.from(uniqueCategories.values());
+      
       res.json(categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
