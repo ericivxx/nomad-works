@@ -26,7 +26,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
   });
   
   // Fetch categories for filters
-  const { data: categories } = useQuery({
+  const { data: categories = [] } = useQuery<Array<{id: number, name: string, slug: string}>>({
     queryKey: ['/api/categories'],
   });
   
@@ -139,8 +139,8 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
   return (
     <aside className="lg:w-1/4">
       <div className="sticky top-24">
-        <div className="bg-white p-5 rounded-lg shadow-md mb-6">
-          <div className="flex justify-between items-center mb-4">
+        <div className="bg-white p-5 rounded-lg shadow-md mb-6 max-h-[calc(100vh-130px)] overflow-y-auto">
+          <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pt-1 pb-2 z-10">
             <h2 className="text-lg font-semibold">Filters</h2>
             <button 
               className="text-sm text-primary hover:underline"

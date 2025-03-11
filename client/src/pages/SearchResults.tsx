@@ -36,7 +36,8 @@ export default function SearchResults() {
     } else {
       // Otherwise use the regular jobs endpoint with any other filter params
       console.log("No q parameter, using jobs endpoint");
-      setEndpoint(`/api/jobs${search}`);
+      // Add a ? if there are parameters
+      setEndpoint(search ? `/api/jobs?${search.substring(1)}` : '/api/jobs');
     }
   }, [search, searchParams]);
   
@@ -80,7 +81,9 @@ export default function SearchResults() {
       <main className="container mx-auto px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-8">
           <FilterSidebar />
-          <JobList endpoint={endpoint} title={title} />
+          <div className="lg:w-3/4 flex-1 overflow-y-auto">
+            <JobList endpoint={endpoint} title={title} />
+          </div>
         </div>
       </main>
     </>
