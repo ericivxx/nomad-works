@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import { JobProvider, JobProviderResponse, JobSearchParams } from './types';
 import { JobWithRelations, Category, Skill } from '@shared/schema';
 import { storage } from '../../storage';
+import config from './config';
 
 interface RapidApiJob {
   job_id: string;
@@ -27,9 +28,15 @@ interface RapidApiResponse {
 
 export class RapidApiProvider implements JobProvider {
   name = 'rapidapi';
-  private apiUrl = 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
-  private apiHost = 'job-posting-feed-api.p.rapidapi.com';
-  private apiKey = process.env.RAPIDAPI_KEY;
+  private apiUrl: string;
+  private apiHost: string;
+  private apiKey: string | undefined;
+  
+  constructor() {
+    this.apiUrl = config.rapidapi.apiUrl;
+    this.apiHost = config.rapidapi.options?.host || 'job-posting-feed-api.p.rapidapi.com';
+    this.apiKey = config.rapidapi.apiKey;
+  }
 
   async isAvailable(): Promise<boolean> {
     return !!this.apiKey;
