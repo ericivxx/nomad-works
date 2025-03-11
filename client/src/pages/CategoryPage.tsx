@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import FilterSidebar from "@/components/FilterSidebar";
 import JobList from "@/components/JobList";
+import JobCard from "@/components/JobCard";
 import SEOHead from "@/components/SEOHead";
 import { Loader } from "lucide-react";
 
@@ -146,11 +147,32 @@ export default function CategoryPage() {
           
           {/* Main Content Column */}
           <div className="lg:w-3/4">
-            <JobList 
-              endpoint={`/api/jobs?category=${slug}`}
-              title={`Remote ${category.name} Jobs`}
-              subtitle={count > 0 ? `${count} ${category.name.toLowerCase()} jobs available` : "No jobs available in this category at the moment"}
-            />
+            <div>
+              {/* Job Listings Header */}
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900 mb-1">Remote {category.name} Jobs</h1>
+                  <p className="text-gray-600">
+                    {count > 0 ? `${count} ${category.name.toLowerCase()} jobs available` : "No jobs available in this category at the moment"}
+                  </p>
+                </div>
+              </div>
+              
+              {/* Empty State */}
+              {categoryData.jobs.length === 0 && (
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center my-8">
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No jobs found</h3>
+                  <p className="text-gray-600">We currently don't have any jobs in this category</p>
+                </div>
+              )}
+              
+              {/* Job Cards Container */}
+              <div className="space-y-6">
+                {categoryData.jobs.map((job) => (
+                  <JobCard key={job.id} job={job} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
