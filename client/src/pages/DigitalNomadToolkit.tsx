@@ -69,7 +69,7 @@ export default function DigitalNomadToolkit() {
 
           {/* Categories Tabs */}
           <Tabs defaultValue="productivity" className="mb-12">
-            <TabsList className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-8">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-8">
               <TabsTrigger value="productivity" className="flex items-center gap-2">
                 <Laptop className="h-4 w-4" />
                 <span>Productivity</span>
@@ -345,7 +345,6 @@ export default function DigitalNomadToolkit() {
             </TabsContent>
 
             {/* Learning Tab */}
-            {/* VPN Services Tab */}
             <TabsContent value="vpn" className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold mb-6">VPN Services for Digital Nomads</h2>
