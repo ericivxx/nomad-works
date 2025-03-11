@@ -48,32 +48,49 @@ export class AdzunaProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Build query parameters with minimal parameters to avoid API errors
-      const queryParams = new URLSearchParams();
-      queryParams.append('app_id', this.appId!);
-      queryParams.append('app_key', this.apiKey!);
-      queryParams.append('results_per_page', (params.limit || 10).toString());
-      queryParams.append('page', (params.page || 1).toString());
+      // Simplify request to increase success rate
+      // Adzuna is known to be picky about parameter combinations
       
-      // Add only essential query parameter - Adzuna is sensitive to parameter combinations
+      // Create a minimal URL with required parameters
+      const queryString = new URLSearchParams();
+      queryString.append('app_id', this.appId || '');
+      queryString.append('app_key', this.apiKey || '');
+      
+      // Safely add pagination
+      const page = params.page || 1;
+      const limit = params.limit || 10;
+      queryString.append('results_per_page', limit.toString());
+      queryString.append('page', page.toString());
+      
+      // Use a basic query term that's likely to work
+      // The API is sensitive about search terms
       if (params.query) {
-        queryParams.append('what', params.query + ' remote');
+        // Clean the query to avoid special characters
+        const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
+        queryString.append('what', cleanQuery);
       } else {
-        queryParams.append('what', 'remote work');
+        queryString.append('what', 'remote');
       }
       
-      // Keep the API request simple for higher success rate
-      // We'll filter additional criteria on our side after getting results
-
-      // Use properly encoded URL
-      const apiUrl = `${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`;
+      // Add category filter only if it maps to Adzuna's categories
+      if (params.category) {
+        const adzunaCategory = this.mapCategoryToAdzuna(params.category);
+        if (adzunaCategory) {
+          queryString.append('category', adzunaCategory);
+        }
+      }
+      
+      // Add a simple remote filter
+      queryString.append('where', 'remote');
+      
+      // Create the full URL
+      const apiUrl = `${this.apiUrl}/${this.country}/search/1?${queryString.toString()}`;
       console.log(`Making Adzuna API request: ${apiUrl}`);
       
-      // Make the API request with proper headers
+      // Request with minimal headers
       const response = await fetch(apiUrl, {
         headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'NomadWorks Job Board (development@nomadworks.com)'
+          'Accept': 'application/json'
         }
       });
 

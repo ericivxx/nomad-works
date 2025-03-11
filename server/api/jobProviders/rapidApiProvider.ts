@@ -26,6 +26,14 @@ interface RapidApiResponse {
   count: number;
 }
 
+// Mixed response format that covers both API types
+interface JSearchResponse {
+  data?: any[];
+  results?: RapidApiJob[];
+  count?: number;
+  status?: string;
+}
+
 export class RapidApiProvider implements JobProvider {
   name = 'rapidapi';
   private apiUrl: string = '';
@@ -44,35 +52,33 @@ export class RapidApiProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Build query parameters - simplified for higher success rate
+      // Try a different API endpoint approach - some RapidAPI endpoints prefer different formats
+      // This implementation tries the jsearch API which is known to be more reliable
       const queryParams = new URLSearchParams();
       
-      // Set minimal parameters
-      queryParams.append('description_type', 'html');
-      queryParams.append('remote', 'true');
-      
-      // Use minimal query parameters - RapidAPI can be sensitive
+      // Create simplified search query that focuses on remote jobs
+      let query = 'remote';
       if (params.query) {
-        queryParams.append('q', params.query + ' remote');
-      } else {
-        // If no query is provided, search for remote jobs
-        queryParams.append('q', 'remote work');
+        // Clean the query to remove any special characters that might cause issues
+        const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
+        query = `${cleanQuery} remote`;
       }
       
-      // Include page parameter for pagination
-      if (params.page) {
-        queryParams.append('page', params.page.toString());
-      }
+      // Add basic parameters for the search
+      queryParams.append('query', query);
+      queryParams.append('page', (params.page || 1).toString());
+      queryParams.append('num_pages', '1'); // Just get one page at a time
       
-      // Specify results per page
-      queryParams.append('limit', (params.limit || 10).toString());
-
-      // Make the API request
-      console.log(`Fetching jobs from RapidAPI: ${this.apiUrl}?${queryParams.toString()}`);
-      const response = await fetch(`${this.apiUrl}?${queryParams.toString()}`, {
+      // Set the API URL to a more reliable endpoint
+      const apiUrl = 'https://jsearch.p.rapidapi.com/search';
+      
+      // Make the request with the updated parameters and headers
+      console.log(`Fetching jobs from RapidAPI: ${apiUrl}?${queryParams.toString()}`);
+      const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
         headers: {
           'X-RapidAPI-Key': this.apiKey!,
-          'X-RapidAPI-Host': this.apiHost
+          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+          'Content-Type': 'application/json'
         }
       });
 
@@ -80,16 +86,50 @@ export class RapidApiProvider implements JobProvider {
         throw new Error(`RapidAPI request failed with status ${response.status}`);
       }
 
-      const data = await response.json() as RapidApiResponse;
-      console.log(`Retrieved ${data.results?.length || 0} jobs from RapidAPI`);
-
-      // Transform jobs to our format
-      const jobs = await Promise.all((data.results || []).map(job => this.transformJob(job)));
-
+      // Parse the JSON data - format differs between APIs
+      const responseData = await response.json() as JSearchResponse | RapidApiResponse;
+      
+      // Check the response format and adapt accordingly
+      // JSearch API uses a different format than what we initially expected
+      let jobs: JobWithRelations[] = [];
+      let totalCount = 0;
+      
+      // Handle JSearch API format
+      if (responseData.data) {
+        console.log(`Retrieved ${responseData.data.length || 0} jobs from JSearch API`);
+        
+        // Map the job data to our expected format
+        const mappedJobs = responseData.data.map((item: any) => ({
+          job_id: item.job_id || `jsearch-${Math.random().toString(36).substring(2, 15)}`,
+          employer_name: item.employer_name || 'Unknown Company',
+          employer_logo: item.employer_logo || null,
+          employer_website: item.employer_website || null,
+          job_title: item.job_title || 'Remote Position',
+          job_description: item.job_description || 'No description provided',
+          job_city: item.job_city || null,
+          job_country: item.job_country || 'Remote',
+          job_employment_type: item.job_employment_type || 'FULLTIME',
+          job_apply_link: item.job_apply_link || '#',
+          job_posted_at_timestamp: item.job_posted_at_timestamp || Date.now() / 1000,
+          job_min_salary: item.job_min_salary || null,
+          job_max_salary: item.job_max_salary || null,
+          job_is_remote: item.job_is_remote !== undefined ? item.job_is_remote : true
+        }));
+        
+        jobs = await Promise.all(mappedJobs.map(job => this.transformJob(job)));
+        totalCount = responseData.data.length;
+      } 
+      // Original API format fallback
+      else if (responseData.results) {
+        console.log(`Retrieved ${responseData.results.length || 0} jobs from RapidAPI`);
+        jobs = await Promise.all((responseData.results || []).map(job => this.transformJob(job)));
+        totalCount = responseData.count || responseData.results.length;
+      }
+      
       return {
         jobs,
-        totalCount: data.count || 0,
-        pageCount: Math.ceil((data.count || 0) / 10), // Assuming 10 jobs per page
+        totalCount,
+        pageCount: Math.ceil(totalCount / (params.limit || 10)),
         currentPage: params.page || 1,
       };
     } catch (error) {
@@ -106,10 +146,18 @@ export class RapidApiProvider implements JobProvider {
 
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      const response = await fetch(`${this.apiUrl}?id=${id}`, {
+      // For JSearch API, job details endpoint is different
+      const jobId = id.replace('rapidapi:', '');
+      const queryParams = new URLSearchParams();
+      queryParams.append('job_id', jobId);
+      
+      const apiUrl = 'https://jsearch.p.rapidapi.com/job-details';
+      
+      const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
         headers: {
           'X-RapidAPI-Key': this.apiKey!,
-          'X-RapidAPI-Host': this.apiHost
+          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
+          'Content-Type': 'application/json'
         }
       });
 
@@ -117,10 +165,34 @@ export class RapidApiProvider implements JobProvider {
         throw new Error(`RapidAPI request failed with status ${response.status}`);
       }
 
-      const data = await response.json() as RapidApiResponse;
-      if (!data.results || data.results.length === 0) return null;
-
-      return this.transformJob(data.results[0]);
+      const responseData = await response.json() as JSearchResponse;
+      
+      // Format is different for the job details endpoint
+      if (responseData.data && responseData.data.length > 0) {
+        const jobData = responseData.data[0] as any;
+        
+        // Map to our expected format
+        const mappedJob = {
+          job_id: jobData.job_id || id,
+          employer_name: jobData.employer_name || 'Unknown Company',
+          employer_logo: jobData.employer_logo || null,
+          employer_website: jobData.employer_website || null,
+          job_title: jobData.job_title || 'Remote Position',
+          job_description: jobData.job_description || 'No description provided',
+          job_city: jobData.job_city || null,
+          job_country: jobData.job_country || 'Remote',
+          job_employment_type: jobData.job_employment_type || 'FULLTIME',
+          job_apply_link: jobData.job_apply_link || '#',
+          job_posted_at_timestamp: jobData.job_posted_at_timestamp || Date.now() / 1000,
+          job_min_salary: jobData.job_min_salary || null,
+          job_max_salary: jobData.job_max_salary || null,
+          job_is_remote: jobData.job_is_remote !== undefined ? jobData.job_is_remote : true
+        };
+        
+        return this.transformJob(mappedJob);
+      }
+      
+      return null;
     } catch (error) {
       console.error('Error fetching job details from RapidAPI:', error);
       return null;
