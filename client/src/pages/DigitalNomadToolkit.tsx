@@ -35,7 +35,7 @@ export default function DigitalNomadToolkit() {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead
         title={`Digital Nomad Toolkit - Essential Resources for Remote Workers (${currentYear})`}
         description={`Discover the essential tools, apps, and services for digital nomads and remote workers in ${currentYear}. From productivity tools to travel resources, find everything you need for location-independent work.`}
@@ -1239,6 +1239,6 @@ export default function DigitalNomadToolkit() {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
