@@ -88,9 +88,9 @@ export class RapidApiProvider implements JobProvider {
   private apiKey: string | undefined;
   
   constructor() {
-    // Use the Job Posting Feed API that you're subscribed to
-    this.apiUrl = config.rapidapi.apiUrl ?? 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
-    this.apiHost = config.rapidapi.options?.host || 'job-posting-feed-api.p.rapidapi.com';
+    // Use the Active Jobs DB API
+    this.apiUrl = config.rapidapi.apiUrl ?? 'https://active-jobs-db.p.rapidapi.com/active-ats-in';
+    this.apiHost = config.rapidapi.options?.host || 'active-jobs-db.p.rapidapi.com';
     this.apiKey = config.rapidapi.apiKey;
   }
 
@@ -100,30 +100,38 @@ export class RapidApiProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Try a different API endpoint approach - some RapidAPI endpoints prefer different formats
-      // This implementation tries the jsearch API which is known to be more reliable
+      // Using the Active Jobs DB API format from RapidAPI
       const queryParams = new URLSearchParams();
       
-      // Create simplified search query that focuses on remote jobs
-      let query = 'remote';
+      // Create search filters based on parameters
+      let titleFilter = "";
+      let locationFilter = "";
+      
       if (params.query) {
-        // Clean the query to remove any special characters that might cause issues
-        const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
-        query = `${cleanQuery} remote`;
+        // Format query as required by the Active Jobs DB API
+        titleFilter = `%22${encodeURIComponent(params.query)}%22`;
       }
       
-      // Add basic parameters for the search - using job posting feed API format
-      queryParams.append('q', query); // Search query
-      queryParams.append('page', (params.page || 1).toString());
-      queryParams.append('limit', (params.limit || 10).toString()); 
-      queryParams.append('remote', 'true'); // Filter for remote jobs
+      if (params.location) {
+        // Format location as required by the Active Jobs DB API
+        locationFilter = `%22${encodeURIComponent(params.location)}%22`;
+      }
       
-      // Set the API URL to the Job Posting Feed API that you're subscribed to
-      const apiUrl = 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
+      // Add parameters in the format needed by Active Jobs DB API
+      if (titleFilter) {
+        queryParams.append('title_filter', titleFilter);
+      }
+      
+      if (locationFilter) {
+        queryParams.append('location_filter', locationFilter);
+      }
+      
+      // Set the API URL to the Active Jobs DB API
+      const apiUrl = this.apiUrl;
       
       // Make the request with the updated parameters and headers
-      console.log(`Fetching jobs from RapidAPI: ${apiUrl}?${queryParams.toString()}`);
-      console.log(`Using RapidAPI host: job-posting-feed-api.p.rapidapi.com`);
+      console.log(`Fetching jobs from Active Jobs DB API: ${apiUrl}?${queryParams.toString()}`);
+      console.log(`Using RapidAPI host: ${this.apiHost}`);
       
       // Don't print the actual API key, but log if it exists
       console.log(`RapidAPI key configured: ${this.apiKey ? 'YES' : 'NO'}`);
@@ -132,7 +140,7 @@ export class RapidApiProvider implements JobProvider {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': this.apiKey || '',
-          'X-RapidAPI-Host': 'job-posting-feed-api.p.rapidapi.com',
+          'X-RapidAPI-Host': this.apiHost,
           'Content-Type': 'application/json',
           'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }
@@ -243,18 +251,19 @@ export class RapidApiProvider implements JobProvider {
 
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      // For Job Posting Feed API
+      // Using the Active Jobs DB API format for job details
       const jobId = id.replace('rapidapi:', '');
       const queryParams = new URLSearchParams();
-      queryParams.append('ids', jobId);
+      queryParams.append('id', jobId);
       
-      const apiUrl = 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili-by-id';
+      // Use the job details endpoint from Active Jobs DB API
+      const apiUrl = `${this.apiUrl.replace('active-ats-in', 'job-by-id')}`;
       
       const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': this.apiKey || '',
-          'X-RapidAPI-Host': 'job-posting-feed-api.p.rapidapi.com',
+          'X-RapidAPI-Host': this.apiHost,
           'Content-Type': 'application/json',
           'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }
