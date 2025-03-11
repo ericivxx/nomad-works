@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { jobProviderManager } from "./api/jobProviders";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API Routes
@@ -16,7 +17,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const salary = req.query.salary as string | undefined;
       const timezone = req.query.timezone as string | undefined;
       const countOnly = req.query.count === 'true';
+      const page = parseInt(req.query.page as string || '1');
+      const limit = parseInt(req.query.limit as string || '10');
       
+      // Check if we should use external job providers
+      if (process.env.USE_JOB_PROVIDERS === 'true') {
+        try {
+          // Map our API parameters to the job provider parameters
+          const providerResult = await jobProviderManager.fetchAllJobs({
+            query: search,
+            category: categorySlug,
+            location: locationSlug,
+            type,
+            experienceLevel,
+            page,
+            limit
+          });
+          
+          if (countOnly) {
+            return res.json({
+              count: providerResult.totalCount
+            });
+          }
+          
+          return res.json({
+            jobs: providerResult.jobs,
+            pagination: {
+              total: providerResult.totalCount,
+              page: providerResult.currentPage,
+              limit,
+              totalPages: providerResult.pageCount
+            }
+          });
+        } catch (providerError) {
+          console.error("Error fetching from job providers:", providerError);
+          // Fall back to in-memory storage
+        }
+      }
+      
+      // Use in-memory storage if job providers aren't enabled or if there was an error
       let jobs = await storage.getAllJobs();
       
       // Apply filters
@@ -111,8 +150,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Pagination
-      const page = parseInt(req.query.page as string || '1');
-      const limit = parseInt(req.query.limit as string || '10');
       const startIndex = (page - 1) * limit;
       const endIndex = page * limit;
       
@@ -136,6 +173,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/jobs/:slug", async (req: Request, res: Response) => {
     try {
       const { slug } = req.params;
+      
+      // Check if this is a provider-specific ID (contains a colon)
+      if (slug.includes(':') && process.env.USE_JOB_PROVIDERS === 'true') {
+        try {
+          const job = await jobProviderManager.getJobDetails(slug);
+          
+          if (!job) {
+            return res.status(404).json({ message: "Job not found" });
+          }
+          
+          return res.json(job);
+        } catch (providerError) {
+          console.error("Error fetching job from provider:", providerError);
+          // Fall back to in-memory storage
+        }
+      }
+      
+      // Use in-memory storage
       const job = await storage.getJobBySlug(slug);
       
       if (!job) {
@@ -167,8 +222,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!category) {
         return res.status(404).json({ message: "Category not found" });
       }
+
+      // Get jobs using either job providers or in-memory storage
+      let jobs;
       
-      const jobs = await storage.getJobsByCategory(slug);
+      if (process.env.USE_JOB_PROVIDERS === 'true') {
+        try {
+          const result = await jobProviderManager.fetchAllJobs({
+            category: slug,
+            limit: 50 // Get more jobs for category pages
+          });
+          jobs = result.jobs;
+        } catch (providerError) {
+          console.error("Error fetching jobs from provider:", providerError);
+          // Fall back to in-memory storage
+          jobs = await storage.getJobsByCategory(slug);
+        }
+      } else {
+        jobs = await storage.getJobsByCategory(slug);
+      }
       
       res.json({
         category,
@@ -199,8 +271,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!location) {
         return res.status(404).json({ message: "Location not found" });
       }
+
+      // Get jobs using either job providers or in-memory storage
+      let jobs;
       
-      const jobs = await storage.getJobsByLocation(slug);
+      if (process.env.USE_JOB_PROVIDERS === 'true') {
+        try {
+          const result = await jobProviderManager.fetchAllJobs({
+            location: slug,
+            limit: 50 // Get more jobs for location pages
+          });
+          jobs = result.jobs;
+        } catch (providerError) {
+          console.error("Error fetching jobs from provider:", providerError);
+          // Fall back to in-memory storage
+          jobs = await storage.getJobsByLocation(slug);
+        }
+      } else {
+        jobs = await storage.getJobsByLocation(slug);
+      }
       
       res.json({
         location,
@@ -237,6 +326,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching stats:", error);
       res.status(500).json({ message: "Failed to fetch stats" });
+    }
+  });
+  
+  // Add a dedicated search endpoint
+  app.get("/api/search", async (req: Request, res: Response) => {
+    try {
+      const { query, page, limit } = req.query;
+      
+      if (!query) {
+        return res.status(400).json({ message: "Search query is required" });
+      }
+      
+      const pageNum = parseInt(page as string || '1');
+      const limitNum = parseInt(limit as string || '10');
+      
+      if (process.env.USE_JOB_PROVIDERS === 'true') {
+        try {
+          const result = await jobProviderManager.fetchAllJobs({
+            query: query as string,
+            page: pageNum,
+            limit: limitNum
+          });
+          
+          return res.json({
+            jobs: result.jobs,
+            pagination: {
+              total: result.totalCount,
+              page: result.currentPage,
+              limit: limitNum,
+              totalPages: result.pageCount
+            }
+          });
+        } catch (providerError) {
+          console.error("Error searching jobs from provider:", providerError);
+          // Fall back to in-memory storage
+        }
+      }
+      
+      // Use in-memory storage
+      const jobs = await storage.getJobsBySearch(query as string);
+      const startIndex = (pageNum - 1) * limitNum;
+      const endIndex = startIndex + limitNum;
+      const paginatedJobs = jobs.slice(startIndex, endIndex);
+      
+      res.json({
+        jobs: paginatedJobs,
+        pagination: {
+          total: jobs.length,
+          page: pageNum,
+          limit: limitNum,
+          totalPages: Math.ceil(jobs.length / limitNum)
+        }
+      });
+    } catch (error) {
+      console.error("Error searching jobs:", error);
+      res.status(500).json({ message: "Failed to search jobs" });
     }
   });
   

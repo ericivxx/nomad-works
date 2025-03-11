@@ -37,7 +37,7 @@ export class AdzunaProvider implements JobProvider {
 
     try {
       const response = await fetch(
-        \`\${this.apiUrl}/\${this.country}/search/1?app_id=\${this.appId}&app_key=\${this.apiKey}&results_per_page=1\`
+        `${this.apiUrl}/${this.country}/search/1?app_id=${this.appId}&app_key=${this.apiKey}&results_per_page=1`
       );
       return response.status === 200;
     } catch (error) {
@@ -84,11 +84,11 @@ export class AdzunaProvider implements JobProvider {
       }
 
       const response = await fetch(
-        \`\${this.apiUrl}/\${this.country}/search/1?\${queryParams.toString()}\`
+        `${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`
       );
 
       if (!response.ok) {
-        throw new Error(\`Adzuna API error: \${response.status} \${response.statusText}\`);
+        throw new Error(`Adzuna API error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json() as AdzunaResponse;
@@ -113,6 +113,25 @@ export class AdzunaProvider implements JobProvider {
       };
     }
   }
+  
+  async getJobDetails(id: string): Promise<JobWithRelations | null> {
+    try {
+      const response = await fetch(
+        `${this.apiUrl}/${this.country}/${id}?app_id=${this.appId}&app_key=${this.apiKey}`
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Adzuna API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const job = await response.json() as AdzunaJob;
+      
+      return this.transformJob(job);
+    } catch (error) {
+      console.error('Error fetching job details from Adzuna:', error);
+      return null;
+    }
+  }
 
   private transformJob(job: AdzunaJob): JobWithRelations {
     // Extract category information
@@ -130,7 +149,7 @@ export class AdzunaProvider implements JobProvider {
     const skills = this.extractSkills(job.description);
 
     return {
-      id: \`adzuna:\${job.id}\`,
+      id: `adzuna:${job.id}`,
       slug,
       title: job.title,
       description: job.description,
@@ -178,7 +197,7 @@ export class AdzunaProvider implements JobProvider {
   }
 
   private getExperienceLevel(title: string, description: string): string {
-    const text = \`\${title} \${description}\`.toLowerCase();
+    const text = `${title} ${description}`.toLowerCase();
     
     if (text.includes('senior') || text.includes('lead') || text.includes('principal')) {
       return 'senior';
@@ -198,7 +217,7 @@ export class AdzunaProvider implements JobProvider {
     ];
 
     const foundSkills = commonSkills.filter(skill => 
-      new RegExp(\`\\\\b\${skill}\\\\b\`, 'i').test(description)
+      new RegExp(`\\b${skill}\\b`, 'i').test(description)
     );
 
     return foundSkills.map((skill, index) => ({

@@ -95,7 +95,7 @@ class JobProviderManager {
     try {
       return await provider.getJobDetails(externalId);
     } catch (error) {
-      console.error(\`Error fetching job details from \${providerName}:\`, error);
+      console.error(`Error fetching job details from ${providerName}:`, error);
       return null;
     }
   }

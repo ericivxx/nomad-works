@@ -95,6 +95,31 @@ export class RemoteOkProvider implements JobProvider {
     }
   }
 
+  async getJobDetails(id: string): Promise<JobWithRelations | null> {
+    try {
+      const response = await fetch(`${this.apiUrl}`);
+      
+      if (!response.ok) {
+        throw new Error(`RemoteOK API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json() as RemoteOkJob[];
+      
+      // Skip the first item which is usually metadata and find the job by ID
+      const jobs = data.slice(1);
+      const job = jobs.find(j => j.id === id);
+      
+      if (!job) {
+        return null;
+      }
+      
+      return this.transformJob(job);
+    } catch (error) {
+      console.error('Error fetching job details from RemoteOK:', error);
+      return null;
+    }
+  }
+
   private transformJob(job: RemoteOkJob): JobWithRelations {
     // Extract salary information if available
     let salaryMin: number | null = null;
@@ -128,18 +153,18 @@ export class RemoteOkProvider implements JobProvider {
     let experienceLevel = 'mid';
     if (job.tags.some(tag => tag.toLowerCase().includes('senior') || tag.toLowerCase().includes('lead'))) {
       experienceLevel = 'senior';
-    } else if (job.tags.some(tag => tag.toLowerCase().includes('junior') || job.tags.some(tag => tag.toLowerCase().includes('entry')))) {
+    } else if (job.tags.some(tag => tag.toLowerCase().includes('junior') || tag.toLowerCase().includes('entry'))) {
       experienceLevel = 'entry';
     }
     
     // Create a unique slug combining company and position
-    const slug = \`\${job.company.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-\${job.position.toLowerCase().replace(/[^a-z0-9]+/g, '-')}\`.replace(/-+/g, '-').replace(/^-|-$/g, '');
+    const slug = `${job.company.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${job.position.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`.replace(/-+/g, '-').replace(/^-|-$/g, '');
     
     // Extract category from tags
     const categoryName = this.getCategoryFromTags(job.tags);
     
     return {
-      id: \`remoteok:\${job.id}\`,
+      id: `remoteok:${job.id}`,
       slug,
       title: job.position,
       description: job.description,

@@ -1,4 +1,4 @@
-import { Job, Skill, Location, Category, Company } from '../../../shared/schema';
+import { Job, Company, Category, Location, Skill } from '../../../shared/schema';
 
 export interface JobSearchParams {
   query?: string;
