@@ -42,6 +42,9 @@ export default function Header() {
           <Link href="/categories" className={`font-medium ${location.startsWith('/categories') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Categories
           </Link>
+          <Link href="/digital-nomad-toolkit" className={`font-medium ${location.startsWith('/digital-nomad-toolkit') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
+            Toolkit
+          </Link>
         </div>
         
         {/* Mobile Menu Button */}
@@ -70,6 +73,9 @@ export default function Header() {
           </Link>
           <Link href="/categories" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/categories') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Categories
+          </Link>
+          <Link href="/digital-nomad-toolkit" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/digital-nomad-toolkit') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
+            Toolkit
           </Link>
         </div>
       </div>

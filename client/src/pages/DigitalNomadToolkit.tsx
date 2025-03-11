@@ -3,8 +3,24 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEOHead from "@/components/SEOHead";
-import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare } from "lucide-react";
+import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network } from "lucide-react";
 import Layout from "@/components/Layout";
+import { 
+  NordVPNLogo, 
+  FlexJobsLogo, 
+  SafetyWingLogo, 
+  UdemyLogo, 
+  WiseLogo, 
+  LinkedInLogo, 
+  ExpressVPNLogo, 
+  SkillshareLogo,
+  KrispLogo,
+  OnePasswordLogo,
+  BitwardenLogo,
+  NotionLogo,
+  LoomLogo,
+  BackblazeLogo
+} from "@/assets/logos";
 
 export default function DigitalNomadToolkit() {
   const currentYear = new Date().getFullYear();
@@ -53,10 +69,18 @@ export default function DigitalNomadToolkit() {
 
           {/* Categories Tabs */}
           <Tabs defaultValue="productivity" className="mb-12">
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8">
+            <TabsList className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-8">
               <TabsTrigger value="productivity" className="flex items-center gap-2">
                 <Laptop className="h-4 w-4" />
                 <span>Productivity</span>
+              </TabsTrigger>
+              <TabsTrigger value="vpn" className="flex items-center gap-2">
+                <Network className="h-4 w-4" />
+                <span>VPN Services</span>
+              </TabsTrigger>
+              <TabsTrigger value="resume" className="flex items-center gap-2">
+                <FileText className="h-4 w-4" />
+                <span>Resume Tools</span>
               </TabsTrigger>
               <TabsTrigger value="security" className="flex items-center gap-2">
                 <Shield className="h-4 w-4" />
@@ -321,6 +345,370 @@ export default function DigitalNomadToolkit() {
             </TabsContent>
 
             {/* Learning Tab */}
+            {/* VPN Services Tab */}
+            <TabsContent value="vpn" className="space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-6">VPN Services for Digital Nomads</h2>
+                <p className="text-gray-700 mb-8">
+                  A reliable VPN (Virtual Private Network) is essential for digital nomads, providing security on public WiFi, access to geo-restricted content, and privacy protection while traveling internationally.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* NordVPN */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <NordVPNLogo className="h-10 w-auto" />
+                      </div>
+                      <CardTitle>NordVPN</CardTitle>
+                      <CardDescription>Advanced security features & global coverage</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best Overall VPN for Digital Nomads</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>5500+ servers in 60+ countries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Double VPN for extra security</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Works with Netflix, BBC iPlayer & more</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>6 simultaneous connections</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>30-day money-back guarantee</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://nordvpn.com/', '_blank')}>
+                        Get NordVPN
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* ExpressVPN */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <ExpressVPNLogo className="h-10 w-auto" />
+                      </div>
+                      <CardTitle>ExpressVPN</CardTitle>
+                      <CardDescription>Premium speed & server availability</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-red-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-red-800">Best for Speed & Streaming</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>3000+ servers in 94 countries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Consistently high speeds</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>TrustedServer technology (RAM-only)</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>5 simultaneous connections</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>30-day money-back guarantee</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://www.expressvpn.com/', '_blank')}>
+                        Try ExpressVPN
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Surfshark */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="h-10 w-auto flex items-center">
+                          <svg viewBox="0 0 300 70" fill="none" className="h-8 w-auto">
+                            <path d="M245.156 40.5C245.156 27.0938 235.156 16.0938 222.812 16.0938C210.469 16.0938 200.469 27.0938 200.469 40.5C200.469 53.9062 210.469 64.9062 222.812 64.9062C235.156 64.9062 245.156 53.9062 245.156 40.5ZM234.062 40.5C234.062 47.3438 229.156 52.8438 222.812 52.8438C216.469 52.8438 211.562 47.3438 211.562 40.5C211.562 33.6562 216.469 28.1562 222.812 28.1562C229.156 28.1562 234.062 33.6562 234.062 40.5Z" fill="#2AB2F2"/>
+                            <path d="M194.52 63H185.521L179.334 44.2188H154.834L148.646 63H139.646L164.865 5.14062H169.474L194.52 63ZM177.599 37.3125L167.053 12.0469L156.599 37.3125H177.599Z" fill="#2AB2F2"/>
+                            <path d="M126.562 40.0781C126.562 38.3594 124.922 37.0312 121.812 37.0312H103.125V28.1562H124.031C130.828 28.1562 137.156 31.125 137.156 40.0781C137.156 49.0312 130.828 51.8438 124.031 51.8438H103.125V63H92.0312V16.0938H124.031C135.797 16.0938 137.156 25.7344 137.156 28.1562V40.0781H126.562Z" fill="#2AB2F2"/>
+                            <path d="M78.4246 37.2147C80.8574 33.9014 82.0739 30.1257 82.0739 25.8876C82.0739 21.6495 80.8574 17.9014 78.4246 14.5435C75.9918 11.1855 72.6794 8.72316 68.4875 6.15645C64.2956 3.59044 59.5405 1.82373 54.2222 0.856322C48.9039 -0.110923 43.8388 -0.285649 39.0269 0.33282L56.8506 62.9813H67.9434L78.4246 37.2147Z" fill="#0082F0"/>
+                            <path d="M65.9155 32.4148C66.9253 30.6481 67.4301 28.7114 67.4301 26.6047C67.4301 24.498 66.9253 22.5788 65.9155 20.8472C64.9058 19.1151 63.5316 17.7584 61.7927 16.7767C60.0537 15.795 58.0797 15.0884 55.8707 14.6567C53.6618 14.225 51.5748 14.0942 49.6097 14.2641L58.885 46.0996H64.3856L65.9155 32.4148Z" fill="#2AB2F2"/>
+                            <path d="M51.3897 27.7139C51.8404 26.968 52.0658 26.163 52.0658 25.2991C52.0658 24.4352 51.8404 23.6477 51.3897 22.9369C50.939 22.2261 50.3371 21.6795 49.5841 21.2973C48.8316 20.915 47.9994 20.6504 47.0884 20.5036C46.1775 20.3565 45.3132 20.3002 44.4958 20.3346L48.4845 34.1084H50.9775L51.3897 27.7139Z" fill="#0082F0"/>
+                          </svg>
+                        </div>
+                      </div>
+                      <CardTitle>Surfshark</CardTitle>
+                      <CardDescription>Unlimited devices & budget-friendly</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-green-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-green-800">Best Value VPN</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>3200+ servers in 100 countries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Unlimited simultaneous connections</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>CleanWeb ad & malware blocker</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>MultiHop connections</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>30-day money-back guarantee</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://surfshark.com/', '_blank')}>
+                        Try Surfshark
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="mt-10 bg-blue-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4">Why Digital Nomads Need a VPN</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Security on Public WiFi</h4>
+                      <p className="text-sm text-gray-700">
+                        Working from cafes, airports, and coworking spaces means you're frequently using public WiFi networks. A VPN encrypts your internet connection, protecting your sensitive data from hackers on these unsecured networks.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Access Geo-Restricted Content</h4>
+                      <p className="text-sm text-gray-700">
+                        Maintain access to your home country's websites, services, and streaming platforms no matter where you travel. A VPN lets you bypass geographical restrictions by making it appear you're connecting from your home country.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Banking & Financial Security</h4>
+                      <p className="text-sm text-gray-700">
+                        Many banks and financial institutions flag or block access when detecting logins from foreign countries. Using a VPN with a server in your home country helps maintain normal access to your financial accounts.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Avoid Censorship & Surveillance</h4>
+                      <p className="text-sm text-gray-700">
+                        Some countries heavily restrict internet access or monitor online activity. A VPN helps you maintain your digital freedom and privacy when traveling through regions with restrictive internet policies.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
+            {/* Resume Builder Tab */}
+            <TabsContent value="resume" className="space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-6">Resume & Profile Building Tools</h2>
+                <p className="text-gray-700 mb-8">
+                  As a digital nomad, having a standout resume and professional online presence is crucial for landing remote opportunities. These tools will help you create impressive resumes and build your professional brand.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* LinkedIn Premium */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <LinkedInLogo className="h-10 w-auto" />
+                      </div>
+                      <CardTitle>LinkedIn Premium</CardTitle>
+                      <CardDescription>Stand out to employers & recruiters</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for Networking & Job Applications</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>See who viewed your profile</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>InMail credits to message recruiters</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Applicant insights on job postings</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Featured applicant placement</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>LinkedIn Learning courses included</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://premium.linkedin.com/', '_blank')}>
+                        Try LinkedIn Premium
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* FlexJobs */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <FlexJobsLogo className="h-10 w-auto" />
+                      </div>
+                      <CardTitle>FlexJobs</CardTitle>
+                      <CardDescription>Premium remote job board with career services</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for Resume Feedback & Job Search</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Professional resume review service</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Career coaching sessions</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Skills tests to verify abilities</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Curated database of remote jobs</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Negotiation & salary guides</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://www.flexjobs.com/', '_blank')}>
+                        Join FlexJobs
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Novoresume */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="h-10 w-auto flex items-center">
+                          <svg viewBox="0 0 180 30" className="h-8 w-auto">
+                            <path d="M28.8 0H0V30H28.8V0Z" fill="#4a8cff"/>
+                            <path d="M57.6 0H28.8V30H57.6V0Z" fill="#4a8cff"/>
+                            <path d="M40.8 5.5L48.8 24.5H44.4L40.9 15.7L37.5 24.5H33.1L40.8 5.5Z" fill="white"/>
+                            <path d="M17.4 5.5V24.5H12.9V11.1L7.8 24.5H4.6L0 12.1V24.5H0V5.5H5.4L11.2 20.2L17.1 5.5H17.4Z" fill="white"/>
+                            <path d="M64.9 5.5H69.3V24.5H64.9V5.5Z" fill="#4a8cff"/>
+                            <path d="M88.5 5.5V24.5H84.6V8.8L78.3 24.5H74.3V5.5H78.2V20.8L84.4 5.5H88.5Z" fill="#4a8cff"/>
+                            <path d="M95.4 24.5H91V5.5H95.4V24.5Z" fill="#4a8cff"/>
+                            <path d="M118.8 9.2V24.5H114.4V9.2H108V5.5H125.2V9.2H118.8Z" fill="#4a8cff"/>
+                            <path d="M151.6 17.9H141.2V20.7H153.6V24.4H136.8V5.5H153.4V9.2H141.2V14.3H151.6V17.9Z" fill="#4a8cff"/>
+                            <path d="M169.6 5.5C175.6 5.5 180 9.9 180 15C180 20.1 175.6 24.5 169.6 24.5H159.4V5.5H169.6ZM169 9.2H163.8V20.8H169C172.7 20.8 175.2 18.3 175.2 15C175.2 11.7 172.7 9.2 169 9.2Z" fill="#4a8cff"/>
+                          </svg>
+                        </div>
+                      </div>
+                      <CardTitle>Novoresume</CardTitle>
+                      <CardDescription>ATS-friendly resume builder for remote jobs</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-indigo-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-indigo-800">Best for Modern Resume Templates</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>ATS-optimized resume templates</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Content optimizer with suggestions</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Matching cover letter designs</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Multiple format exports (PDF, DOCX)</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Free basic version available</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://novoresume.com/', '_blank')}>
+                        Create Your Resume
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="mt-10 bg-blue-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4">Resume Tips for Remote Job Seekers</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Highlight Remote Work Experience</h4>
+                      <p className="text-sm text-gray-700">
+                        Explicitly mention any previous remote work experience, even if it was only partial. Emphasize your ability to work independently, communicate effectively across time zones, and stay productive outside a traditional office.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Showcase Digital Communication Skills</h4>
+                      <p className="text-sm text-gray-700">
+                        List your proficiency with remote collaboration tools like Slack, Zoom, Asana, or Trello. Remote employers want to know you can seamlessly integrate into their virtual workflows without extensive training.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Include Self-Management Achievements</h4>
+                      <p className="text-sm text-gray-700">
+                        Demonstrate your ability to manage your time, prioritize tasks, and meet deadlines without supervision. Use specific examples where you successfully handled projects independently or led remote initiatives.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Optimize for ATS Systems</h4>
+                      <p className="text-sm text-gray-700">
+                        Many remote companies use Applicant Tracking Systems (ATS) to filter resumes. Ensure your resume includes relevant keywords from the job description, uses standard section headings, and avoids complex formatting that ATS might misread.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
             <TabsContent value="learning" className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold mb-6">Learning & Skill Development</h2>
