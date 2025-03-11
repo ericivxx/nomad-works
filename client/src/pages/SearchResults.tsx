@@ -8,7 +8,8 @@ import SEOHead from "@/components/SEOHead";
 export default function SearchResults() {
   const search = useSearch();
   const searchParams = new URLSearchParams(search);
-  const [endpoint, setEndpoint] = useState(`/api/jobs${search}`);
+  // Initialize with a safe default
+  const [endpoint, setEndpoint] = useState('/api/jobs');
   
   // Update endpoint when search parameters change
   useEffect(() => {

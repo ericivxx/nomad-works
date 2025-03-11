@@ -60,7 +60,7 @@ export default function KeywordLandingPage() {
   
   // Get job count for this keyword
   const { data: jobCountData } = useQuery({
-    queryKey: [`/api/jobs?search=${decodedKeyword.replace(/-/g, ' ')}&count=true`],
+    queryKey: [`/api/search?q=${encodeURIComponent(decodedKeyword.replace(/-/g, ' '))}&count=true`],
   });
   
   const jobCount = jobCountData?.count || 0;
@@ -102,7 +102,7 @@ export default function KeywordLandingPage() {
             </div>
             
             <JobList 
-              endpoint={`/api/jobs?search=${decodedKeyword.replace(/-/g, ' ')}`}
+              endpoint={`/api/search?q=${encodeURIComponent(decodedKeyword.replace(/-/g, ' '))}`}
               title={`${decodedKeyword.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Available Now`}
               subtitle={`Browse ${jobCount} open positions`}
             />
