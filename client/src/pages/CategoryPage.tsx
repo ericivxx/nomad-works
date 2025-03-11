@@ -12,6 +12,11 @@ export default function CategoryPage() {
     queryKey: [`/api/categories/${slug}`],
   });
   
+  // Fetch all categories for the category list
+  const { data: allCategories } = useQuery({
+    queryKey: ['/api/categories'],
+  });
+  
   console.log("Category data:", categoryData);
   
   if (isLoading) {
@@ -111,9 +116,25 @@ export default function CategoryPage() {
           <p className="text-gray-700 mb-4">
             {getCategoryContent()}
           </p>
-          <p className="text-gray-700">
+          <p className="text-gray-700 mb-4">
             Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
           </p>
+          
+          {/* Available Categories Section */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="text-lg font-semibold mb-3">Browse All Job Categories</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+              {allCategories?.map(cat => (
+                <a 
+                  key={cat.id} 
+                  href={`/categories/${cat.slug}`} 
+                  className={`py-2 px-3 rounded-md ${cat.slug === slug ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                >
+                  {cat.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* Two Column Layout */}

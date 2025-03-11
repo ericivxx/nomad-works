@@ -12,6 +12,11 @@ export default function LocationPage() {
     queryKey: [`/api/locations/${slug}`],
   });
   
+  // Fetch all locations for the location list
+  const { data: allLocations } = useQuery({
+    queryKey: ['/api/locations'],
+  });
+  
   console.log("Location data:", locationData);
   
   if (isLoading) {
@@ -113,9 +118,25 @@ export default function LocationPage() {
           <p className="text-gray-700 mb-4">
             {getRegionContent()}
           </p>
-          <p className="text-gray-700">
+          <p className="text-gray-700 mb-4">
             Browse our curated list of {count} remote jobs in {location.name} below and find your next opportunity today.
           </p>
+          
+          {/* Available Locations Section */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <h3 className="text-lg font-semibold mb-3">Browse Jobs by Location</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+              {allLocations?.map(loc => (
+                <a 
+                  key={loc.id} 
+                  href={`/locations/${loc.slug}`} 
+                  className={`py-2 px-3 rounded-md ${loc.slug === slug ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                >
+                  {loc.name}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* Two Column Layout */}
