@@ -49,7 +49,6 @@ export class AdzunaProvider implements JobProvider {
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
       // Build query parameters
-      // Build query parameters
       const queryParams = new URLSearchParams({
         app_id: this.appId!,
         app_key: this.apiKey!,
@@ -57,12 +56,17 @@ export class AdzunaProvider implements JobProvider {
         page: (params.page || 1).toString(),
       });
       
-      // Create search query combining remote with any provided keyword
-      const searchTerms = params.query 
-        ? `remote ${params.query}` 
-        : 'remote';
+      // Create search query - use 'what' parameter for keyword search
+      if (params.query) {
+        // Just use the query as is without adding 'remote'
+        queryParams.append('what', params.query);
+      } else {
+        // Default to remote jobs if no specific query
+        queryParams.append('what', 'remote');
+      }
       
-      queryParams.append('what', searchTerms);
+      // We can also constrain to remote jobs using 'what_and'
+      queryParams.append('what_and', 'remote');
 
       // Add category filter
       if (params.category) {
@@ -85,11 +89,13 @@ export class AdzunaProvider implements JobProvider {
         }
       }
 
+      console.log(`Making Adzuna API request: ${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`);
       const response = await fetch(
         `${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`
       );
 
       if (!response.ok) {
+        console.error(`Adzuna API error: Status ${response.status}, Response:`, await response.text());
         throw new Error(`Adzuna API error: ${response.status} ${response.statusText}`);
       }
 

@@ -42,6 +42,7 @@ export class RemoteOkProvider implements JobProvider {
         url += `/remote-${encodeURIComponent(category)}-jobs`;
       }
       
+      console.log(`Making RemoteOK API request: ${url}`);
       const response = await fetch(url, {
         headers: {
           'User-Agent': 'NomadWorks Job Board (development@nomadworks.com)',
@@ -50,6 +51,7 @@ export class RemoteOkProvider implements JobProvider {
       });
 
       if (!response.ok) {
+        console.error(`RemoteOK API error: Status ${response.status}, Response text:`, await response.text());
         throw new Error(`RemoteOK API error: ${response.status} ${response.statusText}`);
       }
 
@@ -64,9 +66,10 @@ export class RemoteOkProvider implements JobProvider {
       // Filter by location if specified
       let filteredJobs = transformedJobs;
       if (params.location && params.location !== 'worldwide') {
+        const locationFilter = params.location.toLowerCase();
         filteredJobs = transformedJobs.filter(job => 
-          job.location.slug === params.location || 
-          job.location.name.toLowerCase().includes(params.location.toLowerCase())
+          job.location.slug === locationFilter || 
+          job.location.name.toLowerCase().includes(locationFilter)
         );
       }
       
