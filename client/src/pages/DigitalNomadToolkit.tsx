@@ -69,7 +69,7 @@ export default function DigitalNomadToolkit() {
 
           {/* Categories Tabs */}
           <Tabs defaultValue="productivity" className="mb-12">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-8">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2 mb-8">
               <TabsTrigger value="productivity" className="flex items-center gap-2">
                 <Laptop className="h-4 w-4" />
                 <span>Productivity</span>
@@ -77,6 +77,10 @@ export default function DigitalNomadToolkit() {
               <TabsTrigger value="vpn" className="flex items-center gap-2">
                 <Network className="h-4 w-4" />
                 <span>VPN Services</span>
+              </TabsTrigger>
+              <TabsTrigger value="insurance" className="flex items-center gap-2">
+                <HeartPulse className="h-4 w-4" />
+                <span>Insurance</span>
               </TabsTrigger>
               <TabsTrigger value="resume" className="flex items-center gap-2">
                 <FileText className="h-4 w-4" />
@@ -344,7 +348,7 @@ export default function DigitalNomadToolkit() {
               </div>
             </TabsContent>
 
-            {/* Learning Tab */}
+            {/* VPN Tab */}
             <TabsContent value="vpn" className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold mb-6">VPN Services for Digital Nomads</h2>
@@ -646,6 +650,316 @@ export default function DigitalNomadToolkit() {
                           "I couldn't miss the playoff games while working abroad. My VPN let me watch all my favorite sports and shows from my streaming subscriptions no matter where I was."
                         </p>
                         <p className="text-sm font-medium mt-2">- Miguel, Software Engineer</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
+            {/* Insurance Tab */}
+            <TabsContent value="insurance" className="space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-6">Insurance for Digital Nomads</h2>
+                <p className="text-gray-700 mb-8">
+                  As a digital nomad, having the right insurance coverage is essential for your peace of mind and safety while traveling the world. These specialized insurance options are designed specifically for location-independent workers.
+                </p>
+                
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-8">
+                  <p className="text-sm text-amber-800">
+                    <strong>Disclosure:</strong> Some links on this page are affiliate links. If you make a purchase through these links, we may earn a commission at no extra cost to you. We only recommend insurance providers we've thoroughly researched and believe will genuinely benefit digital nomads.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {/* SafetyWing Nomad Insurance */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <SafetyWingLogo />
+                      </div>
+                      <CardTitle>SafetyWing Nomad Insurance</CardTitle>
+                      <CardDescription>Travel medical insurance designed for digital nomads</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best Overall Travel Medical Insurance</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Coverage in 180+ countries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Starting at $45.08 per 4 weeks</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>COVID-19 coverage included</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Home country coverage for visits (15-30 days)</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Subscribe and cancel anytime</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="pt-4">
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://safetywing.com/nomad-insurance?referenceID=nomadworks&utm_source=nomadworks&utm_medium=Ambassador', '_blank')}>
+                          Get SafetyWing Insurance
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* World Nomads */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="font-bold text-xl">
+                          <span className="text-blue-600">World</span><span className="text-gray-700">Nomads</span>
+                        </div>
+                      </div>
+                      <CardTitle>World Nomads</CardTitle>
+                      <CardDescription>Comprehensive travel insurance for adventurous nomads</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for Adventure Activities & Gear</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Coverage for 200+ adventure activities</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Electronics & gear coverage</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Trip cancellation protection</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Emergency evacuation & repatriation</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Can purchase while already traveling</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="pt-4">
+                        <Button className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700" onClick={() => window.open('https://www.worldnomads.com/travel-insurance/', '_blank')}>
+                          Get a Quote
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Insured Nomads */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="font-bold text-xl">
+                          <span className="text-purple-600">Insured</span><span className="text-gray-700">Nomads</span>
+                        </div>
+                      </div>
+                      <CardTitle>Insured Nomads</CardTitle>
+                      <CardDescription>Premium global health insurance for long-term nomads</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for Comprehensive Health Coverage</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Global health insurance plans</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Digital health passport app</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Access to telemedicine services</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Wellness benefits included</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Annual plans for long-term nomads</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="pt-4">
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://insurednoamds.com/', '_blank')}>
+                          Get Health Insurance
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Insurance Comparison Table */}
+                <div className="mt-10 overflow-x-auto">
+                  <h3 className="text-xl font-semibold mb-4">Digital Nomad Insurance Comparison</h3>
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="p-3 text-left font-medium text-gray-700">Feature</th>
+                        <th className="p-3 text-left font-medium text-gray-700">SafetyWing</th>
+                        <th className="p-3 text-left font-medium text-gray-700">World Nomads</th>
+                        <th className="p-3 text-left font-medium text-gray-700">Insured Nomads</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Monthly Cost</td>
+                        <td className="p-3">$45.08/month</td>
+                        <td className="p-3">$120-180/month</td>
+                        <td className="p-3">$150-300/month</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Coverage Type</td>
+                        <td className="p-3">Travel medical</td>
+                        <td className="p-3">Travel + Adventure</td>
+                        <td className="p-3">Global health</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Medical Coverage</td>
+                        <td className="p-3">$250,000</td>
+                        <td className="p-3">$100,000</td>
+                        <td className="p-3">Up to $1,000,000</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Adventure Activities</td>
+                        <td className="p-3">Basic</td>
+                        <td className="p-3">200+ activities</td>
+                        <td className="p-3">Limited</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Electronics Coverage</td>
+                        <td className="p-3">No</td>
+                        <td className="p-3">Yes, up to $1,500</td>
+                        <td className="p-3">Optional add-on</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">COVID-19 Coverage</td>
+                        <td className="p-3">Yes</td>
+                        <td className="p-3">Yes</td>
+                        <td className="p-3">Yes</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Emergency Evacuation</td>
+                        <td className="p-3">$100,000</td>
+                        <td className="p-3">$500,000</td>
+                        <td className="p-3">$1,000,000</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Home Country Coverage</td>
+                        <td className="p-3">15-30 days</td>
+                        <td className="p-3">None</td>
+                        <td className="p-3">Yes, with limitations</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Best For</td>
+                        <td className="p-3">Budget-conscious nomads</td>
+                        <td className="p-3">Adventure travelers</td>
+                        <td className="p-3">Long-term health needs</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p className="text-xs text-gray-500 mt-2">* Prices and coverage details may vary based on age, nationality, and travel destinations</p>
+                </div>
+                
+                {/* Why Digital Nomads Need Insurance */}
+                <div className="mt-10 bg-blue-50 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4">Why Digital Nomads Need Insurance</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">International Health Coverage</h4>
+                      <p className="text-sm text-gray-700">
+                        Your domestic health insurance likely doesn't cover you abroad. Nomad-specific insurance provides medical coverage in countries worldwide, preventing enormous out-of-pocket expenses for emergency treatment.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Emergency Evacuation</h4>
+                      <p className="text-sm text-gray-700">
+                        If you're injured in a remote location or need specialized care not available locally, emergency evacuation can cost $50,000-$100,000 without insurance. Nomad policies typically include this critical benefit.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Equipment Protection</h4>
+                      <p className="text-sm text-gray-700">
+                        Your laptop and devices are your livelihood. Some nomad insurance plans cover theft or damage to your equipment, ensuring you can quickly replace essential work tools while traveling.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-blue-800 mb-2">Travel Disruption</h4>
+                      <p className="text-sm text-gray-700">
+                        When your travel plans are disrupted by unexpected events like natural disasters, political unrest, or pandemic restrictions, insurance can cover accommodation, rebooking fees, and related expenses.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Digital Nomad Insurance Tips */}
+                <div className="mt-10">
+                  <h3 className="text-xl font-semibold mb-4">Insurance Tips for Digital Nomads</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Understand Coverage Limitations</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          Read the fine print on your policy, particularly regarding high-risk activities, pre-existing conditions, and specific country exclusions. Many policies have limitations for countries under travel advisories.
+                        </p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Document Everything</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          Keep digital copies of your insurance policy, receipts for valuable items, and medical records. When filing claims, thorough documentation will help ensure prompt reimbursement.
+                        </p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Consider Specialized Coverage</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          Beyond basic travel insurance, consider specialized coverage based on your activities. Remote workers handling sensitive client data might need cyber liability insurance, while adventure enthusiasts should verify coverage for high-risk activities.
+                        </p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Check Electronics Coverage</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          Since most digital nomads rely on laptops, cameras, and other equipment, verify the per-item coverage limits and deductibles. Standard policies often have low electronics coverage, so a separate policy for high-value items may be necessary.
+                        </p>
                       </CardContent>
                     </Card>
                   </div>
