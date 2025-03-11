@@ -33,11 +33,44 @@ export default function CategoryPage() {
   
   const { category, count } = categoryData;
 
+  // Build structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": `Remote ${category.name} Jobs for Digital Nomads`,
+    "description": `Find remote ${category.name.toLowerCase()} jobs for digital nomads.`,
+    "numberOfItems": count,
+    "itemListElement": categoryData.jobs?.map((job, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "JobPosting",
+        "title": job.title,
+        "description": job.description,
+        "datePosted": new Date(job.postedAt).toISOString(),
+        "employmentType": "REMOTE",
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Remote"
+          }
+        },
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": job.company.name,
+          "logo": job.company.logo || undefined
+        }
+      }
+    })) || []
+  };
+
   return (
     <>
       <SEOHead 
         title={`${category.name} Remote Jobs | NomadWorks`}
         description={`Find remote ${category.name.toLowerCase()} jobs for digital nomads. Browse ${count}+ remote positions in ${category.name.toLowerCase()} for professionals worldwide.`}
+        structuredData={structuredData}
       />
       
       {/* Category Hero */}
@@ -57,11 +90,25 @@ export default function CategoryPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           <FilterSidebar />
           
-          <JobList 
-            endpoint={`/api/categories/${slug}`}
-            title={`Remote ${category.name} Jobs`}
-            subtitle={count > 0 ? `${count} ${category.name.toLowerCase()} jobs available` : "No jobs available in this category at the moment"}
-          />
+          <div className="lg:w-3/4">
+            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+              <h2 className="text-xl font-bold mb-4">About Remote {category.name} Jobs</h2>
+              <p className="text-gray-700 mb-4">
+                Remote {category.name.toLowerCase()} jobs are a great opportunity for digital nomads 
+                looking to work in this field while traveling. These positions offer flexibility, 
+                competitive pay, and the ability to work from anywhere in the world.
+              </p>
+              <p className="text-gray-700">
+                Browse our curated list of {count} remote {category.name.toLowerCase()} jobs below and find your next opportunity today.
+              </p>
+            </div>
+            
+            <JobList 
+              endpoint={`/api/jobs?category=${slug}`}
+              title={`Remote ${category.name} Jobs`}
+              subtitle={count > 0 ? `${count} ${category.name.toLowerCase()} jobs available` : "No jobs available in this category at the moment"}
+            />
+          </div>
         </div>
       </main>
     </>

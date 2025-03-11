@@ -6,11 +6,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // API Routes
   app.get("/api/jobs", async (req: Request, res: Response) => {
     try {
+      console.log("Query parameters:", req.query);
+      
       const search = req.query.search as string | undefined;
       const categorySlug = req.query.category as string | undefined;
       const locationSlug = req.query.location as string | undefined;
       const type = req.query.type as string | undefined;
       const experienceLevel = req.query.experience as string | undefined;
+      const salary = req.query.salary as string | undefined;
+      const timezone = req.query.timezone as string | undefined;
       const countOnly = req.query.count === 'true';
       
       let jobs = await storage.getAllJobs();
@@ -21,11 +25,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       if (categorySlug) {
-        jobs = await storage.getJobsByCategory(categorySlug);
+        const categoryJobs = await storage.getJobsByCategory(categorySlug);
+        // Only filter by category if we haven't already searched
+        if (!search) {
+          jobs = categoryJobs;
+        } else {
+          // If we did search, find the intersection
+          const categoryJobIds = new Set(categoryJobs.map(job => job.id));
+          jobs = jobs.filter(job => categoryJobIds.has(job.id));
+        }
       }
       
       if (locationSlug) {
-        jobs = await storage.getJobsByLocation(locationSlug);
+        const locationJobs = await storage.getJobsByLocation(locationSlug);
+        // Only completely replace jobs if we haven't already filtered
+        if (!search && !categorySlug) {
+          jobs = locationJobs;
+        } else {
+          // If we already filtered, find the intersection
+          const locationJobIds = new Set(locationJobs.map(job => job.id));
+          jobs = jobs.filter(job => locationJobIds.has(job.id));
+        }
       }
       
       // Apply additional filters
@@ -36,7 +56,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       if (experienceLevel) {
         const levels = experienceLevel.split(',');
-        jobs = jobs.filter(job => levels.includes(job.experienceLevel || ''));
+        jobs = jobs.filter(job => job.experienceLevel && levels.includes(job.experienceLevel));
+      }
+      
+      // Filter by salary range
+      if (salary) {
+        const salaryRanges = salary.split(',');
+        jobs = jobs.filter(job => {
+          // Only include jobs with salary info
+          if (!job.salaryMin && !job.salaryMax) return false;
+          
+          const jobMaxSalary = job.salaryMax || job.salaryMin || 0;
+          const jobMinSalary = job.salaryMin || job.salaryMax || 0;
+          
+          return salaryRanges.some(range => {
+            const [min, max] = range.split('-').map(Number);
+            // Job salary range overlaps with filter range
+            return (jobMinSalary <= max && jobMaxSalary >= min);
+          });
+        });
+      }
+      
+      // Filter by timezone
+      if (timezone) {
+        const zones = timezone.split(',');
+        jobs = jobs.filter(job => {
+          if (!job.timezone) return false;
+          
+          // Simple mapping for demo - in real app would use more sophisticated timezone matching
+          if (zones.includes('americas') && 
+              (job.timezone.includes('PST') || job.timezone.includes('EST') || job.timezone.includes('CST'))) {
+            return true;
+          }
+          
+          if (zones.includes('europe') && 
+              (job.timezone.includes('GMT') || job.timezone.includes('CET') || job.timezone.includes('EET'))) {
+            return true;
+          }
+          
+          if (zones.includes('asia') && 
+              (job.timezone.includes('IST') || job.timezone.includes('JST') || job.timezone.includes('AEST'))) {
+            return true;
+          }
+          
+          return false;
+        });
       }
       
       // If count parameter is true, just return the count

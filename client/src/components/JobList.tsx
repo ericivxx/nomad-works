@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import JobCard from "./JobCard";
 import Pagination from "./Pagination";
 import { Loader } from "lucide-react";
@@ -16,15 +17,72 @@ export default function JobList({ endpoint, title, subtitle, showSorting = true 
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("relevant");
   const limit = 10;
+  const [, navigate] = useLocation();
+  
+  // Add page param to endpoint if it doesn't have one
+  const getEndpointWithParams = () => {
+    const baseEndpoint = endpoint.includes('?') ? endpoint : `${endpoint}?`;
+    const pageParam = `page=${page}`;
+    const limitParam = `limit=${limit}`;
+    const separator = baseEndpoint.endsWith('?') ? '' : '&';
+    
+    return `${baseEndpoint}${separator}${pageParam}&${limitParam}`;
+  };
+  
+  // Create properly formatted query key
+  const createQueryKey = () => {
+    // Extract base endpoint without query params
+    const baseEndpoint = endpoint.split('?')[0];
+    
+    // If original endpoint has params, parse them into an object
+    const params: Record<string, string> = {};
+    if (endpoint.includes('?')) {
+      const queryString = endpoint.split('?')[1];
+      new URLSearchParams(queryString).forEach((value, key) => {
+        params[key] = value;
+      });
+    }
+    
+    // Add pagination and sorting
+    params.page = page.toString();
+    params.limit = limit.toString();
+    params.sort = sortBy;
+    
+    // Return as array for proper cache invalidation
+    return [baseEndpoint, params];
+  };
   
   const { data, isLoading, error } = useQuery({
-    queryKey: [endpoint, page, limit, sortBy],
+    queryKey: createQueryKey(),
   });
   
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  // Helper to extract jobs array from different API response formats
+  const extractJobs = (data: any): JobWithRelations[] => {
+    if (!data) return [];
+    
+    // Handle standard jobs response format
+    if (data.jobs && Array.isArray(data.jobs)) {
+      return data.jobs;
+    }
+    
+    // Handle category/location specific endpoint format
+    if (data.jobs) {
+      return data.jobs;
+    }
+    
+    // Handle case where response is just an array of jobs
+    if (Array.isArray(data)) {
+      return data;
+    }
+    
+    console.warn("Unknown data format for jobs:", data);
+    return [];
   };
   
   const sortJobs = (jobs: JobWithRelations[]) => {
@@ -47,10 +105,37 @@ export default function JobList({ endpoint, title, subtitle, showSorting = true 
     }
   };
   
-  const jobs = data?.jobs || [];
+  const jobs = extractJobs(data);
   const sortedJobs = sortJobs(jobs);
-  const totalJobs = data?.pagination?.total || 0;
-  const totalPages = data?.pagination?.totalPages || 1;
+  
+  // Handle different pagination formats
+  const getTotalJobs = (): number => {
+    if (!data) return 0;
+    
+    if (data.pagination?.total) {
+      return data.pagination.total;
+    }
+    
+    if (data.count) {
+      return data.count;
+    }
+    
+    return jobs.length;
+  };
+  
+  const getTotalPages = (): number => {
+    if (!data) return 1;
+    
+    if (data.pagination?.totalPages) {
+      return data.pagination.totalPages;
+    }
+    
+    const totalJobs = getTotalJobs();
+    return Math.ceil(totalJobs / limit);
+  };
+  
+  const totalJobs = getTotalJobs();
+  const totalPages = getTotalPages();
 
   return (
     <div className="lg:w-3/4">
