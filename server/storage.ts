@@ -445,6 +445,50 @@ export class MemStorage implements IStorage {
       timezone: "Flexible",
       experienceLevel: "senior"
     }, [pythonSkill.id, djangoSkill.id, awsSkill.id, postgresqlSkill.id]);
+    
+    // Add job for Writing category
+    const contentCreationSkill = this.seedSkill("Content Creation");
+    const copywritingSkill = this.seedSkill("Copywriting");
+    const editingSkill = this.seedSkill("Editing");
+    const seoWritingSkill = this.seedSkill("SEO Writing");
+    
+    const job6 = this.seedJob({
+      title: "Content Writer (Remote)",
+      slug: "content-writer-remote",
+      description: "We're looking for a talented Content Writer to create engaging, SEO-optimized content for our blog, website, and marketing materials. You'll work with our marketing team to develop a content strategy that drives organic traffic and conversions.",
+      companyId: growthGeniusCompany.id,
+      categoryId: writingCategory.id,
+      locationId: worldwideLocation.id,
+      type: "full-time",
+      salaryMin: 65000,
+      salaryMax: 85000,
+      featured: false,
+      postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+      timezone: "Flexible",
+      experienceLevel: "mid"
+    }, [contentCreationSkill.id, copywritingSkill.id, editingSkill.id, seoWritingSkill.id]);
+    
+    // Add job for Management category
+    const leadershipSkill = this.seedSkill("Leadership");
+    const teamManagementSkill = this.seedSkill("Team Management");
+    const strategySkill = this.seedSkill("Strategy");
+    const projectManagementSkill = this.seedSkill("Project Management");
+    
+    const job7 = this.seedJob({
+      title: "Remote Team Lead",
+      slug: "remote-team-lead",
+      description: "We're seeking an experienced Team Lead to manage our distributed engineering team. You'll coordinate project deliverables, mentor team members, and ensure we meet our technical objectives while maintaining code quality.",
+      companyId: techCorpCompany.id,
+      categoryId: managementCategory.id,
+      locationId: usLocation.id,
+      type: "full-time",
+      salaryMin: 110000,
+      salaryMax: 140000,
+      featured: true,
+      postedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
+      timezone: "UTC -8 to -4",
+      experienceLevel: "senior"
+    }, [leadershipSkill.id, teamManagementSkill.id, strategySkill.id, projectManagementSkill.id]);
   }
   
   private seedCategory(name: string, slug: string): Category {
