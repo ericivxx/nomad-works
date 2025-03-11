@@ -69,7 +69,7 @@ export default function DigitalNomadToolkit() {
 
           {/* Categories Tabs */}
           <Tabs defaultValue="productivity" className="mb-12">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2 mb-8">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-2 mb-8">
               <TabsTrigger value="productivity" className="flex items-center gap-2">
                 <Laptop className="h-4 w-4" />
                 <span>Productivity</span>
@@ -77,6 +77,10 @@ export default function DigitalNomadToolkit() {
               <TabsTrigger value="vpn" className="flex items-center gap-2">
                 <Network className="h-4 w-4" />
                 <span>VPN Services</span>
+              </TabsTrigger>
+              <TabsTrigger value="esim" className="flex items-center gap-2">
+                <Globe className="h-4 w-4" />
+                <span>eSIM Cards</span>
               </TabsTrigger>
               <TabsTrigger value="insurance" className="flex items-center gap-2">
                 <HeartPulse className="h-4 w-4" />
