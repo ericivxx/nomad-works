@@ -111,10 +111,14 @@ export class RapidApiProvider implements JobProvider {
         query = `${cleanQuery} remote`;
       }
       
-      // Add basic parameters for search using Job Posting Feed API format
+      // Add basic parameters for search using JSearch API format
       queryParams.append('query', query);
       queryParams.append('page', (params.page || 1).toString());
-      queryParams.append('limit', (params.limit || 10).toString());
+      queryParams.append('num_pages', '1');
+      
+      // JSearch specific parameters
+      queryParams.append('country', 'us'); // Can be expanded to other countries
+      queryParams.append('remote_jobs_only', 'true');
       
       if (params.location) {
         // Add location filter for Job Posting Feed API
@@ -135,11 +139,11 @@ export class RapidApiProvider implements JobProvider {
         }
       }
       
-      // Set the API URL to the Job Posting Feed API
+      // Set the API URL to the JSearch API
       const apiUrl = this.apiUrl;
       
       // Make the request with the updated parameters and headers
-      console.log(`Fetching jobs from Job Posting Feed API: ${apiUrl}?${queryParams.toString()}`);
+      console.log(`Fetching jobs from JSearch API: ${apiUrl}?${queryParams.toString()}`);
       console.log(`Using RapidAPI host: ${this.apiHost}`);
       
       // Don't print the actual API key, but log if it exists
