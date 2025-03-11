@@ -49,23 +49,24 @@ export class AdzunaProvider implements JobProvider {
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
       // Adzuna API requires specific request format
-      const baseUrl = `${this.apiUrl}/${this.country}/search/1`;
       const page = params.page || 1;
       const limit = params.limit || 10;
+      
+      // Construct base URL - specify page 1 in URL path, not as query param
+      const baseUrl = `${this.apiUrl}/${this.country}/search/1`;
 
       // Create the query parameters
       const query = new URLSearchParams();
       query.append('app_id', this.appId || '');
       query.append('app_key', this.apiKey || '');
       query.append('results_per_page', limit.toString());
-      query.append('page', page.toString());
       
-      // Add search term - use a common job keyword if none provided
+      // Add search term - focus on remote jobs for digital nomads
       if (params.query) {
         const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
-        query.append('what', cleanQuery);
+        query.append('what', `${cleanQuery} remote`);
       } else {
-        query.append('what', 'developer');
+        query.append('what', 'remote jobs');
       }
       
       // Build the complete URL
@@ -73,7 +74,10 @@ export class AdzunaProvider implements JobProvider {
       console.log(`Making Adzuna API request: ${requestUrl}`);
       
       const response = await fetch(requestUrl, {
-        headers: { 'Accept': 'application/json' }
+        headers: { 
+          'Accept': 'application/json',
+          'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
+        }
       });
 
       if (!response.ok) {

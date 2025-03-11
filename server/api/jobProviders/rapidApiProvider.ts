@@ -109,15 +109,24 @@ export class RapidApiProvider implements JobProvider {
       
       // Make the request with the updated parameters and headers
       console.log(`Fetching jobs from RapidAPI: ${apiUrl}?${queryParams.toString()}`);
+      console.log(`Using RapidAPI host: jsearch.p.rapidapi.com`);
+      
+      // Don't print the actual API key, but log if it exists
+      console.log(`RapidAPI key configured: ${this.apiKey ? 'YES' : 'NO'}`);
+      
       const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
+        method: 'GET',
         headers: {
-          'X-RapidAPI-Key': this.apiKey!,
+          'X-RapidAPI-Key': this.apiKey || '',
           'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`RapidAPI error response: ${errorText}`);
         throw new Error(`RapidAPI request failed with status ${response.status}`);
       }
 
@@ -189,14 +198,18 @@ export class RapidApiProvider implements JobProvider {
       const apiUrl = 'https://jsearch.p.rapidapi.com/job-details';
       
       const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
+        method: 'GET',
         headers: {
-          'X-RapidAPI-Key': this.apiKey!,
+          'X-RapidAPI-Key': this.apiKey || '',
           'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`RapidAPI job details error response: ${errorText}`);
         throw new Error(`RapidAPI request failed with status ${response.status}`);
       }
 
