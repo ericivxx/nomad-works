@@ -9,6 +9,7 @@ import JobDetail from "@/pages/JobDetail";
 import CategoryPage from "@/pages/CategoryPage";
 import CategoriesListPage from "@/pages/CategoriesListPage";
 import LocationPage from "@/pages/LocationPage";
+import LocationsListPage from "@/pages/LocationsListPage";
 import SearchResults from "@/pages/SearchResults";
 import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/jobs/:slug" component={JobDetail} />
         <Route path="/categories" component={CategoriesListPage} />
         <Route path="/categories/:slug" component={CategoryPage} />
+        <Route path="/locations" component={LocationsListPage} />
         <Route path="/locations/:slug" component={LocationPage} />
         <Route path="/search" component={SearchResults} />
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
