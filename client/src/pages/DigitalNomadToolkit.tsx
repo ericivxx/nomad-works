@@ -592,103 +592,137 @@ export default function DigitalNomadToolkit() {
                     </CardContent>
                   </Card>
 
-                  {/* FlexJobs */}
+                  {/* Resume.io */}
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" className="h-10 w-auto">
-                          <rect x="5" y="5" width="190" height="50" rx="6" fill="#f0f9ff" />
-                          <path d="M25 15h150v30H25z" fill="#f0f9ff" />
-                          <path d="M30 20h25v5H30zM30 30h25v5H30zM30 40h25v5H30z" fill="#3b82f6" />
-                          <path d="M60 20h90v5H60zM60 30h90v5H60zM60 40h60v5H60z" fill="#93c5fd" />
-                          <circle cx="170" cy="30" r="15" fill="#3b82f6" />
-                          <path d="M162 30h16M170 22v16" stroke="#fff" strokeWidth="2" />
-                        </svg>
+                        <div className="font-bold text-lg">
+                          <span className="text-blue-500">Resume</span><span className="text-gray-800">.io</span>
+                        </div>
                       </div>
-                      <CardTitle>Resume Builder Pro</CardTitle>
-                      <CardDescription>Professional resume builder with career services</CardDescription>
+                      <CardTitle>Resume.io</CardTitle>
+                      <CardDescription>Professional resume builder with ATS-friendly templates</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="bg-blue-50 p-3 rounded-md">
-                        <p className="text-sm font-medium text-blue-800">Best for Resume Feedback & Job Search</p>
+                        <p className="text-sm font-medium text-blue-800">Best for Quick & Polished Resumes</p>
                       </div>
                       <div>
                         <ul className="space-y-2 text-sm text-gray-600">
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Professional resume review service</span>
+                            <span>Professional, HR-approved templates</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Career coaching sessions</span>
+                            <span>Simple, intuitive editor with live preview</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Skills tests to verify abilities</span>
+                            <span>Built-in content suggestions & examples</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Curated database of remote jobs</span>
+                            <span>Matching cover letter templates</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Negotiation & salary guides</span>
+                            <span>Download in PDF, DOCX, TXT formats</span>
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('/jobs', '_blank')}>
-                        Browse Remote Jobs
+                      <Button className="w-full" onClick={() => window.open('https://resume.io/', '_blank')}>
+                        Create Your Resume
                       </Button>
                     </CardContent>
                   </Card>
 
-                  {/* Novoresume */}
+                  {/* Zety */}
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" className="h-10 w-auto">
-                          <rect x="5" y="5" width="190" height="50" rx="6" fill="#f0fffa" />
-                          <path d="M25 15h150v30H25z" fill="#f0fffa" />
-                          <path d="M80 20l20 5-20 5z" fill="#0d9488" />
-                          <path d="M30 20h40v5H30zM30 30h80v5H30zM30 40h65v5H30z" fill="#14b8a6" />
-                          <path d="M115 20h55v5h-55zM115 30h55v5h-55z" fill="#5eead4" />
-                          <circle cx="170" cy="42" r="8" fill="#0d9488" />
-                          <path d="M165 42h10" stroke="#fff" strokeWidth="2" />
-                        </svg>
+                        <div className="font-bold text-lg">
+                          <span className="text-purple-600">Zety</span>
+                        </div>
                       </div>
-                      <CardTitle>CV Builder Plus</CardTitle>
-                      <CardDescription>ATS-friendly resume builder for remote jobs</CardDescription>
+                      <CardTitle>Zety</CardTitle>
+                      <CardDescription>All-in-one resume and career advancement platform</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="bg-indigo-50 p-3 rounded-md">
-                        <p className="text-sm font-medium text-indigo-800">Best for Modern Resume Templates</p>
+                      <div className="bg-purple-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-purple-800">Best for Complete Career Toolkit</p>
                       </div>
                       <div>
                         <ul className="space-y-2 text-sm text-gray-600">
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>ATS-optimized resume templates</span>
+                            <span>AI-powered resume builder & scoring</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Content optimizer with suggestions</span>
+                            <span>Content optimizer with ATS keywords</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Matching cover letter designs</span>
+                            <span>Cover letter builder & templates</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Multiple format exports (PDF, DOCX)</span>
+                            <span>Job application tracking tools</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Free basic version available</span>
+                            <span>Career advice & interview prep</span>
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('/jobs', '_blank')}>
-                        Find Remote Jobs
+                      <Button className="w-full" onClick={() => window.open('https://zety.com/', '_blank')}>
+                        Try Zety Builder
+                      </Button>
+                    </CardContent>
+                  </Card>
+                  
+                  {/* ResumeGenius */}
+                  <Card className="h-full">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="font-bold text-lg">
+                          <span className="text-green-600">Resume</span><span className="text-gray-800">Genius</span>
+                        </div>
+                      </div>
+                      <CardTitle>ResumeGenius</CardTitle>
+                      <CardDescription>Easy-to-use builder with industry-specific templates</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-green-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-green-800">Best for Industry-Specific Templates</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Templates optimized for specific industries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Step-by-step resume building wizard</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Industry-specific content suggestions</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Cover letter & thank you note templates</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Full editing capabilities for all sections</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full" onClick={() => window.open('https://resumegenius.com/', '_blank')}>
+                        Build Your Resume
                       </Button>
                     </CardContent>
                   </Card>
