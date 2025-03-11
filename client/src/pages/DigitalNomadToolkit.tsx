@@ -596,7 +596,14 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="text-blue-600 font-semibold text-2xl">Resume Builder Pro</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" className="h-10 w-auto">
+                          <rect x="5" y="5" width="190" height="50" rx="6" fill="#f0f9ff" />
+                          <path d="M25 15h150v30H25z" fill="#f0f9ff" />
+                          <path d="M30 20h25v5H30zM30 30h25v5H30zM30 40h25v5H30z" fill="#3b82f6" />
+                          <path d="M60 20h90v5H60zM60 30h90v5H60zM60 40h60v5H60z" fill="#93c5fd" />
+                          <circle cx="170" cy="30" r="15" fill="#3b82f6" />
+                          <path d="M162 30h16M170 22v16" stroke="#fff" strokeWidth="2" />
+                        </svg>
                       </div>
                       <CardTitle>Resume Builder Pro</CardTitle>
                       <CardDescription>Professional resume builder with career services</CardDescription>
@@ -639,7 +646,15 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="text-teal-500 font-semibold text-2xl">CV Builder Plus</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" className="h-10 w-auto">
+                          <rect x="5" y="5" width="190" height="50" rx="6" fill="#f0fffa" />
+                          <path d="M25 15h150v30H25z" fill="#f0fffa" />
+                          <path d="M80 20l20 5-20 5z" fill="#0d9488" />
+                          <path d="M30 20h40v5H30zM30 30h80v5H30zM30 40h65v5H30z" fill="#14b8a6" />
+                          <path d="M115 20h55v5h-55zM115 30h55v5h-55z" fill="#5eead4" />
+                          <circle cx="170" cy="42" r="8" fill="#0d9488" />
+                          <path d="M165 42h10" stroke="#fff" strokeWidth="2" />
+                        </svg>
                       </div>
                       <CardTitle>CV Builder Plus</CardTitle>
                       <CardDescription>ATS-friendly resume builder for remote jobs</CardDescription>
