@@ -21,13 +21,14 @@ interface RapidApiJob {
 }
 
 interface RapidApiResponse {
-  data: RapidApiJob[];
-  total: number;
+  results: RapidApiJob[];
+  count: number;
 }
 
 export class RapidApiProvider implements JobProvider {
   name = 'rapidapi';
-  private apiUrl = 'https://jsearch.p.rapidapi.com/search';
+  private apiUrl = 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
+  private apiHost = 'job-posting-feed-api.p.rapidapi.com';
   private apiKey = process.env.RAPIDAPI_KEY;
 
   async isAvailable(): Promise<boolean> {
@@ -38,22 +39,41 @@ export class RapidApiProvider implements JobProvider {
     try {
       // Build query parameters
       const queryParams = new URLSearchParams();
-      if (params.query) queryParams.append('query', params.query);
-      if (params.location) queryParams.append('location', params.location);
+      
+      // Set basic parameters
+      queryParams.append('title_search', 'false');
+      queryParams.append('description_type', 'html');
+      
+      // Add specific search parameters
+      if (params.query) queryParams.append('q', params.query);
       if (params.page) queryParams.append('page', params.page.toString());
-      queryParams.append('num_pages', '1'); // Get one page at a time
-      queryParams.append('remote_jobs_only', 'true'); // Only remote jobs
+      
+      // Only remote jobs
+      queryParams.append('remote', 'true');
+      
+      // Add category filter if specified
+      if (params.category) {
+        const category = this.mapCategoryToRapidApi(params.category);
+        if (category) queryParams.append('category', category);
+      }
+      
+      // Add location filter if specified
+      if (params.location && params.location !== 'worldwide') {
+        queryParams.append('location', params.location);
+      }
 
       // Add employment type if specified
       if (params.type) {
         const type = this.mapJobTypeToRapidApi(params.type);
-        if (type) queryParams.append('employment_types', type);
+        if (type) queryParams.append('type', type);
       }
 
+      // Make the API request
+      console.log(`Fetching jobs from RapidAPI: ${this.apiUrl}?${queryParams.toString()}`);
       const response = await fetch(`${this.apiUrl}?${queryParams.toString()}`, {
         headers: {
           'X-RapidAPI-Key': this.apiKey!,
-          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+          'X-RapidAPI-Host': this.apiHost
         }
       });
 
@@ -62,14 +82,15 @@ export class RapidApiProvider implements JobProvider {
       }
 
       const data = await response.json() as RapidApiResponse;
+      console.log(`Retrieved ${data.results?.length || 0} jobs from RapidAPI`);
 
       // Transform jobs to our format
-      const jobs = await Promise.all(data.data.map(job => this.transformJob(job)));
+      const jobs = await Promise.all((data.results || []).map(job => this.transformJob(job)));
 
       return {
         jobs,
-        totalCount: data.total,
-        pageCount: Math.ceil(data.total / 10), // Assuming 10 jobs per page
+        totalCount: data.count || 0,
+        pageCount: Math.ceil((data.count || 0) / 10), // Assuming 10 jobs per page
         currentPage: params.page || 1,
       };
     } catch (error) {
@@ -86,10 +107,10 @@ export class RapidApiProvider implements JobProvider {
 
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      const response = await fetch(`${this.apiUrl}?job_id=${id}`, {
+      const response = await fetch(`${this.apiUrl}?id=${id}`, {
         headers: {
           'X-RapidAPI-Key': this.apiKey!,
-          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+          'X-RapidAPI-Host': this.apiHost
         }
       });
 
@@ -98,9 +119,9 @@ export class RapidApiProvider implements JobProvider {
       }
 
       const data = await response.json() as RapidApiResponse;
-      if (!data.data.length) return null;
+      if (!data.results || data.results.length === 0) return null;
 
-      return this.transformJob(data.data[0]);
+      return this.transformJob(data.results[0]);
     } catch (error) {
       console.error('Error fetching job details from RapidAPI:', error);
       return null;
@@ -129,14 +150,13 @@ export class RapidApiProvider implements JobProvider {
     const salaryMin = job.job_min_salary || null;
     const salaryMax = job.job_max_salary || null;
 
-    // Transform the job
-    return {
-      id: parseInt(job.job_id, 10),
+    // Create a new job record
+    const newJob = await storage.createJob({
       title: job.job_title,
       description: job.job_description,
-      company,
-      category,
-      location,
+      companyId: company.id,
+      categoryId: category.id,
+      locationId: location.id,
       type: this.getJobType(job.job_employment_type),
       slug: this.slugify(job.job_title),
       salaryMin,
@@ -144,7 +164,15 @@ export class RapidApiProvider implements JobProvider {
       featured: false,
       postedAt: job.job_posted_at_timestamp ? new Date(job.job_posted_at_timestamp * 1000) : new Date(),
       timezone: null,
-      experienceLevel: this.extractExperienceLevel(job.job_title, job.job_description),
+      experienceLevel: this.extractExperienceLevel(job.job_title, job.job_description)
+    }, (await this.extractSkills(job.job_description)).map(skill => skill.id));
+
+    // Combine with relationships and source-specific fields
+    return {
+      ...newJob,
+      company,
+      category,
+      location,
       skills: await this.extractSkills(job.job_description),
       source: 'rapidapi',
       externalId: job.job_id,
@@ -255,13 +283,31 @@ export class RapidApiProvider implements JobProvider {
       .replace(/ +/g, '-');
   }
 
+  private mapCategoryToRapidApi(category: string): string | null {
+    const mapping: Record<string, string> = {
+      'development': 'engineering',
+      'design': 'design',
+      'marketing': 'marketing',
+      'customer-support': 'customer-service',
+      'sales': 'sales',
+      'finance': 'finance',
+      'human-resources': 'hr',
+      'product': 'product',
+      'management': 'management',
+      'writing': 'writing',
+      'data': 'data'
+    };
+
+    return mapping[category] || null;
+  }
+  
   private mapJobTypeToRapidApi(type: string): string | null {
     const mapping: Record<string, string> = {
-      'full-time': 'FULLTIME',
-      'part-time': 'PARTTIME',
-      'contract': 'CONTRACTOR',
-      'freelance': 'FREELANCE',
-      'internship': 'INTERN'
+      'full-time': 'fulltime',
+      'part-time': 'parttime',
+      'contract': 'contract',
+      'freelance': 'freelance',
+      'internship': 'internship'
     };
 
     return mapping[type] || null;
