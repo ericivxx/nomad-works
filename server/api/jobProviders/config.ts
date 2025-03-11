@@ -3,7 +3,7 @@ import { JobProviderConfig } from './types';
 export interface JobProvidersConfig {
   remoteok: JobProviderConfig;
   adzuna: JobProviderConfig;
-  // Add more providers here as we implement them
+  rapidapi: JobProviderConfig;
 }
 
 const config: JobProvidersConfig = {
@@ -19,6 +19,11 @@ const config: JobProvidersConfig = {
       appId: process.env.ADZUNA_APP_ID,
       country: 'gb' // Default to UK, but we can make this configurable
     }
+  },
+  rapidapi: {
+    enabled: true,
+    apiKey: process.env.RAPIDAPI_KEY,
+    apiUrl: 'https://jsearch.p.rapidapi.com/search'
   }
 };
 

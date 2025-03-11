@@ -1,6 +1,7 @@
 import { JobProvider, JobSearchParams, JobProviderResponse, JobWithRelations } from './types';
 import { remoteOkProvider } from './remoteOkProvider';
 import { adzunaProvider } from './adzunaProvider';
+import { rapidApiProvider } from './rapidApiProvider';
 import config from './config';
 
 class JobProviderManager {
@@ -13,6 +14,9 @@ class JobProviderManager {
     }
     if (config.adzuna.enabled) {
       this.registerProvider(adzunaProvider);
+    }
+    if (config.rapidapi.enabled) {
+      this.registerProvider(rapidApiProvider);
     }
   }
 
