@@ -13,20 +13,29 @@ export default function SearchResults() {
   
   // Update endpoint when search parameters change
   useEffect(() => {
+    // Debug the URL search parameters
+    console.log("URL search string:", search);
+    console.log("SearchParams keys:", Array.from(searchParams.keys()));
+    console.log("q parameter:", searchParams.get('q'));
+    
     // Make sure to use the proper search API endpoint
     if (searchParams.has('q')) {
       // If we're searching, use the dedicated search endpoint
       const searchTerm = searchParams.get('q') || '';
       const locationTerm = searchParams.get('location') || '';
       
+      console.log("Creating search endpoint with term:", searchTerm);
+      
       let apiUrl = `/api/search?q=${encodeURIComponent(searchTerm)}`;
       if (locationTerm) {
         apiUrl += `&location=${encodeURIComponent(locationTerm)}`;
       }
       
+      console.log("Final API URL:", apiUrl);
       setEndpoint(apiUrl);
     } else {
       // Otherwise use the regular jobs endpoint with any other filter params
+      console.log("No q parameter, using jobs endpoint");
       setEndpoint(`/api/jobs${search}`);
     }
   }, [search, searchParams]);

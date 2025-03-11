@@ -18,13 +18,19 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
     
     if (keyword) {
       params.append("q", keyword);
+      console.log("Search keyword:", keyword);
+    } else {
+      console.log("No keyword entered");
     }
     
     if (location) {
       params.append("location", location);
+      console.log("Search location:", location);
     }
     
-    navigate(`/search?${params.toString()}`);
+    const queryString = params.toString();
+    console.log("Search query string:", queryString);
+    navigate(`/search?${queryString}`);
   };
 
   if (variant === "compact") {
