@@ -258,12 +258,12 @@ export default function CategoryPage() {
         {/* Two Column Layout */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
-          <div className="lg:w-1/4">
+          <div className="w-full lg:w-1/4">
             <FilterSidebar />
           </div>
           
           {/* Main Content Column */}
-          <div className="lg:w-3/4">
+          <div className="w-full lg:w-3/4">
             <div>
               {/* Job Listings Header */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
