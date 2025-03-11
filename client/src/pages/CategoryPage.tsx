@@ -107,9 +107,7 @@ export default function CategoryPage() {
       <main className="container mx-auto px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filter Sidebar */}
-          <div className="lg:w-1/4">
-            <FilterSidebar />
-          </div>
+          <FilterSidebar />
           
           {/* Main Column */}
           <div className="lg:w-3/4">
