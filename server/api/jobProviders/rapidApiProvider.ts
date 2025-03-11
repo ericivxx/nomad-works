@@ -100,37 +100,45 @@ export class RapidApiProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Using the Active Jobs DB API format from RapidAPI
+      // Using the JSearch API format from RapidAPI
       const queryParams = new URLSearchParams();
       
-      // Create search filters based on parameters
-      let titleFilter = "";
-      let locationFilter = "";
-      
+      // Create search query based on parameters
+      let query = 'remote';
       if (params.query) {
-        // Format query as required by the Active Jobs DB API
-        titleFilter = `%22${encodeURIComponent(params.query)}%22`;
+        // Clean the query to remove any special characters
+        const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
+        query = `${cleanQuery} remote`;
       }
+      
+      // Add basic parameters for search using JSearch API format
+      queryParams.append('query', query);
+      queryParams.append('page', (params.page || 1).toString());
+      queryParams.append('num_pages', '1');
       
       if (params.location) {
-        // Format location as required by the Active Jobs DB API
-        locationFilter = `%22${encodeURIComponent(params.location)}%22`;
+        queryParams.append('location', params.location);
       }
       
-      // Add parameters in the format needed by Active Jobs DB API
-      if (titleFilter) {
-        queryParams.append('title_filter', titleFilter);
+      if (params.type) {
+        const mappedType = this.mapJobTypeToRapidApi(params.type);
+        if (mappedType) {
+          queryParams.append('employment_types', mappedType);
+        }
       }
       
-      if (locationFilter) {
-        queryParams.append('location_filter', locationFilter);
+      if (params.category) {
+        const mappedCategory = this.mapCategoryToRapidApi(params.category);
+        if (mappedCategory) {
+          queryParams.append('job_categories', mappedCategory);
+        }
       }
       
-      // Set the API URL to the Active Jobs DB API
+      // Set the API URL to the JSearch API
       const apiUrl = this.apiUrl;
       
       // Make the request with the updated parameters and headers
-      console.log(`Fetching jobs from Active Jobs DB API: ${apiUrl}?${queryParams.toString()}`);
+      console.log(`Fetching jobs from JSearch API: ${apiUrl}?${queryParams.toString()}`);
       console.log(`Using RapidAPI host: ${this.apiHost}`);
       
       // Don't print the actual API key, but log if it exists
@@ -161,8 +169,39 @@ export class RapidApiProvider implements JobProvider {
       let jobs: JobWithRelations[] = [];
       let totalCount = 0;
       
-      // Handle Job Posting Feed API format (new API)
-      if (responseData.hits) {
+      // Handle Active Jobs DB API format (new API)
+      if (Array.isArray(responseData)) {
+        console.log(`Retrieved ${responseData.length || 0} jobs from Active Jobs DB API`);
+        
+        const mappedJobs = responseData.map((item: any) => {
+          const job_id = item.id || `active-${Math.random().toString(36).substring(2, 15)}`;
+          const employer_name = item.company_name || 'Unknown Company';
+          const location = item.location || 'Remote';
+            
+          return {
+            job_id,
+            employer_name,
+            employer_logo: item.company_logo || null,
+            employer_website: item.company_url || null,
+            job_title: item.title || 'Remote Position',
+            job_description: item.description || item.title || 'No description provided',
+            job_city: null,
+            job_country: location,
+            job_employment_type: item.job_type || 'FULLTIME',
+            job_apply_link: item.apply_url || '#',
+            job_posted_at_timestamp: item.date_posted ? new Date(item.date_posted).getTime() / 1000 : Date.now() / 1000,
+            job_min_salary: null,
+            job_max_salary: null,
+            job_is_remote: item.is_remote || true
+          };
+        });
+        
+        console.log(`Mapped ${mappedJobs.length} jobs from Active Jobs DB API`);
+        jobs = await Promise.all(mappedJobs.map(job => this.transformJob(job)));
+        totalCount = responseData.length || 0;
+      }
+      // Handle Job Posting Feed API format (fallback)
+      else if (responseData.hits) {
         console.log(`Retrieved ${responseData.hits.length || 0} jobs from Job Posting Feed API`);
         
         const mappedJobs = (responseData.hits || []).map((item: any) => {
@@ -195,11 +234,10 @@ export class RapidApiProvider implements JobProvider {
           };
         });
         
-        console.log(`Mapped ${mappedJobs.length} jobs from Job Posting Feed API`);
         jobs = await Promise.all(mappedJobs.map(job => this.transformJob(job)));
         totalCount = responseData.estimatedTotalHits || responseData.hits.length;
       }
-      // Handle JSearch API format (previous API)
+      // Handle JSearch API format (fallback)
       else if (responseData.data) {
         console.log(`Retrieved ${responseData.data.length || 0} jobs from JSearch API`);
         
@@ -251,19 +289,20 @@ export class RapidApiProvider implements JobProvider {
 
   async getJobDetails(id: string): Promise<JobWithRelations | null> {
     try {
-      // Using the Active Jobs DB API format for job details
+      // Using the JSearch API format for job details
       const jobId = id.replace('rapidapi:', '');
       const queryParams = new URLSearchParams();
-      queryParams.append('id', jobId);
       
-      // Use the job details endpoint from Active Jobs DB API
-      const apiUrl = `${this.apiUrl.replace('active-ats-in', 'job-by-id')}`;
+      // JSearch uses a different endpoint for job details
+      // Set the API URL to the JSearch job details API
+      const apiUrl = 'https://jsearch.p.rapidapi.com/job-details';
+      queryParams.append('job_id', jobId);
       
       const response = await fetch(`${apiUrl}?${queryParams.toString()}`, {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': this.apiKey || '',
-          'X-RapidAPI-Host': this.apiHost,
+          'X-RapidAPI-Host': 'jsearch.p.rapidapi.com',
           'Content-Type': 'application/json',
           'User-Agent': 'NomadWorks/1.0 (development@nomadworks.com)'
         }

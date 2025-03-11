@@ -23,9 +23,9 @@ const config: JobProvidersConfig = {
   rapidapi: {
     enabled: true,
     apiKey: process.env.RAPIDAPI_KEY,
-    apiUrl: 'https://active-jobs-db.p.rapidapi.com/active-ats-in',
+    apiUrl: 'https://jsearch.p.rapidapi.com/search',
     options: {
-      host: 'active-jobs-db.p.rapidapi.com'
+      host: 'jsearch.p.rapidapi.com'
     }
   }
 };
