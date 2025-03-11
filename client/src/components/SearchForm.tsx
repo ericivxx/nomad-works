@@ -17,7 +17,7 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
     const params = new URLSearchParams();
     
     if (keyword) {
-      params.append("search", keyword);
+      params.append("q", keyword);
     }
     
     if (location) {

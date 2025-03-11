@@ -14,9 +14,9 @@ export default function SearchResults() {
   // Update endpoint when search parameters change
   useEffect(() => {
     // Make sure to use the proper search API endpoint
-    if (searchParams.has('search')) {
+    if (searchParams.has('q')) {
       // If we're searching, use the dedicated search endpoint
-      const searchTerm = searchParams.get('search') || '';
+      const searchTerm = searchParams.get('q') || '';
       const locationTerm = searchParams.get('location') || '';
       
       let apiUrl = `/api/search?q=${encodeURIComponent(searchTerm)}`;
@@ -32,7 +32,7 @@ export default function SearchResults() {
   }, [search, searchParams]);
   
   // Get search terms for title
-  const searchTerm = searchParams.get('search') || '';
+  const searchTerm = searchParams.get('q') || '';
   const locationSlug = searchParams.get('location') || '';
   
   let title = "Remote Jobs for Digital Nomads";
