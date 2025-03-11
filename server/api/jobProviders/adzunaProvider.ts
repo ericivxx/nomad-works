@@ -214,7 +214,7 @@ export class AdzunaProvider implements JobProvider {
       // Development skills
       'javascript', 'python', 'java', 'react', 'angular', 'vue', 'node', 'aws',
       'docker', 'kubernetes', 'sql', 'nosql', 'mongodb', 'typescript', 'git',
-      'css', 'html', 'php', 'ruby', 'c++', 'c#', '.net', 'scala', 'golang',
+      'css', 'html', 'php', 'ruby', 'cplusplus', 'csharp', 'dotnet', 'scala', 'golang',
       'agile', 'scrum', 'jira',
       
       // Design skills

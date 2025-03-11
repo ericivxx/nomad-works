@@ -24,6 +24,7 @@ interface RapidApiJob {
 interface RapidApiResponse {
   results: RapidApiJob[];
   count: number;
+  data?: never; // This helps TypeScript discriminate between RapidApiResponse and JSearchResponse
 }
 
 // JSearch API specific response format 
@@ -32,6 +33,7 @@ interface JSearchResponse {
   request_id: string;
   parameters?: Record<string, any>;
   data: Array<{
+    results?: never; // This helps TypeScript discriminate between RapidApiResponse and JSearchResponse
     employer_name: string;
     employer_logo?: string;
     employer_website?: string;
