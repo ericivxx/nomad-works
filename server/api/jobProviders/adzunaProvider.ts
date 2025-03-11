@@ -48,44 +48,32 @@ export class AdzunaProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Simplify request to increase success rate
-      // Adzuna is known to be picky about parameter combinations
-      
-      // Create a minimal URL with required parameters
-      const queryString = new URLSearchParams();
-      queryString.append('app_id', this.appId || '');
-      queryString.append('app_key', this.apiKey || '');
-      
-      // Safely add pagination
+      // Adzuna API requires specific request format
+      const baseUrl = `${this.apiUrl}/${this.country}/search/1`;
       const page = params.page || 1;
       const limit = params.limit || 10;
-      queryString.append('results_per_page', limit.toString());
-      queryString.append('page', page.toString());
+
+      // Create the query parameters
+      const query = new URLSearchParams();
+      query.append('app_id', this.appId || '');
+      query.append('app_key', this.apiKey || '');
+      query.append('results_per_page', limit.toString());
+      query.append('page', page.toString());
       
-      // Adzuna API requires very specific parameters
-      // Minimize parameters for higher success rate
-      // Using 'what' for main job title/keyword search
+      // Add search term - use a common job keyword if none provided
       if (params.query) {
-        // Clean the query to avoid special characters
         const cleanQuery = params.query.replace(/[^\w\s]/gi, '');
-        queryString.append('what', cleanQuery);
+        query.append('what', cleanQuery);
       } else {
-        // Don't use 'remote' directly as it might not work well with their API
-        queryString.append('what', 'developer'); // Use a common job title as default
+        query.append('what', 'developer');
       }
       
-      // We've found that adding too many parameters causes failures
-      // So we're keeping it minimal
+      // Build the complete URL
+      const requestUrl = `${baseUrl}?${query.toString()}`;
+      console.log(`Making Adzuna API request: ${requestUrl}`);
       
-      // Create the full URL
-      const apiUrl = `${this.apiUrl}/${this.country}/search/1?${queryString.toString()}`;
-      console.log(`Making Adzuna API request: ${apiUrl}`);
-      
-      // Request with minimal headers
-      const response = await fetch(apiUrl, {
-        headers: {
-          'Accept': 'application/json'
-        }
+      const response = await fetch(requestUrl, {
+        headers: { 'Accept': 'application/json' }
       });
 
       if (!response.ok) {
@@ -95,7 +83,7 @@ export class AdzunaProvider implements JobProvider {
 
       const data = await response.json() as AdzunaResponse;
       
-      // Transform jobs to our format
+      // Transform the job results
       const jobs = data.results.map(job => this.transformJob(job));
 
       return {

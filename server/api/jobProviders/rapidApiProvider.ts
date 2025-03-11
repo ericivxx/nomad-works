@@ -26,12 +26,47 @@ interface RapidApiResponse {
   count: number;
 }
 
-// Mixed response format that covers both API types
+// JSearch API specific response format 
 interface JSearchResponse {
-  data?: any[];
-  results?: RapidApiJob[];
-  count?: number;
-  status?: string;
+  status: string;
+  request_id: string;
+  parameters?: Record<string, any>;
+  data: Array<{
+    employer_name: string;
+    employer_logo?: string;
+    employer_website?: string;
+    employer_company_type?: string;
+    job_publisher?: string;
+    job_id: string;
+    job_employment_type?: string;
+    job_title: string;
+    job_apply_link: string;
+    job_description: string;
+    job_is_remote?: boolean;
+    job_posted_at_timestamp?: number;
+    job_posted_at_datetime_utc?: string;
+    job_city?: string;
+    job_state?: string;
+    job_country?: string;
+    job_latitude?: number;
+    job_longitude?: number;
+    job_benefits?: string[];
+    job_google_link?: string;
+    job_offer_expiration_datetime_utc?: string;
+    job_required_experience?: any;
+    job_required_skills?: string[];
+    job_required_education?: any;
+    job_experience_in_place_of_education?: boolean;
+    job_min_salary?: number;
+    job_max_salary?: number;
+    job_salary_currency?: string;
+    job_salary_period?: string;
+    job_highlights?: {
+      Qualifications?: string[];
+      Responsibilities?: string[];
+      Benefits?: string[];
+    };
+  }>;
 }
 
 export class RapidApiProvider implements JobProvider {
