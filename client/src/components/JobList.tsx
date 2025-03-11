@@ -21,12 +21,19 @@ export default function JobList({ endpoint, title, subtitle, showSorting = true 
   
   // Add page param to endpoint if it doesn't have one
   const getEndpointWithParams = () => {
-    const baseEndpoint = endpoint.includes('?') ? endpoint : `${endpoint}?`;
-    const pageParam = `page=${page}`;
-    const limitParam = `limit=${limit}`;
-    const separator = baseEndpoint.endsWith('?') ? '' : '&';
+    // Split endpoint into base URL and query parameters
+    const [baseUrl, queryString] = endpoint.split('?');
     
-    return `${baseEndpoint}${separator}${pageParam}&${limitParam}`;
+    // Create a URLSearchParams object to handle existing parameters
+    const searchParams = new URLSearchParams(queryString || '');
+    
+    // Add or update pagination and sorting parameters
+    searchParams.set('page', page.toString());
+    searchParams.set('limit', limit.toString());
+    searchParams.set('sort', sortBy);
+    
+    // Build the final URL
+    return `${baseUrl}?${searchParams.toString()}`;
   };
   
   // Create properly formatted query key
@@ -34,7 +41,7 @@ export default function JobList({ endpoint, title, subtitle, showSorting = true 
     // Extract base endpoint without query params
     const baseEndpoint = endpoint.split('?')[0];
     
-    // If original endpoint has params, parse them into an object
+    // Parse all parameters from the endpoint
     const params: Record<string, string> = {};
     if (endpoint.includes('?')) {
       const queryString = endpoint.split('?')[1];
@@ -48,13 +55,34 @@ export default function JobList({ endpoint, title, subtitle, showSorting = true 
     params.limit = limit.toString();
     params.sort = sortBy;
     
+    console.log("Query key parameters:", params);
+    
     // Return as array for proper cache invalidation
     return [baseEndpoint, params];
   };
   
+  // Get the fully formed API endpoint URL with all parameters
+  const completeEndpoint = getEndpointWithParams();
+  console.log("Complete API endpoint:", completeEndpoint);
+  
   const { data, isLoading, error } = useQuery({
     queryKey: createQueryKey(),
+    queryFn: () => fetch(completeEndpoint).then(res => {
+      if (!res.ok) {
+        throw new Error(`API error: ${res.status} ${res.statusText}`);
+      }
+      return res.json();
+    }),
   });
+  
+  // Recreate the endpoint when page or sort changes
+  useEffect(() => {
+    // This triggers React Query to refetch when parameters change
+    // No need to call anything here as the queryKey will change
+    // which will auto-trigger a refetch with the new page/sort
+    console.log("Page changed to:", page);
+    console.log("Sort changed to:", sortBy);
+  }, [page, sortBy]);
   
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
