@@ -48,43 +48,22 @@ export class AdzunaProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Build query parameters - simplify to increase chance of success
-      const queryParams = new URLSearchParams({
-        app_id: this.appId!,
-        app_key: this.apiKey!,
-        results_per_page: (params.limit || 10).toString(),
-        page: (params.page || 1).toString(),
-      });
+      // Build query parameters with minimal parameters to avoid API errors
+      const queryParams = new URLSearchParams();
+      queryParams.append('app_id', this.appId!);
+      queryParams.append('app_key', this.apiKey!);
+      queryParams.append('results_per_page', (params.limit || 10).toString());
+      queryParams.append('page', (params.page || 1).toString());
       
-      // Simplify search query for better API compatibility
+      // Add only essential query parameter - Adzuna is sensitive to parameter combinations
       if (params.query) {
-        queryParams.append('what', params.query);
+        queryParams.append('what', params.query + ' remote');
       } else {
-        queryParams.append('what', 'remote');
+        queryParams.append('what', 'remote work');
       }
       
-      // Do not append too many parameters that could cause conflicts
-
-      // Add category filter only if query is not provided
-      if (!params.query && params.category) {
-        const category = this.mapCategoryToAdzuna(params.category);
-        if (category) {
-          queryParams.append('category', category);
-        }
-      }
-
-      // Add location filter
-      if (params.location && params.location !== 'worldwide') {
-        queryParams.append('where', params.location);
-      }
-
-      // Add contract type filter
-      if (params.type) {
-        const contractType = this.mapJobTypeToAdzuna(params.type);
-        if (contractType) {
-          queryParams.append('contract_type', contractType);
-        }
-      }
+      // Keep the API request simple for higher success rate
+      // We'll filter additional criteria on our side after getting results
 
       // Use properly encoded URL
       const apiUrl = `${this.apiUrl}/${this.country}/search/1?${queryParams.toString()}`;

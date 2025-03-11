@@ -44,36 +44,28 @@ export class RapidApiProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Build query parameters
+      // Build query parameters - simplified for higher success rate
       const queryParams = new URLSearchParams();
       
-      // Set basic parameters
-      queryParams.append('title_search', 'false');
+      // Set minimal parameters
       queryParams.append('description_type', 'html');
-      
-      // Add specific search parameters
-      if (params.query) queryParams.append('q', params.query);
-      if (params.page) queryParams.append('page', params.page.toString());
-      
-      // Only remote jobs
       queryParams.append('remote', 'true');
       
-      // Add category filter if specified
-      if (params.category) {
-        const category = this.mapCategoryToRapidApi(params.category);
-        if (category) queryParams.append('category', category);
+      // Use minimal query parameters - RapidAPI can be sensitive
+      if (params.query) {
+        queryParams.append('q', params.query + ' remote');
+      } else {
+        // If no query is provided, search for remote jobs
+        queryParams.append('q', 'remote work');
       }
       
-      // Add location filter if specified
-      if (params.location && params.location !== 'worldwide') {
-        queryParams.append('location', params.location);
+      // Include page parameter for pagination
+      if (params.page) {
+        queryParams.append('page', params.page.toString());
       }
-
-      // Add employment type if specified
-      if (params.type) {
-        const type = this.mapJobTypeToRapidApi(params.type);
-        if (type) queryParams.append('type', type);
-      }
+      
+      // Specify results per page
+      queryParams.append('limit', (params.limit || 10).toString());
 
       // Make the API request
       console.log(`Fetching jobs from RapidAPI: ${this.apiUrl}?${queryParams.toString()}`);

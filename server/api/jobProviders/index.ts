@@ -26,6 +26,8 @@ class JobProviderManager {
 
   async fetchAllJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
+      console.log(`Fetching jobs with params:`, JSON.stringify(params));
+      
       // Check which providers are available
       const availableProviders = await Promise.all(
         this.providers.map(async provider => ({
@@ -33,13 +35,24 @@ class JobProviderManager {
           available: await provider.isAvailable()
         }))
       );
-
-      // Fetch jobs from all available providers
-      const providerResponses = await Promise.all(
-        availableProviders
-          .filter(({ available }) => available)
-          .map(({ provider }) => provider.fetchJobs(params))
-      );
+      
+      console.log(`Available providers: ${availableProviders.filter(p => p.available).map(p => p.provider.name).join(', ')}`);
+      
+      // Fetch jobs from all available providers with proper error handling for each provider
+      const providerResponses: JobProviderResponse[] = [];
+      
+      for (const { provider, available } of availableProviders) {
+        if (available) {
+          try {
+            const response = await provider.fetchJobs(params);
+            providerResponses.push(response);
+            console.log(`Provider ${provider.name} returned ${response.jobs.length} jobs`);
+          } catch (err) {
+            console.error(`Error with provider ${provider.name}:`, err);
+            // Don't add to providerResponses if there was an error
+          }
+        }
+      }
 
       // Merge results
       const response: JobProviderResponse = {
