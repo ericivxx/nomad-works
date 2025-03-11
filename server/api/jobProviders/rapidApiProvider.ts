@@ -135,7 +135,9 @@ export class RapidApiProvider implements JobProvider {
       }
 
       // Parse the JSON data - format differs between APIs
-      const responseData = await response.json() as JSearchResponse | RapidApiResponse;
+      const responseText = await response.text();
+      console.log(`RapidAPI raw response: ${responseText}`);
+      const responseData = JSON.parse(responseText) as JSearchResponse | RapidApiResponse;
       
       // Check the response format and adapt accordingly
       // JSearch API uses a different format than what we initially expected
@@ -217,7 +219,9 @@ export class RapidApiProvider implements JobProvider {
         throw new Error(`RapidAPI request failed with status ${response.status}`);
       }
 
-      const responseData = await response.json() as JSearchResponse;
+      const responseText = await response.text();
+      console.log(`RapidAPI job details raw response: ${responseText}`);
+      const responseData = JSON.parse(responseText) as JSearchResponse;
       
       // Format is different for the job details endpoint
       if (responseData.data && responseData.data.length > 0) {
