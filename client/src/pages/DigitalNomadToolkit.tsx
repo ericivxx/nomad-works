@@ -506,6 +506,79 @@ export default function DigitalNomadToolkit() {
                   </Card>
                 </div>
 
+                {/* VPN Features Comparison Table */}
+                <div className="mt-10 overflow-x-auto">
+                  <h3 className="text-xl font-semibold mb-4">VPN Comparison</h3>
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="p-3 text-left font-medium text-gray-700">Feature</th>
+                        <th className="p-3 text-left font-medium text-gray-700">NordVPN</th>
+                        <th className="p-3 text-left font-medium text-gray-700">ExpressVPN</th>
+                        <th className="p-3 text-left font-medium text-gray-700">Surfshark</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Monthly Price</td>
+                        <td className="p-3">$11.99/mo</td>
+                        <td className="p-3">$12.95/mo</td>
+                        <td className="p-3">$12.95/mo</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Yearly Price</td>
+                        <td className="p-3">$4.99/mo <span className="text-green-600 font-medium">Save 58%</span></td>
+                        <td className="p-3">$8.32/mo <span className="text-green-600 font-medium">Save 35%</span></td>
+                        <td className="p-3">$2.49/mo <span className="text-green-600 font-medium">Save 81%</span></td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Server Count</td>
+                        <td className="p-3">5,500+</td>
+                        <td className="p-3">3,000+</td>
+                        <td className="p-3">3,200+</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Countries</td>
+                        <td className="p-3">60+</td>
+                        <td className="p-3">94</td>
+                        <td className="p-3">100</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Devices</td>
+                        <td className="p-3">6</td>
+                        <td className="p-3">5</td>
+                        <td className="p-3">Unlimited</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Speed</td>
+                        <td className="p-3">⭐⭐⭐⭐</td>
+                        <td className="p-3">⭐⭐⭐⭐⭐</td>
+                        <td className="p-3">⭐⭐⭐⭐</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Mobile App</td>
+                        <td className="p-3">⭐⭐⭐⭐⭐</td>
+                        <td className="p-3">⭐⭐⭐⭐⭐</td>
+                        <td className="p-3">⭐⭐⭐⭐</td>
+                      </tr>
+                      <tr className="border-b border-gray-200 bg-gray-50">
+                        <td className="p-3 font-medium">Money-back</td>
+                        <td className="p-3">30 days</td>
+                        <td className="p-3">30 days</td>
+                        <td className="p-3">30 days</td>
+                      </tr>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3 font-medium">Best For</td>
+                        <td className="p-3">Overall Protection</td>
+                        <td className="p-3">Speed & Streaming</td>
+                        <td className="p-3">Budget & Multiple Devices</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p className="text-xs text-gray-500 mt-2">* Prices may vary based on promotions and subscription length</p>
+                </div>
+                
+                {/* Why Digital Nomads Need VPN section */}
                 <div className="mt-10 bg-blue-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Why Digital Nomads Need a VPN</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -533,6 +606,48 @@ export default function DigitalNomadToolkit() {
                         Some countries heavily restrict internet access or monitor online activity. A VPN helps you maintain your digital freedom and privacy when traveling through regions with restrictive internet policies.
                       </p>
                     </div>
+                  </div>
+                </div>
+                
+                {/* Digital Nomad VPN Use Cases */}
+                <div className="mt-10">
+                  <h3 className="text-xl font-semibold mb-4">VPN Use Cases for Digital Nomads</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Client Work in China</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          "I was working from Shanghai and needed to access Google services for a client project. My VPN allowed me to bypass restrictions and maintain my workflow without interruption."
+                        </p>
+                        <p className="text-sm font-medium mt-2">- Alex, Web Developer</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Banking from Thailand</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          "My bank locked me out when I tried accessing my account from Bangkok. Setting my VPN to a server in my home country solved the issue immediately."
+                        </p>
+                        <p className="text-sm font-medium mt-2">- Sarah, Content Creator</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Streaming While Traveling</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-gray-600">
+                          "I couldn't miss the playoff games while working abroad. My VPN let me watch all my favorite sports and shows from my streaming subscriptions no matter where I was."
+                        </p>
+                        <p className="text-sm font-medium mt-2">- Miguel, Software Engineer</p>
+                      </CardContent>
+                    </Card>
                   </div>
                 </div>
               </div>
