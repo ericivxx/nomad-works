@@ -12,6 +12,8 @@ export default function CategoryPage() {
     queryKey: [`/api/categories/${slug}`],
   });
   
+  console.log("Category data:", categoryData);
+  
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-12 flex justify-center">

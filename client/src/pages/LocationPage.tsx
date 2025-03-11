@@ -12,6 +12,8 @@ export default function LocationPage() {
     queryKey: [`/api/locations/${slug}`],
   });
   
+  console.log("Location data:", locationData);
+  
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-12 flex justify-center">

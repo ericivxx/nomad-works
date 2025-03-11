@@ -138,7 +138,7 @@ export default function JobList({ endpoint, title, subtitle, showSorting = true 
   const totalPages = getTotalPages();
 
   return (
-    <div className="lg:w-3/4">
+    <div>
       {/* Job Listings Header */}
       {(title || subtitle) && (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
