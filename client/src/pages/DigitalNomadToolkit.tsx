@@ -542,9 +542,14 @@ export default function DigitalNomadToolkit() {
             <TabsContent value="resume" className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold mb-6">Resume & Profile Building Tools</h2>
-                <p className="text-gray-700 mb-8">
+                <p className="text-gray-700 mb-6">
                   As a digital nomad, having a standout resume and professional online presence is crucial for landing remote opportunities. These tools will help you create impressive resumes and build your professional brand.
                 </p>
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-8">
+                  <p className="text-sm text-amber-800">
+                    <strong>Disclosure:</strong> Some links on this page are affiliate links. If you make a purchase through these links, we may earn a commission at no extra cost to you. We only recommend tools we've personally vetted and believe will genuinely help digital nomads.
+                  </p>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* LinkedIn Premium */}
@@ -631,8 +636,8 @@ export default function DigitalNomadToolkit() {
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('https://resume.io/', '_blank')}>
-                        Create Your Resume
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://resume.io/?partner=nomadworks&coupon=NOMAD10', '_blank')}>
+                        Get 10% Off Resume.io
                       </Button>
                     </CardContent>
                   </Card>
@@ -676,8 +681,8 @@ export default function DigitalNomadToolkit() {
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('https://zety.com/', '_blank')}>
-                        Try Zety Builder
+                      <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://zety.com/?ref=nomadworks&discount=REMOTE15', '_blank')}>
+                        Claim 15% Discount
                       </Button>
                     </CardContent>
                   </Card>
@@ -721,13 +726,68 @@ export default function DigitalNomadToolkit() {
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('https://resumegenius.com/', '_blank')}>
-                        Build Your Resume
+                      <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://resumegenius.com/?aff=nomadworks&promo=NOMAD20', '_blank')}>
+                        Save 20% Today
                       </Button>
                     </CardContent>
                   </Card>
                 </div>
 
+                {/* Comparison Table */}
+                <div className="mt-10 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-sm">
+                  <h3 className="px-6 py-4 text-lg font-semibold bg-gray-50 border-b border-gray-200">Resume Builder Comparison</h3>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-blue-500 uppercase tracking-wider">Resume.io</th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-purple-600 uppercase tracking-wider">Zety</th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-green-600 uppercase tracking-wider">ResumeGenius</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Starting Price</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$2.95/mo</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$5.99/mo</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$7.95/mo</td>
+                        </tr>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Free Trial</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓</td>
+                        </tr>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Template Count</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20+</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">30+</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">25+</td>
+                        </tr>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ATS Optimization</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓</td>
+                        </tr>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ease of Use</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓✓</td>
+                        </tr>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Industry Specific</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">✓✓✓</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
                 <div className="mt-10 bg-blue-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4">Resume Tips for Remote Job Seekers</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
