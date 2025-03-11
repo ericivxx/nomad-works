@@ -49,19 +49,20 @@ export class AdzunaProvider implements JobProvider {
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
       // Build query parameters
+      // Build query parameters
       const queryParams = new URLSearchParams({
         app_id: this.appId!,
         app_key: this.apiKey!,
         results_per_page: (params.limit || 10).toString(),
         page: (params.page || 1).toString(),
-        // Don't use 'what_phrase' until we're sure it works
-        what: 'remote', // Always include 'remote' in search
       });
-
-      // Add search query if provided
-      if (params.query) {
-        queryParams.append('what', params.query);
-      }
+      
+      // Create search query combining remote with any provided keyword
+      const searchTerms = params.query 
+        ? `remote ${params.query}` 
+        : 'remote';
+      
+      queryParams.append('what', searchTerms);
 
       // Add category filter
       if (params.category) {
