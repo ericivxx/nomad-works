@@ -100,7 +100,7 @@ export class RapidApiProvider implements JobProvider {
 
   async fetchJobs(params: JobSearchParams): Promise<JobProviderResponse> {
     try {
-      // Using the JSearch API format from RapidAPI
+      // Using the Job Posting Feed API format from RapidAPI
       const queryParams = new URLSearchParams();
       
       // Create search query based on parameters
@@ -111,34 +111,35 @@ export class RapidApiProvider implements JobProvider {
         query = `${cleanQuery} remote`;
       }
       
-      // Add basic parameters for search using JSearch API format
+      // Add basic parameters for search using Job Posting Feed API format
       queryParams.append('query', query);
       queryParams.append('page', (params.page || 1).toString());
-      queryParams.append('num_pages', '1');
+      queryParams.append('limit', (params.limit || 10).toString());
       
       if (params.location) {
-        queryParams.append('location', params.location);
+        // Add location filter for Job Posting Feed API
+        queryParams.append('locations', params.location);
       }
       
       if (params.type) {
         const mappedType = this.mapJobTypeToRapidApi(params.type);
         if (mappedType) {
-          queryParams.append('employment_types', mappedType);
+          queryParams.append('job_types', mappedType);
         }
       }
       
       if (params.category) {
         const mappedCategory = this.mapCategoryToRapidApi(params.category);
         if (mappedCategory) {
-          queryParams.append('job_categories', mappedCategory);
+          queryParams.append('domains', mappedCategory);
         }
       }
       
-      // Set the API URL to the JSearch API
+      // Set the API URL to the Job Posting Feed API
       const apiUrl = this.apiUrl;
       
       // Make the request with the updated parameters and headers
-      console.log(`Fetching jobs from JSearch API: ${apiUrl}?${queryParams.toString()}`);
+      console.log(`Fetching jobs from Job Posting Feed API: ${apiUrl}?${queryParams.toString()}`);
       console.log(`Using RapidAPI host: ${this.apiHost}`);
       
       // Don't print the actual API key, but log if it exists
@@ -293,8 +294,7 @@ export class RapidApiProvider implements JobProvider {
       const jobId = id.replace('rapidapi:', '');
       const queryParams = new URLSearchParams();
       
-      // JSearch uses a different endpoint for job details
-      // Set the API URL to the JSearch job details API
+      // JSearch has a dedicated job details endpoint
       const apiUrl = 'https://jsearch.p.rapidapi.com/job-details';
       queryParams.append('job_id', jobId);
       
@@ -315,7 +315,7 @@ export class RapidApiProvider implements JobProvider {
       }
 
       const responseText = await response.text();
-      console.log(`RapidAPI job details raw response: ${responseText.substring(0, 500)}...`);
+      console.log(`JSearch API job details raw response: ${responseText.substring(0, 500)}...`);
       const responseData = JSON.parse(responseText);
       
       // Format is different for the job details endpoint based on API
