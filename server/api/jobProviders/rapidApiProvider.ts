@@ -7,24 +7,34 @@ import config from './config';
 interface RapidApiJob {
   job_id: string;
   employer_name: string;
-  employer_logo?: string;
-  employer_website?: string;
+  employer_logo?: string | null;
+  employer_website?: string | null;
   job_title: string;
   job_description: string;
-  job_city?: string;
-  job_country?: string;
-  job_employment_type?: string;
+  job_city?: string | null;
+  job_country?: string | null;
+  job_employment_type?: string | null;
   job_apply_link: string;
-  job_posted_at_timestamp?: number;
-  job_min_salary?: number;
-  job_max_salary?: number;
-  job_is_remote?: boolean;
+  job_posted_at_timestamp?: number | null;
+  job_min_salary?: number | null;
+  job_max_salary?: number | null;
+  job_is_remote?: boolean | null;
 }
 
 interface RapidApiResponse {
   results: RapidApiJob[];
   count: number;
   data?: never; // This helps TypeScript discriminate between RapidApiResponse and JSearchResponse
+}
+
+// Job Posting Feed API response format
+interface JobPostingFeedResponse {
+  hits: any[];
+  query: string;
+  processingTimeMs: number;
+  limit: number;
+  offset: number;
+  estimatedTotalHits: number;
 }
 
 // JSearch API specific response format 
@@ -136,16 +146,53 @@ export class RapidApiProvider implements JobProvider {
 
       // Parse the JSON data - format differs between APIs
       const responseText = await response.text();
-      console.log(`RapidAPI raw response: ${responseText}`);
-      const responseData = JSON.parse(responseText) as JSearchResponse | RapidApiResponse;
+      console.log(`RapidAPI raw response: ${responseText.substring(0, 500)}...`); // Log only part of it to avoid large logs
+      const responseData = JSON.parse(responseText) as JSearchResponse | RapidApiResponse | JobPostingFeedResponse;
       
       // Check the response format and adapt accordingly
-      // JSearch API uses a different format than what we initially expected
       let jobs: JobWithRelations[] = [];
       let totalCount = 0;
       
-      // Handle JSearch API format
-      if (responseData.data) {
+      // Handle Job Posting Feed API format (new API)
+      if (responseData.hits) {
+        console.log(`Retrieved ${responseData.hits.length || 0} jobs from Job Posting Feed API`);
+        
+        const mappedJobs = (responseData.hits || []).map((item: any) => {
+          const job_id = `jobfeed-${Math.random().toString(36).substring(2, 15)}`;
+          const employer_name = item.company_name || 'Unknown Company';
+          const locations = Array.isArray(item.locations_derived) && item.locations_derived.length > 0 
+            ? item.locations_derived[0] 
+            : 'Remote';
+            
+          // Extract country from locations if possible
+          const country = typeof locations === 'string' && locations.includes(', ') 
+            ? locations.split(', ').pop() 
+            : locations;
+            
+          return {
+            job_id,
+            employer_name,
+            employer_logo: null,
+            employer_website: null,
+            job_title: item.title || 'Remote Position',
+            job_description: item.description || item.title || 'No description provided',
+            job_city: null,
+            job_country: country,
+            job_employment_type: 'FULLTIME',
+            job_apply_link: item.url || '#',
+            job_posted_at_timestamp: item.date_posted ? new Date(item.date_posted).getTime() / 1000 : Date.now() / 1000,
+            job_min_salary: null,
+            job_max_salary: null,
+            job_is_remote: true
+          };
+        });
+        
+        console.log(`Mapped ${mappedJobs.length} jobs from Job Posting Feed API`);
+        jobs = await Promise.all(mappedJobs.map(job => this.transformJob(job)));
+        totalCount = responseData.estimatedTotalHits || responseData.hits.length;
+      }
+      // Handle JSearch API format (previous API)
+      else if (responseData.data) {
         console.log(`Retrieved ${responseData.data.length || 0} jobs from JSearch API`);
         
         // Map the job data to our expected format
@@ -220,11 +267,47 @@ export class RapidApiProvider implements JobProvider {
       }
 
       const responseText = await response.text();
-      console.log(`RapidAPI job details raw response: ${responseText}`);
-      const responseData = JSON.parse(responseText) as JSearchResponse;
+      console.log(`RapidAPI job details raw response: ${responseText.substring(0, 500)}...`);
+      const responseData = JSON.parse(responseText);
       
-      // Format is different for the job details endpoint
-      if (responseData.data && responseData.data.length > 0) {
+      // Format is different for the job details endpoint based on API
+      
+      // Handle Job Posting Feed API format
+      if (responseData.hits && responseData.hits.length > 0) {
+        const jobData = responseData.hits[0];
+        
+        const employer_name = jobData.company_name || 'Unknown Company';
+        const locations = Array.isArray(jobData.locations_derived) && jobData.locations_derived.length > 0 
+          ? jobData.locations_derived[0] 
+          : 'Remote';
+          
+        // Extract country from locations if possible
+        const country = typeof locations === 'string' && locations.includes(', ') 
+          ? locations.split(', ').pop() 
+          : locations;
+          
+        // Map to our expected format
+        const mappedJob = {
+          job_id: id.replace('rapidapi:', ''),
+          employer_name,
+          employer_logo: null,
+          employer_website: null,
+          job_title: jobData.title || 'Remote Position',
+          job_description: jobData.description || jobData.title || 'No description provided',
+          job_city: null,
+          job_country: country,
+          job_employment_type: 'FULLTIME',
+          job_apply_link: jobData.url || '#',
+          job_posted_at_timestamp: jobData.date_posted ? new Date(jobData.date_posted).getTime() / 1000 : Date.now() / 1000,
+          job_min_salary: null,
+          job_max_salary: null,
+          job_is_remote: true
+        };
+        
+        return this.transformJob(mappedJob);
+      }
+      // Handle JSearch API format
+      else if (responseData.data && responseData.data.length > 0) {
         const jobData = responseData.data[0] as any;
         
         // Map to our expected format
