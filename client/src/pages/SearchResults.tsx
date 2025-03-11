@@ -80,8 +80,12 @@ export default function SearchResults() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-8">
-          <FilterSidebar />
-          <div className="w-full lg:w-3/4 flex-1">
+          {/* Sidebar */}
+          <div className="w-full lg:w-1/4">
+            <FilterSidebar />
+          </div>
+          {/* Main Content */}
+          <div className="w-full lg:w-3/4">
             <JobList endpoint={endpoint} title={title} />
           </div>
         </div>
