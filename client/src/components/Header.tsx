@@ -39,7 +39,7 @@ export default function Header() {
           <Link href="/locations/worldwide" className={`font-medium ${location.startsWith('/locations') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Locations
           </Link>
-          <Link href="/categories/development" className={`font-medium ${location.startsWith('/categories') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
+          <Link href="/categories" className={`font-medium ${location.startsWith('/categories') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Categories
           </Link>
         </div>
@@ -68,7 +68,7 @@ export default function Header() {
           <Link href="/locations/worldwide" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/locations') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Locations
           </Link>
-          <Link href="/categories/development" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/categories') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
+          <Link href="/categories" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/categories') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Categories
           </Link>
         </div>

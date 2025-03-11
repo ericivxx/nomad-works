@@ -38,7 +38,8 @@ export default function Footer() {
             <h3 className="text-white font-semibold text-lg mb-4">Browse</h3>
             <ul className="space-y-2">
               <li><Link href="/search" className="hover:text-white transition-colors">All Remote Jobs</Link></li>
-              {categories?.slice(0, 6).map((category) => (
+              <li><Link href="/categories" className="hover:text-white transition-colors">Job Categories</Link></li>
+              {categories?.slice(0, 5).map((category) => (
                 <li key={category.id}>
                   <Link href={`/categories/${category.slug}`} className="hover:text-white transition-colors">
                     {category.name}
