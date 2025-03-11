@@ -332,9 +332,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Add a dedicated search endpoint
   app.get("/api/search", async (req: Request, res: Response) => {
     try {
-      const { query, page, limit } = req.query;
+      // Support both q and query parameters for search flexibility
+      const searchQuery = req.query.q || req.query.query;
+      const { page, limit } = req.query;
       
-      if (!query) {
+      if (!searchQuery) {
         return res.status(400).json({ message: "Search query is required" });
       }
       
@@ -344,7 +346,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (process.env.USE_JOB_PROVIDERS === 'true') {
         try {
           const result = await jobProviderManager.fetchAllJobs({
-            query: query as string,
+            query: searchQuery as string,
             page: pageNum,
             limit: limitNum
           });
@@ -365,7 +367,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Use in-memory storage
-      const jobs = await storage.getJobsBySearch(query as string);
+      const jobs = await storage.getJobsBySearch(searchQuery as string);
       const startIndex = (pageNum - 1) * limitNum;
       const endIndex = startIndex + limitNum;
       const paginatedJobs = jobs.slice(startIndex, endIndex);

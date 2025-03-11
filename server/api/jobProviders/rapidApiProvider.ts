@@ -28,12 +28,12 @@ interface RapidApiResponse {
 
 export class RapidApiProvider implements JobProvider {
   name = 'rapidapi';
-  private apiUrl: string;
-  private apiHost: string;
+  private apiUrl: string = '';
+  private apiHost: string = '';
   private apiKey: string | undefined;
   
   constructor() {
-    this.apiUrl = config.rapidapi.apiUrl;
+    this.apiUrl = config.rapidapi.apiUrl ?? 'https://job-posting-feed-api.p.rapidapi.com/active-ats-meili';
     this.apiHost = config.rapidapi.options?.host || 'job-posting-feed-api.p.rapidapi.com';
     this.apiKey = config.rapidapi.apiKey;
   }
