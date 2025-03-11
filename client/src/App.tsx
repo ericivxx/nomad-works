@@ -13,6 +13,7 @@ import LocationsListPage from "@/pages/LocationsListPage";
 import SearchResults from "@/pages/SearchResults";
 import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
+import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
         <Route path="/search" component={SearchResults} />
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
         <Route path="/sitemap" component={SitemapPage} />
+        <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
