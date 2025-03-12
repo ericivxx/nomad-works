@@ -6,22 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network } from "lucide-react";
 import Layout from "@/components/Layout";
 import BrandLogo from "@/components/BrandLogo";
-import { 
-  NordVPNLogo, 
-  FlexJobsLogo, 
-  SafetyWingLogo, 
-  UdemyLogo, 
-  WiseLogo, 
-  LinkedInLogo, 
-  ExpressVPNLogo, 
-  SkillshareLogo,
-  KrispLogo,
-  OnePasswordLogo,
-  BitwardenLogo,
-  NotionLogo,
-  LoomLogo,
-  BackblazeLogo
-} from "@/assets/logos";
+// We now use direct styled text instead of SVG components
 
 export default function DigitalNomadToolkit() {
   const currentYear = new Date().getFullYear();
