@@ -2169,7 +2169,7 @@ export default function DigitalNomadToolkit() {
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                       <Receipt className="h-5 w-5 text-emerald-600" />
-                      Tax Management
+                      <span>Tax Management</span>
                     </h3>
                     <p className="text-gray-700">Stay compliant with tax obligations as you work remotely</p>
                     
@@ -2212,7 +2212,7 @@ export default function DigitalNomadToolkit() {
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                       <DollarSign className="h-5 w-5 text-teal-600" />
-                      Expense Tracking
+                      <span>Expense Tracking</span>
                     </h3>
                     <p className="text-gray-700">Manage your finances across currencies and countries</p>
                     
