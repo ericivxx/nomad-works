@@ -4,6 +4,7 @@ import FilterSidebar from "@/components/FilterSidebar";
 import JobList from "@/components/JobList";
 import SearchForm from "@/components/SearchForm";
 import SEOHead from "@/components/SEOHead";
+import ToolkitSidebar from "@/components/ToolkitSidebar";
 
 export default function SearchResults() {
   const search = useSearch();
@@ -83,6 +84,9 @@ export default function SearchResults() {
           {/* Sidebar */}
           <div className="w-full lg:w-1/4">
             <FilterSidebar />
+            <div className="mt-6">
+              <ToolkitSidebar />
+            </div>
           </div>
           {/* Main Content */}
           <div className="w-full lg:w-3/4">

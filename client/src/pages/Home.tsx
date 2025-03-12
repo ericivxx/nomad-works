@@ -5,6 +5,12 @@ import JobList from "@/components/JobList";
 import SEOHead from "@/components/SEOHead";
 import KeywordLinks from "@/components/KeywordLinks";
 
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
 export default function Home() {
   const { data: categories } = useQuery({
     queryKey: ['/api/categories'],
@@ -113,6 +119,104 @@ export default function Home() {
         </div>
       </section>
       
+      {/* Digital Nomad Toolkit Section */}
+      <section className="bg-gradient-to-r from-indigo-50 to-blue-50 py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Essential Tools for Digital Nomads</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Equip yourself with the best tools and services used by successful remote workers worldwide
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* VPN Card */}
+            <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+              <div className="h-3 bg-gradient-to-r from-blue-500 to-blue-600"></div>
+              <div className="p-6">
+                <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-4 mx-auto">
+                  <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13a10 10 0 0 1 14 0M8.5 16.5a5 5 0 0 1 7 0M2 8.82a15 15 0 0 1 20 0M12 20h.01"></path>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Secure VPN Services</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Protect your data on public networks with trusted VPN services used by digital nomads.
+                </p>
+                <div className="text-center">
+                  <Link 
+                    href="/digital-nomad-toolkit?tab=vpn" 
+                    className="inline-block text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 font-medium rounded-full px-5 py-2.5 text-center"
+                  >
+                    View Recommended VPNs
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
+            {/* Productivity Card */}
+            <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+              <div className="h-3 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+              <div className="p-6">
+                <div className="flex items-center justify-center w-12 h-12 bg-indigo-100 rounded-full mb-4 mx-auto">
+                  <svg className="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Productivity Tools</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Boost your workflow with the essential productivity apps for remote work.
+                </p>
+                <div className="text-center">
+                  <Link 
+                    href="/digital-nomad-toolkit?tab=productivity" 
+                    className="inline-block text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 font-medium rounded-full px-5 py-2.5 text-center"
+                  >
+                    Explore Productivity Tools
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
+            {/* Global Internet Card */}
+            <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+              <div className="h-3 bg-gradient-to-r from-cyan-500 to-teal-500"></div>
+              <div className="p-6">
+                <div className="flex items-center justify-center w-12 h-12 bg-cyan-100 rounded-full mb-4 mx-auto">
+                  <svg className="h-6 w-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-center mb-2">Global Connectivity</h3>
+                <p className="text-gray-600 text-center mb-4">
+                  Stay connected anywhere with reliable eSIMs and internet solutions.
+                </p>
+                <div className="text-center">
+                  <Link 
+                    href="/digital-nomad-toolkit?tab=esim" 
+                    className="inline-block text-white bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 font-medium rounded-full px-5 py-2.5 text-center"
+                  >
+                    Find Connectivity Solutions
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-8">
+            <Link 
+              href="/digital-nomad-toolkit" 
+              className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700"
+            >
+              <span>View Complete Digital Nomad Toolkit</span>
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
