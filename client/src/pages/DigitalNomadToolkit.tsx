@@ -1452,47 +1452,45 @@ export default function DigitalNomadToolkit() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* LinkedIn Premium */}
+                  {/* Canva Pro */}
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg viewBox="0 0 24 24" className="h-8 w-auto text-blue-600" fill="currentColor">
-                          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-                        </svg>
+                        <BrandLogo domain="canva.com" className="h-8 w-auto" fallbackText="Canva" useColors={true} />
                       </div>
-                      <CardTitle>LinkedIn Premium</CardTitle>
-                      <CardDescription>Stand out to employers & recruiters</CardDescription>
+                      <CardTitle>Canva Pro</CardTitle>
+                      <CardDescription>Professional design tools for personal branding</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="bg-blue-50 p-3 rounded-md">
-                        <p className="text-sm font-medium text-blue-800">Best for Networking & Job Applications</p>
+                        <p className="text-sm font-medium text-blue-800">Best for Personal Branding & Design</p>
                       </div>
                       <div>
                         <ul className="space-y-2 text-sm text-gray-600">
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>See who viewed your profile</span>
+                            <span>100+ million premium stock photos & graphics</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>InMail credits to message recruiters</span>
+                            <span>Brand kit & content planner</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Applicant insights on job postings</span>
+                            <span>Background remover & Magic Resize</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Featured applicant placement</span>
+                            <span>Social media content templates</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>LinkedIn Learning courses included</span>
+                            <span>Free trial available</span>
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('https://premium.linkedin.com/', '_blank')}>
-                        Try LinkedIn Premium
+                      <Button className="w-full" onClick={() => window.open('https://www.canva.com/pro/', '_blank')}>
+                        Try Canva Pro
                       </Button>
                     </CardContent>
                   </Card>
@@ -1501,9 +1499,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="font-bold text-lg">
-                          <span className="text-blue-500">Resume</span><span className="text-gray-800">.io</span>
-                        </div>
+                        <BrandLogo domain="resume.io" className="h-8 w-auto" fallbackText="Resume.io" useColors={true} />
                       </div>
                       <CardTitle>Resume.io</CardTitle>
                       <CardDescription>Professional resume builder with ATS-friendly templates</CardDescription>
@@ -1546,9 +1542,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="font-bold text-lg">
-                          <span className="text-purple-600">Zety</span>
-                        </div>
+                        <BrandLogo domain="zety.com" className="h-8 w-auto" fallbackText="Zety" useColors={true} />
                       </div>
                       <CardTitle>Zety</CardTitle>
                       <CardDescription>All-in-one resume and career advancement platform</CardDescription>
@@ -1591,9 +1585,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="font-bold text-lg">
-                          <span className="text-green-600">Resume</span><span className="text-gray-800">Genius</span>
-                        </div>
+                        <BrandLogo domain="resumegenius.com" className="h-8 w-auto" fallbackText="ResumeGenius" useColors={true} />
                       </div>
                       <CardTitle>ResumeGenius</CardTitle>
                       <CardDescription>Easy-to-use builder with industry-specific templates</CardDescription>
