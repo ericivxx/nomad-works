@@ -2,6 +2,22 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { 
+  NordVPNLogo, 
+  ExpressVPNLogo, 
+  SafetyWingLogo, 
+  UdemyLogo, 
+  WiseLogo,
+  LinkedInLogo,
+  SkillshareLogo,
+  KrispLogo,
+  OnePasswordLogo,
+  BitwardenLogo,
+  NotionLogo,
+  LoomLogo,
+  BackblazeLogo,
+  FlexJobsLogo
+} from "@/assets/logos";
 
 interface BrandLogoProps {
   domain: string;
@@ -19,6 +35,24 @@ interface BrandData {
   primaryColor: string | null;
 }
 
+// Map domains to local logo components
+const localLogos: Record<string, React.FC<{className?: string}>> = {
+  "nordvpn.com": NordVPNLogo,
+  "expressvpn.com": ExpressVPNLogo,
+  "safetywing.com": SafetyWingLogo,
+  "udemy.com": UdemyLogo,
+  "wise.com": WiseLogo,
+  "linkedin.com": LinkedInLogo,
+  "skillshare.com": SkillshareLogo,
+  "krisp.ai": KrispLogo,
+  "1password.com": OnePasswordLogo,
+  "bitwarden.com": BitwardenLogo,
+  "notion.so": NotionLogo,
+  "loom.com": LoomLogo,
+  "backblaze.com": BackblazeLogo,
+  "flexjobs.com": FlexJobsLogo
+};
+
 export default function BrandLogo({ 
   domain, 
   className, 
@@ -31,6 +65,13 @@ export default function BrandLogo({
   // Extract the base domain for the API request
   const baseDomain = domain.replace(/^https?:\/\//, '').replace(/\/$/, '').replace(/^www\./, '');
   
+  // Check if we have a local logo component for this domain
+  const LogoComponent = localLogos[baseDomain];
+  if (LogoComponent) {
+    console.log(`BrandLogo: Using local logo for ${baseDomain}`);
+    return <LogoComponent className={className} />;
+  }
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["brand", baseDomain],
     queryFn: async () => {
@@ -50,7 +91,7 @@ export default function BrandLogo({
       }
     },
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
-    enabled: !!baseDomain, // Only run query if we have a domain
+    enabled: !!baseDomain && !LogoComponent, // Only run query if we have a domain and don't have a local logo
   });
   
   // Handle loading state
@@ -62,38 +103,18 @@ export default function BrandLogo({
   if (data && !isError && !imageError) {
     console.log(`BrandLogo: Using data for ${baseDomain}:`, data);
     
-    const imageUrl = type === "logo" 
-      ? data.logo 
-      : (data.icon || data.logo);
-    
-    console.log(`BrandLogo: Selected image URL for ${baseDomain}:`, imageUrl);
-    
-    if (imageUrl) {
-      // If we have a valid image URL, display it
+    // If the API returned a primary color and we want to use colors, build a styled component
+    if (useColors && data.primaryColor) {
       return (
-        <img 
-          src={imageUrl} 
-          alt={data.name || fallbackText || baseDomain}
-          className={className}
-          style={useColors && data.primaryColor ? { filter: `drop-shadow(0 0 3px ${data.primaryColor}aa)` } : undefined}
-          onError={(e) => {
-            console.error(`BrandLogo: Image error for ${baseDomain}:`, e);
-            setImageError(true);
-          }}
-        />
+        <div className={cn("flex items-center justify-center font-bold text-xl", className)}>
+          <span style={{ color: data.primaryColor }}>{data.name || fallbackText || baseDomain}</span>
+        </div>
       );
-    } else {
-      console.log(`BrandLogo: No image URL found for ${baseDomain}`);
     }
-  } else {
-    console.log(`BrandLogo: Using fallback for ${baseDomain}`, { 
-      hasData: !!data, 
-      isError, 
-      imageError 
-    });
-  }
+  } 
   
   // Fallback to text if no image is available or there was an error
+  console.log(`BrandLogo: Using text fallback for ${baseDomain}`);
   return (
     <div className={cn("flex items-center justify-center font-bold text-xl", className)}>
       {fallbackText || baseDomain.split('.')[0]}
