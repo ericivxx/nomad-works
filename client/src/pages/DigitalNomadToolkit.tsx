@@ -82,7 +82,7 @@ export default function DigitalNomadToolkit() {
                 <span>Insurance</span>
               </TabsTrigger>
               <TabsTrigger value="resume" className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
+                <File className="h-4 w-4" />
                 <span>Resume Tools</span>
               </TabsTrigger>
               <TabsTrigger value="security" className="flex items-center gap-2">
@@ -246,7 +246,7 @@ export default function DigitalNomadToolkit() {
                   {/* VPN Services */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <Network className="h-5 w-5 text-blue-600" />
+                      <Wifi className="h-5 w-5 text-blue-600" />
                       <span>VPN Services</span>
                     </h3>
                     <p className="text-gray-700">Secure your internet connection and protect your browsing activity</p>
@@ -527,7 +527,7 @@ export default function DigitalNomadToolkit() {
                   {/* Physical Backup */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <FileText className="h-5 w-5 text-blue-600" />
+                      <File className="h-5 w-5 text-blue-600" />
                       <span>Physical Backup</span>
                     </h3>
                     <p className="text-gray-700">For times when cloud access isn't available</p>
