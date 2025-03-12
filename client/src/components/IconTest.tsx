@@ -1,4 +1,4 @@
-import { Laptop, Shield, Book, CreditCard, Globe, HeartPulse, FileText, Network } from "lucide-react";
+import { Laptop, Shield, Book, CreditCard, Globe, HeartPulse, File, Wifi } from "lucide-react";
 
 export default function IconTest() {
   return (
@@ -28,12 +28,12 @@ export default function IconTest() {
           <span>HeartPulse</span>
         </div>
         <div className="flex items-center gap-2 p-2 border rounded">
-          <Network className="h-6 w-6 text-blue-500" />
-          <span>Network</span>
+          <Wifi className="h-6 w-6 text-blue-500" />
+          <span>Wifi</span>
         </div>
         <div className="flex items-center gap-2 p-2 border rounded">
-          <FileText className="h-6 w-6 text-blue-500" />
-          <span>FileText</span>
+          <File className="h-6 w-6 text-blue-500" />
+          <span>File</span>
         </div>
         <div className="flex items-center gap-2 p-2 border rounded">
           <CreditCard className="h-6 w-6 text-blue-500" />
@@ -64,12 +64,12 @@ export default function IconTest() {
           <span>HeartPulse</span>
         </div>
         <div className="flex items-center gap-2 p-2 border rounded">
-          <Network className="h-6 w-6 text-blue-500 fill-current" />
-          <span>Network</span>
+          <Wifi className="h-6 w-6 text-blue-500 fill-current" />
+          <span>Wifi</span>
         </div>
         <div className="flex items-center gap-2 p-2 border rounded">
-          <FileText className="h-6 w-6 text-blue-500 fill-current" />
-          <span>FileText</span>
+          <File className="h-6 w-6 text-blue-500 fill-current" />
+          <span>File</span>
         </div>
         <div className="flex items-center gap-2 p-2 border rounded">
           <CreditCard className="h-6 w-6 text-blue-500 fill-current" />
