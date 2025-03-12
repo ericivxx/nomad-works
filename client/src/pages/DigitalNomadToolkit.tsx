@@ -324,7 +324,9 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <BrandLogo domain="1password.com" className="h-8 w-auto" fallbackText="1Password" useColors={true} />
+                          <div className="font-bold text-xl">
+                            <span className="text-indigo-600">1</span><span className="text-indigo-700">Password</span>
+                          </div>
                         </div>
                         <CardTitle>1Password</CardTitle>
                         <CardDescription>Secure password manager with travel mode for border crossings</CardDescription>
@@ -358,7 +360,9 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <BrandLogo domain="bitwarden.com" className="h-8 w-auto" fallbackText="Bitwarden" useColors={true} />
+                          <div className="font-bold text-xl">
+                            <span className="text-teal-600">Bit</span><span className="text-teal-700">warden</span>
+                          </div>
                         </div>
                         <CardTitle>Bitwarden</CardTitle>
                         <CardDescription>Open-source password manager with free tier and premium features</CardDescription>
@@ -479,7 +483,9 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <BrandLogo domain="backblaze.com" className="h-8 w-auto" fallbackText="Backblaze" useColors={true} />
+                        <div className="font-bold text-xl">
+                          <span className="text-red-600">Back</span><span className="text-red-700">blaze</span>
+                        </div>
                       </div>
                       <CardTitle>Backblaze</CardTitle>
                       <CardDescription>Unlimited cloud backup for your files</CardDescription>
