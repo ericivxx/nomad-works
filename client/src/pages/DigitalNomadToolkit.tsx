@@ -179,14 +179,20 @@ export default function DigitalNomadToolkit() {
                   </Card>
 
                   {/* Internet Solutions */}
-                  <Card className="h-full">
-                    <CardHeader>
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <span className="text-xl font-semibold text-blue-600">Internet Solutions</span>
+                      </div>
                       <CardTitle>Internet Solutions</CardTitle>
                       <CardDescription>Never lose connection while working</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Skyroam Solis</h4>
+                        <div className="flex items-start gap-3 mb-2">
+                          <BrandLogo domain="skyroam.com" className="h-8 w-auto" fallbackText="Skyroam" useColors={true} />
+                          <h4 className="font-medium text-gray-900">Skyroam Solis</h4>
+                        </div>
                         <p className="text-sm text-gray-600 mb-2">
                           Global WiFi hotspot that works in 130+ countries. Get unlimited data with day passes for reliable internet anywhere.
                         </p>
@@ -195,7 +201,10 @@ export default function DigitalNomadToolkit() {
                         </Button>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Speedify</h4>
+                        <div className="flex items-start gap-3 mb-2">
+                          <BrandLogo domain="speedify.com" className="h-8 w-auto" fallbackText="Speedify" useColors={true} />
+                          <h4 className="font-medium text-gray-900">Speedify</h4>
+                        </div>
                         <p className="text-sm text-gray-600 mb-2">
                           Channel bonding VPN that combines multiple internet connections for better reliability and speed while traveling.
                         </p>
