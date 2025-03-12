@@ -68,13 +68,10 @@ export default function BrandLogo({
   // Check if we have a local logo component for this domain
   console.log(`BrandLogo: Checking for local logo for domain "${baseDomain}"`);
   
-  const LogoComponent = localLogos[baseDomain];
-  if (LogoComponent) {
-    console.log(`BrandLogo: Found and using local logo for ${baseDomain}`);
-    return <LogoComponent className={className} />;
-  } else {
-    console.log(`BrandLogo: No local logo found for ${baseDomain}`);
-  }
+  // Check if we have a local logo available as fallback
+  const hasLocalLogo = baseDomain in localLogos;
+  const LogoComponent = hasLocalLogo ? localLogos[baseDomain] : null;
+  console.log(`BrandLogo: ${hasLocalLogo ? "Found" : "No"} local logo for ${baseDomain}, but trying API first`);
 
   // Try the direct approach using Brand Search API from client-side
   const { data, isLoading, isError } = useQuery({
@@ -95,34 +92,21 @@ export default function BrandLogo({
           }
         }
         
-        // If the above API call didn't give us a logo, try direct search
-        // This gives faster results with fewer backend calls
+        // If the above API call didn't give us a logo, try direct search through our backend API
+        // This ensures proper authentication and error handling
         const domainSearchTerm = baseDomain.split('.')[0]; // Use the base name for better search results
-        const searchUrl = `https://api.brandfetch.io/v2/search/${domainSearchTerm}`;
+        const searchUrl = `/api/brand/${domainSearchTerm}`;
         
-        console.log(`BrandLogo: Trying direct search for ${domainSearchTerm}`);
+        console.log(`BrandLogo: Trying search with different term: ${domainSearchTerm}`);
         const directResponse = await fetch(searchUrl);
         
         if (directResponse.ok) {
-          const searchResults = await directResponse.json() as any[];
+          // This should already return a processed BrandData object from our API
+          const result = await directResponse.json() as BrandData;
+          console.log(`BrandLogo: Got secondary search result:`, result);
           
-          if (Array.isArray(searchResults) && searchResults.length > 0) {
-            // Find the best match
-            const bestMatch = searchResults.find((result: any) => 
-              result.domain === baseDomain || 
-              baseDomain.includes(result.domain) || 
-              result.domain.includes(baseDomain)
-            ) || searchResults[0];
-            
-            console.log(`BrandLogo: Found direct search match:`, bestMatch);
-            
-            return {
-              name: bestMatch.name,
-              domain: bestMatch.domain,
-              logo: bestMatch.icon,
-              icon: bestMatch.icon,
-              primaryColor: null
-            };
+          if (result && result.logo) {
+            return result;
           }
         }
         
@@ -134,7 +118,7 @@ export default function BrandLogo({
       }
     },
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
-    enabled: !!baseDomain && !LogoComponent, // Only run query if we have a domain and don't have a local logo
+    enabled: !!baseDomain, // Always run query if we have a domain
   });
   
   // Handle loading state
@@ -189,7 +173,13 @@ export default function BrandLogo({
     }
   } 
   
-  // Fallback to text if no image is available or there was an error
+  // Try local logo component if API failed and we have a local logo
+  if (hasLocalLogo && LogoComponent) {
+    console.log(`BrandLogo: API failed, using local logo for ${baseDomain}`);
+    return <LogoComponent className={className} />;
+  }
+  
+  // Fallback to text if no image is available and no local logo
   console.log(`BrandLogo: Using text fallback for ${baseDomain}`);
   return (
     <div className={cn("flex items-center justify-center font-bold text-xl", className)}>
