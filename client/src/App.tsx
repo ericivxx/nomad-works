@@ -14,6 +14,7 @@ import SearchResults from "@/pages/SearchResults";
 import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
 import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
+import IconTest from "@/components/IconTest";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
+        <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
