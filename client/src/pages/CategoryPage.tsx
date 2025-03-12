@@ -189,7 +189,7 @@ export default function CategoryPage() {
               Find the best remote {category.name.toLowerCase()} opportunities for digital nomads
             </p>
             <div className="flex justify-center">
-              <ToolkitButton variant="compact" className="animate-pulse" />
+              <ToolkitButton variant="compact" className="animate-slow-pulse" />
             </div>
           </div>
         </div>

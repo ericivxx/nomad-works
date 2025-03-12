@@ -64,7 +64,7 @@ export default function LocationsListPage() {
               Find remote opportunities based on your preferred time zone and region
             </p>
             <div className="flex justify-center">
-              <ToolkitButton variant="compact" className="animate-pulse" />
+              <ToolkitButton variant="compact" className="animate-slow-pulse" />
             </div>
           </div>
         </div>

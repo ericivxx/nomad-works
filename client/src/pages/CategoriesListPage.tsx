@@ -52,7 +52,7 @@ export default function CategoriesListPage() {
               Find the perfect remote job in your field of expertise
             </p>
             <div className="flex justify-center">
-              <ToolkitButton variant="compact" className="animate-pulse" />
+              <ToolkitButton variant="compact" className="animate-slow-pulse" />
             </div>
           </div>
         </div>

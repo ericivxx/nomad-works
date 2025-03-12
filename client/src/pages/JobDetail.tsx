@@ -369,7 +369,7 @@ export default function JobDetail() {
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold text-gray-900">Apply for this position</h2>
-                  <ToolkitButton variant="compact" className="animate-pulse" />
+                  <ToolkitButton variant="compact" className="animate-slow-pulse" />
                 </div>
                 
                 <Form {...form}>

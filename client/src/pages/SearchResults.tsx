@@ -80,7 +80,7 @@ export default function SearchResults() {
                   <SearchForm variant="compact" />
                 </div>
                 <div className="md:ml-4 flex justify-center">
-                  <ToolkitButton variant="compact" className="animate-pulse" />
+                  <ToolkitButton variant="compact" className="animate-slow-pulse" />
                 </div>
               </div>
             </div>
