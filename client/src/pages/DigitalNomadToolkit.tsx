@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEOHead from "@/components/SEOHead";
-import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network } from "lucide-react";
+import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network, Code, Receipt, DollarSign, LockKeyhole, HardDrive, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import BrandLogo from "@/components/BrandLogo";
 // We now use direct styled text instead of SVG components
@@ -2167,7 +2167,10 @@ export default function DigitalNomadToolkit() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                   {/* Tax Management */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Tax Management</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <Receipt className="h-5 w-5 text-emerald-600" />
+                      Tax Management
+                    </h3>
                     <p className="text-gray-700">Stay compliant with tax obligations as you work remotely</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -2207,7 +2210,10 @@ export default function DigitalNomadToolkit() {
                   
                   {/* Expense Tracking */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Expense Tracking</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <DollarSign className="h-5 w-5 text-teal-600" />
+                      Expense Tracking
+                    </h3>
                     <p className="text-gray-700">Manage your finances across currencies and countries</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
