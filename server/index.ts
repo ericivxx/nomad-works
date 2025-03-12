@@ -2,9 +2,9 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
-// Enable external job providers
-process.env.USE_JOB_PROVIDERS = 'true';
-console.log('Using external job providers with fallback to in-memory job data')
+// Disable external job providers to save API credits
+process.env.USE_JOB_PROVIDERS = 'false';
+console.log('Using in-memory job data only (API providers disabled to save credits)')
 
 const app = express();
 app.use(express.json());
