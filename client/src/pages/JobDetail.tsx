@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { stripHtml } from "@/lib/utils";
-import { Briefcase, MapPin, DollarSign, Calendar, Globe, BarChart, ArrowLeft } from "lucide-react";
+import { Briefcase, MapPin, DollarSign, Calendar, Globe, BarChart, ArrowLeft, Zap } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import ToolkitSidebar from "@/components/ToolkitSidebar";
+import ApplicationSuccess from "@/components/ApplicationSuccess";
 
 const applicationSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -36,6 +38,7 @@ export default function JobDetail() {
   const { slug } = useParams();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   
   // Fetch job details
   const { data: job, isLoading, error } = useQuery({
@@ -58,13 +61,16 @@ export default function JobDetail() {
     
     try {
       // In a real application, this would send the application to the backend
-      // For demo purposes, we'll just show a success toast
+      // For demo purposes, we'll just show a success toast and the success component
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
         title: "Application Submitted",
         description: "Your job application has been successfully submitted!",
       });
+      
+      // Show application success component with toolkit recommendations
+      setApplicationSubmitted(true);
       
       form.reset();
     } catch (error) {
@@ -76,6 +82,10 @@ export default function JobDetail() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+  
+  const handleCloseSuccess = () => {
+    setApplicationSubmitted(false);
   };
   
   // Create structured data for SEO
@@ -265,7 +275,7 @@ export default function JobDetail() {
               </div>
             </div>
             
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">About {job.company.name}</h2>
               <p className="text-gray-600 mb-4">
                 {job.company.name} is a company offering remote opportunities for digital nomads.
@@ -280,6 +290,74 @@ export default function JobDetail() {
                   Visit company website
                 </a>
               )}
+            </div>
+            
+            {/* Recommended Tools Section */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <Zap className="h-5 w-5 text-blue-600 mr-2" />
+                <h2 className="text-xl font-bold text-gray-900">Essential Tools for This Role</h2>
+              </div>
+              <p className="text-gray-700 mb-4">
+                Boost your productivity and efficiency with these recommended tools for {job.category.name.toLowerCase()} professionals:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                {job.category.slug.includes('development') && (
+                  <>
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h3 className="font-medium text-blue-800 mb-1">GitHub Pro</h3>
+                      <p className="text-sm text-gray-600 mb-2">Essential for code collaboration</p>
+                      <Link href="/digital-nomad-toolkit?tab=productivity#github" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h3 className="font-medium text-blue-800 mb-1">NordVPN</h3>
+                      <p className="text-sm text-gray-600 mb-2">Secure coding on public networks</p>
+                      <Link href="/digital-nomad-toolkit?tab=vpn#nordvpn" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                    </div>
+                  </>
+                )}
+                
+                {job.category.slug.includes('marketing') && (
+                  <>
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h3 className="font-medium text-blue-800 mb-1">Loom</h3>
+                      <p className="text-sm text-gray-600 mb-2">Screen recording for presentations</p>
+                      <Link href="/digital-nomad-toolkit?tab=productivity#loom" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h3 className="font-medium text-blue-800 mb-1">SafetyWing</h3>
+                      <p className="text-sm text-gray-600 mb-2">Health insurance for remote workers</p>
+                      <Link href="/digital-nomad-toolkit?tab=insurance#safetywing" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                    </div>
+                  </>
+                )}
+                
+                {!job.category.slug.includes('development') && !job.category.slug.includes('marketing') && (
+                  <>
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h3 className="font-medium text-blue-800 mb-1">Notion</h3>
+                      <p className="text-sm text-gray-600 mb-2">All-in-one workspace solution</p>
+                      <Link href="/digital-nomad-toolkit?tab=productivity#notion" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                    </div>
+                    <div className="bg-white rounded-lg p-4 shadow-sm">
+                      <h3 className="font-medium text-blue-800 mb-1">Skyroam</h3>
+                      <p className="text-sm text-gray-600 mb-2">Global WiFi for reliable connectivity</p>
+                      <Link href="/digital-nomad-toolkit?tab=esim#skyroam" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="text-center">
+                <Link 
+                  href="/digital-nomad-toolkit" 
+                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
+                >
+                  <span>View our complete Digital Nomad Toolkit</span>
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
           
