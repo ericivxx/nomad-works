@@ -74,7 +74,14 @@ export default function SearchResults() {
           <div className="max-w-5xl mx-auto">
             <h1 className="text-2xl md:text-3xl font-bold mb-5 text-center">Find Your Perfect Remote Job</h1>
             <div className="w-full px-4">
-              <SearchForm variant="compact" />
+              <div className="flex flex-col md:flex-row md:items-center gap-4">
+                <div className="flex-grow">
+                  <SearchForm variant="compact" />
+                </div>
+                <div className="md:ml-4 flex justify-center">
+                  <ToolkitButton variant="compact" className="animate-pulse" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
