@@ -70,7 +70,8 @@ export default function DigitalNomadToolkit() {
                 <span>Productivity</span>
               </TabsTrigger>
               <TabsTrigger value="vpn" className="flex items-center gap-2">
-                <Wifi className="h-4 w-4" />
+                <Shield className="h-4 w-4" />
+                <Shield className="h-4 w-4 hidden" />
                 <span>VPN Services</span>
               </TabsTrigger>
               <TabsTrigger value="esim" className="flex items-center gap-2">
@@ -83,6 +84,7 @@ export default function DigitalNomadToolkit() {
               </TabsTrigger>
               <TabsTrigger value="resume" className="flex items-center gap-2">
                 <File className="h-4 w-4" />
+                <Book className="h-4 w-4 hidden" />
                 <span>Resume Tools</span>
               </TabsTrigger>
               <TabsTrigger value="security" className="flex items-center gap-2">
