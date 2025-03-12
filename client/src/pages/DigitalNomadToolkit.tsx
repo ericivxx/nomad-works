@@ -1775,7 +1775,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <UdemyLogo className="h-8 w-auto" />
+                        <BrandLogo domain="udemy.com" className="h-8 w-auto" fallbackText="Udemy" useColors={true} />
                       </div>
                       <CardTitle>Udemy</CardTitle>
                       <CardDescription>Affordable courses on virtually any skill or topic</CardDescription>
@@ -1813,7 +1813,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <SkillshareLogo className="h-8 w-auto" />
+                        <BrandLogo domain="skillshare.com" className="h-8 w-auto" fallbackText="Skillshare" useColors={true} />
                       </div>
                       <CardTitle>Skillshare</CardTitle>
                       <CardDescription>Subscription-based platform with unlimited access to creative courses</CardDescription>
@@ -1851,7 +1851,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <LinkedInLogo className="h-8 w-auto" />
+                        <BrandLogo domain="linkedin.com" className="h-8 w-auto" fallbackText="LinkedIn" useColors={true} />
                       </div>
                       <CardTitle>LinkedIn Learning</CardTitle>
                       <CardDescription>Professional courses with LinkedIn profile integration</CardDescription>
@@ -1896,9 +1896,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <div className="font-bold text-xl">
-                            <span className="text-green-500">duo</span><span className="text-green-700">lingo</span>
-                          </div>
+                          <BrandLogo domain="duolingo.com" className="h-8 w-auto" fallbackText="Duolingo" useColors={true} />
                         </div>
                         <CardTitle>Duolingo</CardTitle>
                         <CardDescription>Free language learning app with bite-sized lessons</CardDescription>
@@ -1932,9 +1930,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <div className="font-bold text-xl">
-                            <span className="text-red-500">iTalki</span>
-                          </div>
+                          <BrandLogo domain="italki.com" className="h-8 w-auto" fallbackText="iTalki" useColors={true} />
                         </div>
                         <CardTitle>iTalki</CardTitle>
                         <CardDescription>Connect with native language teachers for online lessons</CardDescription>
@@ -2070,7 +2066,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <WiseLogo className="h-8 w-auto" />
+                        <BrandLogo domain="wise.com" className="h-8 w-auto" fallbackText="Wise" useColors={true} />
                       </div>
                       <CardTitle>Wise</CardTitle>
                       <CardDescription>Multi-currency accounts for global living</CardDescription>
@@ -2109,9 +2105,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="font-bold text-xl">
-                          <span className="text-indigo-600">Revolut</span>
-                        </div>
+                        <BrandLogo domain="revolut.com" className="h-8 w-auto" fallbackText="Revolut" useColors={true} />
                       </div>
                       <CardTitle>Revolut</CardTitle>
                       <CardDescription>All-in-one digital banking solution</CardDescription>
@@ -2150,7 +2144,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <SafetyWingLogo className="h-8 w-auto" />
+                        <BrandLogo domain="safetywing.com" className="h-8 w-auto" fallbackText="SafetyWing" useColors={true} />
                       </div>
                       <CardTitle>SafetyWing</CardTitle>
                       <CardDescription>Health insurance for digital nomads</CardDescription>
