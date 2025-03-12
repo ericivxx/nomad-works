@@ -182,33 +182,40 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <span className="text-xl font-semibold text-blue-600">Internet Solutions</span>
+                        <BrandLogo domain="skyroam.com" className="h-8 w-auto" fallbackText="Internet" useColors={true} />
                       </div>
                       <CardTitle>Internet Solutions</CardTitle>
                       <CardDescription>Never lose connection while working</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <div className="flex items-start gap-3 mb-2">
-                          <BrandLogo domain="skyroam.com" className="h-8 w-auto" fallbackText="Skyroam" useColors={true} />
-                          <h4 className="font-medium text-gray-900">Skyroam Solis</h4>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Global WiFi hotspot that works in 130+ countries. Get unlimited data with day passes for reliable internet anywhere.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.skyroam.com/', '_blank')}>
-                          Get Skyroam
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for Global Connectivity</p>
                       </div>
                       <div>
-                        <div className="flex items-start gap-3 mb-2">
-                          <BrandLogo domain="speedify.com" className="h-8 w-auto" fallbackText="Speedify" useColors={true} />
-                          <h4 className="font-medium text-gray-900">Speedify</h4>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Channel bonding VPN that combines multiple internet connections for better reliability and speed while traveling.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://speedify.com/', '_blank')}>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span><span className="font-medium">Skyroam Solis:</span> Global WiFi hotspot for 130+ countries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Day passes for unlimited data worldwide</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span><span className="font-medium">Speedify:</span> Channel bonding VPN technology</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Combines multiple connections for reliability</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700" onClick={() => window.open('https://www.skyroam.com/', '_blank')}>
+                          Get Skyroam
+                        </Button>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://speedify.com/', '_blank')}>
                           Try Speedify
                         </Button>
                       </div>
