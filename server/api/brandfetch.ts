@@ -1,18 +1,25 @@
 import fetch from 'node-fetch';
 
-interface BrandfetchLogo {
-  format: string;
+interface BrandfetchLogoFormat {
   src: string;
+  format: string;
   width?: number;
   height?: number;
   size?: number;
   background?: string;
 }
 
+interface BrandfetchLogo {
+  theme: string;
+  formats: BrandfetchLogoFormat[];
+  tags: string[];
+  type: string;
+}
+
 interface BrandfetchResponse {
   name: string;
   domain: string;
-  icon?: BrandfetchLogo;
+  icon?: BrandfetchLogoFormat;
   logos?: BrandfetchLogo[];
   colors?: {
     hex: string;
@@ -25,13 +32,9 @@ interface BrandfetchResponse {
     origin: string;
   }[];
   images?: {
-    format: string;
-    src: string;
-    width?: number;
-    height?: number;
-    size?: number;
-    background?: string;
-    label?: string;
+    formats: BrandfetchLogoFormat[];
+    tags: string[];
+    type: string;
   }[];
 }
 
@@ -72,27 +75,40 @@ export function getBestLogo(logos?: BrandfetchLogo[]): string | null {
     return null;
   }
   
+  // First, find all logos that are actual logos (not symbols or icons)
+  const actualLogos = logos.filter(logo => logo.type === 'logo');
+  
+  // If we have actual logos, prefer those, otherwise use any logo we have
+  const logosToUse = actualLogos.length > 0 ? actualLogos : logos;
+  
+  // Prefer light theme logos
+  const lightLogos = logosToUse.filter(logo => logo.theme === 'light');
+  const bestLogos = lightLogos.length > 0 ? lightLogos : logosToUse;
+  
+  // Get all available formats from the best logo
+  const allFormats = bestLogos[0].formats;
+  
   // Prefer SVG formats for scalability
-  const svgLogo = logos.find(logo => logo.format === 'svg');
-  if (svgLogo) {
-    return svgLogo.src;
+  const svgFormat = allFormats.find(format => format.format === 'svg');
+  if (svgFormat) {
+    return svgFormat.src;
   }
   
   // Then prefer PNG with transparency
-  const pngLogos = logos.filter(logo => logo.format === 'png');
-  if (pngLogos.length > 0) {
+  const pngFormats = allFormats.filter(format => format.format === 'png');
+  if (pngFormats.length > 0) {
     // Sort by size (largest first) if size information is available
-    const sortedPngLogos = pngLogos.sort((a, b) => {
+    const sortedPngFormats = pngFormats.sort((a, b) => {
       if (a.width && b.width) {
         return b.width - a.width;
       }
       return 0;
     });
-    return sortedPngLogos[0].src;
+    return sortedPngFormats[0].src;
   }
   
-  // Fallback to any logo available
-  return logos[0].src;
+  // Fallback to any format available
+  return allFormats[0].src;
 }
 
 export function getBrandPrimaryColor(colors?: { hex: string; type: string }[]): string | null {

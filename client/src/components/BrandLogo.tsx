@@ -60,9 +60,13 @@ export default function BrandLogo({
   
   // If we have a successful API response with a logo or icon
   if (data && !isError && !imageError) {
+    console.log(`BrandLogo: Using data for ${baseDomain}:`, data);
+    
     const imageUrl = type === "logo" 
       ? data.logo 
       : (data.icon || data.logo);
+    
+    console.log(`BrandLogo: Selected image URL for ${baseDomain}:`, imageUrl);
     
     if (imageUrl) {
       // If we have a valid image URL, display it
@@ -72,10 +76,21 @@ export default function BrandLogo({
           alt={data.name || fallbackText || baseDomain}
           className={className}
           style={useColors && data.primaryColor ? { filter: `drop-shadow(0 0 3px ${data.primaryColor}aa)` } : undefined}
-          onError={() => setImageError(true)}
+          onError={(e) => {
+            console.error(`BrandLogo: Image error for ${baseDomain}:`, e);
+            setImageError(true);
+          }}
         />
       );
+    } else {
+      console.log(`BrandLogo: No image URL found for ${baseDomain}`);
     }
+  } else {
+    console.log(`BrandLogo: Using fallback for ${baseDomain}`, { 
+      hasData: !!data, 
+      isError, 
+      imageError 
+    });
   }
   
   // Fallback to text if no image is available or there was an error
