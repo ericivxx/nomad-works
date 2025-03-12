@@ -236,7 +236,10 @@ export default function DigitalNomadToolkit() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                   {/* VPN Services */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">VPN Services</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <Network className="h-5 w-5 text-blue-600" />
+                      <span>VPN Services</span>
+                    </h3>
                     <p className="text-gray-700">Secure your internet connection and protect your browsing activity</p>
                     
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -310,7 +313,10 @@ export default function DigitalNomadToolkit() {
                   
                   {/* Password Management */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Password Management</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <Shield className="h-5 w-5 text-indigo-600" />
+                      <span>Password Management</span>
+                    </h3>
                     <p className="text-gray-700">Keep all your accounts secure with strong, unique passwords</p>
                     
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -511,7 +517,10 @@ export default function DigitalNomadToolkit() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                   {/* Physical Backup */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Physical Backup</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <FileText className="h-5 w-5 text-blue-600" />
+                      <span>Physical Backup</span>
+                    </h3>
                     <p className="text-gray-700">For times when cloud access isn't available</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -557,7 +566,10 @@ export default function DigitalNomadToolkit() {
                   
                   {/* Tracking Devices */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Device Tracking</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <Globe className="h-5 w-5 text-amber-600" />
+                      <span>Device Tracking</span>
+                    </h3>
                     <p className="text-gray-700">Locate your valuable devices if lost or stolen</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
