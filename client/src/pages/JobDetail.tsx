@@ -237,14 +237,14 @@ export default function JobDetail() {
                   </svg>
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900 mb-1">{job.title}</h1>
-                  <p className="text-lg text-gray-700 mb-2">{job.company.name}</p>
+                  <h1 className="text-2xl font-bold text-gray-900 mb-1">{typedJob.title}</h1>
+                  <p className="text-lg text-gray-700 mb-2">{typedJob.company.name}</p>
                   <div className="flex flex-wrap items-center text-sm text-gray-500 gap-x-4 gap-y-2">
                     <span className="flex items-center">
                       <Calendar className="h-4 w-4 mr-1" />
                       <span>Posted {postedAgo}</span>
                     </span>
-                    {job.featured && (
+                    {typedJob.featured && (
                       <span className="inline-flex px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
                         Featured
                       </span>
@@ -258,7 +258,7 @@ export default function JobDetail() {
                   <Briefcase className="h-5 w-5 text-gray-500 mr-2" />
                   <div>
                     <span className="text-sm text-gray-500">Job Type</span>
-                    <p className="font-medium">{job.type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</p>
+                    <p className="font-medium">{typedJob.type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</p>
                   </div>
                 </div>
                 
@@ -266,7 +266,7 @@ export default function JobDetail() {
                   <MapPin className="h-5 w-5 text-gray-500 mr-2" />
                   <div>
                     <span className="text-sm text-gray-500">Location</span>
-                    <p className="font-medium">{job.location.name}</p>
+                    <p className="font-medium">{typedJob.location.name}</p>
                   </div>
                 </div>
                 
@@ -275,8 +275,8 @@ export default function JobDetail() {
                   <div>
                     <span className="text-sm text-gray-500">Salary Range</span>
                     <p className="font-medium">
-                      {job.salaryMin && job.salaryMax
-                        ? `$${(job.salaryMin/1000).toFixed(0)}k - $${(job.salaryMax/1000).toFixed(0)}k`
+                      {typedJob.salaryMin && typedJob.salaryMax
+                        ? `$${(typedJob.salaryMin/1000).toFixed(0)}k - $${(typedJob.salaryMax/1000).toFixed(0)}k`
                         : "Not specified"}
                     </p>
                   </div>
@@ -286,7 +286,7 @@ export default function JobDetail() {
                   <Globe className="h-5 w-5 text-gray-500 mr-2" />
                   <div>
                     <span className="text-sm text-gray-500">Time Zone</span>
-                    <p className="font-medium">{job.timezone || "Flexible"}</p>
+                    <p className="font-medium">{typedJob.timezone || "Flexible"}</p>
                   </div>
                 </div>
                 
@@ -295,8 +295,8 @@ export default function JobDetail() {
                   <div>
                     <span className="text-sm text-gray-500">Experience</span>
                     <p className="font-medium">
-                      {job.experienceLevel
-                        ? `${job.experienceLevel.charAt(0).toUpperCase() + job.experienceLevel.slice(1)} Level`
+                      {typedJob.experienceLevel
+                        ? `${typedJob.experienceLevel.charAt(0).toUpperCase() + typedJob.experienceLevel.slice(1)} Level`
                         : "Not specified"}
                     </p>
                   </div>
@@ -315,14 +315,14 @@ export default function JobDetail() {
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Job Description</h2>
               <div className="prose max-w-none">
-                <p className="whitespace-pre-line">{stripHtml(job.description)}</p>
+                <p className="whitespace-pre-line">{stripHtml(typedJob.description)}</p>
               </div>
             </div>
             
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Skills & Requirements</h2>
               <div className="flex flex-wrap gap-2 mb-4">
-                {job.skills.map((skill) => (
+                {typedJob.skills.map((skill) => (
                   <span key={skill.id} className="inline-flex px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded">
                     {skill.name}
                   </span>
@@ -331,13 +331,13 @@ export default function JobDetail() {
             </div>
             
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">About {job.company.name}</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">About {typedJob.company.name}</h2>
               <p className="text-gray-600 mb-4">
-                {job.company.name} is a company offering remote opportunities for digital nomads.
+                {typedJob.company.name} is a company offering remote opportunities for digital nomads.
               </p>
-              {job.company.website && (
+              {typedJob.company.website && (
                 <a
-                  href={job.company.website}
+                  href={typedJob.company.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
@@ -354,10 +354,10 @@ export default function JobDetail() {
                 <h2 className="text-xl font-bold text-gray-900">Essential Tools for This Role</h2>
               </div>
               <p className="text-gray-700 mb-4">
-                Boost your productivity and efficiency with these recommended tools for {job.category.name.toLowerCase()} professionals:
+                Boost your productivity and efficiency with these recommended tools for {typedJob.category.name.toLowerCase()} professionals:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                {job.category.slug.includes('development') && (
+                {typedJob.category.slug.includes('development') && (
                   <>
                     <div className="bg-white rounded-lg p-4 shadow-sm">
                       <h3 className="font-medium text-blue-800 mb-1">GitHub Pro</h3>
@@ -372,7 +372,7 @@ export default function JobDetail() {
                   </>
                 )}
                 
-                {job.category.slug.includes('marketing') && (
+                {typedJob.category.slug.includes('marketing') && (
                   <>
                     <div className="bg-white rounded-lg p-4 shadow-sm">
                       <h3 className="font-medium text-blue-800 mb-1">Loom</h3>
@@ -387,7 +387,7 @@ export default function JobDetail() {
                   </>
                 )}
                 
-                {!job.category.slug.includes('development') && !job.category.slug.includes('marketing') && (
+                {!typedJob.category.slug.includes('development') && !typedJob.category.slug.includes('marketing') && (
                   <>
                     <div className="bg-white rounded-lg p-4 shadow-sm">
                       <h3 className="font-medium text-blue-800 mb-1">Notion</h3>
@@ -421,8 +421,8 @@ export default function JobDetail() {
             {applicationSubmitted ? (
               <div className="sticky top-24">
                 <ApplicationSuccess 
-                  jobTitle={job.title}
-                  companyName={job.company.name}
+                  jobTitle={typedJob.title}
+                  companyName={typedJob.company.name}
                   onClose={handleCloseSuccess}
                 />
               </div>
