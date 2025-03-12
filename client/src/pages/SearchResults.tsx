@@ -83,10 +83,11 @@ export default function SearchResults() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <div className="w-full lg:w-1/4">
-            <FilterSidebar />
-            <div className="mt-6">
-              <ToolkitSidebar />
+            {/* Toolkit section placed FIRST */}
+            <div className="mb-6">
+              <ToolkitSidebar variant="compact" />
             </div>
+            <FilterSidebar />
           </div>
           {/* Main Content */}
           <div className="w-full lg:w-3/4">
