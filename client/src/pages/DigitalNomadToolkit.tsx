@@ -1630,122 +1630,293 @@ export default function DigitalNomadToolkit() {
             <TabsContent value="learning" className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold mb-6">Learning & Skill Development</h2>
-                <p className="text-gray-700 mb-8">
-                  Invest in your skills to stay competitive in the remote job market and increase your earning potential.
+                <p className="text-gray-700 mb-6">
+                  Investing in your skills is crucial for digital nomads to stay competitive in the remote job market and increase earning potential. These platforms make it easy to learn from anywhere in the world.
                 </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   {/* Online Course Platforms */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Online Course Platforms</CardTitle>
-                      <CardDescription>Learn new skills to advance your career</CardDescription>
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <UdemyLogo className="h-8 w-auto" />
+                      </div>
+                      <CardTitle>Udemy</CardTitle>
+                      <CardDescription>Affordable courses on virtually any skill or topic</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Udemy</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Affordable courses on virtually any skill needed for remote work. Regular sales make this an economical choice for learning.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.udemy.com/', '_blank')}>
-                          Browse Udemy Courses
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-purple-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-purple-800">Best for Affordable Skill Development</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Coursera</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          University-level courses and professional certificates from top institutions. Gain credentials recognized by employers.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.coursera.org/', '_blank')}>
-                          Explore Coursera
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Over 185,000 courses across all subjects</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Regular sales with courses from $9.99</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Lifetime access to purchased courses</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Downloadable for offline learning</span>
+                          </li>
+                        </ul>
                       </div>
+                      <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.udemy.com/', '_blank')}>
+                        Browse Udemy Courses
+                      </Button>
                     </CardContent>
                   </Card>
-
-                  {/* Creative Skill Learning */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Creative Skills</CardTitle>
-                      <CardDescription>Develop your creative abilities</CardDescription>
+                  
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <SkillshareLogo className="h-8 w-auto" />
+                      </div>
+                      <CardTitle>Skillshare</CardTitle>
+                      <CardDescription>Subscription-based platform with unlimited access to creative courses</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Skillshare</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Subscription-based platform focused on creative skills. Learn design, photography, writing, and more from professionals.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.skillshare.com/', '_blank')}>
-                          Try Skillshare
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for Creative Skills</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Domestika</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          High-quality courses in creative and digital skills. Beautifully produced lessons from top creative professionals.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.domestika.org/', '_blank')}>
-                          Explore Domestika
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Unlimited access to all courses with subscription</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Focus on creative and business skills</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Taught by working professionals and creators</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>High-quality project-based classes</span>
+                          </li>
+                        </ul>
                       </div>
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://www.skillshare.com/', '_blank')}>
+                        Get 60% Off Skillshare
+                      </Button>
                     </CardContent>
                   </Card>
-
-                  {/* Technical Skills */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Technical Skills</CardTitle>
-                      <CardDescription>Learn programming and tech skills</CardDescription>
+                  
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <LinkedInLogo className="h-8 w-auto" />
+                      </div>
+                      <CardTitle>LinkedIn Learning</CardTitle>
+                      <CardDescription>Professional courses with LinkedIn profile integration</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    <CardContent className="space-y-4">
+                      <div className="bg-indigo-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-indigo-800">Best for Career Development</p>
+                      </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Frontend Masters</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          In-depth courses on frontend development. Learn from industry experts and stay current with the latest technologies.
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Certificates display on your LinkedIn profile</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Business, tech, and creative courses</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Expert-led professional training</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Personalized course recommendations</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700" onClick={() => window.open('https://www.linkedin.com/learning/', '_blank')}>
+                        Try LinkedIn Learning
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                  {/* Language Learning */}
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Language Learning</h3>
+                    <p className="text-gray-700">Communicate better while traveling around the world</p>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <div className="font-bold text-xl">
+                            <span className="text-green-500">duo</span><span className="text-green-700">lingo</span>
+                          </div>
+                        </div>
+                        <CardTitle>Duolingo</CardTitle>
+                        <CardDescription>Free language learning app with bite-sized lessons</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-green-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-green-800">Best Free Language Learning App</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>40+ languages available completely free</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Gamified approach makes learning fun</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>5-minute daily lessons fit busy schedules</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://www.duolingo.com/', '_blank')}>
+                          Start Learning Languages
+                        </Button>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <div className="font-bold text-xl">
+                            <span className="text-red-500">iTalki</span>
+                          </div>
+                        </div>
+                        <CardTitle>iTalki</CardTitle>
+                        <CardDescription>Connect with native language teachers for online lessons</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-red-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-red-800">Best for Conversation Practice</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>One-on-one video lessons with native speakers</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Lessons start as low as $5-10 per hour</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Flexible scheduling that fits nomad lifestyle</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700" onClick={() => window.open('https://www.italki.com/', '_blank')}>
+                          Find a Language Teacher
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  {/* Tech Skills */}
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Tech Skills</h3>
+                    <p className="text-gray-700">Learn in-demand digital skills that translate globally</p>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Frontend Masters</h4>
+                            <p className="text-sm text-gray-600">Advanced web development training</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          In-depth courses on frontend development from industry experts. High-quality workshops on the latest technologies for modern web development.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://frontendmasters.com/', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700" onClick={() => window.open('https://frontendmasters.com/', '_blank')}>
                           Join Frontend Masters
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Codecademy</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Interactive coding lessons with hands-on practice. Great for beginners looking to learn programming languages.
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Codecademy</h4>
+                            <p className="text-sm text-gray-600">Interactive coding lessons with instant feedback</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Learn programming languages, full-stack development, data science, and more through interactive lessons with immediate feedback. Perfect for learning technical skills on the go.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.codecademy.com/', '_blank')}>
-                          Try Codecademy
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.codecademy.com/', '_blank')}>
+                          Try Codecademy Pro
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Language Learning */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Language Learning</CardTitle>
-                      <CardDescription>Expand your global opportunities</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Duolingo</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Free language learning app with gamification. Learn basics of multiple languages with just a few minutes daily.
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">freeCodeCamp</h4>
+                            <p className="text-sm text-gray-600">Free, comprehensive coding curriculum</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Learn web development, data science, and more with hands-on projects. Completely free, with certificates upon completion of each major section. Perfect for beginners.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.duolingo.com/', '_blank')}>
-                          Start Duolingo
+                        <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://www.freecodecamp.org/', '_blank')}>
+                          Start Coding for Free
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">iTalki</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Connect with native language tutors for personalized 1-on-1 lessons. Perfect for serious language learners.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.italki.com/', '_blank')}>
-                          Find a Tutor
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                
+                {/* Learning Tips Section */}
+                <div className="mt-10 bg-blue-50 p-6 rounded-lg">
+                  <h4 className="font-medium text-xl mb-4">Learning Tips for Digital Nomads</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h5 className="font-medium text-blue-800 mb-2">Download for Offline Learning</h5>
+                      <p className="text-sm text-gray-700">
+                        When possible, download course materials in advance for offline access during travel days or in areas with unreliable internet. Most platforms offer this feature in their mobile apps.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-blue-800 mb-2">Time Block Your Learning</h5>
+                      <p className="text-sm text-gray-700">
+                        Set aside specific times in your calendar for learning, treating it like any other important appointment. Even 30 minutes daily is more effective than occasional multi-hour sessions.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-blue-800 mb-2">Join Online Communities</h5>
+                      <p className="text-sm text-gray-700">
+                        Connect with other learners through platform forums, Discord groups, or Reddit communities related to what you're studying. This provides accountability and help when you get stuck.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-blue-800 mb-2">Apply Skills to Real Projects</h5>
+                      <p className="text-sm text-gray-700">
+                        Reinforce your learning by applying new skills to real-world projects or freelance work. This practical application helps solidify knowledge and builds your portfolio simultaneously.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </TabsContent>
@@ -1753,123 +1924,244 @@ export default function DigitalNomadToolkit() {
             {/* Finance Tab */}
             <TabsContent value="finance" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Finance & Insurance</h2>
-                <p className="text-gray-700 mb-8">
-                  Manage your money effectively while traveling and working across borders with these financial tools.
+                <h2 className="text-2xl font-bold mb-6">Finance & Money Management</h2>
+                <p className="text-gray-700 mb-6">
+                  Managing finances across borders is a unique challenge for digital nomads. These tools help you handle international banking, minimize fees, track expenses, and stay compliant with tax obligations.
                 </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Banking */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>International Banking</CardTitle>
-                      <CardDescription>Manage money across borders</CardDescription>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  {/* International Banking */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <WiseLogo className="h-8 w-auto" />
+                      </div>
+                      <CardTitle>Wise</CardTitle>
+                      <CardDescription>Multi-currency accounts for global living</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Wise (formerly TransferWise)</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Multi-currency account with local bank details in multiple countries. Send and receive international payments at low rates.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://wise.com/', '_blank')}>
-                          Open Wise Account
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-blue-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-blue-800">Best for International Transfers</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Revolut</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Digital banking alternative with multi-currency accounts, currency exchange at interbank rates, and budgeting tools.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.revolut.com/', '_blank')}>
-                          Try Revolut
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Local bank details in 10+ currencies</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Up to 8x cheaper than traditional banks</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Receive payments like a local business</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Debit card for spending worldwide</span>
+                          </li>
+                        </ul>
                       </div>
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://wise.com/', '_blank')}>
+                        Get Free Transfer Up To $500
+                      </Button>
                     </CardContent>
                   </Card>
 
-                  {/* Credit Cards */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Travel-Friendly Cards</CardTitle>
-                      <CardDescription>Avoid fees when spending abroad</CardDescription>
+                  {/* Digital Banking */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="font-bold text-xl">
+                          <span className="text-indigo-600">Revolut</span>
+                        </div>
+                      </div>
+                      <CardTitle>Revolut</CardTitle>
+                      <CardDescription>All-in-one digital banking solution</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Travel Credit Cards</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Credit cards with no foreign transaction fees and travel rewards. Essential for digital nomads who frequently cross borders.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.nerdwallet.com/best/credit-cards/travel', '_blank')}>
-                          Compare Travel Cards
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-indigo-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-indigo-800">Best All-In-One Financial App</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Charles Schwab Debit Card</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Reimburses all ATM fees worldwide with no foreign transaction fees. Perfect for accessing cash while traveling.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.schwab.com/checking', '_blank')}>
-                          Learn More
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Hold 30+ currencies in one account</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Exchange at interbank rates</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Built-in budgeting and analytics</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Crypto trading and stock investing</span>
+                          </li>
+                        </ul>
                       </div>
+                      <Button className="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700" onClick={() => window.open('https://www.revolut.com/', '_blank')}>
+                        Free Premium For 3 Months
+                      </Button>
                     </CardContent>
                   </Card>
 
                   {/* Insurance */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Travel & Health Insurance</CardTitle>
-                      <CardDescription>Stay protected while abroad</CardDescription>
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <SafetyWingLogo className="h-8 w-auto" />
+                      </div>
+                      <CardTitle>SafetyWing</CardTitle>
+                      <CardDescription>Health insurance for digital nomads</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">SafetyWing Insurance</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Health insurance designed specifically for digital nomads and remote workers. Monthly subscription model with worldwide coverage.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://safetywing.com/', '_blank')}>
-                          Get Nomad Insurance
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-green-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-green-800">Best Nomad Health Insurance</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">World Nomads</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Travel insurance covering 200+ activities and gear like laptops and cameras. Flexible plans that can be purchased while already traveling.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.worldnomads.com/', '_blank')}>
-                          Get World Nomads
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Coverage in 175+ countries</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Monthly subscription from $42</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Cancel anytime, no commitment</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Hospital, emergency, COVID-19 coverage</span>
+                          </li>
+                        </ul>
                       </div>
+                      <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://safetywing.com/', '_blank')}>
+                        Get Nomad Insurance
+                      </Button>
                     </CardContent>
                   </Card>
-
-                  {/* Tax Services */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Expat Tax Services</CardTitle>
-                      <CardDescription>Navigate complex tax situations</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">TaxAct Expat Edition</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Tax preparation software specifically designed for US expats. Helps claim Foreign Earned Income Exclusion and other expat benefits.
+                </div>
+                
+                {/* Tax & Budgeting */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                  {/* Tax Management */}
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Tax Management</h3>
+                    <p className="text-gray-700">Stay compliant with tax obligations as you work remotely</p>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Taxfyle</h4>
+                            <p className="text-sm text-gray-600">Expert tax help for global workers</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Connect with licensed CPAs and EAs who understand the complex tax implications of working remotely across different countries. Get personalized advice for your unique situation.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.taxact.com/', '_blank')}>
-                          Explore TaxAct
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://taxfyle.com/', '_blank')}>
+                          Find a Digital Nomad Tax Pro
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Bright!Tax</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          US expat tax specialists offering full-service tax preparation. Expert guidance for complicated international tax situations.
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Bright!Tax</h4>
+                            <p className="text-sm text-gray-600">US expat tax specialists</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          US expat tax specialists offering full-service tax preparation. Expert guidance for complicated international tax situations, foreign income exclusions, and multi-country compliance.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://brighttax.com/', '_blank')}>
-                          Learn More
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://brighttax.com/', '_blank')}>
+                          Get a Tax Consultation
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  {/* Expense Tracking */}
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Expense Tracking</h3>
+                    <p className="text-gray-700">Manage your finances across currencies and countries</p>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">YNAB (You Need A Budget)</h4>
+                            <p className="text-sm text-gray-600">Budgeting for variable income</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Powerful budgeting app that works well for variable income and changing expenses, common challenges for digital nomads. Manage multiple currencies and track your spending habits.
+                        </p>
+                        <Button className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700" onClick={() => window.open('https://www.youneedabudget.com/', '_blank')}>
+                          Try YNAB Free
+                        </Button>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Expensify</h4>
+                            <p className="text-sm text-gray-600">Receipt scanning and expense reports</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Track business expenses and receipts while traveling. Perfect for freelancers who need to separate personal and business expenses or remote workers who need to submit expense reports.
+                        </p>
+                        <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700" onClick={() => window.open('https://www.expensify.com/', '_blank')}>
+                          Start Free Individual Plan
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                
+                {/* Finance Tips Section */}
+                <div className="mt-10 bg-emerald-50 p-6 rounded-lg">
+                  <h4 className="font-medium text-xl mb-4">Financial Tips for Digital Nomads</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h5 className="font-medium text-emerald-800 mb-2">Maintain a Financial Buffer</h5>
+                      <p className="text-sm text-gray-700">
+                        Keep at least 3-6 months of living expenses as an emergency fund in easily accessible accounts. As a digital nomad, unexpected expenses like emergency flights or medical care can arise.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-emerald-800 mb-2">Research Tax Treaties</h5>
+                      <p className="text-sm text-gray-700">
+                        Understand tax treaties between your home country and countries where you spend significant time. These agreements can prevent double taxation and potentially save you thousands.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-emerald-800 mb-2">Consider Payment Timing</h5>
+                      <p className="text-sm text-gray-700">
+                        When exchanging currency, monitor exchange rates and time large transfers when rates are favorable. Even small rate differences can significantly impact your finances over time.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-emerald-800 mb-2">Multiple Payment Options</h5>
+                      <p className="text-sm text-gray-700">
+                        Always have multiple ways to access funds—different cards, payment apps, and cash. If one card gets blocked or lost, you'll still have access to your money while traveling.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </TabsContent>
