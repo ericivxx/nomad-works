@@ -59,7 +59,7 @@ export async function getBrandAssets(domain: string): Promise<BrandfetchResponse
     }
     
     const data = await response.json() as BrandfetchResponse;
-    console.log(`Successfully fetched brand data for ${domain}: Logo ${data.logos ? 'present' : 'missing'}, Icon ${data.icon ? 'present' : 'missing'}`);
+    console.log(`Successfully fetched brand data for ${domain}: Raw response:`, JSON.stringify(data));
     return data;
   } catch (error) {
     console.error(`Error fetching brand assets for ${domain}:`, error);
