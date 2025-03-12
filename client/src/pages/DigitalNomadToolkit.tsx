@@ -1867,7 +1867,10 @@ export default function DigitalNomadToolkit() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                   {/* Language Learning */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Language Learning</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <MessageSquare className="h-5 w-5 text-green-600" />
+                      Language Learning
+                    </h3>
                     <p className="text-gray-700">Communicate better while traveling around the world</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -1941,7 +1944,10 @@ export default function DigitalNomadToolkit() {
                   
                   {/* Tech Skills */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Tech Skills</h3>
+                    <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                      <Code className="h-5 w-5 text-purple-600" />
+                      Tech Skills
+                    </h3>
                     <p className="text-gray-700">Learn in-demand digital skills that translate globally</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">

@@ -146,9 +146,9 @@ export async function getBrandAssets(domain: string): Promise<BrandfetchResponse
   }
 }
 
-export function getBestLogo(logos?: BrandfetchLogo[]): string | null {
+export function getBestLogo(logos?: BrandfetchLogo[]): string | undefined {
   if (!logos || logos.length === 0) {
-    return null;
+    return undefined;
   }
   
   // First, find all logos that are actual logos (not symbols or icons)
