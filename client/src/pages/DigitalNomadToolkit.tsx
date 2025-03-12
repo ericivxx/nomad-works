@@ -9,6 +9,47 @@ import BrandLogo from "@/components/BrandLogo";
 // Import custom CSS fix for the tabs
 import "@/components/ui/tabs-fix.css";
 
+// Inline SVG icons to ensure visibility
+const WifiIcon = () => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="16" 
+    height="16" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    style={{ minWidth: '16px', display: 'inline-block' }}
+    className="forced-visible"
+  >
+    <path d="M5 13a10 10 0 0 1 14 0" />
+    <path d="M8.5 16.5a5 5 0 0 1 7 0" />
+    <path d="M2 8.82a15 15 0 0 1 20 0" />
+    <line x1="12" x2="12.01" y1="20" y2="20" />
+  </svg>
+);
+
+const FileIcon = () => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="16" 
+    height="16" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    style={{ minWidth: '16px', display: 'inline-block' }}
+    className="forced-visible"
+  >
+    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+  </svg>
+);
+
 export default function DigitalNomadToolkit() {
   const currentYear = new Date().getFullYear();
 
@@ -71,7 +112,9 @@ export default function DigitalNomadToolkit() {
                 <span>Productivity</span>
               </TabsTrigger>
               <TabsTrigger value="vpn" className="flex-force">
-                <Wifi className="h-4 w-4 tab-icon" />
+                <div style={{ display: 'inline-block', minWidth: '16px', marginRight: '4px' }}>
+                  <WifiIcon />
+                </div>
                 <span>VPN Services</span>
               </TabsTrigger>
               <TabsTrigger value="esim" className="flex-force">
@@ -83,7 +126,9 @@ export default function DigitalNomadToolkit() {
                 <span>Insurance</span>
               </TabsTrigger>
               <TabsTrigger value="resume" className="flex-force">
-                <File className="h-4 w-4 tab-icon" />
+                <div style={{ display: 'inline-block', minWidth: '16px', marginRight: '4px' }}>
+                  <FileIcon />
+                </div>
                 <span>Resume Tools</span>
               </TabsTrigger>
               <TabsTrigger value="security" className="flex-force">
