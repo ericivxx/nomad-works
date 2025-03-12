@@ -48,14 +48,27 @@ export async function getBrandAssets(domain: string): Promise<BrandfetchResponse
       return null;
     }
     
-    console.log(`Fetching brand assets for domain: ${domain}`);
+    console.log(`Fetching brand assets for domain: ${domain} with API key: ${apiKey.substring(0, 4)}...`);
     
-    // Try the Brand Search API first to get information (requires clientId)
-    const searchResponse = await fetch(`https://api.brandfetch.io/v2/search/${domain}?c=${apiKey}`);
+    // Try the Brand Search API first to get information
+    const searchUrl = `https://api.brandfetch.io/v2/search/${domain}?c=${apiKey}`;
+    console.log(`Making request to: ${searchUrl}`);
+    
+    const searchResponse = await fetch(searchUrl);
+    console.log(`Brand Search API response for ${domain}: Status ${searchResponse.status}`);
     
     if (searchResponse.ok) {
-      const searchData = await searchResponse.json() as any[];
-      console.log(`Brand search results for ${domain}:`, JSON.stringify(searchData));
+      const searchText = await searchResponse.text();
+      console.log(`Raw Brand search response text: ${searchText}`);
+      
+      let searchData;
+      try {
+        searchData = JSON.parse(searchText);
+        console.log(`Brand search results for ${domain}:`, JSON.stringify(searchData));
+      } catch (parseError) {
+        console.error(`Error parsing search results: ${parseError}`);
+        return null;
+      }
       
       if (Array.isArray(searchData) && searchData.length > 0) {
         // Find the best match from the search results
@@ -68,31 +81,64 @@ export async function getBrandAssets(domain: string): Promise<BrandfetchResponse
         console.log(`Best match for ${domain}:`, JSON.stringify(bestMatch));
         
         // Create a simpler response with just what we need
-        return {
+        const result = {
           name: bestMatch.name,
           domain: bestMatch.domain,
           logo: bestMatch.icon || null,
           icon: bestMatch.icon || null,
           colors: bestMatch.colors || []
         };
+        
+        console.log(`Simplified search result to return: ${JSON.stringify(result)}`);
+        return result;
+      } else {
+        console.log(`No results found in search data for ${domain}`);
       }
+    } else {
+      const errorText = await searchResponse.text();
+      console.error(`Brand Search API error: ${searchResponse.status} ${searchResponse.statusText}`);
+      console.error(`Error response text: ${errorText}`);
     }
     
     // Fallback to full API if search doesn't work
-    const response = await fetch(`https://api.brandfetch.io/v2/brands/${domain}`, {
+    const brandUrl = `https://api.brandfetch.io/v2/brands/${domain}`;
+    console.log(`Trying brand API as fallback: ${brandUrl}`);
+    
+    const response = await fetch(brandUrl, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${apiKey}`
       }
     });
     
+    console.log(`Brand API response for ${domain}: Status ${response.status}`);
+    
     if (!response.ok) {
+      const errorText = await response.text();
       console.error(`Error fetching brand assets for ${domain}: ${response.status} ${response.statusText}`);
+      console.error(`Error response text: ${errorText}`);
       return null;
     }
     
-    const data = await response.json() as BrandfetchResponse;
-    console.log(`Successfully fetched brand data for ${domain}: Raw response:`, JSON.stringify(data));
+    const responseText = await response.text();
+    console.log(`Raw brand API response text: ${responseText}`);
+    
+    let data;
+    try {
+      data = JSON.parse(responseText) as BrandfetchResponse;
+      console.log(`Successfully parsed brand data for ${domain}`);
+    } catch (parseError) {
+      console.error(`Error parsing brand API results: ${parseError}`);
+      return null;
+    }
+    
+    // Extract the best logo URL if we have logos array
+    if (data.logos && data.logos.length > 0 && !data.logo) {
+      data.logo = getBestLogo(data.logos);
+      console.log(`Selected best logo for ${domain}: ${data.logo}`);
+    }
+    
+    console.log(`Successfully processed brand data for ${domain}`);
     return data;
   } catch (error) {
     console.error(`Error fetching brand assets for ${domain}:`, error);

@@ -68,14 +68,27 @@ export default function BrandLogo({
         
         // First try our own API endpoint
         const response = await fetch(`/api/brand/${baseDomain}`);
+        console.log(`BrandLogo: Initial API response status: ${response.status}`);
+        
         if (response.ok) {
-          const result = await response.json() as BrandData;
-          console.log(`BrandLogo: Successfully fetched data from our API for ${baseDomain}:`, result);
+          const responseText = await response.text();
+          console.log(`BrandLogo: Raw API response: ${responseText}`);
           
-          // Make sure we have a logo - if not, we'll try fallback strategy below
-          if (result.logo) {
-            return result;
+          try {
+            const result = JSON.parse(responseText) as BrandData;
+            console.log(`BrandLogo: Successfully fetched data from our API for ${baseDomain}:`, result);
+            
+            // Make sure we have a logo - if not, we'll try fallback strategy below
+            if (result.logo) {
+              return result;
+            }
+          } catch (jsonError) {
+            console.error(`BrandLogo: Error parsing JSON response: ${jsonError}`);
           }
+        } else {
+          console.error(`BrandLogo: API request failed with status ${response.status}: ${response.statusText}`);
+          const errorText = await response.text();
+          console.error(`BrandLogo: Error response body: ${errorText}`);
         }
         
         // If the above API call didn't give us a logo, try direct search through our backend API
@@ -85,18 +98,29 @@ export default function BrandLogo({
         
         console.log(`BrandLogo: Trying search with different term: ${domainSearchTerm}`);
         const directResponse = await fetch(searchUrl);
+        console.log(`BrandLogo: Secondary API response status: ${directResponse.status}`);
         
         if (directResponse.ok) {
           // This should already return a processed BrandData object from our API
-          const result = await directResponse.json() as BrandData;
-          console.log(`BrandLogo: Got secondary search result:`, result);
+          const directText = await directResponse.text();
+          console.log(`BrandLogo: Raw secondary API response: ${directText}`);
           
-          if (result && result.logo) {
-            return result;
+          try {
+            const result = JSON.parse(directText) as BrandData;
+            console.log(`BrandLogo: Got secondary search result:`, result);
+            
+            if (result && result.logo) {
+              return result;
+            }
+          } catch (jsonError) {
+            console.error(`BrandLogo: Error parsing JSON from secondary response: ${jsonError}`);
           }
+        } else {
+          console.error(`BrandLogo: Secondary API request failed with status ${directResponse.status}: ${directResponse.statusText}`);
         }
         
         // If we still have nothing, return null
+        console.log(`BrandLogo: All API attempts failed for ${baseDomain}, returning null`);
         return null;
       } catch (error) {
         console.error(`BrandLogo: Error fetching brand data for ${baseDomain}:`, error);
@@ -105,6 +129,7 @@ export default function BrandLogo({
     },
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
     enabled: !!baseDomain, // Always run query if we have a domain
+    retry: 1, // Only retry once to avoid too many failing requests
   });
   
   // Handle loading state
