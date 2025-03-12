@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEOHead from "@/components/SEOHead";
-import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network, Code, Receipt, DollarSign, LockKeyhole, HardDrive, MapPin } from "lucide-react";
+import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network, Code, Receipt, DollarSign, LockKeyhole, HardDrive, MapPin, BarChart3, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import BrandLogo from "@/components/BrandLogo";
 // We now use direct styled text instead of SVG components
@@ -1655,7 +1655,10 @@ export default function DigitalNomadToolkit() {
 
                 {/* Comparison Table */}
                 <div className="mt-10 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-sm">
-                  <h3 className="px-6 py-4 text-lg font-semibold bg-gray-50 border-b border-gray-200">Resume Builder Comparison</h3>
+                  <h3 className="px-6 py-4 text-lg font-semibold bg-gray-50 border-b border-gray-200 flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5 text-blue-600" />
+                    <span>Resume Builder Comparison</span>
+                  </h3>
                   <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50">
@@ -1709,7 +1712,10 @@ export default function DigitalNomadToolkit() {
                 </div>
                 
                 <div className="mt-10 bg-blue-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-4">Resume Tips for Remote Job Seekers</h3>
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <Lightbulb className="h-5 w-5 text-amber-600" />
+                    <span>Resume Tips for Remote Job Seekers</span>
+                  </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-medium text-blue-800 mb-2">Highlight Remote Work Experience</h4>
