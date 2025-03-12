@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import SEOHead from "@/components/SEOHead";
 import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network } from "lucide-react";
 import Layout from "@/components/Layout";
+import BrandLogo from "@/components/BrandLogo";
 import { 
   NordVPNLogo, 
   FlexJobsLogo, 

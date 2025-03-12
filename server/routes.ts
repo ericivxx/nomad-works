@@ -2,6 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { jobProviderManager } from "./api/jobProviders";
+import { getBrandAssets, getBestLogo, getBrandPrimaryColor } from "./api/brandfetch";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API Routes
@@ -421,6 +422,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error subscribing to newsletter:", error);
       res.status(500).json({ message: "Failed to subscribe to newsletter" });
+    }
+  });
+
+  // Brand logo and assets endpoint
+  app.get("/api/brand/:domain", async (req: Request, res: Response) => {
+    try {
+      const { domain } = req.params;
+      
+      if (!domain) {
+        return res.status(400).json({ message: "Domain is required" });
+      }
+      
+      // Create a cache key to prevent repeated API calls
+      const cacheKey = `brand:${domain}`;
+      
+      // Check if we have the data in memory cache
+      if (req.app.locals[cacheKey]) {
+        return res.json(req.app.locals[cacheKey]);
+      }
+      
+      // Fetch brand assets from Brandfetch
+      const brandData = await getBrandAssets(domain);
+      
+      if (!brandData) {
+        return res.status(404).json({ message: "Brand not found or API error" });
+      }
+      
+      // Create a simplified response with just what we need
+      const response = {
+        name: brandData.name,
+        domain: brandData.domain,
+        logo: getBestLogo(brandData.logos),
+        icon: brandData.icon?.src || null,
+        primaryColor: getBrandPrimaryColor(brandData.colors)
+      };
+      
+      // Cache the response for future requests
+      req.app.locals[cacheKey] = response;
+      
+      res.json(response);
+    } catch (error) {
+      console.error("Error fetching brand assets:", error);
+      res.status(500).json({ message: "Failed to fetch brand assets" });
     }
   });
 
