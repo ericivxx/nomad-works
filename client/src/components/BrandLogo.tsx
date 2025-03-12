@@ -67,7 +67,6 @@ export default function BrandLogo({
   
   // Check if we have a local logo component for this domain
   console.log(`BrandLogo: Checking for local logo for domain "${baseDomain}"`);
-  console.log(`BrandLogo: Available local logos:`, Object.keys(localLogos));
   
   const LogoComponent = localLogos[baseDomain];
   if (LogoComponent) {
@@ -104,15 +103,48 @@ export default function BrandLogo({
     return <Skeleton className={cn("h-10 w-28 rounded", className)} />;
   }
   
-  // If we have a successful API response with a logo or icon
+  // If we have a successful API response with a logo
   if (data && !isError && !imageError) {
     console.log(`BrandLogo: Using data for ${baseDomain}:`, data);
+    
+    if (data.logo && type === "logo") {
+      return (
+        <div className={cn("flex items-center justify-center", className)}>
+          <img 
+            src={data.logo} 
+            alt={data.name || fallbackText || baseDomain} 
+            className={cn("h-full w-auto", className)}
+            onError={() => setImageError(true)}
+          />
+        </div>
+      );
+    } else if (data.icon && type === "icon") {
+      return (
+        <div className={cn("flex items-center justify-center", className)}>
+          <img 
+            src={data.icon} 
+            alt={data.name || fallbackText || baseDomain} 
+            className={cn("h-full w-auto", className)}
+            onError={() => setImageError(true)}
+          />
+        </div>
+      );
+    }
     
     // If the API returned a primary color and we want to use colors, build a styled component
     if (useColors && data.primaryColor) {
       return (
         <div className={cn("flex items-center justify-center font-bold text-xl", className)}>
           <span style={{ color: data.primaryColor }}>{data.name || fallbackText || baseDomain}</span>
+        </div>
+      );
+    }
+    
+    // If we have a name but no logo/icon or colors
+    if (data.name) {
+      return (
+        <div className={cn("flex items-center justify-center font-bold text-xl", className)}>
+          {data.name}
         </div>
       );
     }

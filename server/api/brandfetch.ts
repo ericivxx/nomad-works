@@ -49,6 +49,39 @@ export async function getBrandAssets(domain: string): Promise<BrandfetchResponse
     
     console.log(`Fetching brand assets for domain: ${domain}`);
     
+    // Try the Brand Search API first to get information (requires clientId)
+    const searchResponse = await fetch(`https://api.brandfetch.io/v2/search/${domain}?c=${apiKey}`);
+    
+    if (searchResponse.ok) {
+      const searchData = await searchResponse.json() as any[];
+      console.log(`Brand search results for ${domain}:`, JSON.stringify(searchData));
+      
+      if (Array.isArray(searchData) && searchData.length > 0) {
+        // Find the best match from the search results
+        const bestMatch = searchData.find((result: any) => 
+          result.domain === domain || 
+          domain.includes(result.domain) || 
+          result.domain.includes(domain)
+        ) || searchData[0];
+        
+        // Create a simpler response with just what we need
+        return {
+          name: bestMatch.name,
+          domain: bestMatch.domain,
+          logos: bestMatch.logo ? [{ 
+            theme: 'light', 
+            formats: [{ 
+              src: bestMatch.logo, 
+              format: 'png' 
+            }],
+            tags: [],
+            type: 'logo'
+          }] : undefined
+        };
+      }
+    }
+    
+    // Fallback to full API if search doesn't work
     const response = await fetch(`https://api.brandfetch.io/v2/brands/${domain}`, {
       method: 'GET',
       headers: {
