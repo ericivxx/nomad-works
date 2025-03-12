@@ -98,88 +98,83 @@ export default function DigitalNomadToolkit() {
                   These tools will help you stay productive and communicate effectively with your team no matter where you're working from.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Premium Job Boards */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Premium Job Boards</CardTitle>
-                      <CardDescription>Find better remote opportunities</CardDescription>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Productivity Tools: Top 3 */}
+                  {/* Notion */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <BrandLogo domain="notion.so" className="h-8 w-auto" fallbackText="Notion" useColors={true} />
+                      </div>
+                      <CardTitle>Notion</CardTitle>
+                      <CardDescription>All-in-one workspace for notes, tasks & wikis</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">FlexJobs</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Premium job board with hand-screened remote jobs across industries. Includes career coaching and resume review services.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.flexjobs.com/', '_blank')}>
-                          Explore FlexJobs
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-gray-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-gray-800">Best All-in-One Workspace</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">LinkedIn Premium</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Get insights on who's viewed your profile, how you compare to other applicants, and send InMail to recruiters.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://premium.linkedin.com/', '_blank')}>
-                          Try LinkedIn Premium
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Notes, tasks, wikis & databases</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Powerful collaborative workspace</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Customizable to any workflow</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Free plan with great features</span>
+                          </li>
+                        </ul>
                       </div>
+                      <Button className="w-full bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900" onClick={() => window.open('https://www.notion.so/', '_blank')}>
+                        Try Notion
+                      </Button>
                     </CardContent>
                   </Card>
 
-                  {/* Productivity Tools */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Productivity Software</CardTitle>
-                      <CardDescription>Tools to maximize your efficiency</CardDescription>
+                  {/* Loom */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <BrandLogo domain="loom.com" className="h-8 w-auto" fallbackText="Loom" useColors={true} />
+                      </div>
+                      <CardTitle>Loom</CardTitle>
+                      <CardDescription>Async video messaging across time zones</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Notion</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          All-in-one workspace for notes, tasks, wikis, and collaboration. Perfect for organizing your work and personal projects.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.notion.so/', '_blank')}>
-                          Get Notion
-                        </Button>
+                    <CardContent className="space-y-4">
+                      <div className="bg-purple-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-purple-800">Best for Async Communication</p>
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Krisp</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          AI-powered noise cancellation for professional video calls from cafes, coworking spaces, or anywhere with background noise.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://krisp.ai/', '_blank')}>
-                          Try Krisp
-                        </Button>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Record screen, camera, or both</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Instant sharing with team members</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Time-saving video communication</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Free plan available</span>
+                          </li>
+                        </ul>
                       </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Remote Team Communication */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Remote Team Communication</CardTitle>
-                      <CardDescription>Stay connected with your team</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Loom</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Record and share video messages of your screen, cam, or both. Perfect for asynchronous communication across time zones.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.loom.com/', '_blank')}>
-                          Try Loom
-                        </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Miro</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Online collaborative whiteboard platform for remote brainstorming, design thinking, planning, and team collaboration.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://miro.com/', '_blank')}>
-                          Explore Miro
-                        </Button>
-                      </div>
+                      <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.loom.com/', '_blank')}>
+                        Try Loom
+                      </Button>
                     </CardContent>
                   </Card>
 
