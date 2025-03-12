@@ -6,7 +6,8 @@ import SEOHead from "@/components/SEOHead";
 import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, File, Wifi, Code, Receipt, DollarSign, LockKeyhole, HardDrive, MapPin, BarChart3, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import BrandLogo from "@/components/BrandLogo";
-// We now use direct styled text instead of SVG components
+// Import custom CSS fix for the tabs
+import "@/components/ui/tabs-fix.css";
 
 export default function DigitalNomadToolkit() {
   const currentYear = new Date().getFullYear();
@@ -65,36 +66,36 @@ export default function DigitalNomadToolkit() {
           {/* Categories Tabs */}
           <Tabs defaultValue="productivity" className="mb-12">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-2 mb-8">
-              <TabsTrigger value="productivity" className="flex items-center gap-2">
-                <Laptop className="h-4 w-4" />
+              <TabsTrigger value="productivity" className="flex-force">
+                <Laptop className="h-4 w-4 tab-icon" />
                 <span>Productivity</span>
               </TabsTrigger>
-              <TabsTrigger value="vpn" className="flex items-center gap-2" style={{ display: 'flex !important' }}>
-                <Wifi className="h-4 w-4" style={{ display: 'inline-block !important' }} />
+              <TabsTrigger value="vpn" className="flex-force">
+                <Wifi className="h-4 w-4 tab-icon" />
                 <span>VPN Services</span>
               </TabsTrigger>
-              <TabsTrigger value="esim" className="flex items-center gap-2">
-                <Globe className="h-4 w-4" />
+              <TabsTrigger value="esim" className="flex-force">
+                <Globe className="h-4 w-4 tab-icon" />
                 <span>eSIM Cards</span>
               </TabsTrigger>
-              <TabsTrigger value="insurance" className="flex items-center gap-2">
-                <HeartPulse className="h-4 w-4" />
+              <TabsTrigger value="insurance" className="flex-force">
+                <HeartPulse className="h-4 w-4 tab-icon" />
                 <span>Insurance</span>
               </TabsTrigger>
-              <TabsTrigger value="resume" className="flex items-center gap-2" style={{ display: 'flex !important' }}>
-                <File className="h-4 w-4" style={{ display: 'inline-block !important' }} />
+              <TabsTrigger value="resume" className="flex-force">
+                <File className="h-4 w-4 tab-icon" />
                 <span>Resume Tools</span>
               </TabsTrigger>
-              <TabsTrigger value="security" className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
+              <TabsTrigger value="security" className="flex-force">
+                <Shield className="h-4 w-4 tab-icon" />
                 <span>Security</span>
               </TabsTrigger>
-              <TabsTrigger value="learning" className="flex items-center gap-2">
-                <Book className="h-4 w-4" />
+              <TabsTrigger value="learning" className="flex-force">
+                <Book className="h-4 w-4 tab-icon" />
                 <span>Learning</span>
               </TabsTrigger>
-              <TabsTrigger value="finance" className="flex items-center gap-2">
-                <CreditCard className="h-4 w-4" />
+              <TabsTrigger value="finance" className="flex-force">
+                <CreditCard className="h-4 w-4 tab-icon" />
                 <span>Finance</span>
               </TabsTrigger>
             </TabsList>
