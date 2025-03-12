@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
+import ToolkitButton from "@/components/ToolkitButton";
 import { Loader } from "lucide-react";
+
+interface Location {
+  id: number;
+  name: string;
+  slug: string;
+  region: string;
+}
 
 export default function LocationsListPage() {
   // Fetch all locations
-  const { data: locations, isLoading } = useQuery({
+  const { data: locations = [], isLoading } = useQuery<Location[]>({
     queryKey: ['/api/locations'],
   });
 
@@ -18,9 +26,9 @@ export default function LocationsListPage() {
   }
 
   // Group locations by region
-  const groupedLocations: Record<string, any[]> = {};
+  const groupedLocations: Record<string, Location[]> = {};
   
-  locations?.forEach((location) => {
+  locations.forEach((location: Location) => {
     const region = location.region || 'Global';
     if (!groupedLocations[region]) {
       groupedLocations[region] = [];
@@ -31,12 +39,12 @@ export default function LocationsListPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": locations?.map((location, index) => ({
+    "itemListElement": locations.map((location: Location, index: number) => ({
       "@type": "ListItem",
       "position": index + 1,
       "name": `${location.name} Jobs`,
       "item": `${window.location.origin}/locations/${location.slug}`
-    })) || []
+    }))
   };
 
   return (
@@ -52,9 +60,12 @@ export default function LocationsListPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Browse Remote Jobs by Location</h1>
-            <p className="text-lg md:text-xl text-blue-100">
+            <p className="text-lg md:text-xl text-blue-100 mb-6">
               Find remote opportunities based on your preferred time zone and region
             </p>
+            <div className="flex justify-center">
+              <ToolkitButton variant="compact" className="animate-pulse" />
+            </div>
           </div>
         </div>
       </section>

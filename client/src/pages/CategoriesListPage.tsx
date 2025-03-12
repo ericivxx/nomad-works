@@ -1,11 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
+import ToolkitButton from "@/components/ToolkitButton";
 import { Loader } from "lucide-react";
+
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 export default function CategoriesListPage() {
   // Fetch all categories
-  const { data: categories, isLoading } = useQuery({
+  const { data: categories = [], isLoading } = useQuery<Category[]>({
     queryKey: ['/api/categories'],
   });
 
@@ -20,12 +27,12 @@ export default function CategoriesListPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": categories?.map((category, index) => ({
+    "itemListElement": categories.map((category: Category, index: number) => ({
       "@type": "ListItem",
       "position": index + 1,
       "name": `${category.name} Jobs`,
       "item": `${window.location.origin}/categories/${category.slug}`
-    })) || []
+    }))
   };
 
   return (
@@ -41,9 +48,12 @@ export default function CategoriesListPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Browse Remote Jobs by Category</h1>
-            <p className="text-lg md:text-xl text-blue-100">
+            <p className="text-lg md:text-xl text-blue-100 mb-6">
               Find the perfect remote job in your field of expertise
             </p>
+            <div className="flex justify-center">
+              <ToolkitButton variant="compact" className="animate-pulse" />
+            </div>
           </div>
         </div>
       </section>
@@ -54,7 +64,7 @@ export default function CategoriesListPage() {
           <h2 className="text-2xl font-bold mb-6">All Job Categories</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories?.map((category) => (
+            {categories.map((category: Category) => (
               <Link 
                 key={category.id} 
                 href={`/categories/${category.slug}`}
