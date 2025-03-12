@@ -45,84 +45,10 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Featured Jobs Section */}
-      <main className="container mx-auto px-4 py-10">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-full">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Featured Remote Jobs</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Explore our hand-picked selection of top remote opportunities for digital nomads
-              </p>
-            </div>
-            
-            <JobList 
-              endpoint="/api/jobs?featured=true"
-              showSorting={false}
-            />
-            
-            <div className="mt-8 text-center">
-              <Link 
-                href="/search" 
-                className="inline-block bg-primary hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
-              >
-                View All Jobs
-              </Link>
-            </div>
-          </div>
-        </div>
-        {/* Popular Keywords Section */}
-        <div className="container mx-auto px-4 py-8">
+      {/* Digital Nomad Toolkit Section - MOVED UP */}
+      <section className="bg-gradient-to-r from-indigo-50 to-blue-50 py-8 md:py-12 mt-6">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Popular Digital Nomad Job Keywords</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Browse remote jobs by popular digital nomad job categories and keywords
-            </p>
-          </div>
-          
-          <KeywordLinks limit={20} />
-          
-          <div className="mt-4 text-center">
-            <Link 
-              href="/keywords/digital-nomad-jobs" 
-              className="inline-block text-primary font-semibold hover:underline"
-            >
-              View All Keywords
-            </Link>
-          </div>
-        </div>
-      </main>
-      
-      {/* Popular Categories Section */}
-      <section className="bg-gray-50 py-12 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Browse Jobs by Category</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Find remote jobs in your area of expertise
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((category: Category) => (
-              <Link 
-                key={category.id} 
-                href={`/categories/${category.slug}`}
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center"
-              >
-                <h3 className="text-xl font-semibold mb-2">{category.name}</h3>
-                <p className="text-gray-600 mb-4">Find remote {category.name.toLowerCase()} jobs for digital nomads</p>
-                <span className="text-primary font-medium hover:underline">Browse Jobs &rarr;</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Digital Nomad Toolkit Section */}
-      <section className="bg-gradient-to-r from-indigo-50 to-blue-50 py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Essential Tools for Digital Nomads</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Equip yourself with the best tools and services used by successful remote workers worldwide
@@ -203,10 +129,10 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <Link 
               href="/digital-nomad-toolkit" 
-              className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700"
+              className="inline-flex items-center text-primary font-semibold hover:underline"
             >
               <span>View Complete Digital Nomad Toolkit</span>
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,7 +142,81 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      
+      {/* Featured Jobs Section */}
+      <main className="container mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-full">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Featured Remote Jobs</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Explore our hand-picked selection of top remote opportunities for digital nomads
+              </p>
+            </div>
+            
+            <JobList 
+              endpoint="/api/jobs?featured=true"
+              showSorting={false}
+            />
+            
+            <div className="mt-8 text-center">
+              <Link 
+                href="/search" 
+                className="inline-block bg-primary hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+              >
+                View All Jobs
+              </Link>
+            </div>
+          </div>
+        </div>
+        {/* Popular Keywords Section */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Popular Digital Nomad Job Keywords</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Browse remote jobs by popular digital nomad job categories and keywords
+            </p>
+          </div>
+          
+          <KeywordLinks limit={20} />
+          
+          <div className="mt-4 text-center">
+            <Link 
+              href="/keywords/digital-nomad-jobs" 
+              className="inline-block text-primary font-semibold hover:underline"
+            >
+              View All Keywords
+            </Link>
+          </div>
+        </div>
+      </main>
+      
+      {/* Popular Categories Section */}
+      <section className="bg-gray-50 py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Browse Jobs by Category</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Find remote jobs in your area of expertise
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categories.map((category: Category) => (
+              <Link 
+                key={category.id} 
+                href={`/categories/${category.slug}`}
+                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center"
+              >
+                <h3 className="text-xl font-semibold mb-2">{category.name}</h3>
+                <p className="text-gray-600 mb-4">Find remote {category.name.toLowerCase()} jobs for digital nomads</p>
+                <span className="text-primary font-medium hover:underline">Browse Jobs &rarr;</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* Why Choose Us Section */}
       <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
