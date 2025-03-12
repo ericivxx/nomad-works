@@ -19,7 +19,8 @@ interface BrandfetchLogo {
 interface BrandfetchResponse {
   name: string;
   domain: string;
-  icon?: BrandfetchLogoFormat;
+  icon?: BrandfetchLogoFormat | string;
+  logo?: string;
   logos?: BrandfetchLogo[];
   colors?: {
     hex: string;
@@ -64,19 +65,15 @@ export async function getBrandAssets(domain: string): Promise<BrandfetchResponse
           result.domain.includes(domain)
         ) || searchData[0];
         
+        console.log(`Best match for ${domain}:`, JSON.stringify(bestMatch));
+        
         // Create a simpler response with just what we need
         return {
           name: bestMatch.name,
           domain: bestMatch.domain,
-          logos: bestMatch.logo ? [{ 
-            theme: 'light', 
-            formats: [{ 
-              src: bestMatch.logo, 
-              format: 'png' 
-            }],
-            tags: [],
-            type: 'logo'
-          }] : undefined
+          logo: bestMatch.icon || null,
+          icon: bestMatch.icon || null,
+          colors: bestMatch.colors || []
         };
       }
     }

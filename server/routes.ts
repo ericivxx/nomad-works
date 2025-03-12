@@ -453,10 +453,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = {
         name: brandData.name,
         domain: brandData.domain,
-        logo: getBestLogo(brandData.logos),
-        icon: brandData.icon?.src || null,
+        logo: brandData.logo || getBestLogo(brandData.logos),
+        icon: typeof brandData.icon === 'string' ? brandData.icon : null,
         primaryColor: getBrandPrimaryColor(brandData.colors)
       };
+      
+      console.log(`Processed brand data response for ${domain}:`, response);
       
       // Cache the response for future requests
       req.app.locals[cacheKey] = response;

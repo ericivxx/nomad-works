@@ -76,19 +76,58 @@ export default function BrandLogo({
     console.log(`BrandLogo: No local logo found for ${baseDomain}`);
   }
 
+  // Try the direct approach using Brand Search API from client-side
   const { data, isLoading, isError } = useQuery({
     queryKey: ["brand", baseDomain],
     queryFn: async () => {
       try {
         console.log(`BrandLogo: Fetching data for domain: ${baseDomain}`);
+        
+        // First try our own API endpoint
         const response = await fetch(`/api/brand/${baseDomain}`);
-        if (!response.ok) {
-          console.error(`BrandLogo: Failed to fetch brand data for ${baseDomain} - Status: ${response.status}`);
-          throw new Error("Failed to fetch brand data");
+        if (response.ok) {
+          const result = await response.json() as BrandData;
+          console.log(`BrandLogo: Successfully fetched data from our API for ${baseDomain}:`, result);
+          
+          // Make sure we have a logo - if not, we'll try fallback strategy below
+          if (result.logo) {
+            return result;
+          }
         }
-        const result = await response.json() as BrandData;
-        console.log(`BrandLogo: Successfully fetched data for ${baseDomain}:`, result);
-        return result;
+        
+        // If the above API call didn't give us a logo, try direct search
+        // This gives faster results with fewer backend calls
+        const domainSearchTerm = baseDomain.split('.')[0]; // Use the base name for better search results
+        const searchUrl = `https://api.brandfetch.io/v2/search/${domainSearchTerm}`;
+        
+        console.log(`BrandLogo: Trying direct search for ${domainSearchTerm}`);
+        const directResponse = await fetch(searchUrl);
+        
+        if (directResponse.ok) {
+          const searchResults = await directResponse.json() as any[];
+          
+          if (Array.isArray(searchResults) && searchResults.length > 0) {
+            // Find the best match
+            const bestMatch = searchResults.find((result: any) => 
+              result.domain === baseDomain || 
+              baseDomain.includes(result.domain) || 
+              result.domain.includes(baseDomain)
+            ) || searchResults[0];
+            
+            console.log(`BrandLogo: Found direct search match:`, bestMatch);
+            
+            return {
+              name: bestMatch.name,
+              domain: bestMatch.domain,
+              logo: bestMatch.icon,
+              icon: bestMatch.icon,
+              primaryColor: null
+            };
+          }
+        }
+        
+        // If we still have nothing, return null
+        return null;
       } catch (error) {
         console.error(`BrandLogo: Error fetching brand data for ${baseDomain}:`, error);
         throw error;
