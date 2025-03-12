@@ -36,7 +36,7 @@ export default function Home() {
             <SearchForm />
             
             {/* Tools Teaser - ENHANCED */}
-            <div className="mt-6 animate-pulse">
+            <div className="mt-6 animate-slow-pulse">
               <Link 
                 href="#tools-section" 
                 className="inline-flex items-center gap-2 group bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
