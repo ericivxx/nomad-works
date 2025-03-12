@@ -246,7 +246,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <NordVPNLogo className="h-8 w-auto" />
+                          <BrandLogo domain="nordvpn.com" className="h-8 w-auto" fallbackText="NordVPN" useColors={true} />
                         </div>
                         <CardTitle>NordVPN</CardTitle>
                         <CardDescription>Industry-leading VPN service with advanced security features</CardDescription>
@@ -280,7 +280,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <ExpressVPNLogo className="h-8 w-auto" />
+                          <BrandLogo domain="expressvpn.com" className="h-8 w-auto" fallbackText="ExpressVPN" useColors={true} />
                         </div>
                         <CardTitle>ExpressVPN</CardTitle>
                         <CardDescription>Premium VPN with fast speeds and excellent global coverage</CardDescription>
@@ -320,7 +320,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <OnePasswordLogo className="h-8 w-auto" />
+                          <BrandLogo domain="1password.com" className="h-8 w-auto" fallbackText="1Password" useColors={true} />
                         </div>
                         <CardTitle>1Password</CardTitle>
                         <CardDescription>Secure password manager with travel mode for border crossings</CardDescription>
@@ -354,7 +354,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <BitwardenLogo className="h-8 w-auto" />
+                          <BrandLogo domain="bitwarden.com" className="h-8 w-auto" fallbackText="Bitwarden" useColors={true} />
                         </div>
                         <CardTitle>Bitwarden</CardTitle>
                         <CardDescription>Open-source password manager with free tier and premium features</CardDescription>
@@ -475,7 +475,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <BackblazeLogo className="h-8 w-auto" />
+                        <BrandLogo domain="backblaze.com" className="h-8 w-auto" fallbackText="Backblaze" useColors={true} />
                       </div>
                       <CardTitle>Backblaze</CardTitle>
                       <CardDescription>Unlimited cloud backup for your files</CardDescription>
