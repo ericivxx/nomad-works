@@ -4,6 +4,7 @@ import FilterSidebar from "@/components/FilterSidebar";
 import JobList from "@/components/JobList";
 import JobCard from "@/components/JobCard";
 import SEOHead from "@/components/SEOHead";
+import ToolkitSidebar from "@/components/ToolkitSidebar";
 import { Loader, CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -259,6 +260,10 @@ export default function CategoryPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <div className="w-full lg:w-1/4">
+            {/* Toolkit section placed FIRST */}
+            <div className="mb-6">
+              <ToolkitSidebar variant="compact" />
+            </div>
             <FilterSidebar />
           </div>
           

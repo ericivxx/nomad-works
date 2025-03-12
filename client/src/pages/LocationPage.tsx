@@ -4,6 +4,7 @@ import FilterSidebar from "@/components/FilterSidebar";
 import JobList from "@/components/JobList";
 import JobCard from "@/components/JobCard";
 import SEOHead from "@/components/SEOHead";
+import ToolkitSidebar from "@/components/ToolkitSidebar";
 import { Loader, Globe, Clock, DollarSign, Map, CheckCircle, Coffee, Wifi } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
