@@ -69,11 +69,13 @@ export default function SearchResults() {
       />
       
       {/* Search Hero (Smaller than Home) */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-6 md:py-10">
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-8 md:py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center">Find Your Perfect Remote Job</h1>
-            <SearchForm variant="compact" />
+          <div className="max-w-5xl mx-auto">
+            <h1 className="text-2xl md:text-3xl font-bold mb-5 text-center">Find Your Perfect Remote Job</h1>
+            <div className="w-full px-4">
+              <SearchForm variant="compact" />
+            </div>
           </div>
         </div>
       </section>

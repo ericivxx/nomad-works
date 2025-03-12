@@ -51,16 +51,16 @@ export default function ToolkitSidebar({ variant = "default" }: { variant?: "def
   
   if (variant === "compact") {
     return (
-      <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+      <div className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-md">
         <div className="flex items-center">
-          <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex-shrink-0 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white">
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
           <div className="ml-3 flex-1">
-            <h4 className="text-sm font-medium text-blue-900">Digital Nomad Tip</h4>
-            <p className="text-xs text-blue-700">Check out our <Link href="/digital-nomad-toolkit" className="font-medium underline">toolkit</Link> for essential remote work tools</p>
+            <h4 className="text-sm font-medium text-white">Digital Nomad Tip</h4>
+            <p className="text-xs text-blue-100">Check out our <Link href="/digital-nomad-toolkit" className="font-medium text-white hover:text-blue-200 underline">toolkit</Link> for essential remote work tools</p>
           </div>
         </div>
       </div>

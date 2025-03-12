@@ -8,7 +8,14 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
   
-  const { data: locations } = useQuery({
+  interface Location {
+    id: number;
+    name: string;
+    slug: string;
+    region: string;
+  }
+  
+  const { data: locations = [] } = useQuery<Location[]>({
     queryKey: ['/api/locations'],
   });
 
@@ -35,7 +42,7 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
 
   if (variant === "compact") {
     return (
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full max-w-3xl mx-auto">
         <div className="relative flex-grow">
           <input
             type="text"
@@ -48,7 +55,7 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
         </div>
         <button 
           type="submit"
-          className="bg-primary hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+          className="sm:flex-shrink-0 bg-primary hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
         >
           Search
         </button>
@@ -79,7 +86,7 @@ export default function SearchForm({ variant = "primary" }: { variant?: "primary
             onChange={(e) => setLocation(e.target.value)}
           >
             <option value="">All Locations</option>
-            {locations?.map((loc: any) => (
+            {locations.map((loc: Location) => (
               <option key={loc.id} value={loc.slug}>{loc.name}</option>
             ))}
           </select>
