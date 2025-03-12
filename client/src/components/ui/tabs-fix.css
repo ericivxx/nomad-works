@@ -5,7 +5,17 @@
   justify-content: center !important;
 }
 
-[data-radix-collection-item] > svg {
+[data-radix-collection-item] > svg,
+[data-radix-collection-item] svg {
+  display: inline-block !important;
+  visibility: visible !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  opacity: 1 !important;
+}
+
+/* Override any potential display:none */
+[data-radix-collection-item] *:not(span) {
   display: inline-block !important;
   visibility: visible !important;
 }
@@ -14,6 +24,8 @@
 .tab-icon {
   display: inline-block !important;
   visibility: visible !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
 }
 
 /* Force flex layout */
@@ -21,4 +33,44 @@
   display: flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
+}
+
+/* Our custom class for ensuring icon visibility */
+.forced-visible {
+  display: inline-block !important;
+  visibility: visible !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  opacity: 1 !important;
+}
+
+/* Target TabsTrigger from Radix */
+[role="tablist"] [role="tab"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Target TabsTrigger icons specifically */
+[role="tablist"] [role="tab"] svg {
+  display: inline-block !important;
+  visibility: visible !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  opacity: 1 !important;
+}
+
+/* Fix for Radix TabsTrigger with hidden/missing icons */
+button[role="tab"] svg {
+  display: inline-block !important;
+  visibility: visible !important;
+}
+
+/* Force all SVG elements to be visible in tabs */
+.radix-state-active svg,
+.radix-state-inactive svg {
+  display: inline-block !important;
+  visibility: visible !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
 }
