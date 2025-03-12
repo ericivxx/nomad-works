@@ -24,6 +24,55 @@ import { z } from "zod";
 import ToolkitSidebar from "@/components/ToolkitSidebar";
 import ApplicationSuccess from "@/components/ApplicationSuccess";
 
+// Job interfaces
+interface Company {
+  id: number;
+  name: string;
+  logo: string;
+  website: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface Location {
+  id: number;
+  name: string;
+  slug: string;
+  region: string;
+}
+
+interface Skill {
+  id: number;
+  name: string;
+}
+
+interface Job {
+  id: number | string;
+  title: string;
+  slug: string;
+  description: string;
+  company: Company;
+  category: Category;
+  location: Location;
+  skills: Skill[];
+  salaryMin?: number;
+  salaryMax?: number;
+  type: string;
+  experienceLevel?: string;
+  timezone?: string;
+  postedAt: string;
+  featured?: boolean;
+  source?: string;
+  externalId?: string;
+  applyUrl?: string;
+}
+
+type JobWithRelations = Job;
+
 const applicationSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Please enter a valid email"),
@@ -41,7 +90,7 @@ export default function JobDetail() {
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   
   // Fetch job details
-  const { data: job, isLoading, error } = useQuery({
+  const { data: job, isLoading, error } = useQuery<Job>({
     queryKey: [`/api/jobs/${slug}`],
   });
   
@@ -92,19 +141,22 @@ export default function JobDetail() {
   const getJobPostingStructuredData = () => {
     if (!job) return null;
     
+    // Type guard to ensure TypeScript recognizes job as Job type
+    const typedJob = job as Job;
+    
     return {
       "@context": "https://schema.org/",
       "@type": "JobPosting",
-      "title": job.title,
-      "description": job.description,
-      "datePosted": new Date(job.postedAt).toISOString(),
-      "validThrough": new Date(new Date(job.postedAt).getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      "employmentType": job.type.toUpperCase().replace("-", "_"),
+      "title": typedJob.title,
+      "description": typedJob.description,
+      "datePosted": new Date(typedJob.postedAt).toISOString(),
+      "validThrough": new Date(new Date(typedJob.postedAt).getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      "employmentType": typedJob.type.toUpperCase().replace("-", "_"),
       "hiringOrganization": {
         "@type": "Organization",
-        "name": job.company.name,
-        "sameAs": job.company.website,
-        "logo": job.company.logo
+        "name": typedJob.company.name,
+        "sameAs": typedJob.company.website,
+        "logo": typedJob.company.logo
       },
       "jobLocation": {
         "@type": "Place",
@@ -113,13 +165,13 @@ export default function JobDetail() {
           "addressCountry": "Remote"
         }
       },
-      "baseSalary": job.salaryMin && job.salaryMax ? {
+      "baseSalary": typedJob.salaryMin && typedJob.salaryMax ? {
         "@type": "MonetaryAmount",
         "currency": "USD",
         "value": {
           "@type": "QuantitativeValue",
-          "minValue": job.salaryMin,
-          "maxValue": job.salaryMax,
+          "minValue": typedJob.salaryMin,
+          "maxValue": typedJob.salaryMax,
           "unitText": "YEAR"
         }
       } : undefined
@@ -150,15 +202,18 @@ export default function JobDetail() {
     );
   }
 
-  const postedDate = new Date(job.postedAt);
+  // Type guard to ensure job is recognized as Job type
+  const typedJob: Job = job as Job;
+  
+  const postedDate = new Date(typedJob.postedAt);
   const postedAgo = formatDistanceToNow(postedDate, { addSuffix: true });
   const formattedDate = format(postedDate, "MMMM d, yyyy");
 
   return (
     <>
       <SEOHead 
-        title={`${job.title} at ${job.company.name} | NomadWorks`}
-        description={job.description.substring(0, 160)}
+        title={`${typedJob.title} at ${typedJob.company.name} | NomadWorks`}
+        description={typedJob.description.substring(0, 160)}
         structuredData={getJobPostingStructuredData()}
         type="article"
       />
@@ -377,90 +432,90 @@ export default function JobDetail() {
                 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="John Doe" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input type="email" placeholder="your@email.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone (optional)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="+1 123 456 7890" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="resume"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Resume Link</FormLabel>
-                        <FormControl>
-                          <Input placeholder="https://drive.google.com/your-resume" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="coverLetter"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Cover Letter</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="Why you're a great fit for this role..." 
-                            rows={5}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting..." : "Submit Application"}
-                  </Button>
-                </form>
-              </Form>
-              
-              <div className="mt-4 text-sm text-gray-500">
-                <p>By applying for this job, you agree to our terms and privacy policy.</p>
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="John Doe" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="your@email.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone (optional)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="+1 123 456 7890" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="resume"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Resume Link</FormLabel>
+                          <FormControl>
+                            <Input placeholder="https://drive.google.com/your-resume" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="coverLetter"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Cover Letter</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Why you're a great fit for this role..." 
+                              rows={5}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? "Submitting..." : "Submit Application"}
+                    </Button>
+                  </form>
+                </Form>
+                
+                <div className="mt-4 text-sm text-gray-500">
+                  <p>By applying for this job, you agree to our terms and privacy policy.</p>
+                </div>
               </div>
-            </div>
             )}
           </div>
         </div>
