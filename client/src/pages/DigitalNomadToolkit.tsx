@@ -231,9 +231,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <div className="font-bold text-xl">
-                            <span className="text-blue-500">Nord</span><span className="text-blue-700">VPN</span>
-                          </div>
+                          <BrandLogo domain="nordvpn.com" className="h-8 w-auto" fallbackText="NordVPN" useColors={true} />
                         </div>
                         <CardTitle>NordVPN</CardTitle>
                         <CardDescription>Industry-leading VPN service with advanced security features</CardDescription>
@@ -267,9 +265,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <div className="font-bold text-xl">
-                            <span className="text-red-600">Express</span><span className="text-red-700">VPN</span>
-                          </div>
+                          <BrandLogo domain="expressvpn.com" className="h-8 w-auto" fallbackText="ExpressVPN" useColors={true} />
                         </div>
                         <CardTitle>ExpressVPN</CardTitle>
                         <CardDescription>Premium VPN with fast speeds and excellent global coverage</CardDescription>
@@ -309,9 +305,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <div className="font-bold text-xl">
-                            <span className="text-indigo-600">1</span><span className="text-indigo-700">Password</span>
-                          </div>
+                          <BrandLogo domain="1password.com" className="h-8 w-auto" fallbackText="1Password" useColors={true} />
                         </div>
                         <CardTitle>1Password</CardTitle>
                         <CardDescription>Secure password manager with travel mode for border crossings</CardDescription>
@@ -345,9 +339,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <div className="font-bold text-xl">
-                            <span className="text-teal-600">Bit</span><span className="text-teal-700">warden</span>
-                          </div>
+                          <BrandLogo domain="bitwarden.com" className="h-8 w-auto" fallbackText="Bitwarden" useColors={true} />
                         </div>
                         <CardTitle>Bitwarden</CardTitle>
                         <CardDescription>Open-source password manager with free tier and premium features</CardDescription>
@@ -468,9 +460,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="font-bold text-xl">
-                          <span className="text-red-600">Back</span><span className="text-red-700">blaze</span>
-                        </div>
+                        <BrandLogo domain="backblaze.com" className="h-8 w-auto" fallbackText="Backblaze" useColors={true} />
                       </div>
                       <CardTitle>Backblaze</CardTitle>
                       <CardDescription>Unlimited cloud backup for your files</CardDescription>
@@ -635,11 +625,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg viewBox="0 0 208 39" className="h-8 w-auto text-[#4687FF]" fill="currentColor">
-                          <path d="M33 0c-18.1 0-33 9-33 20s14.9 20 33 20 33-9 33-20-14.9-20-33-20zm14.1 29l-14.1-17-14 17h-8.3l18.5-21.9c1.5-1.7 3.9-2.2 6.4-2.2s4.9.5 6.4 2.2l18.4 21.9h-13.3z" />
-                          <path d="M101.7 14.6h-5.6l-.1.6c-.9.1-2.6.5-3.8 1.3-1 .8-1.6 2-1.6 3.9v8.5h-5.5v-17.4h5.5v2.8c0 0 1.7-2.8 6.8-2.8h4.8l-.5 3.1zM108.1 28.9h-5.5v-23.9h5.5v9c0 0 2.8-2.8 7.5-2.8 1.3 0 2.5.2 3.6.6 1.1.4 2.1 1 2.8 1.7.8.7 1.2 1.5 1.4 2.4s.1 1.8-.4 2.6v10.4h-5.5v-8.9c0-1-.4-1.8-1.1-2.4-.7-.6-1.7-.9-2.9-.9-1.6 0-2.8.5-3.7 1.4-.9 1-1.4 2.3-1.4 4v6.8h-.3z" />
-                          <path d="M168.7 11.2c-5 0-9.6 2.2-10.9 6.4h5.3c.8-1.3 2.7-2.1 5.1-2.1 3.1 0 5.4 1.3 5.4 3.5v.5h-6.7c-5.1 0-9.1 2-9.1 5.3 0 3.3 4 5.3 9.1 5.3 2.4 0 4.8-.5 7-1.5v.4h4.9v-9.6c0-5.3-4.5-8.2-10.1-8.2zm4.8 14.3c0 1.8-2.3 3.1-5.4 3.1-2.4 0-4.4-.8-4.4-2.4 0-1.6 2-2.4 4.4-2.4h5.4v1.7zM194.4 11.2c-5 0-9.6 2.2-10.9 6.4h5.3c.8-1.3 2.7-2.1 5.1-2.1 3.1 0 5.4 1.3 5.4 3.5v.5h-6.7c-5.1 0-9.1 2-9.1 5.3 0 3.3 4 5.3 9.1 5.3 2.4 0 4.8-.5 7-1.5v.4h4.9v-9.6c0-5.3-4.5-8.2-10.1-8.2zm4.8 14.3c0 1.8-2.3 3.1-5.4 3.1-2.4 0-4.4-.8-4.4-2.4 0-1.6 2-2.4 4.4-2.4h5.4v1.7zM149.3 11.2c-3.9 0-7.3 1.6-9.7 4.7 0 0-1.6-4.3-8.4-4.3h-5.5v17.4h5.5v-10.4c0 0 .2-2.1 2.2-3.1 1-1 2.3-1.2 3.4-1.2 1.1 0 2.4.2 3.4.7 2 1.1 2.3 3.2 2.3 3.2v10.9h5.5v-10.4c0 0 .2-2.1 2.2-3.1 1-1 2.3-1.2 3.4-1.2 1.1 0 2.4.2 3.4.7 2 1.1 2.3 3.2 2.3 3.2v10.9h5.5v-10.9c0-2.7-.4-4.2-2.3-5.6-1.9-1.3-4.4-1.5-6.1-1.5-1.7 0-3.4.2-4.9.7-2 .6-3.3 1.4-4.2 2.7-.6-1.8-2.6-3.5 2.2-3.5z" />
-                        </svg>
+                        <BrandLogo domain="nordvpn.com" className="h-8 w-auto" fallbackText="NordVPN" useColors={true} />
                       </div>
                       <CardTitle>NordVPN</CardTitle>
                       <CardDescription>Advanced security features & global coverage</CardDescription>
@@ -682,17 +668,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <svg viewBox="0 0 300 90" className="h-8 w-auto" fill="none">
-                          <path d="M142.7 26h-11.1V64h11.1V26z" fill="#DA3940"/>
-                          <path d="M131.6 11.7c0-3.5 2.9-6.4 6.4-6.4s6.4 2.9 6.4 6.4-2.9 6.4-6.4 6.4c-3.5.1-6.4-2.8-6.4-6.4z" fill="#DA3940"/>
-                          <path d="M169.9 24.7c-10.1 0-18.3 8.2-18.3 18.3 0 10.1 8.2 18.3 18.3 18.3 10.1 0 18.3-8.2 18.3-18.3 0-10.1-8.2-18.3-18.3-18.3zm0 27.8c-5.2 0-9.5-4.3-9.5-9.5s4.3-9.5 9.5-9.5 9.5 4.3 9.5 9.5c0 5.3-4.3 9.5-9.5 9.5z" fill="#DA3940"/>
-                          <path d="M259 43c0-10.1-8.2-18.3-18.3-18.3-10.1 0-18.3 8.2-18.3 18.3 0 10.1 8.2 18.3 18.3 18.3 10.1 0 18.3-8.2 18.3-18.3zm-18.3 9.5c-5.2 0-9.5-4.3-9.5-9.5s4.3-9.5 9.5-9.5 9.5 4.3 9.5 9.5c0 5.3-4.3 9.5-9.5 9.5z" fill="#DA3940"/>
-                          <path d="M106.6 24.7c-10.1 0-18.3 8.2-18.3 18.3 0 10.1 8.2 18.3 18.3 18.3 10.1 0 18.3-8.2 18.3-18.3 0-10.1-8.2-18.3-18.3-18.3zm0 27.8c-5.2 0-9.5-4.3-9.5-9.5s4.3-9.5 9.5-9.5 9.5 4.3 9.5 9.5c0 5.3-4.3 9.5-9.5 9.5z" fill="#DA3940"/>
-                          <path d="M52.3 24.7c-2.7 0-5.2.6-7.5 1.7V5.3h-11.1v58.6h11.1V43c0-5.2 4.3-9.5 9.5-9.5 5.2 0 9.5 4.3 9.5 9.5v21h11.1V43c0-10.1-8.2-18.3-18.3-18.3h-4.3z" fill="#DA3940"/>
-                          <path d="M88.3 43V26h11.1v-8.8H88.3v-12h-11.1v12h-7.8V26h7.8v17c0 10.1 8.2 18.3 18.3 18.3h.8V52.5c-4.4 0-8.3-4.3-8.3-9.5z" fill="#DA3940"/>
-                          <path d="M202.1 24.7c-2.7 0-5.2.6-7.5 1.7v-5.3h-11.1v42.9h11.1V43c0-5.2 4.3-9.5 9.5-9.5 5.2 0 9.5 4.3 9.5 9.5v21h11.1V43c0-10.1-8.2-18.3-18.3-18.3h-4.3z" fill="#DA3940"/>
-                          <path d="M299.8 42.2v-21h-11.1v21c0 5.2-4.3 9.5-9.5 9.5-5.2 0-9.5-4.3-9.5-9.5v-21h-11.1v21c0 10.1 8.2 18.3 18.3 18.3H281c10.1 0 18.8-8.2 18.8-18.3z" fill="#DA3940"/>
-                        </svg>
+                        <BrandLogo domain="expressvpn.com" className="h-8 w-auto" fallbackText="ExpressVPN" useColors={true} />
                       </div>
                       <CardTitle>ExpressVPN</CardTitle>
                       <CardDescription>Premium speed & server availability</CardDescription>
@@ -735,16 +711,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <div className="h-10 w-auto flex items-center">
-                          <svg viewBox="0 0 300 70" fill="none" className="h-8 w-auto">
-                            <path d="M245.156 40.5C245.156 27.0938 235.156 16.0938 222.812 16.0938C210.469 16.0938 200.469 27.0938 200.469 40.5C200.469 53.9062 210.469 64.9062 222.812 64.9062C235.156 64.9062 245.156 53.9062 245.156 40.5ZM234.062 40.5C234.062 47.3438 229.156 52.8438 222.812 52.8438C216.469 52.8438 211.562 47.3438 211.562 40.5C211.562 33.6562 216.469 28.1562 222.812 28.1562C229.156 28.1562 234.062 33.6562 234.062 40.5Z" fill="#2AB2F2"/>
-                            <path d="M194.52 63H185.521L179.334 44.2188H154.834L148.646 63H139.646L164.865 5.14062H169.474L194.52 63ZM177.599 37.3125L167.053 12.0469L156.599 37.3125H177.599Z" fill="#2AB2F2"/>
-                            <path d="M126.562 40.0781C126.562 38.3594 124.922 37.0312 121.812 37.0312H103.125V28.1562H124.031C130.828 28.1562 137.156 31.125 137.156 40.0781C137.156 49.0312 130.828 51.8438 124.031 51.8438H103.125V63H92.0312V16.0938H124.031C135.797 16.0938 137.156 25.7344 137.156 28.1562V40.0781H126.562Z" fill="#2AB2F2"/>
-                            <path d="M78.4246 37.2147C80.8574 33.9014 82.0739 30.1257 82.0739 25.8876C82.0739 21.6495 80.8574 17.9014 78.4246 14.5435C75.9918 11.1855 72.6794 8.72316 68.4875 6.15645C64.2956 3.59044 59.5405 1.82373 54.2222 0.856322C48.9039 -0.110923 43.8388 -0.285649 39.0269 0.33282L56.8506 62.9813H67.9434L78.4246 37.2147Z" fill="#0082F0"/>
-                            <path d="M65.9155 32.4148C66.9253 30.6481 67.4301 28.7114 67.4301 26.6047C67.4301 24.498 66.9253 22.5788 65.9155 20.8472C64.9058 19.1151 63.5316 17.7584 61.7927 16.7767C60.0537 15.795 58.0797 15.0884 55.8707 14.6567C53.6618 14.225 51.5748 14.0942 49.6097 14.2641L58.885 46.0996H64.3856L65.9155 32.4148Z" fill="#2AB2F2"/>
-                            <path d="M51.3897 27.7139C51.8404 26.968 52.0658 26.163 52.0658 25.2991C52.0658 24.4352 51.8404 23.6477 51.3897 22.9369C50.939 22.2261 50.3371 21.6795 49.5841 21.2973C48.8316 20.915 47.9994 20.6504 47.0884 20.5036C46.1775 20.3565 45.3132 20.3002 44.4958 20.3346L48.4845 34.1084H50.9775L51.3897 27.7139Z" fill="#0082F0"/>
-                          </svg>
-                        </div>
+                        <BrandLogo domain="surfshark.com" className="h-8 w-auto" fallbackText="Surfshark" useColors={true} />
                       </div>
                       <CardTitle>Surfshark</CardTitle>
                       <CardDescription>Unlimited devices & budget-friendly</CardDescription>
