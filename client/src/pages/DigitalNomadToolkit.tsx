@@ -232,122 +232,261 @@ export default function DigitalNomadToolkit() {
             <TabsContent value="security" className="space-y-10">
               <div>
                 <h2 className="text-2xl font-bold mb-6">Security & Privacy Tools</h2>
-                <p className="text-gray-700 mb-8">
-                  Protect your data and stay secure when working from public networks and unfamiliar locations.
+                <p className="text-gray-700 mb-6">
+                  When working remotely from public networks and unfamiliar locations, protecting your data and maintaining your privacy is essential. These tools will help you secure your digital life while traveling.
                 </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                   {/* VPN Services */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>VPN Services</CardTitle>
-                      <CardDescription>Secure your internet connection</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">NordVPN</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Secure VPN with a wide range of server locations. Essential for accessing geo-restricted content and securing your connection on public WiFi.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://nordvpn.com/', '_blank')}>
-                          Get NordVPN
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">VPN Services</h3>
+                    <p className="text-gray-700">Secure your internet connection and protect your browsing activity</p>
+                    
+                    <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <NordVPNLogo className="h-8 w-auto" />
+                        </div>
+                        <CardTitle>NordVPN</CardTitle>
+                        <CardDescription>Industry-leading VPN service with advanced security features</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-blue-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-blue-800">Best Overall VPN for Digital Nomads</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>5500+ servers in 60+ countries</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Works with streaming services worldwide</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Connect up to 6 devices simultaneously</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://nordvpn.com/', '_blank')}>
+                          Get NordVPN Deal
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">ExpressVPN</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Fast, reliable VPN with servers in 94 countries. Works with streaming services and has excellent mobile apps.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.expressvpn.com/', '_blank')}>
-                          Try ExpressVPN
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <ExpressVPNLogo className="h-8 w-auto" />
+                        </div>
+                        <CardTitle>ExpressVPN</CardTitle>
+                        <CardDescription>Premium VPN with fast speeds and excellent global coverage</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-red-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-red-800">Best for High-Speed Connections</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>3000+ servers in 94 countries</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Consistently high speeds for streaming</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Connect up to 8 devices simultaneously</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700" onClick={() => window.open('https://www.expressvpn.com/', '_blank')}>
+                          Try ExpressVPN Risk-Free
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
                   {/* Password Management */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Password Management</CardTitle>
-                      <CardDescription>Secure all your accounts</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">1Password</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Secure password manager that works across all your devices. Generate strong passwords and store them safely.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://1password.com/', '_blank')}>
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Password Management</h3>
+                    <p className="text-gray-700">Keep all your accounts secure with strong, unique passwords</p>
+                    
+                    <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <OnePasswordLogo className="h-8 w-auto" />
+                        </div>
+                        <CardTitle>1Password</CardTitle>
+                        <CardDescription>Secure password manager with travel mode for border crossings</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-indigo-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-indigo-800">Best for Frequent Travelers</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Travel Mode hides sensitive data</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Secure document storage for passports</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Apps for all platforms including mobile</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700" onClick={() => window.open('https://1password.com/', '_blank')}>
                           Get 1Password
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Bitwarden</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Open-source password manager with free and premium tiers. Securely store passwords, credit cards, and secure notes.
-                        </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://bitwarden.com/', '_blank')}>
-                          Try Bitwarden
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <BitwardenLogo className="h-8 w-auto" />
+                        </div>
+                        <CardTitle>Bitwarden</CardTitle>
+                        <CardDescription>Open-source password manager with free tier and premium features</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-teal-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-teal-800">Best Free Password Manager</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>100% free for basic personal use</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Open-source and audited security</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Premium features for only $10/year</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700" onClick={() => window.open('https://bitwarden.com/', '_blank')}>
+                          Try Bitwarden Free
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                
+                {/* Device Security and Backup */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                   {/* Device Security */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Device Security</CardTitle>
-                      <CardDescription>Protect your hardware</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Kensington Laptop Lock</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Physical security lock for your laptop when working in public spaces. A simple but effective deterrent against theft.
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Device Security</h3>
+                    <p className="text-gray-700">Protect your laptop and mobile devices while traveling</p>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Kensington Laptop Lock</h4>
+                            <p className="text-sm text-gray-600">Physical security for your devices</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Physical security lock for your laptop when working in public spaces like cafes and coworking spaces. A simple but effective deterrent against theft.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.kensington.com/', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.kensington.com/', '_blank')}>
                           Shop Laptop Locks
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Privacy Screen Filter</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Prevent visual hacking with a privacy screen that limits viewing angles. Essential for working in public places.
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Privacy Screen Filter</h4>
+                            <p className="text-sm text-gray-600">Prevent visual hacking in public places</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Prevent visual hacking with a privacy screen that limits viewing angles. Essential for digital nomads working in crowded public places and during travel.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.3m.com/3M/en_US/p/c/office-supplies/privacy-screen-filters/', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://www.3m.com/3M/en_US/p/c/office-supplies/privacy-screen-filters/', '_blank')}>
                           Get Privacy Screen
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
                   {/* Backup Solutions */}
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Backup Solutions</CardTitle>
-                      <CardDescription>Never lose important files</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Backblaze</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Unlimited cloud backup for your computer. Essential for digital nomads who might face device loss or damage while traveling.
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-gray-800">Backup Solutions</h3>
+                    <p className="text-gray-700">Never lose your important data while on the road</p>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Backblaze</h4>
+                            <p className="text-sm text-gray-600">Unlimited cloud backup for your files</p>
+                          </div>
+                          <BackblazeLogo className="h-8 w-auto" />
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Automatically back up all your documents, photos, and files to the cloud with unlimited storage. Essential for digital nomads who might face device loss while traveling.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.backblaze.com/', '_blank')}>
-                          Try Backblaze
+                        <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700" onClick={() => window.open('https://www.backblaze.com/', '_blank')}>
+                          Start Protecting Your Data
                         </Button>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-1">Portable SSD</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Physical backup for your most important files when cloud access isn't available. Compact and durable for travel.
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6 space-y-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-bold text-lg">Portable SSD</h4>
+                            <p className="text-sm text-gray-600">Physical backup when cloud access isn't available</p>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-700">
+                          Physical backup for your most important files when cloud access isn't available or reliable. Compact, durable, and perfect for travel to remote locations.
                         </p>
-                        <Button size="sm" variant="outline" className="w-full" onClick={() => window.open('https://www.samsung.com/semiconductor/minisite/ssd/product/portable/', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://www.samsung.com/semiconductor/minisite/ssd/product/portable/', '_blank')}>
                           Shop Portable SSDs
                         </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                
+                {/* Security Tips Section */}
+                <div className="mt-10 bg-amber-50 p-6 rounded-lg">
+                  <h4 className="font-medium text-xl mb-4">Security Tips for Digital Nomads</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <h5 className="font-medium text-amber-800 mb-2">Use Two-Factor Authentication</h5>
+                      <p className="text-sm text-gray-700">
+                        Enable two-factor authentication on all important accounts (email, banking, cloud storage). Use an app like Authy rather than SMS for receiving codes.
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="font-medium text-amber-800 mb-2">Encrypt Your Hard Drive</h5>
+                      <p className="text-sm text-gray-700">
+                        Use full-disk encryption on all your devices. MacOS has FileVault, Windows has BitLocker, and Linux has various encryption options to protect your data.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </TabsContent>
@@ -1161,12 +1300,7 @@ export default function DigitalNomadToolkit() {
                         <td className="p-3">$7 - $70</td>
                         <td className="p-3">$5 - $60</td>
                       </tr>
-                      <tr className="border-b border-gray-200 bg-gray-50">
-                        <td className="p-3 font-medium">Commission Rate</td>
-                        <td className="p-3">10%</td>
-                        <td className="p-3">15%</td>
-                        <td className="p-3">Up to 20%</td>
-                      </tr>
+
                       <tr className="border-b border-gray-200">
                         <td className="p-3 font-medium">Best For</td>
                         <td className="p-3">Reliability & reputation</td>
