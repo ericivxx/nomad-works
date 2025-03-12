@@ -437,6 +437,10 @@ export default function LocationPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <div className="w-full lg:w-1/4">
+            {/* Toolkit section placed FIRST */}
+            <div className="mb-6">
+              <ToolkitSidebar variant="compact" />
+            </div>
             <FilterSidebar />
           </div>
           
