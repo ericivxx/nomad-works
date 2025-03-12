@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEOHead from "@/components/SEOHead";
-import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, FileText, Network, Code, Receipt, DollarSign, LockKeyhole, HardDrive, MapPin, BarChart3, Lightbulb } from "lucide-react";
+import { Laptop, Shield, Book, Briefcase, CreditCard, Globe, HeartPulse, MessageSquare, File, Wifi, Code, Receipt, DollarSign, LockKeyhole, HardDrive, MapPin, BarChart3, Lightbulb } from "lucide-react";
 import Layout from "@/components/Layout";
 import BrandLogo from "@/components/BrandLogo";
 // We now use direct styled text instead of SVG components
@@ -18,6 +18,15 @@ export default function DigitalNomadToolkit() {
     "name": "Digital Nomad Toolkit - Essential Resources for Remote Workers",
     "description": `The complete toolkit for digital nomads and remote workers in ${currentYear}. Essential tools, services and resources for location-independent professionals.`,
     "url": "https://nomadworks.com/digital-nomad-toolkit"
+  };
+
+  // Define render functions for problematic icons
+  const renderNetworkIcon = () => {
+    return <Wifi className="h-4 w-4" />;
+  };
+  
+  const renderFileTextIcon = () => {
+    return <File className="h-4 w-4" />;
   };
 
   return (
@@ -61,7 +70,7 @@ export default function DigitalNomadToolkit() {
                 <span>Productivity</span>
               </TabsTrigger>
               <TabsTrigger value="vpn" className="flex items-center gap-2">
-                <Network className="h-4 w-4" />
+                <Wifi className="h-4 w-4" />
                 <span>VPN Services</span>
               </TabsTrigger>
               <TabsTrigger value="esim" className="flex items-center gap-2">
