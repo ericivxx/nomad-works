@@ -89,7 +89,9 @@ export default function SearchResults() {
             <div className="mb-6">
               <ToolkitSidebar variant="compact" />
             </div>
-            <FilterSidebar />
+            <div className="w-full">
+              <FilterSidebar />
+            </div>
           </div>
           {/* Main Content */}
           <div className="w-full lg:w-3/4">

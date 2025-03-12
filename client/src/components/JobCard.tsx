@@ -13,7 +13,10 @@ export default function JobCard({ job }: JobCardProps) {
   const formattedDate = formatDistanceToNow(new Date(job.postedAt), { addSuffix: true });
   
   // Format salary range
-  const formatSalary = (min?: number, max?: number) => {
+  const formatSalary = () => {
+    const min = job.salaryMin;
+    const max = job.salaryMax;
+    
     if (!min && !max) return "Not specified";
     
     const formatNumber = (num: number) => {
@@ -34,7 +37,7 @@ export default function JobCard({ job }: JobCardProps) {
     return "Not specified";
   };
   
-  const salary = formatSalary(job.salaryMin, job.salaryMax);
+  const salary = formatSalary();
   
   return (
     <div className="bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 p-6">

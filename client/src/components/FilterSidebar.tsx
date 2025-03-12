@@ -137,7 +137,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
   };
 
   return (
-    <aside className="w-full lg:w-1/4">
+    <aside className="w-full">
       <div className="sticky top-24">
         <div className="bg-white p-5 rounded-lg shadow-md mb-6 max-h-[calc(100vh-130px)] overflow-y-auto">
           <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pt-1 pb-2 z-10 border-b border-gray-100">
