@@ -48,18 +48,22 @@ export default function Home() {
             {/* Search Box */}
             <SearchForm />
             
-            {/* Tools Teaser - NEW */}
-            <div className="mt-6 bg-white/10 backdrop-blur-sm rounded-lg p-3 inline-block mx-auto">
-              <Link href="#tools-section" className="flex items-center text-white gap-2 group">
-                <span className="flex items-center justify-center w-8 h-8 bg-white/20 rounded-full">
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Tools Teaser - ENHANCED */}
+            <div className="mt-6 animate-pulse">
+              <Link 
+                href="#tools-section" 
+                className="inline-flex items-center gap-2 group bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <span className="flex items-center justify-center w-8 h-8 bg-white/30 rounded-full flex-shrink-0">
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                 </span>
-                <span className="font-medium group-hover:underline">Check out our Essential Digital Nomad Tools</span>
-                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="font-bold text-lg">Discover Essential Digital Nomad Tools</span>
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW!</span>
               </Link>
             </div>
             
