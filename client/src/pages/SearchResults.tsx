@@ -5,6 +5,7 @@ import JobList from "@/components/JobList";
 import SearchForm from "@/components/SearchForm";
 import SEOHead from "@/components/SEOHead";
 import ToolkitSidebar from "@/components/ToolkitSidebar";
+import ToolkitButton from "@/components/ToolkitButton";
 
 export default function SearchResults() {
   const search = useSearch();

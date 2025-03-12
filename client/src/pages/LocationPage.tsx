@@ -5,6 +5,7 @@ import JobList from "@/components/JobList";
 import JobCard from "@/components/JobCard";
 import SEOHead from "@/components/SEOHead";
 import ToolkitSidebar from "@/components/ToolkitSidebar";
+import ToolkitButton from "@/components/ToolkitButton";
 import { Loader, Globe, Clock, DollarSign, Map, CheckCircle, Coffee, Wifi } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -230,12 +231,15 @@ export default function LocationPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">Remote Jobs in {location.name}</h1>
-            <p className="text-lg md:text-xl text-blue-100">
+            <p className="text-lg md:text-xl text-blue-100 mb-6">
               {location.name === "Worldwide" 
                 ? "Find the best remote opportunities with no location restrictions"
                 : `Find the best remote opportunities for digital nomads in ${location.name} time zones`
               }
             </p>
+            <div className="flex justify-center">
+              <ToolkitButton variant="compact" className="animate-pulse" />
+            </div>
           </div>
         </div>
       </section>
