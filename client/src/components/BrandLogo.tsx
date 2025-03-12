@@ -2,22 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { 
-  NordVPNLogo, 
-  ExpressVPNLogo, 
-  SafetyWingLogo, 
-  UdemyLogo, 
-  WiseLogo,
-  LinkedInLogo,
-  SkillshareLogo,
-  KrispLogo,
-  OnePasswordLogo,
-  BitwardenLogo,
-  NotionLogo,
-  LoomLogo,
-  BackblazeLogo,
-  FlexJobsLogo
-} from "@/assets/logos";
+// We're disabling local logos to use Brandfetch API
+// import { 
+//   NordVPNLogo, 
+//   ExpressVPNLogo, 
+//   SafetyWingLogo, 
+//   UdemyLogo, 
+//   WiseLogo,
+//   LinkedInLogo,
+//   SkillshareLogo,
+//   KrispLogo,
+//   OnePasswordLogo,
+//   BitwardenLogo,
+//   NotionLogo,
+//   LoomLogo,
+//   BackblazeLogo,
+//   FlexJobsLogo
+// } from "@/assets/logos";
 
 interface BrandLogoProps {
   domain: string;
@@ -35,23 +36,8 @@ interface BrandData {
   primaryColor: string | null;
 }
 
-// Map domains to local logo components
-const localLogos: Record<string, React.FC<{className?: string}>> = {
-  "nordvpn.com": NordVPNLogo,
-  "expressvpn.com": ExpressVPNLogo,
-  "safetywing.com": SafetyWingLogo,
-  "udemy.com": UdemyLogo,
-  "wise.com": WiseLogo,
-  "linkedin.com": LinkedInLogo,
-  "skillshare.com": SkillshareLogo,
-  "krisp.ai": KrispLogo,
-  "1password.com": OnePasswordLogo,
-  "bitwarden.com": BitwardenLogo,
-  "notion.so": NotionLogo,
-  "loom.com": LoomLogo,
-  "backblaze.com": BackblazeLogo,
-  "flexjobs.com": FlexJobsLogo
-};
+// We're disabling local logos completely to use Brandfetch API
+const localLogos: Record<string, React.FC<{className?: string}>> = {};
 
 export default function BrandLogo({ 
   domain, 
