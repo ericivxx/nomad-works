@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ToolkitButton from "@/components/ToolkitButton";
 
 interface ApplicationSuccessProps {
   jobTitle: string;
@@ -46,7 +47,10 @@ export default function ApplicationSuccess({
       
       {/* Recommended Tools */}
       <div className="mb-6">
-        <h3 className="font-semibold text-gray-900 mb-3">Essential Tools for Remote Success</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-semibold text-gray-900">Essential Tools for Remote Success</h3>
+          <ToolkitButton variant="compact" className="animate-pulse" />
+        </div>
         <p className="text-gray-600 text-sm mb-4">
           Equip yourself with these top tools used by successful remote workers:
         </p>

@@ -8,6 +8,7 @@ import { Briefcase, MapPin, DollarSign, Calendar, Globe, BarChart, ArrowLeft, Za
 import { formatDistanceToNow, format } from "date-fns";
 import SEOHead from "@/components/SEOHead";
 import ToolkitSidebar from "@/components/ToolkitSidebar";
+import ToolkitButton from "@/components/ToolkitButton";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -366,7 +367,10 @@ export default function JobDetail() {
               </div>
             ) : (
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Apply for this position</h2>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-gray-900">Apply for this position</h2>
+                  <ToolkitButton variant="compact" className="animate-pulse" />
+                </div>
                 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
