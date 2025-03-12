@@ -246,7 +246,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <BrandLogo domain="nordvpn.com" className="h-8 w-auto" fallbackText="NordVPN" useColors={true} />
+                          <NordVPNLogo className="h-8 w-auto" />
                         </div>
                         <CardTitle>NordVPN</CardTitle>
                         <CardDescription>Industry-leading VPN service with advanced security features</CardDescription>
@@ -280,7 +280,7 @@ export default function DigitalNomadToolkit() {
                     <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                       <CardHeader className="pb-2">
                         <div className="h-12 flex items-center justify-start mb-2">
-                          <BrandLogo domain="expressvpn.com" className="h-8 w-auto" fallbackText="ExpressVPN" useColors={true} />
+                          <ExpressVPNLogo className="h-8 w-auto" />
                         </div>
                         <CardTitle>ExpressVPN</CardTitle>
                         <CardDescription>Premium VPN with fast speeds and excellent global coverage</CardDescription>
