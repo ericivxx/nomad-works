@@ -57,35 +57,35 @@ export default function DigitalNomadToolkit() {
           <Tabs defaultValue="productivity" className="mb-12">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-2 mb-8">
               <TabsTrigger value="productivity" className="flex items-center gap-2">
-                <Laptop className="h-4 w-4" />
+                <Laptop className="h-4 w-4 fill-current" />
                 <span>Productivity</span>
               </TabsTrigger>
               <TabsTrigger value="vpn" className="flex items-center gap-2">
-                <Network className="h-4 w-4" />
+                <Network className="h-4 w-4 fill-current" />
                 <span>VPN Services</span>
               </TabsTrigger>
               <TabsTrigger value="esim" className="flex items-center gap-2">
-                <Globe className="h-4 w-4" />
+                <Globe className="h-4 w-4 fill-current" />
                 <span>eSIM Cards</span>
               </TabsTrigger>
               <TabsTrigger value="insurance" className="flex items-center gap-2">
-                <HeartPulse className="h-4 w-4" />
+                <HeartPulse className="h-4 w-4 fill-current" />
                 <span>Insurance</span>
               </TabsTrigger>
               <TabsTrigger value="resume" className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
+                <FileText className="h-4 w-4 fill-current" />
                 <span>Resume Tools</span>
               </TabsTrigger>
               <TabsTrigger value="security" className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
+                <Shield className="h-4 w-4 fill-current" />
                 <span>Security</span>
               </TabsTrigger>
               <TabsTrigger value="learning" className="flex items-center gap-2">
-                <Book className="h-4 w-4" />
+                <Book className="h-4 w-4 fill-current" />
                 <span>Learning</span>
               </TabsTrigger>
               <TabsTrigger value="finance" className="flex items-center gap-2">
-                <CreditCard className="h-4 w-4" />
+                <CreditCard className="h-4 w-4 fill-current" />
                 <span>Finance</span>
               </TabsTrigger>
             </TabsList>
@@ -237,7 +237,7 @@ export default function DigitalNomadToolkit() {
                   {/* VPN Services */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <Network className="h-5 w-5 text-blue-600" />
+                      <Network className="h-5 w-5 text-blue-600 fill-current" />
                       <span>VPN Services</span>
                     </h3>
                     <p className="text-gray-700">Secure your internet connection and protect your browsing activity</p>
@@ -314,7 +314,7 @@ export default function DigitalNomadToolkit() {
                   {/* Password Management */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <Shield className="h-5 w-5 text-indigo-600" />
+                      <Shield className="h-5 w-5 text-indigo-600 fill-current fill-current" />
                       <span>Password Management</span>
                     </h3>
                     <p className="text-gray-700">Keep all your accounts secure with strong, unique passwords</p>
@@ -518,7 +518,7 @@ export default function DigitalNomadToolkit() {
                   {/* Physical Backup */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <FileText className="h-5 w-5 text-blue-600" />
+                      <FileText className="h-5 w-5 text-blue-600 fill-current" />
                       <span>Physical Backup</span>
                     </h3>
                     <p className="text-gray-700">For times when cloud access isn't available</p>
@@ -567,7 +567,7 @@ export default function DigitalNomadToolkit() {
                   {/* Tracking Devices */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <Globe className="h-5 w-5 text-amber-600" />
+                      <Globe className="h-5 w-5 text-amber-600 fill-current" />
                       <span>Device Tracking</span>
                     </h3>
                     <p className="text-gray-700">Locate your valuable devices if lost or stolen</p>
@@ -1656,7 +1656,7 @@ export default function DigitalNomadToolkit() {
                 {/* Comparison Table */}
                 <div className="mt-10 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-sm">
                   <h3 className="px-6 py-4 text-lg font-semibold bg-gray-50 border-b border-gray-200 flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-blue-600" />
+                    <BarChart3 className="h-5 w-5 text-blue-600 fill-current" />
                     <span>Resume Builder Comparison</span>
                   </h3>
                   <div className="overflow-x-auto">
@@ -1713,7 +1713,7 @@ export default function DigitalNomadToolkit() {
                 
                 <div className="mt-10 bg-blue-50 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                    <Lightbulb className="h-5 w-5 text-amber-600" />
+                    <Lightbulb className="h-5 w-5 text-amber-600 fill-current" />
                     <span>Resume Tips for Remote Job Seekers</span>
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1874,7 +1874,7 @@ export default function DigitalNomadToolkit() {
                   {/* Language Learning */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <MessageSquare className="h-5 w-5 text-green-600" />
+                      <MessageSquare className="h-5 w-5 text-green-600 fill-current" />
                       <span>Language Learning</span>
                     </h3>
                     <p className="text-gray-700">Communicate better while traveling around the world</p>
@@ -1951,7 +1951,7 @@ export default function DigitalNomadToolkit() {
                   {/* Tech Skills */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <Code className="h-5 w-5 text-purple-600" />
+                      <Code className="h-5 w-5 text-purple-600 fill-current" />
                       <span>Tech Skills</span>
                     </h3>
                     <p className="text-gray-700">Learn in-demand digital skills that translate globally</p>
@@ -2174,7 +2174,7 @@ export default function DigitalNomadToolkit() {
                   {/* Tax Management */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <Receipt className="h-5 w-5 text-emerald-600" />
+                      <Receipt className="h-5 w-5 text-emerald-600 fill-current" />
                       <span>Tax Management</span>
                     </h3>
                     <p className="text-gray-700">Stay compliant with tax obligations as you work remotely</p>
@@ -2217,7 +2217,7 @@ export default function DigitalNomadToolkit() {
                   {/* Expense Tracking */}
                   <div className="space-y-6">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                      <DollarSign className="h-5 w-5 text-teal-600" />
+                      <DollarSign className="h-5 w-5 text-teal-600 fill-current" />
                       <span>Expense Tracking</span>
                     </h3>
                     <p className="text-gray-700">Manage your finances across currencies and countries</p>
@@ -2299,7 +2299,7 @@ export default function DigitalNomadToolkit() {
               <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-blue-600" />
+                    <Shield className="h-5 w-5 text-blue-600 fill-current" />
                     <span>Must-Have</span>
                   </CardTitle>
                 </CardHeader>
@@ -2339,7 +2339,7 @@ export default function DigitalNomadToolkit() {
               <Card className="bg-gradient-to-br from-green-50 to-teal-50 border-green-100">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Laptop className="h-5 w-5 text-green-600" />
+                    <Laptop className="h-5 w-5 text-green-600 fill-current" />
                     <span>Productivity Boosters</span>
                   </CardTitle>
                 </CardHeader>
@@ -2379,7 +2379,7 @@ export default function DigitalNomadToolkit() {
               <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-purple-100">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Book className="h-5 w-5 text-purple-600" />
+                    <Book className="h-5 w-5 text-purple-600 fill-current" />
                     <span>Skill Builders</span>
                   </CardTitle>
                 </CardHeader>
