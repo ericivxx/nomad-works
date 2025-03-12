@@ -314,9 +314,7 @@ export default function JobDetail() {
               </div>
             </div>
             
-            {/* Main content continues without toolkit section */}
-
-            {/* Rest of the content */}
+            {/* Job Description */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Job Description</h2>
               <div className="prose max-w-none">
@@ -324,6 +322,7 @@ export default function JobDetail() {
               </div>
             </div>
             
+            {/* Skills & Requirements */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Skills & Requirements</h2>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -335,6 +334,7 @@ export default function JobDetail() {
               </div>
             </div>
             
+            {/* About Company */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">About {typedJob.company.name}</h2>
               <p className="text-gray-600 mb-4">
@@ -353,8 +353,9 @@ export default function JobDetail() {
             </div>
           </div>
           
-          {/* Application Form - Right Column */}
+          {/* Right Column - Application Form and Toolkit */}
           <div className="lg:col-span-1">
+            {/* Application Form */}
             {applicationSubmitted ? (
               <div className="sticky top-24">
                 <ApplicationSuccess 
@@ -459,67 +460,9 @@ export default function JobDetail() {
             <div className="mt-6">
               <ToolkitSidebar variant="job-specific" />
             </div>
-            
-            {/* Keep the conditional section for backward compatibility */}
-            {false && typedJob.category.slug.includes('development') && (
-                <div className="space-y-3">
-                  <div className="bg-white rounded-lg p-3 shadow-sm">
-                    <h3 className="font-medium text-blue-800 mb-1">GitHub Pro</h3>
-                    <p className="text-sm text-gray-600 mb-2">Essential for code collaboration</p>
-                    <Link href="/digital-nomad-toolkit?tab=productivity#github" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 shadow-sm">
-                    <h3 className="font-medium text-blue-800 mb-1">NordVPN</h3>
-                    <p className="text-sm text-gray-600 mb-2">Secure coding on public networks</p>
-                    <Link href="/digital-nomad-toolkit?tab=vpn#nordvpn" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                  </div>
-                </div>
-              )}
-              
-              {typedJob.category.slug.includes('marketing') && (
-                <div className="space-y-3">
-                  <div className="bg-white rounded-lg p-3 shadow-sm">
-                    <h3 className="font-medium text-blue-800 mb-1">Loom</h3>
-                    <p className="text-sm text-gray-600 mb-2">Screen recording for presentations</p>
-                    <Link href="/digital-nomad-toolkit?tab=productivity#loom" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 shadow-sm">
-                    <h3 className="font-medium text-blue-800 mb-1">SafetyWing</h3>
-                    <p className="text-sm text-gray-600 mb-2">Health insurance for remote workers</p>
-                    <Link href="/digital-nomad-toolkit?tab=insurance#safetywing" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                  </div>
-                </div>
-              )}
-              
-              {!typedJob.category.slug.includes('development') && !typedJob.category.slug.includes('marketing') && (
-                <div className="space-y-3">
-                  <div className="bg-white rounded-lg p-3 shadow-sm">
-                    <h3 className="font-medium text-blue-800 mb-1">Notion</h3>
-                    <p className="text-sm text-gray-600 mb-2">All-in-one workspace solution</p>
-                    <Link href="/digital-nomad-toolkit?tab=productivity#notion" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 shadow-sm">
-                    <h3 className="font-medium text-blue-800 mb-1">Skyroam</h3>
-                    <p className="text-sm text-gray-600 mb-2">Global WiFi for reliable connectivity</p>
-                    <Link href="/digital-nomad-toolkit?tab=esim#skyroam" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                  </div>
-                </div>
-              )}
-              
-              <div className="text-center mt-4">
-                <Link 
-                  href="/digital-nomad-toolkit" 
-                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
-                >
-                  <span>View complete Toolkit</span>
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
+      </div>
     </>
   );
 }
