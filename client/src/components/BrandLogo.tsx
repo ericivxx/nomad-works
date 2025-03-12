@@ -35,13 +35,17 @@ export default function BrandLogo({
     queryKey: ["brand", baseDomain],
     queryFn: async () => {
       try {
+        console.log(`BrandLogo: Fetching data for domain: ${baseDomain}`);
         const response = await fetch(`/api/brand/${baseDomain}`);
         if (!response.ok) {
+          console.error(`BrandLogo: Failed to fetch brand data for ${baseDomain} - Status: ${response.status}`);
           throw new Error("Failed to fetch brand data");
         }
-        return response.json() as Promise<BrandData>;
+        const result = await response.json() as BrandData;
+        console.log(`BrandLogo: Successfully fetched data for ${baseDomain}:`, result);
+        return result;
       } catch (error) {
-        console.error("Error fetching brand data:", error);
+        console.error(`BrandLogo: Error fetching brand data for ${baseDomain}:`, error);
         throw error;
       }
     },

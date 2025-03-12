@@ -955,7 +955,7 @@ export default function DigitalNomadToolkit() {
                   <Card className="h-full">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <SafetyWingLogo />
+                        <BrandLogo domain="safetywing.com" className="h-8 w-auto" fallbackText="SafetyWing" useColors={true} />
                       </div>
                       <CardTitle>SafetyWing Nomad Insurance</CardTitle>
                       <CardDescription>Travel medical insurance designed for digital nomads</CardDescription>
