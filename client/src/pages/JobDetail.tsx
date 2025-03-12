@@ -7,6 +7,7 @@ import { stripHtml } from "@/lib/utils";
 import { Briefcase, MapPin, DollarSign, Calendar, Globe, BarChart, ArrowLeft, Zap } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
 import SEOHead from "@/components/SEOHead";
+import ToolkitSidebar from "@/components/ToolkitSidebar";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,7 +22,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import ToolkitSidebar from "@/components/ToolkitSidebar";
 import ApplicationSuccess from "@/components/ApplicationSuccess";
 
 // Job interfaces
@@ -455,14 +455,13 @@ export default function JobDetail() {
               </div>
             )}
             
-            {/* Recommended Tools Section - MOVED TO SIDEBAR */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 mt-6">
-              <div className="flex items-center mb-4">
-                <Zap className="h-5 w-5 text-blue-600 mr-2" />
-                <h2 className="text-lg font-bold text-gray-900">Essential Tools for This Role</h2>
-              </div>
-              
-              {typedJob.category.slug.includes('development') && (
+            {/* Digital Nomad Toolkit */}
+            <div className="mt-6">
+              <ToolkitSidebar variant="job-specific" />
+            </div>
+            
+            {/* Keep the conditional section for backward compatibility */}
+            {false && typedJob.category.slug.includes('development') && (
                 <div className="space-y-3">
                   <div className="bg-white rounded-lg p-3 shadow-sm">
                     <h3 className="font-medium text-blue-800 mb-1">GitHub Pro</h3>
@@ -521,7 +520,6 @@ export default function JobDetail() {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 }
