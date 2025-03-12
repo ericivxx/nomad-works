@@ -66,10 +66,15 @@ export default function BrandLogo({
   const baseDomain = domain.replace(/^https?:\/\//, '').replace(/\/$/, '').replace(/^www\./, '');
   
   // Check if we have a local logo component for this domain
+  console.log(`BrandLogo: Checking for local logo for domain "${baseDomain}"`);
+  console.log(`BrandLogo: Available local logos:`, Object.keys(localLogos));
+  
   const LogoComponent = localLogos[baseDomain];
   if (LogoComponent) {
-    console.log(`BrandLogo: Using local logo for ${baseDomain}`);
+    console.log(`BrandLogo: Found and using local logo for ${baseDomain}`);
     return <LogoComponent className={className} />;
+  } else {
+    console.log(`BrandLogo: No local logo found for ${baseDomain}`);
   }
 
   const { data, isLoading, isError } = useQuery({
