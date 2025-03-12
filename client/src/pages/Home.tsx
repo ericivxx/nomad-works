@@ -12,7 +12,7 @@ interface Category {
 }
 
 export default function Home() {
-  const { data: categories } = useQuery({
+  const { data: categories = [] } = useQuery<Category[]>({
     queryKey: ['/api/categories'],
   });
 
@@ -35,7 +35,7 @@ export default function Home() {
             
             <div className="mt-8 text-blue-100 text-sm md:text-base flex flex-wrap justify-center gap-4">
               <span>Popular: </span>
-              {categories?.slice(0, 5).map((category) => (
+              {categories.slice(0, 5).map((category: Category) => (
                 <Link key={category.id} href={`/categories/${category.slug}`} className="text-white hover:underline">
                   {category.name}
                 </Link>
@@ -104,7 +104,7 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories?.map((category) => (
+            {categories.map((category: Category) => (
               <Link 
                 key={category.id} 
                 href={`/categories/${category.slug}`}

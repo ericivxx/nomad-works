@@ -314,73 +314,7 @@ export default function JobDetail() {
               </div>
             </div>
             
-            {/* Recommended Tools Section - MOVED UP */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 mb-6">
-              <div className="flex items-center mb-4">
-                <Zap className="h-5 w-5 text-blue-600 mr-2" />
-                <h2 className="text-xl font-bold text-gray-900">Essential Tools for This Role</h2>
-              </div>
-              <p className="text-gray-700 mb-4">
-                Boost your productivity and efficiency with these recommended tools for {typedJob.category.name.toLowerCase()} professionals:
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                {typedJob.category.slug.includes('development') && (
-                  <>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h3 className="font-medium text-blue-800 mb-1">GitHub Pro</h3>
-                      <p className="text-sm text-gray-600 mb-2">Essential for code collaboration</p>
-                      <Link href="/digital-nomad-toolkit?tab=productivity#github" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                    </div>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h3 className="font-medium text-blue-800 mb-1">NordVPN</h3>
-                      <p className="text-sm text-gray-600 mb-2">Secure coding on public networks</p>
-                      <Link href="/digital-nomad-toolkit?tab=vpn#nordvpn" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                    </div>
-                  </>
-                )}
-                
-                {typedJob.category.slug.includes('marketing') && (
-                  <>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h3 className="font-medium text-blue-800 mb-1">Loom</h3>
-                      <p className="text-sm text-gray-600 mb-2">Screen recording for presentations</p>
-                      <Link href="/digital-nomad-toolkit?tab=productivity#loom" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                    </div>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h3 className="font-medium text-blue-800 mb-1">SafetyWing</h3>
-                      <p className="text-sm text-gray-600 mb-2">Health insurance for remote workers</p>
-                      <Link href="/digital-nomad-toolkit?tab=insurance#safetywing" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                    </div>
-                  </>
-                )}
-                
-                {!typedJob.category.slug.includes('development') && !typedJob.category.slug.includes('marketing') && (
-                  <>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h3 className="font-medium text-blue-800 mb-1">Notion</h3>
-                      <p className="text-sm text-gray-600 mb-2">All-in-one workspace solution</p>
-                      <Link href="/digital-nomad-toolkit?tab=productivity#notion" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                    </div>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h3 className="font-medium text-blue-800 mb-1">Skyroam</h3>
-                      <p className="text-sm text-gray-600 mb-2">Global WiFi for reliable connectivity</p>
-                      <Link href="/digital-nomad-toolkit?tab=esim#skyroam" className="text-sm text-blue-600 hover:underline">Learn more</Link>
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="text-center">
-                <Link 
-                  href="/digital-nomad-toolkit" 
-                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
-                >
-                  <span>View our complete Digital Nomad Toolkit</span>
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </Link>
-              </div>
-            </div>
+            {/* Main content continues without toolkit section */}
 
             {/* Rest of the content */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -520,6 +454,71 @@ export default function JobDetail() {
                 </div>
               </div>
             )}
+            
+            {/* Recommended Tools Section - MOVED TO SIDEBAR */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 mt-6">
+              <div className="flex items-center mb-4">
+                <Zap className="h-5 w-5 text-blue-600 mr-2" />
+                <h2 className="text-lg font-bold text-gray-900">Essential Tools for This Role</h2>
+              </div>
+              
+              {typedJob.category.slug.includes('development') && (
+                <div className="space-y-3">
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <h3 className="font-medium text-blue-800 mb-1">GitHub Pro</h3>
+                    <p className="text-sm text-gray-600 mb-2">Essential for code collaboration</p>
+                    <Link href="/digital-nomad-toolkit?tab=productivity#github" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <h3 className="font-medium text-blue-800 mb-1">NordVPN</h3>
+                    <p className="text-sm text-gray-600 mb-2">Secure coding on public networks</p>
+                    <Link href="/digital-nomad-toolkit?tab=vpn#nordvpn" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                  </div>
+                </div>
+              )}
+              
+              {typedJob.category.slug.includes('marketing') && (
+                <div className="space-y-3">
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <h3 className="font-medium text-blue-800 mb-1">Loom</h3>
+                    <p className="text-sm text-gray-600 mb-2">Screen recording for presentations</p>
+                    <Link href="/digital-nomad-toolkit?tab=productivity#loom" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <h3 className="font-medium text-blue-800 mb-1">SafetyWing</h3>
+                    <p className="text-sm text-gray-600 mb-2">Health insurance for remote workers</p>
+                    <Link href="/digital-nomad-toolkit?tab=insurance#safetywing" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                  </div>
+                </div>
+              )}
+              
+              {!typedJob.category.slug.includes('development') && !typedJob.category.slug.includes('marketing') && (
+                <div className="space-y-3">
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <h3 className="font-medium text-blue-800 mb-1">Notion</h3>
+                    <p className="text-sm text-gray-600 mb-2">All-in-one workspace solution</p>
+                    <Link href="/digital-nomad-toolkit?tab=productivity#notion" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                  </div>
+                  <div className="bg-white rounded-lg p-3 shadow-sm">
+                    <h3 className="font-medium text-blue-800 mb-1">Skyroam</h3>
+                    <p className="text-sm text-gray-600 mb-2">Global WiFi for reliable connectivity</p>
+                    <Link href="/digital-nomad-toolkit?tab=esim#skyroam" className="text-sm text-blue-600 hover:underline">Learn more</Link>
+                  </div>
+                </div>
+              )}
+              
+              <div className="text-center mt-4">
+                <Link 
+                  href="/digital-nomad-toolkit" 
+                  className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800"
+                >
+                  <span>View complete Toolkit</span>
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
