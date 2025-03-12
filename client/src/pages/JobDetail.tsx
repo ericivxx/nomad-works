@@ -227,8 +227,9 @@ export default function JobDetail() {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Job Details */}
+          {/* Job Details - Left Column */}
           <div className="lg:col-span-2">
+            {/* Job Header */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <div className="flex items-start">
                 <div className="w-16 h-16 rounded-md bg-gray-200 flex items-center justify-center mr-4 overflow-hidden flex-shrink-0">
@@ -253,6 +254,7 @@ export default function JobDetail() {
                 </div>
               </div>
               
+              {/* Job Details Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                 <div className="flex items-center p-3 rounded-md bg-gray-50">
                   <Briefcase className="h-5 w-5 text-gray-500 mr-2" />
@@ -312,43 +314,8 @@ export default function JobDetail() {
               </div>
             </div>
             
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Job Description</h2>
-              <div className="prose max-w-none">
-                <p className="whitespace-pre-line">{stripHtml(typedJob.description)}</p>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Skills & Requirements</h2>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {typedJob.skills.map((skill) => (
-                  <span key={skill.id} className="inline-flex px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded">
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">About {typedJob.company.name}</h2>
-              <p className="text-gray-600 mb-4">
-                {typedJob.company.name} is a company offering remote opportunities for digital nomads.
-              </p>
-              {typedJob.company.website && (
-                <a
-                  href={typedJob.company.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline"
-                >
-                  Visit company website
-                </a>
-              )}
-            </div>
-            
-            {/* Recommended Tools Section */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md p-6">
+            {/* Recommended Tools Section - MOVED UP */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md p-6 mb-6">
               <div className="flex items-center mb-4">
                 <Zap className="h-5 w-5 text-blue-600 mr-2" />
                 <h2 className="text-xl font-bold text-gray-900">Essential Tools for This Role</h2>
@@ -414,9 +381,45 @@ export default function JobDetail() {
                 </Link>
               </div>
             </div>
+
+            {/* Rest of the content */}
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Job Description</h2>
+              <div className="prose max-w-none">
+                <p className="whitespace-pre-line">{stripHtml(typedJob.description)}</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Skills & Requirements</h2>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {typedJob.skills.map((skill) => (
+                  <span key={skill.id} className="inline-flex px-3 py-1 text-sm font-medium bg-gray-100 text-gray-800 rounded">
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">About {typedJob.company.name}</h2>
+              <p className="text-gray-600 mb-4">
+                {typedJob.company.name} is a company offering remote opportunities for digital nomads.
+              </p>
+              {typedJob.company.website && (
+                <a
+                  href={typedJob.company.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Visit company website
+                </a>
+              )}
+            </div>
           </div>
           
-          {/* Application Form */}
+          {/* Application Form - Right Column */}
           <div className="lg:col-span-1">
             {applicationSubmitted ? (
               <div className="sticky top-24">
