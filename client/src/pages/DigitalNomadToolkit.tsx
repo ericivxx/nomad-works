@@ -387,83 +387,218 @@ export default function DigitalNomadToolkit() {
                 </div>
                 
                 {/* Device Security and Backup */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 mt-10">
+                  {/* Device Security - Kensington */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="font-bold text-xl">
+                          <span className="text-purple-600">Kensington</span>
+                        </div>
+                      </div>
+                      <CardTitle>Laptop Lock</CardTitle>
+                      <CardDescription>Physical security for your devices</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-purple-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-purple-800">Best for Theft Prevention</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Universal design fits most laptops</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Strong steel cable construction</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Simple key lock mechanism</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Compact and lightweight for travel</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.kensington.com/', '_blank')}>
+                        Shop Laptop Locks
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Privacy Screen */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <div className="font-bold text-xl">
+                          <span className="text-green-600">3M</span><span className="text-green-700"> Privacy</span>
+                        </div>
+                      </div>
+                      <CardTitle>Privacy Screen Filter</CardTitle>
+                      <CardDescription>Prevent visual hacking in public places</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-green-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-green-800">Best for Visual Privacy</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Limits 60° viewing angles</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Reduces blue light exposure</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Available for laptops and phones</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Easy attachment and removal</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://www.3m.com/3M/en_US/p/c/office-supplies/privacy-screen-filters/', '_blank')}>
+                        Get Privacy Screen
+                      </Button>
+                    </CardContent>
+                  </Card>
+                  
+                  {/* Cloud Backup */}
+                  <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="pb-2">
+                      <div className="h-12 flex items-center justify-start mb-2">
+                        <BackblazeLogo className="h-8 w-auto" />
+                      </div>
+                      <CardTitle>Backblaze</CardTitle>
+                      <CardDescription>Unlimited cloud backup for your files</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="bg-red-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-red-800">Best Cloud Backup Solution</p>
+                      </div>
+                      <div>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Truly unlimited storage space</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>Automatic background backups</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>All files and operating systems</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-green-500 mr-2">✓</span>
+                            <span>External drive backup included</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700" onClick={() => window.open('https://www.backblaze.com/', '_blank')}>
+                        Start Protecting Your Data
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                {/* Additional Security Options */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-                  {/* Device Security */}
+                  {/* Physical Backup */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Device Security</h3>
-                    <p className="text-gray-700">Protect your laptop and mobile devices while traveling</p>
+                    <h3 className="text-xl font-bold text-gray-800">Physical Backup</h3>
+                    <p className="text-gray-700">For times when cloud access isn't available</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-                      <CardContent className="p-6 space-y-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-bold text-lg">Kensington Laptop Lock</h4>
-                            <p className="text-sm text-gray-600">Physical security for your devices</p>
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <div className="font-bold text-xl">
+                            <span className="text-blue-600">Portable SSD</span>
                           </div>
                         </div>
-                        <p className="text-sm text-gray-700">
-                          Physical security lock for your laptop when working in public spaces like cafes and coworking spaces. A simple but effective deterrent against theft.
-                        </p>
-                        <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.kensington.com/', '_blank')}>
-                          Shop Laptop Locks
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-                      <CardContent className="p-6 space-y-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-bold text-lg">Privacy Screen Filter</h4>
-                            <p className="text-sm text-gray-600">Prevent visual hacking in public places</p>
-                          </div>
+                        <CardTitle>Samsung T7 Portable SSD</CardTitle>
+                        <CardDescription>Fast, reliable physical backup solution</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-blue-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-blue-800">Best for Offline Backups</p>
                         </div>
-                        <p className="text-sm text-gray-700">
-                          Prevent visual hacking with a privacy screen that limits viewing angles. Essential for digital nomads working in crowded public places and during travel.
-                        </p>
-                        <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://www.3m.com/3M/en_US/p/c/office-supplies/privacy-screen-filters/', '_blank')}>
-                          Get Privacy Screen
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Ultra-compact pocket-sized design</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Transfer speeds up to 1,050 MB/s</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Shock-resistant and drop-proof</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Password protection with encryption</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://www.samsung.com/semiconductor/minisite/ssd/product/portable/', '_blank')}>
+                          Shop Portable SSDs
                         </Button>
                       </CardContent>
                     </Card>
                   </div>
                   
-                  {/* Backup Solutions */}
+                  {/* Tracking Devices */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-gray-800">Backup Solutions</h3>
-                    <p className="text-gray-700">Never lose your important data while on the road</p>
+                    <h3 className="text-xl font-bold text-gray-800">Device Tracking</h3>
+                    <p className="text-gray-700">Locate your valuable devices if lost or stolen</p>
                     
                     <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-                      <CardContent className="p-6 space-y-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-bold text-lg">Backblaze</h4>
-                            <p className="text-sm text-gray-600">Unlimited cloud backup for your files</p>
-                          </div>
-                          <BackblazeLogo className="h-8 w-auto" />
-                        </div>
-                        <p className="text-sm text-gray-700">
-                          Automatically back up all your documents, photos, and files to the cloud with unlimited storage. Essential for digital nomads who might face device loss while traveling.
-                        </p>
-                        <Button className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700" onClick={() => window.open('https://www.backblaze.com/', '_blank')}>
-                          Start Protecting Your Data
-                        </Button>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card className="shadow-md hover:shadow-lg transition-shadow duration-300">
-                      <CardContent className="p-6 space-y-4">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-bold text-lg">Portable SSD</h4>
-                            <p className="text-sm text-gray-600">Physical backup when cloud access isn't available</p>
+                      <CardHeader className="pb-2">
+                        <div className="h-12 flex items-center justify-start mb-2">
+                          <div className="font-bold text-xl">
+                            <span className="text-amber-600">Apple</span> <span className="text-amber-700">AirTag</span>
                           </div>
                         </div>
-                        <p className="text-sm text-gray-700">
-                          Physical backup for your most important files when cloud access isn't available or reliable. Compact, durable, and perfect for travel to remote locations.
-                        </p>
-                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://www.samsung.com/semiconductor/minisite/ssd/product/portable/', '_blank')}>
-                          Shop Portable SSDs
+                        <CardTitle>AirTag Tracker</CardTitle>
+                        <CardDescription>Location tracking for your valuable items</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="bg-amber-50 p-3 rounded-md">
+                          <p className="text-sm font-medium text-amber-800">Best for Apple Users</p>
+                        </div>
+                        <div>
+                          <ul className="space-y-2 text-sm text-gray-600">
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Precision finding with iPhone</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Global Find My network</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>One-year battery life</span>
+                            </li>
+                            <li className="flex items-start">
+                              <span className="text-green-500 mr-2">✓</span>
+                              <span>Water and dust resistant</span>
+                            </li>
+                          </ul>
+                        </div>
+                        <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700" onClick={() => window.open('https://www.apple.com/airtag/', '_blank')}>
+                          Get Apple AirTag
                         </Button>
                       </CardContent>
                     </Card>
