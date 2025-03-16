@@ -10,18 +10,3 @@ export default function Home() {
     </div>
   );
 }
-
-//New component for the hook section (This needs to be created separately and imported into a routing solution.)
-//Example:
-import React from 'react';
-
-const HookPage = () => {
-    return (
-        <div>
-            <h1>Hook Page</h1>
-            {/* Add your hook-related content here */}
-        </div>
-    );
-};
-
-export default HookPage;
