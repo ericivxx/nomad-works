@@ -1,310 +1,67 @@
-import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import SearchForm from "@/components/SearchForm";
-import JobList from "@/components/JobList";
-import SEOHead from "@/components/SEOHead";
-import KeywordLinks from "@/components/KeywordLinks";
-
-interface Category {
-  id: number;
-  name: string;
-  slug: string;
-}
+import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const { data: categories = [] } = useQuery<Category[]>({
-    queryKey: ['/api/categories'],
-  });
-
   return (
     <>
-
-      
-      <SEOHead 
-        title="NomadWorks | Find Remote Jobs for Digital Nomads"
-        description="Discover remote jobs for digital nomads worldwide. Search thousands of remote positions in development, design, marketing, and more."
-      />
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-10 md:py-20">
+      {/* Hero Section with Hook */}
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6">Find the Best Remote Jobs for Digital Nomads</h1>
-            <p className="text-lg md:text-xl mb-8 text-blue-100">Discover remote opportunities that let you work from anywhere in the world.</p>
-            
-            {/* Search Box */}
-            <SearchForm />
-            
-            {/* Tools Teaser - ENHANCED */}
-            <div className="mt-6 animate-slow-pulse">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Find Remote Jobs That Let You
+              <span className="block text-blue-200">Work From Anywhere</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 mb-8">
+              Join thousands of digital nomads who found their dream remote jobs through NomadWorks
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
-                href="#tools-section" 
-                className="inline-flex items-center gap-2 group bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                to="/jobs"
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors"
               >
-                <span className="flex items-center justify-center w-8 h-8 bg-white/30 rounded-full flex-shrink-0">
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </span>
-                <span className="font-bold text-lg">Discover Essential Digital Nomad Tools</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">NEW!</span>
+                Browse Remote Jobs
               </Link>
-            </div>
-            
-            <div className="mt-8 text-blue-100 text-sm md:text-base flex flex-wrap justify-center gap-4">
-              <span>Popular: </span>
-              {categories.slice(0, 5).map((category: Category) => (
-                <Link key={category.id} href={`/categories/${category.slug}`} className="text-white hover:underline">
-                  {category.name}
-                </Link>
-              ))}
+              <Link
+                to="/digital-nomad-toolkit"
+                className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-800 transition-colors"
+              >
+                Get Free Toolkit
+              </Link>
             </div>
           </div>
         </div>
       </section>
-      
-      {/* Digital Nomad Toolkit Section - MOVED UP */}
-      <section id="tools-section" className="bg-gradient-to-r from-indigo-50 to-blue-50 py-8 md:py-10 -mt-8 relative z-10">
+
+      {/* Social Proof */}
+      <section className="bg-white py-12">
         <div className="container mx-auto px-4">
-          {/* NEW: Attention-grabbing banner */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 md:p-6 rounded-xl mb-8 shadow-lg">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="flex items-center mb-4 md:mb-0">
-                <div className="bg-white/20 p-3 rounded-full mr-4">
-                  <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold">Essential Digital Nomad Toolkit</h3>
-                  <p className="text-blue-100">Must-have resources curated by experienced digital nomads</p>
-                </div>
-              </div>
-              <div className="md:flex-shrink-0">
-                <span className="inline-block bg-white text-indigo-600 px-4 py-2 rounded-full font-semibold shadow-sm">
-                  Exclusive Deals!
-                </span>
-              </div>
-            </div>
-          </div>
-          
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Essential Tools for Digital Nomads</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Equip yourself with the best tools and services used by successful remote workers worldwide
-            </p>
+            <p className="text-gray-600 text-lg">Trusted by remote professionals from</p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {/* VPN Card */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
-              <div className="h-2 bg-gradient-to-r from-blue-500 to-blue-600"></div>
-              <div className="p-4 flex items-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full mr-3 flex-shrink-0">
-                  <svg className="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13a10 10 0 0 1 14 0M8.5 16.5a5 5 0 0 1 7 0M2 8.82a15 15 0 0 1 20 0M12 20h.01"></path>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">VPN Services</h3>
-                  <Link 
-                    href="/digital-nomad-toolkit?tab=vpn" 
-                    className="text-primary text-sm font-medium hover:underline flex items-center"
-                  >
-                    View Recommended 
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            
-            {/* Productivity Card */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
-              <div className="h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
-              <div className="p-4 flex items-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-full mr-3 flex-shrink-0">
-                  <svg className="h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">Productivity Tools</h3>
-                  <Link 
-                    href="/digital-nomad-toolkit?tab=productivity" 
-                    className="text-indigo-600 text-sm font-medium hover:underline flex items-center"
-                  >
-                    Explore Tools
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            
-            {/* Global Internet Card */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
-              <div className="h-2 bg-gradient-to-r from-cyan-500 to-teal-500"></div>
-              <div className="p-4 flex items-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-cyan-100 rounded-full mr-3 flex-shrink-0">
-                  <svg className="h-5 w-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-1">Global Connectivity</h3>
-                  <Link 
-                    href="/digital-nomad-toolkit?tab=esim" 
-                    className="text-cyan-600 text-sm font-medium hover:underline flex items-center"
-                  >
-                    Find Solutions
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="text-center mt-6">
-            <Link 
-              href="/digital-nomad-toolkit" 
-              className="inline-flex items-center text-primary font-semibold hover:underline"
-            >
-              <span>View Complete Digital Nomad Toolkit</span>
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-              </svg>
-            </Link>
+          <div className="flex justify-center items-center flex-wrap gap-8 opacity-60">
+            <img src="/company-logos/google.svg" alt="Google" className="h-8" />
+            <img src="/company-logos/microsoft.svg" alt="Microsoft" className="h-8" />
+            <img src="/company-logos/amazon.svg" alt="Amazon" className="h-8" />
+            <img src="/company-logos/meta.svg" alt="Meta" className="h-8" />
           </div>
         </div>
       </section>
-      
-      {/* Featured Jobs Section */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-full">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Featured Remote Jobs</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Explore our hand-picked selection of top remote opportunities for digital nomads
-              </p>
-            </div>
-            
-            <JobList 
-              endpoint="/api/jobs?featured=true"
-              showSorting={false}
-            />
-            
-            <div className="mt-8 text-center">
-              <Link 
-                href="/search" 
-                className="inline-block bg-primary hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
-              >
-                View All Jobs
-              </Link>
-            </div>
-          </div>
-        </div>
-        {/* Popular Keywords Section */}
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Popular Digital Nomad Job Keywords</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Browse remote jobs by popular digital nomad job categories and keywords
-            </p>
-          </div>
-          
-          <KeywordLinks limit={20} />
-          
-          <div className="mt-4 text-center">
-            <Link 
-              href="/keywords/digital-nomad-jobs" 
-              className="inline-block text-primary font-semibold hover:underline"
-            >
-              View All Keywords
-            </Link>
-          </div>
-        </div>
-      </main>
-      
-      {/* Popular Categories Section */}
-      <section className="bg-gray-50 py-12 md:py-16">
+
+      {/* Features Grid */}
+      <section className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Browse Jobs by Category</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Find remote jobs in your area of expertise
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((category: Category) => (
-              <Link 
-                key={category.id} 
-                href={`/categories/${category.slug}`}
-                className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow flex flex-col items-center text-center"
-              >
-                <h3 className="text-xl font-semibold mb-2">{category.name}</h3>
-                <p className="text-gray-600 mb-4">Find remote {category.name.toLowerCase()} jobs for digital nomads</p>
-                <span className="text-primary font-medium hover:underline">Browse Jobs &rarr;</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Why Choose Us Section */}
-      <section className="py-12 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Why Choose NomadWorks</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              We're dedicated to connecting digital nomads with the best remote job opportunities
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4 text-primary">
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Curated Job Listings</h3>
-              <p className="text-gray-600">
-                We carefully review all job listings to ensure they're remote-friendly and suitable for digital nomads.
-              </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-bold text-xl mb-3">Curated Remote Jobs</h3>
+              <p className="text-gray-600">Hand-picked opportunities from top remote-first companies worldwide.</p>
             </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4 text-primary">
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Work From Anywhere</h3>
-              <p className="text-gray-600">
-                Find jobs that allow you to work from anywhere in the world, on your own schedule.
-              </p>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-bold text-xl mb-3">Time Zone Friendly</h3>
+              <p className="text-gray-600">Find jobs that match your preferred working hours and location.</p>
             </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4 text-primary">
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Fast Application</h3>
-              <p className="text-gray-600">
-                Our streamlined application process helps you apply to multiple jobs quickly and efficiently.
-              </p>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="font-bold text-xl mb-3">Digital Nomad Ready</h3>
+              <p className="text-gray-600">All jobs support location-independent work and flexible schedules.</p>
             </div>
           </div>
         </div>
