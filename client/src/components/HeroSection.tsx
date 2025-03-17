@@ -21,9 +21,10 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/digital-nomad-toolkit"
-              className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-800 transition-colors border border-blue-400"
+              className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl animate-pulse"
             >
-              Get Free Toolkit
+              <Globe className="h-5 w-5" />
+              Digital Nomad Tools
             </Link>
           </div>
         </div>
