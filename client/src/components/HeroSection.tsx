@@ -21,7 +21,7 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/digital-nomad-toolkit"
-              className="bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-800 transition-colors border border-blue-400"
+              className="bg-gradient-to-r from-emerald-400 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-emerald-500 hover:to-teal-600 transition-colors shadow-lg hover:shadow-xl"
             >
               Get Free Toolkit
             </Link>
