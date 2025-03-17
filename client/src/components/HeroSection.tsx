@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-8">
-            Find Your Dream Remote Job Today
+            Join the Thousands of Digital Nomads Already Living Their Dream Life! Get Started Now!
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 mb-12">
             Browse thousands of remote opportunities and work from anywhere
