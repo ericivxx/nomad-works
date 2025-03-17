@@ -1,10 +1,6 @@
 
 import { Link } from "wouter";
 
-interface HeroSectionProps {
-  hookText?: string;
-}
-
 export default function HeroSection() {
   const hookText = "Join the Thousands of Digital Nomads Already Living Their Dream Life—Get Started Now!";
   
