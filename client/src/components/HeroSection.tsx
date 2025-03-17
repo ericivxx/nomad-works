@@ -1,5 +1,6 @@
 
 import { Link } from "wouter";
+import { Globe } from "lucide-react";
 
 export default function HeroSection() {
   return (
