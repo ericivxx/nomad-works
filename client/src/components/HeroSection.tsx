@@ -2,14 +2,12 @@
 import { Link } from "wouter";
 
 export default function HeroSection() {
-  const hookText = "Join the Thousands of Digital Nomads Already Living Their Dream Life—Get Started Now!";
-  
   return (
     <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-20 md:py-32">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
-            {hookText}
+            Join the Thousands of Digital Nomads Already Living Their Dream Life—Get Started Now!
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 mb-12">
             Join thousands of digital nomads who found their dream remote jobs through NomadWorks
