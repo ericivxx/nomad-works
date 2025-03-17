@@ -5,7 +5,7 @@ interface HeroSectionProps {
   hookText?: string;
 }
 
-export default function HeroSection({ hookText = "Join the thousands of Digital Nomads already living their dream life! Get Started Now" }: HeroSectionProps) {
+export default function HeroSection({ hookText = "Join the Thousands of Digital Nomads Already Living Their Dream Life—Get Started Now!" }: HeroSectionProps) {
   return (
     <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-20 md:py-32">
       <div className="container mx-auto px-4">
