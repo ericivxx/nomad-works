@@ -40,8 +40,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
-      <Toaster />
+      <UserProvider>
+        <Router />
+        <Toaster />
+      </UserProvider>
     </QueryClientProvider>
   );
 }
