@@ -10,7 +10,13 @@ interface UserContextType {
   user: User | null;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, fullName: string, gender: string, location: string, bio: string) => Promise<void>;
+  register: (userData: {
+    email: string;
+    password: string;
+    fullName: string;
+    gender: string;
+    location: string;
+  }) => Promise<void>;
   logout: () => void;
 }
 
