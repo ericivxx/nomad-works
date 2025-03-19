@@ -4,9 +4,13 @@ import { z } from "zod";
 
 // User table for storing user data
 export const users = pgTable("users", {
-  id: text("id").primaryKey(), // Replit user ID
+  id: text("id").primaryKey(),
   email: text("email").notNull(),
   username: text("username").notNull(),
+  fullName: text("full_name"),
+  gender: text("gender"),
+  location: text("location"),
+  bio: text("bio"),
   savedSearches: text("saved_searches").array(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
