@@ -45,10 +45,18 @@ export default function Newsletter() {
     <section className="bg-gradient-to-r from-indigo-600 to-blue-600 py-12 md:py-16">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Get Remote Job Alerts</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Create Your Digital Nomad Account</h2>
           <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-            Stay updated with the latest remote jobs for digital nomads. We'll send you personalized job matches to your inbox.
+            Join thousands of digital nomads! Save your favorite jobs, get personalized alerts, and access exclusive remote work opportunities.
           </p>
+          <div className="bg-white/10 p-6 rounded-xl mb-6 inline-block">
+            <ul className="text-left text-blue-100 space-y-2">
+              <li>✓ Save jobs and track applications</li>
+              <li>✓ Get daily job alerts matching your skills</li>
+              <li>✓ Access exclusive remote work resources</li>
+              <li>✓ Special deals on nomad-friendly services</li>
+            </ul>
+          </div>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 justify-center">
             <input 
               type="email" 
