@@ -22,8 +22,10 @@ export default function HeroSection() {
               const password = (form.password as HTMLInputElement).value;
               try {
                 await register(email, password);
-                // Redirect or show success message
+                alert('Registration successful! You can now save jobs and get alerts.');
+                window.location.href = '/search'; // Redirect to search page
               } catch (err) {
+                alert('Registration failed. Please try again.');
                 console.error('Registration failed:', err);
               }
             }} className="flex flex-col gap-3">
