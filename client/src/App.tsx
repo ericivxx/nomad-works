@@ -17,6 +17,7 @@ import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
 import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
 import IconTest from "@/components/IconTest";
+import Register from "@/pages/Register"; // Added import for Register component
 
 function Router() {
   return (
@@ -33,6 +34,7 @@ function Router() {
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
         <Route path="/profile" component={Profile} />
+        <Route path="/register" component={Register} /> {/* Added Register route */}
         <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
       </Switch>

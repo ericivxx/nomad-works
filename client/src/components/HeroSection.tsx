@@ -22,14 +22,8 @@ export default function HeroSection() {
             <form onSubmit={async (e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
-              const formData = {
-                email: (form.email as HTMLInputElement).value,
-                password: (form.password as HTMLInputElement).value,
-                fullName: (form.fullName as HTMLInputElement).value,
-                gender: (form.gender as HTMLSelectElement).value,
-                location: (form.location as HTMLInputElement).value,
-                bio: (form.bio as HTMLTextAreaElement).value,
-              };
+              const email = (form.email as HTMLInputElement).value;
+              window.location.href = `/register?email=${encodeURIComponent(email)}`;
               try {
                 await register(formData);
                 // Success message and redirect
