@@ -26,7 +26,7 @@ export default function HeroSection() {
                 Sign Up Free
               </button>
             </form>
-            <p className="text-sm text-blue-100 mt-2">
+            <p className="text-lg font-semibold text-blue-100 mt-2">
               ✨ Get exclusive remote job alerts and digital nomad deals
             </p>
           </div>
