@@ -19,30 +19,12 @@ export default function HeroSection() {
           </p>
           <div className="max-w-md mx-auto mb-8">
             <p className="text-lg font-semibold text-white mb-3">Enter your email to save jobs and get alerts</p>
-            <form onSubmit={async (e) => {
+            <form onSubmit={(e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
               const email = (form.email as HTMLInputElement).value;
               window.location.href = `/register?email=${encodeURIComponent(email)}`;
-              try {
-                await register(formData);
-                // Success message and redirect
-                setFormState({ status: 'success', message: 'Registration successful! Redirecting...' });
-                setTimeout(() => {
-                  window.location.href = '/search';
-                }, 1500);
-              } catch (err) {
-                setFormState({ status: 'error', message: 'Registration failed. Please try again.' });
-                console.error('Registration failed:', err);
-              }
             }} className="flex flex-col gap-3">
-            {formState.message && (
-              <div className={`text-sm p-2 rounded ${
-                formState.status === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
-                {formState.message}
-              </div>
-            )}
               <input
                 name="email"
                 type="email"
@@ -50,42 +32,6 @@ export default function HeroSection() {
                 className="px-4 py-3 rounded-lg text-gray-900"
                 required
               />
-              <input
-                name="password"
-                type="password"
-                placeholder="Choose a password"
-                className="px-4 py-3 rounded-lg text-gray-900"
-                required
-              />
-              <input
-                name="fullName"
-                type="text"
-                placeholder="Full Name"
-                className="px-4 py-3 rounded-lg text-gray-900"
-                required
-              />
-              <select
-                name="gender"
-                className="px-4 py-3 rounded-lg text-gray-900"
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-              <input
-                name="location"
-                type="text"
-                placeholder="Location"
-                className="px-4 py-3 rounded-lg text-gray-900"
-              />
-              <textarea
-                name="bio"
-                placeholder="Brief bio"
-                className="px-4 py-3 rounded-lg text-gray-900"
-                rows={3}
-              ></textarea>
               <button type="submit" className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
                 Sign Up Free
               </button>
