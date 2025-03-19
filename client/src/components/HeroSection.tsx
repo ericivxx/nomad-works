@@ -23,7 +23,8 @@ export default function HeroSection() {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
               const email = (form.email as HTMLInputElement).value;
-              window.location.href = `/#/register?email=${encodeURIComponent(email)}`;
+              const email = (form.email as HTMLInputElement).value;
+              window.location.href = `/register?email=${encodeURIComponent(email)}`;
             }} className="flex flex-col gap-3">
               <input
                 name="email"
