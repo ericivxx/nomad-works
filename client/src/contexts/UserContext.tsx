@@ -49,8 +49,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     });
 
     if (!response.ok) {
-      const error = await response.text();
-      throw new Error(error || 'Registration failed');
+      const errorText = await response.text();
+      try {
+        const errorJson = JSON.parse(errorText);
+        throw new Error(errorJson.error || 'Registration failed');
+      } catch {
+        throw new Error('Registration failed: ' + errorText);
+      }
     }
 
     const data = await response.json();
