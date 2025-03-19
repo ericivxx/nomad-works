@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Globe } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
 
 export default function HeroSection() {
+  const { register } = useUser();
   const [formState, setFormState] = useState({ status: '', message: '' });
   return (
     <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-20 md:py-32">
