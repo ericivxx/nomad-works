@@ -1,39 +1,50 @@
 
-import type { Request, Response } from "express";
+import { Router } from "express";
 import { storage } from "../storage";
 
-export async function handleGetUser(req: Request, res: Response) {
-  const userId = req.headers['x-replit-user-id'];
-  const username = req.headers['x-replit-user-name'];
-  
-  if (!userId || !username) {
-    return res.status(401).json({ message: "Not authenticated" });
-  }
+const router = Router();
 
-  let user = await storage.getUserById(userId as string);
-  
-  if (!user) {
-    // Create new user if they don't exist
-    user = await storage.createUser({
-      id: userId as string,
-      username: username as string,
-      email: '',
-      savedSearches: []
-    });
-  }
-
-  res.json({ user });
+interface User {
+  id: string;
+  email: string;
 }
 
-export async function handleSaveSearch(req: Request, res: Response) {
-  const userId = req.headers['x-replit-user-id'];
+const users = new Map<string, { email: string; password: string }>();
+
+router.post("/register", (req, res) => {
+  const { email, password } = req.body;
   
-  if (!userId) {
-    return res.status(401).json({ message: "Not authenticated" });
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password are required" });
   }
 
-  const { search } = req.body;
-  const user = await storage.saveUserSearch(userId as string, search);
+  // Check if user already exists
+  if (users.has(email)) {
+    return res.status(400).json({ error: "User already exists" });
+  }
+
+  // Create new user
+  const id = Math.random().toString(36).substring(2);
+  users.set(email, { email, password });
+
+  // Return user without password
+  res.status(201).json({ 
+    user: { id, email }
+  });
+});
+
+router.post("/login", (req, res) => {
+  const { email, password } = req.body;
   
-  res.json({ savedSearches: user.savedSearches });
-}
+  const user = users.get(email);
+  
+  if (!user || user.password !== password) {
+    return res.status(401).json({ error: "Invalid credentials" });
+  }
+
+  res.json({ 
+    user: { id: Math.random().toString(36).substring(2), email }
+  });
+});
+
+export default router;

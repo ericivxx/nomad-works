@@ -1,10 +1,14 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import authRoutes from "./api/auth";
 import { jobProviderManager } from "./api/jobProviders";
 import { getBrandAssets, getBestLogo, getBrandPrimaryColor } from "./api/brandfetch";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Auth Routes
+  app.use("/api/auth", authRoutes);
+  
   // API Routes
   app.get("/api/jobs", async (req: Request, res: Response) => {
     try {
