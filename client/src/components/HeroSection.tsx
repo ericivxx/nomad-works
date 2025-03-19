@@ -10,9 +10,25 @@ export default function HeroSection() {
           <h1 className="text-4xl md:text-6xl font-bold mb-8">
             Join the Thousands of Digital Nomads Already Living Their Dream Life! Get Started Now!
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 mb-12">
+          <p className="text-xl md:text-2xl text-blue-100 mb-8">
             Browse thousands of remote opportunities and work from anywhere
           </p>
+          <div className="max-w-md mx-auto mb-8">
+            <form className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email to save jobs & get alerts"
+                className="flex-1 px-4 py-3 rounded-lg text-gray-900"
+                required
+              />
+              <button className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+                Sign Up Free
+              </button>
+            </form>
+            <p className="text-sm text-blue-100 mt-2">
+              ✨ Get exclusive remote job alerts and digital nomad deals
+            </p>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/search"
