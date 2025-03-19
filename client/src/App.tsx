@@ -6,6 +6,7 @@ import { UserProvider } from "./contexts/UserContext";
 import NotFound from "@/pages/not-found";
 import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
+import Profile from "@/pages/Profile";
 import JobDetail from "@/pages/JobDetail";
 import CategoryPage from "@/pages/CategoryPage";
 import CategoriesListPage from "@/pages/CategoriesListPage";
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
+        <Route path="/profile" component={Profile} />
         <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
       </Switch>

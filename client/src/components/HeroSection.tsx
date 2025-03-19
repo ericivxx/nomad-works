@@ -22,10 +22,16 @@ export default function HeroSection() {
             <form onSubmit={async (e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
-              const email = (form.email as HTMLInputElement).value;
-              const password = (form.password as HTMLInputElement).value;
+              const formData = {
+                email: (form.email as HTMLInputElement).value,
+                password: (form.password as HTMLInputElement).value,
+                fullName: (form.fullName as HTMLInputElement).value,
+                gender: (form.gender as HTMLSelectElement).value,
+                location: (form.location as HTMLInputElement).value,
+                bio: (form.bio as HTMLTextAreaElement).value,
+              };
               try {
-                await register(email, password);
+                await register(formData);
                 // Success message and redirect
                 setFormState({ status: 'success', message: 'Registration successful! Redirecting...' });
                 setTimeout(() => {
@@ -57,6 +63,35 @@ export default function HeroSection() {
                 className="px-4 py-3 rounded-lg text-gray-900"
                 required
               />
+              <input
+                name="fullName"
+                type="text"
+                placeholder="Full Name"
+                className="px-4 py-3 rounded-lg text-gray-900"
+                required
+              />
+              <select
+                name="gender"
+                className="px-4 py-3 rounded-lg text-gray-900"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <input
+                name="location"
+                type="text"
+                placeholder="Location"
+                className="px-4 py-3 rounded-lg text-gray-900"
+              />
+              <textarea
+                name="bio"
+                placeholder="Brief bio"
+                className="px-4 py-3 rounded-lg text-gray-900"
+                rows={3}
+              ></textarea>
               <button type="submit" className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
                 Sign Up Free
               </button>

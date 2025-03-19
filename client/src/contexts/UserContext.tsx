@@ -35,11 +35,18 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     setUser(data.user);
   };
 
-  const register = async (email: string, password: string) => {
+  const register = async (userData: {
+    email: string;
+    password: string;
+    fullName: string;
+    gender: string;
+    location: string;
+    bio: string;
+  }) => {
     const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify(userData)
     });
 
     if (!response.ok) {
