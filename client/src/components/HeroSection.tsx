@@ -15,14 +15,33 @@ export default function HeroSection() {
           </p>
           <div className="max-w-md mx-auto mb-8">
             <p className="text-lg font-semibold text-white mb-3">Enter your email to save jobs and get alerts</p>
-            <form className="flex gap-2">
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const email = (form.email as HTMLInputElement).value;
+              const password = (form.password as HTMLInputElement).value;
+              try {
+                await register(email, password);
+                // Redirect or show success message
+              } catch (err) {
+                console.error('Registration failed:', err);
+              }
+            }} className="flex flex-col gap-3">
               <input
+                name="email"
                 type="email"
                 placeholder="Your email address"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900"
+                className="px-4 py-3 rounded-lg text-gray-900"
                 required
               />
-              <button className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+              <input
+                name="password"
+                type="password"
+                placeholder="Choose a password"
+                className="px-4 py-3 rounded-lg text-gray-900"
+                required
+              />
+              <button type="submit" className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
                 Sign Up Free
               </button>
             </form>
