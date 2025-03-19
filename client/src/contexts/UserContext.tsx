@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
@@ -26,11 +25,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
-    
+
     if (!response.ok) {
       throw new Error('Login failed');
     }
-    
+
     const data = await response.json();
     setUser(data.user);
   };
@@ -41,11 +40,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
-    
+
     if (!response.ok) {
       throw new Error('Registration failed');
     }
-    
+
     const data = await response.json();
     setUser(data.user);
   };
@@ -63,8 +62,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
 export const useUser = () => {
   const context = useContext(UserContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
-};
+}
+
+export { UserProvider };
