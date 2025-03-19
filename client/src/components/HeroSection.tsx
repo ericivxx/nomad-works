@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Globe } from "lucide-react";
 
 export default function HeroSection() {
+  const [formState, setFormState] = useState({ status: '', message: '' });
   return (
     <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-20 md:py-32">
       <div className="container mx-auto px-4">
@@ -22,13 +23,23 @@ export default function HeroSection() {
               const password = (form.password as HTMLInputElement).value;
               try {
                 await register(email, password);
-                alert('Registration successful! You can now save jobs and get alerts.');
-                window.location.href = '/search'; // Redirect to search page
+                // Success message and redirect
+                setFormState({ status: 'success', message: 'Registration successful! Redirecting...' });
+                setTimeout(() => {
+                  window.location.href = '/search';
+                }, 1500);
               } catch (err) {
-                alert('Registration failed. Please try again.');
+                setFormState({ status: 'error', message: 'Registration failed. Please try again.' });
                 console.error('Registration failed:', err);
               }
             }} className="flex flex-col gap-3">
+            {formState.message && (
+              <div className={`text-sm p-2 rounded ${
+                formState.status === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              }`}>
+                {formState.message}
+              </div>
+            )}
               <input
                 name="email"
                 type="email"
