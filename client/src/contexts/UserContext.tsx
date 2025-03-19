@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+
+import React, { createContext, useContext, useState } from 'react';
 
 interface User {
   id: string;
@@ -60,12 +61,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const useUser = () => {
+export function useUser() {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 }
-
-export { UserProvider };
