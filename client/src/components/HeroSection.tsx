@@ -14,7 +14,7 @@ export default function HeroSection() {
             Browse thousands of remote opportunities and work from anywhere
           </p>
           <div className="max-w-md mx-auto mb-8">
-            <p className="text-sm text-white mb-2">Enter your email to save jobs and get alerts</p>
+            <p className="text-lg font-semibold text-white mb-3">Enter your email to save jobs and get alerts</p>
             <form className="flex gap-2">
               <input
                 type="email"
