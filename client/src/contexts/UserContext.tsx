@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState } from 'react';
 
 interface User {
@@ -11,7 +10,7 @@ interface UserContextType {
   user: User | null;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, fullName: string, gender: string, location: string, bio: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -50,7 +49,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     });
 
     if (!response.ok) {
-      throw new Error('Registration failed');
+      const error = await response.text();
+      throw new Error(error || 'Registration failed');
     }
 
     const data = await response.json();

@@ -7,12 +7,15 @@ const router = Router();
 interface User {
   id: string;
   email: string;
+  fullName?: string;
+  gender?: string;
+  location?: string;
 }
 
-const users = new Map<string, { email: string; password: string }>();
+const users = new Map<string, User & { password: string }>();
 
 router.post("/register", (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, fullName, gender, location } = req.body;
   
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
@@ -25,12 +28,12 @@ router.post("/register", (req, res) => {
 
   // Create new user
   const id = Math.random().toString(36).substring(2);
-  users.set(email, { email, password });
+  const user = { id, email, password, fullName, gender, location };
+  users.set(email, user);
 
   // Return user without password
-  res.status(201).json({ 
-    user: { id, email }
-  });
+  const { password: _, ...userWithoutPassword } = user;
+  res.status(201).json({ user: userWithoutPassword });
 });
 
 router.post("/login", (req, res) => {
