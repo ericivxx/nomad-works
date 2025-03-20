@@ -28,30 +28,38 @@ export default function HeroSection() {
               />
               <div className="flex gap-3">
                 <button 
-                  onClick={() => {
+                  onClick={async () => {
                     const email = (document.getElementById('emailInput') as HTMLInputElement).value;
                     if (!email) {
                       alert('Please enter your email');
                       return;
                     }
-                    window.location.href = `/register?email=${encodeURIComponent(email)}`;
+                    
+                    try {
+                      // Check if user exists
+                      const response = await fetch('/api/auth/check-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                      });
+                      
+                      const data = await response.json();
+                      
+                      if (data.exists) {
+                        // User exists - redirect to login
+                        window.location.href = `/login?email=${encodeURIComponent(email)}`;
+                      } else {
+                        // New user - redirect to register
+                        window.location.href = `/register?email=${encodeURIComponent(email)}`;
+                      }
+                    } catch (error) {
+                      console.error('Error checking email:', error);
+                      alert('Error checking email. Please try again.');
+                    }
                   }}
                   className="flex-1 bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors"
                 >
-                  Sign Up Free
-                </button>
-                <button 
-                  onClick={() => {
-                    const email = (document.getElementById('emailInput') as HTMLInputElement).value;
-                    if (!email) {
-                      alert('Please enter your email');
-                      return;
-                    }
-                    window.location.href = `/login?email=${encodeURIComponent(email)}`;
-                  }}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold transition-colors"
-                >
-                  Login
+                  Continue
                 </button>
               </div>
             </div>
