@@ -15,6 +15,10 @@ interface AuthResponse {
   user: User;
 }
 
+interface CheckEmailResponse {
+  exists: boolean;
+}
+
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,7 +32,7 @@ export function useAuth() {
           method: 'GET'
         });
         
-        if (response) {
+        if (response && response.user) {
           setUser(response.user);
         }
       } catch (error) {
@@ -54,7 +58,7 @@ export function useAuth() {
         body: JSON.stringify({ email, password }),
       });
       
-      if (response?.user) {
+      if (response && response.user) {
         setUser(response.user);
         toast({
           title: "Login successful",
@@ -63,10 +67,12 @@ export function useAuth() {
         return true;
       }
       return false;
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Login failed",
-        description: "Invalid email or password. Please try again.",
+        description: error.status === 401 
+          ? "Invalid email or password. Please try again." 
+          : "An error occurred. Please try again later.",
         variant: "destructive",
       });
       return false;
@@ -94,7 +100,7 @@ export function useAuth() {
         body: JSON.stringify(userData),
       });
       
-      if (response?.user) {
+      if (response && response.user) {
         setUser(response.user);
         toast({
           title: "Registration successful",
@@ -124,7 +130,7 @@ export function useAuth() {
   // Check if email exists
   const checkEmailExists = async (email: string) => {
     try {
-      const response = await apiRequest<{ exists: boolean }>('/api/auth/check-email', {
+      const response = await apiRequest<CheckEmailResponse>('/api/auth/check-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
