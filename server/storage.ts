@@ -1,4 +1,10 @@
-import { Job, JobWithRelations, Company, Category, Location, Skill, InsertJob, InsertCompany, InsertCategory, InsertLocation, InsertSkill, jobs, companies, categories, locations, skills, jobSkills } from "@shared/schema";
+import { 
+  Job, JobWithRelations, Company, Category, Location, Skill, 
+  InsertJob, InsertCompany, InsertCategory, InsertLocation, InsertSkill, 
+  User, InsertUser, RegisterData,
+  jobs, companies, categories, locations, skills, jobSkills, users
+} from "@shared/schema";
+import bcrypt from 'bcryptjs';
 
 export interface IStorage {
   // Jobs
@@ -34,6 +40,14 @@ export interface IStorage {
   getJobCount(): Promise<number>;
   getCategoryCount(): Promise<number>;
   getLocationCount(): Promise<number>;
+  
+  // Authentication
+  getUserById(id: number): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  checkEmailExists(email: string): Promise<boolean>;
+  createUser(userData: RegisterData): Promise<User>;
+  validateUserCredentials(email: string, password: string): Promise<User | null>;
+  updateUserLastLogin(userId: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {

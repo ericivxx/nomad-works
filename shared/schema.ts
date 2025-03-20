@@ -4,8 +4,9 @@ import { z } from "zod";
 
 // User table for storing user data
 export const users = pgTable("users", {
-  id: text("id").primaryKey(),
-  email: text("email").notNull(),
+  id: serial("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  password: text("password").notNull(),
   username: text("username").notNull(),
   fullName: text("full_name"),
   gender: text("gender"),
@@ -13,9 +14,17 @@ export const users = pgTable("users", {
   bio: text("bio"),
   savedSearches: text("saved_searches").array(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  lastLogin: timestamp("last_login"),
+  role: text("role").default("user").notNull(), // 'user', 'admin', etc.
+  isVerified: boolean("is_verified").default(false),
 });
 
-export const insertUserSchema = createInsertSchema(users);
+export const insertUserSchema = createInsertSchema(users).pick({
+  email: true,
+  password: true,
+  username: true,
+  fullName: true,
+});
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
@@ -139,3 +148,24 @@ export type JobWithRelations = Job & {
   externalId?: string;
   applyUrl?: string;
 };
+
+// Authentication schemas
+export const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export const registerSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  fullName: z.string().optional(),
+});
+
+export const checkEmailSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
+export type LoginCredentials = z.infer<typeof loginSchema>;
+export type RegisterData = z.infer<typeof registerSchema>;
+export type CheckEmailRequest = z.infer<typeof checkEmailSchema>;
