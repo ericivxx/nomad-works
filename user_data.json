@@ -21,7 +21,7 @@
   {
     "id": 2,
     "email": "admin@example.com",
-    "password": "$2b$10$n5WKv32LTBDHPWMa6kOBwuzGt6VYxDhNZkFc.rhn5He4zlfFa/bZS",
+    "password": "$2b$10$kb6c0jaOZSoQ73tBua9D6.iXpvOC75t.Jp/1TbmCHTqVWGz9aFEJy",
     "fullName": "Admin User",
     "gender": null,
     "location": null,
