@@ -3,6 +3,7 @@ import { useUser } from "@/contexts/UserContext";
 
 export default function Nav() {
   const { user, isAuthenticated, logout } = useUser();
+  console.log("Nav auth state:", { user, isAuthenticated });
 
   return (
     <nav className="bg-blue-600 text-white">
