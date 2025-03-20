@@ -9,6 +9,7 @@ interface User {
   gender?: string | null;
   location?: string | null;
   savedSearches?: string[];
+  savedJobs?: string[];
 }
 
 interface UserContextType {
