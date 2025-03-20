@@ -9,6 +9,7 @@ interface User {
   fullName?: string | null;
   gender?: string | null;
   location?: string | null;
+  savedJobs?: string[];
 }
 
 interface AuthResponse {
@@ -167,6 +168,7 @@ export function useAuth() {
 
   return { 
     user, 
+    setUser,
     loading, 
     isAuthenticated: !!user, 
     login, 
