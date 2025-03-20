@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, RefreshCw, Save, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/contexts/UserContext";
-import { useNavigate } from "wouter";
+import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
 
 interface ApiConfig {
@@ -29,7 +29,7 @@ interface ExternalApiState {
 export default function AdminPanel() {
   const { toast } = useToast();
   const { user, isAuthenticated } = useUser();
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const [apiState, setApiState] = useState<ExternalApiState>({
     providers: [],
     loading: true,
@@ -39,16 +39,16 @@ export default function AdminPanel() {
   // Check if user is an admin, if not redirect
   useEffect(() => {
     if (isAuthenticated === false) {
-      navigate("/login");
+      setLocation("/login");
     } else if (user && user.role !== "admin") {
-      navigate("/");
+      setLocation("/");
       toast({
         title: "Access Denied",
         description: "You need administrator privileges to access this page.",
         variant: "destructive"
       });
     }
-  }, [isAuthenticated, user, navigate, toast]);
+  }, [isAuthenticated, user, setLocation, toast]);
 
   // Fetch API configurations
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function AdminPanel() {
         method: "GET"
       });
       setApiState({
-        providers: response.providers,
+        providers: response?.providers || [],
         loading: false,
         saving: false
       });
