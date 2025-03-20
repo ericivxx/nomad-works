@@ -25,19 +25,21 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = async (email: string, password: string) => {
+  const login = async (credentials: { email: string; password: string }) => {
     const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify(credentials)
     });
 
     if (!response.ok) {
-      throw new Error('Login failed');
+      const error = await response.json();
+      throw new Error(error.message || 'Login failed');
     }
 
     const data = await response.json();
     setUser(data.user);
+    window.location.href = '/profile';
   };
 
   const register = async (userData: {
