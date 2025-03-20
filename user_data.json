@@ -11,6 +11,27 @@
     "savedJobs": [
       "remote-frontend-developer",
       "backend-developer-python"
-    ]
+    ],
+    "username": "testuser",
+    "role": "user",
+    "bio": null,
+    "savedSearches": [],
+    "isVerified": false
+  },
+  {
+    "id": 2,
+    "email": "admin@example.com",
+    "password": "$2b$10$kkAbkSuLCj/91gXb5FUTLumiTBZiZrb/Isms6Ww/npARhKBTHyUO2",
+    "fullName": "Admin User",
+    "gender": null,
+    "location": null,
+    "lastLogin": "2025-03-20T16:59:00.000Z",
+    "createdAt": "2025-03-20T16:59:00.000Z",
+    "savedJobs": [],
+    "username": "adminuser",
+    "role": "admin",
+    "bio": null,
+    "savedSearches": [],
+    "isVerified": true
   }
 ]
