@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "email": "test@example.com",
+    "password": "$2b$10$kkAbkSuLCj/91gXb5FUTLumiTBZiZrb/Isms6Ww/npARhKBTHyUO2",
+    "fullName": "Test User",
+    "gender": null,
+    "location": null,
+    "lastLogin": "2025-03-20T15:13:14.860Z",
+    "createdAt": "2025-03-20T15:13:01.537Z"
+  }
+]

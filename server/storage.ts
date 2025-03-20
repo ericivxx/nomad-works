@@ -109,9 +109,14 @@ export class MemStorage implements IStorage {
           user.createdAt = new Date(user.createdAt);
           user.lastLogin = user.lastLogin ? new Date(user.lastLogin) : null;
           this.usersData.set(user.id, user);
+          
+          // Log more details about each user
+          console.log(`Loaded user: ${user.id} (${user.email}) with saved jobs: ${user.savedJobs ? user.savedJobs.length : 0}`);
         });
         
         console.log(`Loaded ${userData.length} users from persistent storage`);
+      } else {
+        console.log('No user data file found, starting with empty users');
       }
       
       // Load counter data
@@ -120,7 +125,10 @@ export class MemStorage implements IStorage {
         
         if (counterData.currentUserId) {
           this.currentUserId = counterData.currentUserId;
+          console.log(`Loaded counter data: currentUserId = ${this.currentUserId}`);
         }
+      } else {
+        console.log('No counter data file found, using default counter values');
       }
     } catch (error) {
       console.error('Error loading persisted data:', error);
@@ -435,6 +443,7 @@ export class MemStorage implements IStorage {
     if (!user.savedJobs.includes(jobSlug)) {
       user.savedJobs.push(jobSlug);
       this.usersData.set(userId, user);
+      this.saveUserData(); // Save to file after adding saved job
     }
     
     return user;
@@ -447,6 +456,7 @@ export class MemStorage implements IStorage {
     // Filter out the job slug
     user.savedJobs = user.savedJobs.filter(slug => slug !== jobSlug);
     this.usersData.set(userId, user);
+    this.saveUserData(); // Save to file after removing saved job
     
     return user;
   }
