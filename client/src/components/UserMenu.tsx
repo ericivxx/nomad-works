@@ -10,11 +10,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { UserIcon, Bookmark, Settings, LogOut } from 'lucide-react';
+import { UserIcon, Bookmark, Settings, LogOut, LayoutDashboard } from 'lucide-react';
 
 export default function UserMenu() {
   const { user, logout } = useUser();
   const [isOpen, setIsOpen] = useState(false);
+  const isAdmin = user?.role === 'admin';
 
   const getInitials = (name?: string | null) => {
     if (!name) return 'U';
@@ -66,6 +67,17 @@ export default function UserMenu() {
             <span>Settings</span>
           </DropdownMenuItem>
         </Link>
+        {isAdmin && (
+          <>
+            <DropdownMenuSeparator />
+            <Link href="/admin">
+              <DropdownMenuItem className="cursor-pointer">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <span>Admin Panel</span>
+              </DropdownMenuItem>
+            </Link>
+          </>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
           <LogOut className="mr-2 h-4 w-4" />
