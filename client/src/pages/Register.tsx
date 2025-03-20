@@ -1,73 +1,213 @@
 import { useState } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { useUser } from '@/contexts/UserContext';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Loader2 } from 'lucide-react';
+
+const formSchema = z.object({
+  email: z.string().email('Please enter a valid email address'),
+  username: z.string().min(3, 'Username must be at least 3 characters'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  fullName: z.string().optional(),
+  gender: z.string().optional(),
+  location: z.string().optional(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export default function Register() {
-  const [, setLocation] = useLocation();
-  const { register } = useUser();
-  const [error, setError] = useState('');
+  const [, navigate] = useLocation();
+  const { register, loading } = useUser();
+  const [authError, setAuthError] = useState('');
   const emailFromUrl = new URLSearchParams(window.location.search).get('email') || '';
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: emailFromUrl || '',
+      username: '',
+      password: '',
+      fullName: '',
+      gender: '',
+      location: '',
+    },
+  });
 
-    try {
-      await register({
-        email: emailFromUrl,
-        password: (form.password as HTMLInputElement).value,
-        fullName: (form.fullName as HTMLInputElement).value,
-        gender: (form.gender as HTMLSelectElement).value,
-        location: (form.location as HTMLInputElement).value,
-      });
-      setError('Registration successful! Redirecting...');
-      setTimeout(() => setLocation('/search'), 1500);
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.message || err.message;
-      if (errorMessage.includes('already exists')) {
-        setError('This email is already registered. Please login instead.');
-        setTimeout(() => setLocation('/login'), 2000);
-      } else {
-        setError(errorMessage || 'Failed to register');
-      }
+  const onSubmit = async (values: FormValues) => {
+    setAuthError('');
+    const success = await register(values);
+    
+    if (!success) {
+      setAuthError('Registration failed. Please try again or use a different email.');
     }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-12">
       <div className="max-w-md mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Complete Your Registration</h1>
-        {error && <div className="bg-red-100 text-red-600 p-3 rounded mb-4">{error}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1">Email</label>
-            <input type="email" value={emailFromUrl} disabled className="w-full p-2 border rounded bg-gray-50" />
-          </div>
-          <div>
-            <label className="block mb-1">Password</label>
-            <input type="password" name="password" required className="w-full p-2 border rounded" />
-          </div>
-          <div>
-            <label className="block mb-1">Full Name</label>
-            <input type="text" name="fullName" required className="w-full p-2 border rounded" />
-          </div>
-          <div>
-            <label className="block mb-1">Gender</label>
-            <select name="gender" required className="w-full p-2 border rounded">
-              <option value="">Select Gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div>
-            <label className="block mb-1">Location</label>
-            <input type="text" name="location" required className="w-full p-2 border rounded" />
-          </div>
-          <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">
-            Complete Registration
-          </button>
-        </form>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl">Create Account</CardTitle>
+            <CardDescription>
+              Sign up to access digital nomad job opportunities and resources
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {authError && (
+              <div className="bg-destructive/15 text-destructive p-3 rounded-md mb-4">
+                {authError}
+              </div>
+            )}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="you@example.com" 
+                          {...field} 
+                          disabled={loading || !!emailFromUrl}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="username" 
+                          {...field}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input 
+                          type="password" 
+                          placeholder="••••••••" 
+                          {...field}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name <span className="text-muted-foreground text-xs">(Optional)</span></FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="John Doe" 
+                          {...field}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="gender"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Gender <span className="text-muted-foreground text-xs">(Optional)</span></FormLabel>
+                        <Select 
+                          disabled={loading}
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select gender" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="male">Male</SelectItem>
+                            <SelectItem value="female">Female</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                            <SelectItem value="prefer_not_to_say">Prefer not to say</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="location"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Location <span className="text-muted-foreground text-xs">(Optional)</span></FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="City, Country" 
+                            {...field}
+                            disabled={loading}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Creating account...
+                    </>
+                  ) : (
+                    'Create Account'
+                  )}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+          <CardFooter className="flex justify-center">
+            <p className="text-sm text-muted-foreground">
+              Already have an account?{' '}
+              <Link href="/login" className="text-primary hover:underline">
+                Login
+              </Link>
+            </p>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

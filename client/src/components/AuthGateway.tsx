@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Link, useLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { useUser } from '@/contexts/UserContext';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -13,31 +12,41 @@ import { Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function Login() {
+export default function AuthGateway() {
   const [, navigate] = useLocation();
-  const { login, loading } = useUser();
-  const [authError, setAuthError] = useState('');
-  const emailFromUrl = new URLSearchParams(window.location.search).get('email') || '';
-  
+  const { checkEmailExists } = useUser();
+  const [checking, setChecking] = useState(false);
+  const [error, setError] = useState('');
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: emailFromUrl || '',
-      password: '',
+      email: '',
     },
   });
 
   const onSubmit = async (values: FormValues) => {
-    setAuthError('');
-    const success = await login(values.email, values.password);
+    setError('');
+    setChecking(true);
     
-    if (!success) {
-      setAuthError('Login failed. Please check your credentials.');
+    try {
+      const exists = await checkEmailExists(values.email);
+      
+      // Navigate to appropriate page based on whether email exists
+      if (exists) {
+        navigate(`/login?email=${encodeURIComponent(values.email)}`);
+      } else {
+        navigate(`/register?email=${encodeURIComponent(values.email)}`);
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+      console.error('Email check error:', err);
+    } finally {
+      setChecking(false);
     }
   };
 
@@ -46,15 +55,15 @@ export default function Login() {
       <div className="max-w-md mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardTitle className="text-2xl">Get Started</CardTitle>
             <CardDescription>
-              Enter your credentials to sign in to your account
+              Enter your email to sign in or create an account
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {authError && (
+            {error && (
               <div className="bg-destructive/15 text-destructive p-3 rounded-md mb-4">
-                {authError}
+                {error}
               </div>
             )}
             <Form {...form}>
@@ -69,25 +78,7 @@ export default function Login() {
                         <Input 
                           placeholder="you@example.com" 
                           {...field} 
-                          disabled={loading}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="password" 
-                          placeholder="••••••••" 
-                          {...field}
-                          disabled={loading}
+                          disabled={checking}
                         />
                       </FormControl>
                       <FormMessage />
@@ -97,15 +88,15 @@ export default function Login() {
                 <Button 
                   type="submit" 
                   className="w-full" 
-                  disabled={loading}
+                  disabled={checking}
                 >
-                  {loading ? (
+                  {checking ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Logging in...
+                      Checking...
                     </>
                   ) : (
-                    'Login'
+                    'Continue'
                   )}
                 </Button>
               </form>
@@ -113,10 +104,7 @@ export default function Login() {
           </CardContent>
           <CardFooter className="flex justify-center">
             <p className="text-sm text-muted-foreground">
-              Don't have an account?{' '}
-              <Link href="/register" className="text-primary hover:underline">
-                Register
-              </Link>
+              We'll check if your email is registered and direct you accordingly
             </p>
           </CardFooter>
         </Card>
