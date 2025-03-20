@@ -5,6 +5,8 @@ import {
   jobs, companies, categories, locations, skills, jobSkills, users
 } from "@shared/schema";
 import bcrypt from 'bcryptjs';
+import fs from 'fs';
+import path from 'path';
 
 export interface IStorage {
   // Jobs
@@ -68,6 +70,10 @@ export class MemStorage implements IStorage {
   private currentSkillId = 1;
   private currentUserId = 1;
   
+  // File to persist user data
+  private readonly USER_DATA_FILE = 'user_data.json';
+  private readonly COUNTER_DATA_FILE = 'counter_data.json';
+  
   constructor() {
     this.jobsData = new Map();
     this.companiesData = new Map();
@@ -82,9 +88,60 @@ export class MemStorage implements IStorage {
     this.currentCategoryId = 1;
     this.currentLocationId = 1;
     this.currentSkillId = 1;
+    this.currentUserId = 1;
+    
+    // Load persisted data if available
+    this.loadPersistedData();
     
     // Initialize with seed data
     this.seedData();
+  }
+  
+  // Load data from files if they exist
+  private loadPersistedData() {
+    try {
+      // Load user data
+      if (fs.existsSync(this.USER_DATA_FILE)) {
+        const userData = JSON.parse(fs.readFileSync(this.USER_DATA_FILE, 'utf8'));
+        
+        // Convert dates from strings back to Date objects
+        userData.forEach((user: any) => {
+          user.createdAt = new Date(user.createdAt);
+          user.lastLogin = user.lastLogin ? new Date(user.lastLogin) : null;
+          this.usersData.set(user.id, user);
+        });
+        
+        console.log(`Loaded ${userData.length} users from persistent storage`);
+      }
+      
+      // Load counter data
+      if (fs.existsSync(this.COUNTER_DATA_FILE)) {
+        const counterData = JSON.parse(fs.readFileSync(this.COUNTER_DATA_FILE, 'utf8'));
+        
+        if (counterData.currentUserId) {
+          this.currentUserId = counterData.currentUserId;
+        }
+      }
+    } catch (error) {
+      console.error('Error loading persisted data:', error);
+    }
+  }
+  
+  // Save user data to file
+  private saveUserData() {
+    try {
+      const userData = Array.from(this.usersData.values());
+      fs.writeFileSync(this.USER_DATA_FILE, JSON.stringify(userData, null, 2));
+      
+      // Save counter data
+      const counterData = {
+        currentUserId: this.currentUserId
+      };
+      fs.writeFileSync(this.COUNTER_DATA_FILE, JSON.stringify(counterData, null, 2));
+      
+    } catch (error) {
+      console.error('Error saving user data:', error);
+    }
   }
   
   async getAllJobs(): Promise<JobWithRelations[]> {
@@ -334,14 +391,15 @@ export class MemStorage implements IStorage {
       id,
       email: userData.email,
       password: hashedPassword,
-      fullName: userData.fullName,
-      gender: userData.gender,
-      location: userData.location,
+      fullName: userData.fullName || null,
+      gender: userData.gender || null,
+      location: userData.location || null,
       lastLogin: new Date(),
       createdAt: new Date()
     };
     
     this.usersData.set(id, newUser);
+    this.saveUserData(); // Save to file after user creation
     return newUser;
   }
   
@@ -360,6 +418,7 @@ export class MemStorage implements IStorage {
     if (user) {
       user.lastLogin = new Date();
       this.usersData.set(userId, user);
+      this.saveUserData(); // Save to file after updating last login
     }
   }
   
