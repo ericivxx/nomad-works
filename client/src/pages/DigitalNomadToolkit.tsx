@@ -2393,7 +2393,7 @@ export default function DigitalNomadToolkit() {
                         <span className="text-blue-600 text-sm font-medium">1</span>
                       </div>
                       <div>
-                        <p className="font-medium">NordVPN</p>
+                        <p className="font-medium cursor-pointer hover:text-blue-600" onClick={() => window.open('https://go.nordvpn.net/aff_c?offer_id=15&aff_id=119703&url_id=902', '_blank')}>NordVPN</p>
                         <p className="text-sm text-gray-600">Secure your connection on public WiFi</p>
                       </div>
                     </li>

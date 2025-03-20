@@ -14,13 +14,13 @@ export default function ToolkitSidebar({ variant = "default" }: { variant?: "def
       {
         name: "NordVPN",
         description: "Secure your connection when working from public WiFi",
-        url: "/digital-nomad-toolkit?tab=vpn#nordvpn",
+        url: "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=119703&url_id=902",
         category: "vpn"
       },
       {
         name: "SafetyWing Insurance",
         description: "Health insurance designed for digital nomads",
-        url: "/digital-nomad-toolkit?tab=insurance#safetywing",
+        url: "https://safetywing.com/nomad-insurance/?referenceID=26252661&utm_source=26252661&utm_medium=Ambassador",
         category: "insurance"
       },
       {
@@ -81,12 +81,23 @@ export default function ToolkitSidebar({ variant = "default" }: { variant?: "def
         <div className="bg-blue-50 rounded-lg p-4 mb-4">
           <h4 className="font-medium text-blue-800">{randomTool.name}</h4>
           <p className="text-sm text-blue-600 mb-3">{randomTool.description}</p>
-          <Link 
-            href={randomTool.url}
-            className="text-sm text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-full px-4 py-1.5 inline-block"
-          >
-            Learn More
-          </Link>
+          {randomTool.url.startsWith('http') ? (
+            <a 
+              href={randomTool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-full px-4 py-1.5 inline-block"
+            >
+              Learn More
+            </a>
+          ) : (
+            <Link 
+              href={randomTool.url}
+              className="text-sm text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-full px-4 py-1.5 inline-block"
+            >
+              Learn More
+            </Link>
+          )}
         </div>
         
         <Link 
