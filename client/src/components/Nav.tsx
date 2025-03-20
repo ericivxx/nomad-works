@@ -12,11 +12,21 @@ export default function Nav() {
           <Link href="/" className="text-xl font-bold">Remote Jobs</Link>
           <div className="flex items-center gap-4">
             {!isAuthenticated ? (
-              <Link href="/register" className="bg-white text-blue-600 px-4 py-2 rounded-lg">
-                Sign Up
-              </Link>
+              <>
+                <Link href="/login" className="text-white hover:text-blue-100">
+                  Login
+                </Link>
+                <Link href="/register" className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
+                  Sign Up
+                </Link>
+              </>
             ) : (
-              <UserMenu />
+              <div className="flex items-center gap-4">
+                <Link href="/profile" className="text-white hover:text-blue-100">
+                  Profile
+                </Link>
+                <UserMenu />
+              </div>
             )}
           </div>
         </div>
