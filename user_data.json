@@ -6,10 +6,11 @@
     "fullName": "Test User",
     "gender": null,
     "location": null,
-    "lastLogin": "2025-03-20T15:41:51.136Z",
+    "lastLogin": "2025-03-20T15:48:27.272Z",
     "createdAt": "2025-03-20T15:13:01.537Z",
     "savedJobs": [
-      "remote-frontend-developer"
+      "remote-frontend-developer",
+      "backend-developer-python"
     ]
   }
 ]
