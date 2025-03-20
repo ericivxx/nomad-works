@@ -22,8 +22,12 @@ export default function Nav() {
               </>
             ) : (
               <div className="flex items-center gap-4">
+                <span className="text-green-300">✓ Logged in</span>
                 <Link href="/profile" className="text-white hover:text-blue-100">
                   Profile
+                </Link>
+                <Link href="/saved-jobs" className="text-white hover:text-blue-100">
+                  Saved Jobs
                 </Link>
                 <UserMenu />
               </div>

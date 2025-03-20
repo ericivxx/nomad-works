@@ -21,7 +21,8 @@ export default function Register() {
         gender: (form.gender as HTMLSelectElement).value,
         location: (form.location as HTMLInputElement).value,
       });
-      setLocation('/profile');
+      setError('Registration successful! Redirecting...');
+      setTimeout(() => setLocation('/'), 1500);
     } catch (err: any) {
       if (err.message?.includes('already exists')) {
         setError('Account already exists. Please login instead.');
