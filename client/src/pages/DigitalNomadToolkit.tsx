@@ -351,7 +351,7 @@ export default function DigitalNomadToolkit() {
                             </li>
                           </ul>
                         </div>
-                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://nordvpn.com/', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://go.nordvpn.net/aff_c?offer_id=15&aff_id=119703&url_id=902', '_blank')}>
                           Get NordVPN Deal
                         </Button>
                       </CardContent>
@@ -762,7 +762,7 @@ export default function DigitalNomadToolkit() {
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full" onClick={() => window.open('https://nordvpn.com/', '_blank')}>
+                      <Button className="w-full" onClick={() => window.open('https://go.nordvpn.net/aff_c?offer_id=15&aff_id=119703&url_id=902', '_blank')}>
                         Get NordVPN
                       </Button>
                     </CardContent>
@@ -918,7 +918,7 @@ export default function DigitalNomadToolkit() {
                       </tr>
                       <tr className="border-b border-gray-200">
                         <td className="p-3 font-medium">Best For</td>
-                        <td className="p-3">Overall Protection</td>
+                        <td className="p-3 cursor-pointer hover:text-blue-600" onClick={() => window.open('https://go.nordvpn.net/aff_c?offer_id=15&aff_id=119703&url_id=902', '_blank')}>Overall Protection</td>
                         <td className="p-3">Speed & Streaming</td>
                         <td className="p-3">Budget & Multiple Devices</td>
                       </tr>
