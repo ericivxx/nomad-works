@@ -979,8 +979,8 @@ export default function DigitalNomadToolkit() {
             {/* Insurance Tab */}
             <TabsContent value="insurance" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Insurance for Digital Nomads</h2>
-                <p className="text-gray-700 mb-8">
+                <h2 className="text-2xl font-bold mb-8 pt-4">Insurance for Digital Nomads</h2>
+                <p className="text-gray-700 mb-12">
                   As a digital nomad, having the right insurance coverage is essential for your peace of mind and safety while traveling the world. These specialized insurance options are designed specifically for location-independent workers.
                 </p>
                 
@@ -1803,8 +1803,8 @@ export default function DigitalNomadToolkit() {
 
             <TabsContent value="learning" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Learning & Skill Development</h2>
-                <p className="text-gray-700 mb-6">
+                <h2 className="text-2xl font-bold mb-8 pt-4">Learning & Skill Development</h2>
+                <p className="text-gray-700 mb-12">
                   Investing in your skills is crucial for digital nomads to stay competitive in the remote job market and increase earning potential. These platforms make it easy to learn from anywhere in the world.
                 </p>
                 
@@ -2100,8 +2100,8 @@ export default function DigitalNomadToolkit() {
             {/* Finance Tab */}
             <TabsContent value="finance" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Finance & Money Management</h2>
-                <p className="text-gray-700 mb-6">
+                <h2 className="text-2xl font-bold mb-8 pt-4">Finance & Money Management</h2>
+                <p className="text-gray-700 mb-12">
                   Managing finances across borders is a unique challenge for digital nomads. These tools help you handle international banking, minimize fees, track expenses, and stay compliant with tax obligations.
                 </p>
                 
