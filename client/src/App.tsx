@@ -20,7 +20,30 @@ import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";
 import SavedJobs from "@/pages/SavedJobs";
 import Login from "@/pages/Login";
+import AdminPanel from "@/pages/AdminPanel";
 import AuthGateway from "@/components/AuthGateway";
+import { useUser } from "@/contexts/UserContext";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
+
+function AdminRoute({ component: Component, ...rest }: { component: React.ComponentType, path: string }) {
+  const { user, isAuthenticated } = useUser();
+  const [, setLocation] = useLocation();
+  const isAdmin = user?.role === 'admin';
+
+  useEffect(() => {
+    if (isAuthenticated && !isAdmin) {
+      // Redirect non-admin authenticated users to home
+      setLocation('/');
+    } else if (!isAuthenticated) {
+      // Redirect non-authenticated users to login
+      setLocation('/login');
+    }
+  }, [isAuthenticated, isAdmin, setLocation]);
+
+  // If the user is admin, render the component, otherwise render nothing during redirect
+  return (isAuthenticated && isAdmin) ? <Component /> : null;
+}
 
 function Router() {
   return (
@@ -41,6 +64,9 @@ function Router() {
         <Route path="/login" component={Login} />
         <Route path="/saved-jobs" component={SavedJobs} />
         <Route path="/auth" component={AuthGateway} />
+        <Route path="/admin">
+          {(params) => <AdminRoute component={AdminPanel} path="/admin" />}
+        </Route>
         <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
       </Switch>
