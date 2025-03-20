@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import { useUser } from '@/contexts/UserContext';
@@ -12,7 +11,7 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    
+
     try {
       await register({
         email: emailFromUrl,
@@ -24,11 +23,12 @@ export default function Register() {
       setError('Registration successful! Redirecting...');
       setTimeout(() => setLocation('/'), 1500);
     } catch (err: any) {
-      if (err.message?.includes('already exists')) {
-        setError('Account already exists. Please login instead.');
-        setTimeout(() => setLocation(`/login?email=${encodeURIComponent(emailFromUrl)}`), 2000);
+      const errorMessage = err.response?.data?.message || err.message;
+      if (errorMessage.includes('already exists')) {
+        setError('This email is already registered. Please login instead.');
+        setTimeout(() => setLocation('/login'), 2000);
       } else {
-        setError('Registration failed. Please try again.');
+        setError(errorMessage || 'Failed to register');
       }
     }
   };

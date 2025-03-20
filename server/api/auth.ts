@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import { storage } from "../storage";
 
@@ -16,7 +15,7 @@ const users = new Map<string, User & { password: string }>();
 
 router.post("/register", (req, res) => {
   const { email, password, fullName, gender, location } = req.body;
-  
+
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
   }
@@ -38,9 +37,9 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
-  
+
   const user = users.get(email);
-  
+
   if (!user || user.password !== password) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
