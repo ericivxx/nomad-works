@@ -24,6 +24,25 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Check session on mount
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await fetch('/api/auth/session');
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error('Session check failed:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkSession();
+  }, []);
 
   const login = async (credentials: { email: string; password: string }) => {
     const response = await fetch('/api/auth/login', {
