@@ -57,7 +57,8 @@ router.post("/register", async (req: Request, res: Response) => {
       email: user.email,
       fullName: user.fullName,
       gender: user.gender,
-      location: user.location
+      location: user.location,
+      role: user.role
     };
     
     res.status(201).json({ user: userWithoutPassword });
@@ -119,7 +120,8 @@ router.post("/login", async (req: Request, res: Response) => {
       email: user.email,
       fullName: user.fullName,
       gender: user.gender,
-      location: user.location
+      location: user.location,
+      role: user.role
     };
     
     // Remove password from response
@@ -187,7 +189,8 @@ router.post('/save-job', async (req: Request, res: Response) => {
       fullName: updatedUser.fullName,
       gender: updatedUser.gender,
       location: updatedUser.location,
-      savedJobs: updatedUser.savedJobs || []
+      savedJobs: updatedUser.savedJobs || [],
+      role: updatedUser.role
     };
     
     // Remove password from response
@@ -235,7 +238,8 @@ router.post('/unsave-job', async (req: Request, res: Response) => {
       fullName: updatedUser.fullName,
       gender: updatedUser.gender,
       location: updatedUser.location,
-      savedJobs: updatedUser.savedJobs || []
+      savedJobs: updatedUser.savedJobs || [],
+      role: updatedUser.role
     };
     
     // Remove password from response
