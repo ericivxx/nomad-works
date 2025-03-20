@@ -10,6 +10,7 @@ interface User {
   gender?: string | null;
   location?: string | null;
   savedJobs?: string[];
+  role?: string;
 }
 
 interface AuthResponse {

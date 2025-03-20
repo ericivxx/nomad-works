@@ -31,6 +31,11 @@ export default function Nav() {
                 <Link href="/saved-jobs" className="text-white hover:text-blue-100">
                   Saved Jobs
                 </Link>
+                {user?.role === 'admin' && (
+                  <Link href="/admin" className="text-white hover:text-blue-100 bg-blue-700 px-3 py-1 rounded">
+                    Admin
+                  </Link>
+                )}
                 <button
                   onClick={() => {
                     logout();
