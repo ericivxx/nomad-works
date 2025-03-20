@@ -9,7 +9,7 @@ interface User {
 interface UserContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (credentials: { email: string; password: string }) => Promise<void>;
   register: (userData: {
     email: string;
     password: string;
