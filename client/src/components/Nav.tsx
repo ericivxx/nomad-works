@@ -23,7 +23,7 @@ export default function Nav() {
             ) : (
               <div className="flex items-center gap-4">
                 <div className="flex items-center bg-green-600 px-3 py-1 rounded">
-                  <span className="text-white">✓ Logged in</span>
+                  <span className="text-white">✓ Logged in as {user?.email}</span>
                 </div>
                 <Link 
                   href="/profile" 
