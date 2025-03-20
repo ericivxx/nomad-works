@@ -19,23 +19,42 @@ export default function HeroSection() {
           </p>
           <div className="max-w-md mx-auto mb-8">
             <p className="text-lg font-semibold text-white mb-3">Enter your email to save jobs and get alerts</p>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const form = e.target as HTMLFormElement;
-              const email = (form.email as HTMLInputElement).value;
-              window.location.href = `/register?email=${encodeURIComponent(email)}`;
-            }} className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3">
               <input
-                name="email"
+                id="emailInput"
                 type="email"
                 placeholder="Your email address"
                 className="px-4 py-3 rounded-lg text-gray-900"
-                required
               />
-              <button type="submit" className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
-                Sign Up Free
-              </button>
-            </form>
+              <div className="flex gap-3">
+                <button 
+                  onClick={() => {
+                    const email = (document.getElementById('emailInput') as HTMLInputElement).value;
+                    if (!email) {
+                      alert('Please enter your email');
+                      return;
+                    }
+                    window.location.href = `/register?email=${encodeURIComponent(email)}`;
+                  }}
+                  className="flex-1 bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors"
+                >
+                  Sign Up Free
+                </button>
+                <button 
+                  onClick={() => {
+                    const email = (document.getElementById('emailInput') as HTMLInputElement).value;
+                    if (!email) {
+                      alert('Please enter your email');
+                      return;
+                    }
+                    window.location.href = `/login?email=${encodeURIComponent(email)}`;
+                  }}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold transition-colors"
+                >
+                  Login
+                </button>
+              </div>
+            </div>
             <p className="text-lg font-semibold text-blue-100 mt-2">
               ✨ Get exclusive remote job alerts and digital nomad deals
             </p>

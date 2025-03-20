@@ -22,8 +22,13 @@ export default function Register() {
         location: (form.location as HTMLInputElement).value,
       });
       setLocation('/profile');
-    } catch (err) {
-      setError('Registration failed. Please try again.');
+    } catch (err: any) {
+      if (err.message?.includes('already exists')) {
+        setError('Account already exists. Please login instead.');
+        setTimeout(() => setLocation(`/login?email=${encodeURIComponent(emailFromUrl)}`), 2000);
+      } else {
+        setError('Registration failed. Please try again.');
+      }
     }
   };
 
