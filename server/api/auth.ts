@@ -14,26 +14,34 @@ interface User {
 const users = new Map<string, User & { password: string }>();
 
 router.post("/register", (req, res) => {
-  const { email, password, fullName, gender, location } = req.body;
+  try {
+    const { email, password, fullName, gender, location } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    // Normalize email and check for existing user
+    const normalizedEmail = email.toLowerCase().trim();
+    const existingUser = Array.from(users.values()).find(u => u.email.toLowerCase().trim() === normalizedEmail);
+    
+    if (existingUser) {
+      return res.status(409).json({ error: "An account with this email already exists" });
+    }
+
+    // Create new user
+    const id = Math.random().toString(36).substring(2);
+    const user = { id, email: normalizedEmail, password, fullName, gender, location };
+    users.set(normalizedEmail, user);
+
+    // Return user without password
+    const { password: _, ...userWithoutPassword } = user;
+  console.log('User registered:', normalizedEmail);
+    res.status(201).json({ user: userWithoutPassword });
+  } catch (err) {
+    console.error('Registration error:', err);
+    res.status(500).json({ error: "Registration failed" });
   }
-
-  // Check if user already exists - case insensitive check
-  const normalizedEmail = email.toLowerCase();
-  if (Array.from(users.values()).some(user => user.email.toLowerCase() === normalizedEmail)) {
-    return res.status(409).json({ message: "An account with this email already exists. Please login instead." });
-  }
-
-  // Create new user
-  const id = Math.random().toString(36).substring(2);
-  const user = { id, email: normalizedEmail, password, fullName, gender, location };
-  users.set(normalizedEmail, user);
-
-  // Return user without password
-  const { password: _, ...userWithoutPassword } = user;
-  res.status(201).json({ user: userWithoutPassword });
 });
 
 router.post("/login", (req, res) => {
