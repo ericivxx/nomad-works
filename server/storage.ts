@@ -427,13 +427,25 @@ export class MemStorage implements IStorage {
   }
   
   async validateUserCredentials(email: string, password: string): Promise<User | null> {
-    const user = await this.getUserByEmail(email);
-    if (!user) return null;
-    
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) return null;
-    
-    return user;
+    try {
+      const user = await this.getUserByEmail(email);
+      if (!user) {
+        console.log('User not found:', email);
+        return null;
+      }
+      
+      // Verify password using bcrypt
+      const valid = await bcrypt.compare(password, user.password);
+      if (!valid) {
+        console.log('Invalid password for:', email);
+        return null;
+      }
+      
+      return user;
+    } catch (error) {
+      console.error('Login error:', error);
+      return null;
+    }
   }
   
   async updateUserLastLogin(userId: number): Promise<void> {
