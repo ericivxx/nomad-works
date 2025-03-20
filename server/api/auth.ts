@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
 
   // Check if user already exists
   if (users.has(email)) {
-    return res.status(400).json({ error: "An account with this email already exists" });
+    return res.status(409).json({ error: "An account with this email already exists. Please login instead." });
   }
 
   // Create new user
@@ -45,9 +45,8 @@ router.post("/login", (req, res) => {
     return res.status(401).json({ error: "Invalid credentials" });
   }
 
-  res.json({ 
-    user: { id: Math.random().toString(36).substring(2), email }
-  });
+  const { password: _, ...userWithoutPassword } = user;
+  res.json({ user: userWithoutPassword });
 });
 
 export default router;

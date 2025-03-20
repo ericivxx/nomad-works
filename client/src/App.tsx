@@ -19,6 +19,7 @@ import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
 import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";
 import SavedJobs from "@/pages/SavedJobs";
+import Login from "@/pages/Login";
 
 function Router() {
   return (
@@ -36,6 +37,7 @@ function Router() {
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
         <Route path="/profile" component={Profile} />
         <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
         <Route path="/saved-jobs" component={SavedJobs} />
         <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
