@@ -23,7 +23,7 @@ router.post("/register", (req, res) => {
 
   // Check if user already exists
   if (users.has(email)) {
-    return res.status(400).json({ error: "User already exists" });
+    return res.status(400).json({ error: "An account with this email already exists" });
   }
 
   // Create new user
