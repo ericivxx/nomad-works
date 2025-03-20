@@ -270,12 +270,18 @@ export default function AdminPanel() {
                             </p>
                           )}
                         </div>
-                        <div>
+                        <div className="flex items-center">
                           <Switch 
                             checked={provider.enabled} 
                             onCheckedChange={() => handleToggleApi(provider.id)}
                             id={`toggle-${provider.id}`}
                           />
+                          <label 
+                            htmlFor={`toggle-${provider.id}`} 
+                            className="ml-2 text-sm cursor-pointer"
+                          >
+                            {provider.enabled ? 'Enabled' : 'Disabled'}
+                          </label>
                         </div>
                       </div>
                     ))}
