@@ -1055,7 +1055,7 @@ export default function DigitalNomadToolkit() {
                         </ul>
                       </div>
                       <div className="pt-4">
-                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://safetywing.com/nomad-insurance?referenceID=nomadworks&utm_source=nomadworks&utm_medium=Ambassador', '_blank')}>
+                        <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700" onClick={() => window.open('https://safetywing.com/nomad-insurance/?referenceID=26252661&utm_source=26252661&utm_medium=Ambassador', '_blank')}>
                           Get SafetyWing Insurance
                         </Button>
                       </div>
@@ -2243,7 +2243,7 @@ export default function DigitalNomadToolkit() {
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://safetywing.com/', '_blank')}>
+                      <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://safetywing.com/nomad-insurance/?referenceID=26252661&utm_source=26252661&utm_medium=Ambassador', '_blank')}>
                         Get Nomad Insurance
                       </Button>
                     </CardContent>
