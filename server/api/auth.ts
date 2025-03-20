@@ -14,6 +14,7 @@ declare module 'express-session' {
       gender?: string | null;
       location?: string | null;
       savedJobs?: string[];
+      role?: string;
     };
   }
 }

@@ -139,7 +139,7 @@ export default function AdminPanel() {
       setApiState(prev => ({
         ...prev,
         providers: prev.providers.map(provider => {
-          const statusInfo = response.providers.find(p => p.id === provider.id);
+          const statusInfo = response?.providers?.find(p => p.id === provider.id);
           return {
             ...provider,
             status: statusInfo ? statusInfo.status : 'unknown'

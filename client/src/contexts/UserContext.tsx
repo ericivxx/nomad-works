@@ -10,6 +10,7 @@ interface User {
   location?: string | null;
   savedSearches?: string[];
   savedJobs?: string[];
+  role?: string;
 }
 
 interface UserContextType {
