@@ -1,54 +1,73 @@
 import { Router, Request, Response } from "express";
-//import { storage } from "../storage"; //This line is not used and removed for simplicity
+import { storage } from "../storage";
+import { loginSchema, registerSchema, checkEmailSchema, User } from "@shared/schema";
+import { z } from "zod";
 
 const router = Router();
 
-interface User {
-  id: string;
-  email: string;
-  fullName?: string;
-  gender?: string;
-  location?: string;
-}
-
-const users = new Map<string, User & { password: string }>();
-
-// Mock session object - In a real application, use a proper session middleware
+// Define session interface for user sessions
 interface Session {
-    user?: User;
+    user?: {
+        id: number;
+        email: string;
+        fullName?: string | null;
+        gender?: string | null;
+        location?: string | null;
+    };
 }
 
+// Helper function to get current session
 function getSession(req: Request): Session | undefined {
-    // In a real app, this would fetch the session from the middleware
-    return req['session'] as Session | undefined;
+    return req.session as Session | undefined;
 }
 
+// Helper function to set session
 function setSession(req: Request, session: Session) {
-    // In a real app, this would set the session via the middleware
-    req['session'] = session;
+    req.session = session;
 }
 
-
-router.post("/register", (req: Request, res: Response) => {
+// Register a new user
+router.post("/register", async (req: Request, res: Response) => {
   try {
-    const { email, password, fullName, gender, location } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email and password are required" });
+    // Validate input data
+    const validationResult = registerSchema.safeParse(req.body);
+    
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: "Invalid input data", 
+        details: validationResult.error.errors 
+      });
     }
-
-    const normalizedEmail = email.toLowerCase().trim();
-    const existingUser = users.get(normalizedEmail);
-
-    if (existingUser) {
-      return res.status(409).json({ error: "An account with this email already exists. Please login instead." });
+    
+    const userData = validationResult.data;
+    
+    // Check if email already exists
+    const emailExists = await storage.checkEmailExists(userData.email);
+    if (emailExists) {
+      return res.status(409).json({ 
+        error: "An account with this email already exists. Please login instead.",
+        exists: true 
+      });
     }
-
-    const id = Math.random().toString(36).substring(2);
-    const user = { id, email: normalizedEmail, password, fullName, gender, location };
-    users.set(normalizedEmail, user);
-
-    const { password: _, ...userWithoutPassword } = user;
+    
+    // Create user
+    const user = await storage.createUser(userData);
+    
+    // Remove the password from the response
+    const { password, ...userWithoutPassword } = user;
+    
+    // Create and set session
+    const session: Session = { 
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        gender: user.gender,
+        location: user.location
+      } 
+    };
+    setSession(req, session);
+    
     res.status(201).json({ user: userWithoutPassword });
   } catch (err) {
     console.error('Registration error:', err);
@@ -56,29 +75,74 @@ router.post("/register", (req: Request, res: Response) => {
   }
 });
 
-router.post("/check-email", (req: Request, res: Response) => {
-  const { email } = req.body;
-  const normalizedEmail = email.toLowerCase().trim();
-  const exists = users.has(normalizedEmail);
-  res.json({ exists });
-});
-
-router.post("/login", (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  const user = users.get(email);
-
-  if (!user || user.password !== password) {
-    return res.status(401).json({ error: "Invalid credentials" });
+// Check if an email exists
+router.post("/check-email", async (req: Request, res: Response) => {
+  try {
+    const validationResult = checkEmailSchema.safeParse(req.body);
+    
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: "Invalid email format", 
+        details: validationResult.error.errors 
+      });
+    }
+    
+    const { email } = validationResult.data;
+    const exists = await storage.checkEmailExists(email);
+    
+    res.json({ exists });
+  } catch (err) {
+    console.error('Check email error:', err);
+    res.status(500).json({ error: "Failed to check email" });
   }
-
-  const session: Session = { user };
-  setSession(req, session); // Set the session
-
-  const { password: _, ...userWithoutPassword } = user;
-  res.json({ user: userWithoutPassword });
 });
 
+// Login route
+router.post("/login", async (req: Request, res: Response) => {
+  try {
+    const validationResult = loginSchema.safeParse(req.body);
+    
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: "Invalid input data", 
+        details: validationResult.error.errors 
+      });
+    }
+    
+    const { email, password } = validationResult.data;
+    
+    // Validate credentials and get user
+    const user = await storage.validateUserCredentials(email, password);
+    
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+    
+    // Update last login time
+    await storage.updateUserLastLogin(user.id);
+    
+    // Create session
+    const session: Session = { 
+      user: {
+        id: user.id,
+        email: user.email,
+        fullName: user.fullName,
+        gender: user.gender,
+        location: user.location
+      } 
+    };
+    setSession(req, session);
+    
+    // Remove password from response
+    const { password: _, ...userWithoutPassword } = user;
+    res.json({ user: userWithoutPassword });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: "Login failed" });
+  }
+});
+
+// Get current session
 router.get('/session', (req: Request, res: Response) => {
   const session = getSession(req);
   if (session?.user) {
@@ -86,6 +150,12 @@ router.get('/session', (req: Request, res: Response) => {
   } else {
     res.status(401).json({ error: 'Not authenticated' });
   }
+});
+
+// Logout route
+router.post('/logout', (req: Request, res: Response) => {
+  req.session = null;
+  res.json({ success: true });
 });
 
 export default router;
