@@ -19,22 +19,6 @@ declare module 'express-session' {
 
 const router = Router();
 
-// Helper function to get current session
-function getSession(req: Request) {
-    return req.session;
-}
-
-// Helper function to set session
-function setSession(req: Request, user: {
-    id: number;
-    email: string;
-    fullName?: string | null;
-    gender?: string | null;
-    location?: string | null;
-}) {
-    req.session.user = user;
-}
-
 // Register a new user
 router.post("/register", async (req: Request, res: Response) => {
   try {
@@ -65,17 +49,14 @@ router.post("/register", async (req: Request, res: Response) => {
     // Remove the password from the response
     const { password, ...userWithoutPassword } = user;
     
-    // Create and set session
-    const session: Session = { 
-      user: {
-        id: user.id,
-        email: user.email,
-        fullName: user.fullName,
-        gender: user.gender,
-        location: user.location
-      } 
+    // Set session data
+    req.session.user = {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      gender: user.gender,
+      location: user.location
     };
-    setSession(req, session);
     
     res.status(201).json({ user: userWithoutPassword });
   } catch (err) {
@@ -130,17 +111,14 @@ router.post("/login", async (req: Request, res: Response) => {
     // Update last login time
     await storage.updateUserLastLogin(user.id);
     
-    // Create session
-    const session: Session = { 
-      user: {
-        id: user.id,
-        email: user.email,
-        fullName: user.fullName,
-        gender: user.gender,
-        location: user.location
-      } 
+    // Set session data
+    req.session.user = {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      gender: user.gender,
+      location: user.location
     };
-    setSession(req, session);
     
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
@@ -153,9 +131,8 @@ router.post("/login", async (req: Request, res: Response) => {
 
 // Get current session
 router.get('/session', (req: Request, res: Response) => {
-  const session = getSession(req);
-  if (session?.user) {
-    res.json({ user: session.user });
+  if (req.session?.user) {
+    res.json({ user: req.session.user });
   } else {
     res.status(401).json({ error: 'Not authenticated' });
   }
@@ -163,8 +140,14 @@ router.get('/session', (req: Request, res: Response) => {
 
 // Logout route
 router.post('/logout', (req: Request, res: Response) => {
-  req.session = null;
-  res.json({ success: true });
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.status(500).json({ error: 'Logout failed' });
+    } else {
+      res.json({ success: true });
+    }
+  });
 });
 
 export default router;
