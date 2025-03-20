@@ -1,6 +1,9 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MemoryStore from 'memorystore';
 
 // Disable external job providers to save API credits
 process.env.USE_JOB_PROVIDERS = 'false';
@@ -9,6 +12,28 @@ console.log('Using in-memory job data only (API providers disabled to save credi
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// Create memory store for session
+const SessionStore = MemoryStore(session);
+
+// Configure session middleware
+app.use(
+  session({
+    secret: 'nomadworks-session-secret',
+    resave: false,
+    saveUninitialized: false,
+    store: new SessionStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    }),
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax'
+    }
+  })
+);
 
 app.use((req, res, next) => {
   const start = Date.now();

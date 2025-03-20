@@ -2,28 +2,37 @@ import { Router, Request, Response } from "express";
 import { storage } from "../storage";
 import { loginSchema, registerSchema, checkEmailSchema, User } from "@shared/schema";
 import { z } from "zod";
+import 'express-session';
+
+// Extend express-session with our custom data
+declare module 'express-session' {
+  interface SessionData {
+    user?: {
+      id: number;
+      email: string;
+      fullName?: string | null;
+      gender?: string | null;
+      location?: string | null;
+    };
+  }
+}
 
 const router = Router();
 
-// Define session interface for user sessions
-interface Session {
-    user?: {
-        id: number;
-        email: string;
-        fullName?: string | null;
-        gender?: string | null;
-        location?: string | null;
-    };
-}
-
 // Helper function to get current session
-function getSession(req: Request): Session | undefined {
-    return req.session as Session | undefined;
+function getSession(req: Request) {
+    return req.session;
 }
 
 // Helper function to set session
-function setSession(req: Request, session: Session) {
-    req.session = session;
+function setSession(req: Request, user: {
+    id: number;
+    email: string;
+    fullName?: string | null;
+    gender?: string | null;
+    location?: string | null;
+}) {
+    req.session.user = user;
 }
 
 // Register a new user
