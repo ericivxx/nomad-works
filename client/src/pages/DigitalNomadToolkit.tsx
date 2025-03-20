@@ -2210,41 +2210,43 @@ export default function DigitalNomadToolkit() {
                     </CardContent>
                   </Card>
 
-                  {/* Insurance */}
+                  {/* Digital Wallet */}
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
                     <CardHeader className="pb-2">
                       <div className="h-12 flex items-center justify-start mb-2">
-                        <BrandLogo domain="safetywing.com" className="h-8 w-auto" fallbackText="SafetyWing" useColors={true} />
+                        <div className="font-bold text-xl">
+                          <span className="text-purple-600">PayPal</span>
+                        </div>
                       </div>
-                      <CardTitle>SafetyWing</CardTitle>
-                      <CardDescription>Health insurance for digital nomads</CardDescription>
+                      <CardTitle>PayPal</CardTitle>
+                      <CardDescription>Global payment platform for digital nomads</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="bg-green-50 p-3 rounded-md">
-                        <p className="text-sm font-medium text-green-800">Best Nomad Health Insurance</p>
+                      <div className="bg-purple-50 p-3 rounded-md">
+                        <p className="text-sm font-medium text-purple-800">Best for Global Payments</p>
                       </div>
                       <div>
                         <ul className="space-y-2 text-sm text-gray-600">
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Coverage in 175+ countries</span>
+                            <span>Send and receive money internationally</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Monthly subscription from $42</span>
+                            <span>Accept client payments easily</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Cancel anytime, no commitment</span>
+                            <span>Link to local bank accounts</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-green-500 mr-2">✓</span>
-                            <span>Hospital, emergency, COVID-19 coverage</span>
+                            <span>PayPal debit card option</span>
                           </li>
                         </ul>
                       </div>
-                      <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700" onClick={() => window.open('https://safetywing.com/nomad-insurance/?referenceID=26252661&utm_source=26252661&utm_medium=Ambassador', '_blank')}>
-                        Get Nomad Insurance
+                      <Button className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" onClick={() => window.open('https://www.paypal.com/', '_blank')}>
+                        Set Up PayPal Account
                       </Button>
                     </CardContent>
                   </Card>
@@ -2409,7 +2411,7 @@ export default function DigitalNomadToolkit() {
                         <span className="text-blue-600 text-sm font-medium">3</span>
                       </div>
                       <div>
-                        <p className="font-medium">SafetyWing Insurance</p>
+                        <p className="font-medium cursor-pointer hover:text-blue-600" onClick={() => window.open('https://safetywing.com/nomad-insurance/?referenceID=26252661&utm_source=26252661&utm_medium=Ambassador', '_blank')}>SafetyWing Insurance</p>
                         <p className="text-sm text-gray-600">Health coverage designed for nomads</p>
                       </div>
                     </li>
@@ -2530,7 +2532,7 @@ export default function DigitalNomadToolkit() {
               <AccordionItem value="item-5">
                 <AccordionTrigger>What insurance do I need as a digital nomad?</AccordionTrigger>
                 <AccordionContent>
-                  At minimum, you need health insurance with international coverage. SafetyWing and World Nomads are popular options designed for digital nomads. Additionally, consider travel insurance that covers your electronics and gear, trip cancellations, and emergency evacuations. If you have valuable equipment, specific gear insurance might be worthwhile.
+                  At minimum, you need health insurance with international coverage. <span className="text-blue-600 cursor-pointer hover:underline" onClick={() => window.open('https://safetywing.com/nomad-insurance/?referenceID=26252661&utm_source=26252661&utm_medium=Ambassador', '_blank')}>SafetyWing</span> and World Nomads are popular options designed for digital nomads. Additionally, consider travel insurance that covers your electronics and gear, trip cancellations, and emergency evacuations. If you have valuable equipment, specific gear insurance might be worthwhile.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
