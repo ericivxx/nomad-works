@@ -140,12 +140,21 @@ export class MemStorage implements IStorage {
     try {
       const userData = Array.from(this.usersData.values());
       fs.writeFileSync(this.USER_DATA_FILE, JSON.stringify(userData, null, 2));
+      console.log(`Saved ${userData.length} users to file. User IDs: ${userData.map(u => u.id).join(', ')}`);
+      
+      // Log saved jobs info if available
+      userData.forEach(user => {
+        if (user.savedJobs && user.savedJobs.length > 0) {
+          console.log(`User ${user.id} (${user.email}) has ${user.savedJobs.length} saved jobs: ${user.savedJobs.join(', ')}`);
+        }
+      });
       
       // Save counter data
       const counterData = {
         currentUserId: this.currentUserId
       };
       fs.writeFileSync(this.COUNTER_DATA_FILE, JSON.stringify(counterData, null, 2));
+      console.log(`Saved counter data: currentUserId = ${this.currentUserId}`);
       
     } catch (error) {
       console.error('Error saving user data:', error);
