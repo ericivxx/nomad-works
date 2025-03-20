@@ -27,6 +27,9 @@ interface UserContextType {
   }) => Promise<boolean>;
   logout: () => Promise<void>;
   checkEmailExists: (email: string) => Promise<boolean>;
+  saveJob: (jobSlug: string) => Promise<boolean>;
+  unsaveJob: (jobSlug: string) => Promise<boolean>;
+  isJobSaved: (jobSlug: string) => boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -57,6 +60,80 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
     return success;
   };
+  
+  const saveJob = async (jobSlug: string): Promise<boolean> => {
+    if (!auth.isAuthenticated || !auth.user) {
+      return false;
+    }
+    
+    try {
+      const response = await fetch('/api/auth/save-job', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ jobSlug }),
+      });
+      
+      if (!response.ok) {
+        return false;
+      }
+      
+      const result = await response.json();
+      
+      // Update the user object with the updated savedJobs array
+      if (result.success && result.user) {
+        // We update the auth user with the returned user that includes the savedJobs
+        auth.setUser(result.user);
+      }
+      
+      return result.success;
+    } catch (error) {
+      console.error('Error saving job:', error);
+      return false;
+    }
+  };
+  
+  const unsaveJob = async (jobSlug: string): Promise<boolean> => {
+    if (!auth.isAuthenticated || !auth.user) {
+      return false;
+    }
+    
+    try {
+      const response = await fetch('/api/auth/unsave-job', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ jobSlug }),
+      });
+      
+      if (!response.ok) {
+        return false;
+      }
+      
+      const result = await response.json();
+      
+      // Update the user object with the updated savedJobs array
+      if (result.success && result.user) {
+        // We update the auth user with the returned user that includes the savedJobs
+        auth.setUser(result.user);
+      }
+      
+      return result.success;
+    } catch (error) {
+      console.error('Error unsaving job:', error);
+      return false;
+    }
+  };
+  
+  const isJobSaved = (jobSlug: string): boolean => {
+    if (!auth.user || !auth.user.savedJobs) {
+      return false;
+    }
+    
+    return auth.user.savedJobs.includes(jobSlug);
+  };
 
   return (
     <UserContext.Provider 
@@ -68,6 +145,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         register: handleRegister,
         logout: auth.logout,
         checkEmailExists: auth.checkEmailExists,
+        saveJob,
+        unsaveJob,
+        isJobSaved,
       }}
     >
       {children}

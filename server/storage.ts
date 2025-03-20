@@ -48,6 +48,8 @@ export interface IStorage {
   createUser(userData: RegisterData): Promise<User>;
   validateUserCredentials(email: string, password: string): Promise<User | null>;
   updateUserLastLogin(userId: number): Promise<void>;
+  saveUserJob(userId: number, jobSlug: string): Promise<User | null>;
+  unsaveUserJob(userId: number, jobSlug: string): Promise<User | null>;
 }
 
 export class MemStorage implements IStorage {
@@ -359,6 +361,35 @@ export class MemStorage implements IStorage {
       user.lastLogin = new Date();
       this.usersData.set(userId, user);
     }
+  }
+  
+  async saveUserJob(userId: number, jobSlug: string): Promise<User | null> {
+    const user = await this.getUserById(userId);
+    if (!user) return null;
+    
+    // Initialize savedJobs array if it doesn't exist
+    if (!user.savedJobs) {
+      user.savedJobs = [];
+    }
+    
+    // Only add the job if it's not already saved
+    if (!user.savedJobs.includes(jobSlug)) {
+      user.savedJobs.push(jobSlug);
+      this.usersData.set(userId, user);
+    }
+    
+    return user;
+  }
+  
+  async unsaveUserJob(userId: number, jobSlug: string): Promise<User | null> {
+    const user = await this.getUserById(userId);
+    if (!user || !user.savedJobs) return null;
+    
+    // Filter out the job slug
+    user.savedJobs = user.savedJobs.filter(slug => slug !== jobSlug);
+    this.usersData.set(userId, user);
+    
+    return user;
   }
   
   private buildJobWithRelations(job: Job): JobWithRelations | undefined {
