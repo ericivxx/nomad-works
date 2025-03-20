@@ -26,16 +26,16 @@ router.post("/register", async (req: Request, res: Response) => {
   try {
     // Validate input data
     const validationResult = registerSchema.safeParse(req.body);
-    
+
     if (!validationResult.success) {
       return res.status(400).json({ 
         error: "Invalid input data", 
         details: validationResult.error.errors 
       });
     }
-    
+
     const userData = validationResult.data;
-    
+
     // Check if email already exists
     const emailExists = await storage.checkEmailExists(userData.email);
     if (emailExists) {
@@ -44,13 +44,13 @@ router.post("/register", async (req: Request, res: Response) => {
         exists: true 
       });
     }
-    
+
     // Create user
     const user = await storage.createUser(userData);
-    
+
     // Remove the password from the response
     const { password, ...userWithoutPassword } = user;
-    
+
     // Set session data
     req.session.user = {
       id: user.id,
@@ -60,7 +60,7 @@ router.post("/register", async (req: Request, res: Response) => {
       location: user.location,
       role: user.role
     };
-    
+
     res.status(201).json({ user: userWithoutPassword });
   } catch (err) {
     console.error('Registration error:', err);
@@ -72,17 +72,17 @@ router.post("/register", async (req: Request, res: Response) => {
 router.post("/check-email", async (req: Request, res: Response) => {
   try {
     const validationResult = checkEmailSchema.safeParse(req.body);
-    
+
     if (!validationResult.success) {
       return res.status(400).json({ 
         error: "Invalid email format", 
         details: validationResult.error.errors 
       });
     }
-    
+
     const { email } = validationResult.data;
     const exists = await storage.checkEmailExists(email);
-    
+
     res.json({ exists });
   } catch (err) {
     console.error('Check email error:', err);
@@ -94,26 +94,25 @@ router.post("/check-email", async (req: Request, res: Response) => {
 router.post("/login", async (req: Request, res: Response) => {
   try {
     const validationResult = loginSchema.safeParse(req.body);
-    
+
     if (!validationResult.success) {
-      return res.status(400).json({ 
-        error: "Invalid input data", 
-        details: validationResult.error.errors 
-      });
+      return res.status(400).json({ error: "Invalid input data", details: validationResult.error.errors });
     }
-    
+
     const { email, password } = validationResult.data;
-    
-    // Validate credentials and get user
-    const user = await storage.validateUserCredentials(email, password);
-    
+
+    // Get user by email
+    const user = await storage.getUserByEmail(email);
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: "Invalid email or password" });
     }
-    
-    // Update last login time
-    await storage.updateUserLastLogin(user.id);
-    
+
+    // Verify password
+    const validPassword = await storage.verifyPassword(password, user.password);
+    if (!validPassword) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
     // Set session data
     req.session.user = {
       id: user.id,
@@ -123,7 +122,7 @@ router.post("/login", async (req: Request, res: Response) => {
       location: user.location,
       role: user.role
     };
-    
+
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
     res.json({ user: userWithoutPassword });
@@ -161,27 +160,27 @@ router.post('/save-job', async (req: Request, res: Response) => {
     if (!req.session.user) {
       return res.status(401).json({ error: 'Not authenticated' });
     }
-    
+
     const { jobSlug } = req.body;
-    
+
     if (!jobSlug) {
       return res.status(400).json({ error: 'Job slug is required' });
     }
-    
+
     // Get the current user
     const user = await storage.getUserById(req.session.user.id);
-    
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    
+
     // Add job to saved jobs
     const updatedUser = await storage.saveUserJob(user.id, jobSlug);
-    
+
     if (!updatedUser) {
       return res.status(500).json({ error: 'Failed to save job' });
     }
-    
+
     // Update session with the new user data
     req.session.user = {
       id: updatedUser.id,
@@ -192,10 +191,10 @@ router.post('/save-job', async (req: Request, res: Response) => {
       savedJobs: updatedUser.savedJobs || [],
       role: updatedUser.role
     };
-    
+
     // Remove password from response
     const { password, ...userWithoutPassword } = updatedUser;
-    
+
     res.json({ success: true, user: userWithoutPassword });
   } catch (err) {
     console.error('Error saving job:', err);
@@ -210,27 +209,27 @@ router.post('/unsave-job', async (req: Request, res: Response) => {
     if (!req.session.user) {
       return res.status(401).json({ error: 'Not authenticated' });
     }
-    
+
     const { jobSlug } = req.body;
-    
+
     if (!jobSlug) {
       return res.status(400).json({ error: 'Job slug is required' });
     }
-    
+
     // Get the current user
     const user = await storage.getUserById(req.session.user.id);
-    
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    
+
     // Remove job from saved jobs
     const updatedUser = await storage.unsaveUserJob(user.id, jobSlug);
-    
+
     if (!updatedUser) {
       return res.status(500).json({ error: 'Failed to unsave job' });
     }
-    
+
     // Update session with the new user data
     req.session.user = {
       id: updatedUser.id,
@@ -241,10 +240,10 @@ router.post('/unsave-job', async (req: Request, res: Response) => {
       savedJobs: updatedUser.savedJobs || [],
       role: updatedUser.role
     };
-    
+
     // Remove password from response
     const { password, ...userWithoutPassword } = updatedUser;
-    
+
     res.json({ success: true, user: userWithoutPassword });
   } catch (err) {
     console.error('Error unsaving job:', err);
