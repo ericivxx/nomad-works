@@ -107,10 +107,11 @@ router.post("/login", async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    // Verify password
-    const validPassword = await storage.verifyPassword(password, user.password);
-    if (!validPassword) {
-      return res.status(401).json({ error: "Invalid email or password" });
+    // Check password using validateUserCredentials
+    const validUser = await storage.validateUserCredentials(email, password);
+    if (!validUser) {
+      console.log('Invalid credentials for:', email);
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Set session data
