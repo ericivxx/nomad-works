@@ -1,95 +1,74 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { useLocation } from 'wouter';
 
 interface User {
-  id: string;
+  id: number;
   email: string;
+  fullName?: string | null;
+  gender?: string | null;
+  location?: string | null;
   savedSearches?: string[];
 }
 
 interface UserContextType {
   user: User | null;
+  loading: boolean;
   isAuthenticated: boolean;
-  login: (credentials: { email: string; password: string }) => Promise<void>;
+  login: (email: string, password: string) => Promise<boolean>;
   register: (userData: {
     email: string;
     password: string;
-    fullName: string;
-    gender: string;
-    location: string;
-  }) => Promise<void>;
-  logout: () => void;
+    username: string;
+    fullName?: string;
+    gender?: string;
+    location?: string;
+  }) => Promise<boolean>;
+  logout: () => Promise<void>;
+  checkEmailExists: (email: string) => Promise<boolean>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const auth = useAuth();
+  const [, navigate] = useLocation();
 
-  // Check session on mount
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await fetch('/api/auth/session');
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data.user);
-        }
-      } catch (error) {
-        console.error('Session check failed:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkSession();
-  }, []);
-
-  const login = async (credentials: { email: string; password: string }) => {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials)
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
+  const handleLogin = async (email: string, password: string) => {
+    const success = await auth.login(email, password);
+    if (success) {
+      navigate('/profile');
     }
-
-    const data = await response.json();
-    setUser(data.user);
-    window.location.href = '/profile';
+    return success;
   };
 
-  const register = async (userData: {
+  const handleRegister = async (userData: {
     email: string;
     password: string;
-    fullName: string;
-    gender: string;
-    location: string;
-    bio: string;
+    username: string;
+    fullName?: string;
+    gender?: string;
+    location?: string;
   }) => {
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
-    });
-
-    if (!response.ok) {
-      const data = await response.json();
-      throw new Error(data.error || 'Registration failed');
+    const success = await auth.register(userData);
+    if (success) {
+      navigate('/profile');
     }
-
-    const data = await response.json();
-    setUser(data.user);
-  };
-
-  const logout = () => {
-    setUser(null);
+    return success;
   };
 
   return (
-    <UserContext.Provider value={{ user, isAuthenticated: !!user, login, register, logout }}>
+    <UserContext.Provider 
+      value={{
+        user: auth.user,
+        loading: auth.loading,
+        isAuthenticated: auth.isAuthenticated,
+        login: handleLogin,
+        register: handleRegister,
+        logout: auth.logout,
+        checkEmailExists: auth.checkEmailExists,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
