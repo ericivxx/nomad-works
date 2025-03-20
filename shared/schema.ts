@@ -24,6 +24,8 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
   username: true,
   fullName: true,
+  gender: true,
+  location: true,
 });
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -160,6 +162,8 @@ export const registerSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
   username: z.string().min(3, "Username must be at least 3 characters"),
   fullName: z.string().optional(),
+  gender: z.string().optional(),
+  location: z.string().optional(),
 });
 
 export const checkEmailSchema = z.object({

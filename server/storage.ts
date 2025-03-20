@@ -57,12 +57,14 @@ export class MemStorage implements IStorage {
   private locationsData: Map<number, Location>;
   private skillsData: Map<number, Skill>;
   private jobSkillsData: Map<string, number[]>;
+  private usersData: Map<number, User>;
   
   private currentJobId = 1;
   private currentCompanyId = 1;
   private currentCategoryId = 1;
   private currentLocationId = 1;
   private currentSkillId = 1;
+  private currentUserId = 1;
   
   constructor() {
     this.jobsData = new Map();
@@ -71,6 +73,7 @@ export class MemStorage implements IStorage {
     this.locationsData = new Map();
     this.skillsData = new Map();
     this.jobSkillsData = new Map();
+    this.usersData = new Map();
     
     this.currentJobId = 1;
     this.currentCompanyId = 1;
@@ -300,6 +303,62 @@ export class MemStorage implements IStorage {
   
   async getLocationCount(): Promise<number> {
     return this.locationsData.size;
+  }
+  
+  // Authentication methods
+  async getUserById(id: number): Promise<User | undefined> {
+    return this.usersData.get(id);
+  }
+  
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    for (const user of this.usersData.values()) {
+      if (user.email.toLowerCase() === email.toLowerCase()) {
+        return user;
+      }
+    }
+    return undefined;
+  }
+  
+  async checkEmailExists(email: string): Promise<boolean> {
+    const user = await this.getUserByEmail(email);
+    return !!user;
+  }
+  
+  async createUser(userData: RegisterData): Promise<User> {
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    
+    const id = this.currentUserId++;
+    const newUser: User = {
+      id,
+      email: userData.email,
+      password: hashedPassword,
+      fullName: userData.fullName,
+      gender: userData.gender,
+      location: userData.location,
+      lastLogin: new Date(),
+      createdAt: new Date()
+    };
+    
+    this.usersData.set(id, newUser);
+    return newUser;
+  }
+  
+  async validateUserCredentials(email: string, password: string): Promise<User | null> {
+    const user = await this.getUserByEmail(email);
+    if (!user) return null;
+    
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return null;
+    
+    return user;
+  }
+  
+  async updateUserLastLogin(userId: number): Promise<void> {
+    const user = await this.getUserById(userId);
+    if (user) {
+      user.lastLogin = new Date();
+      this.usersData.set(userId, user);
+    }
   }
   
   private buildJobWithRelations(job: Job): JobWithRelations | undefined {
