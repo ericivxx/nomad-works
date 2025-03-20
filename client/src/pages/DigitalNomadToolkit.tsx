@@ -148,12 +148,12 @@ export default function DigitalNomadToolkit() {
             {/* Productivity Tab */}
             <TabsContent value="productivity" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Productivity & Work Tools</h2>
-                <p className="text-gray-700 mb-8">
+                <h2 className="text-2xl font-bold mb-8 pt-4">Productivity & Work Tools</h2>
+                <p className="text-gray-700 mb-12">
                   These tools will help you stay productive and communicate effectively with your team no matter where you're working from.
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                   {/* Productivity Tools: Top 3 */}
                   {/* Notion */}
                   <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -283,8 +283,8 @@ export default function DigitalNomadToolkit() {
             {/* Security Tab */}
             <TabsContent value="security" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Security & Privacy Tools</h2>
-                <p className="text-gray-700 mb-6">
+                <h2 className="text-2xl font-bold mb-8 pt-4">Security & Privacy Tools</h2>
+                <p className="text-gray-700 mb-12">
                   When working remotely from public networks and unfamiliar locations, protecting your data and maintaining your privacy is essential. These tools will help you secure your digital life while traveling.
                 </p>
                 
@@ -693,8 +693,8 @@ export default function DigitalNomadToolkit() {
             {/* VPN Tab */}
             <TabsContent value="vpn" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">VPN Services for Digital Nomads</h2>
-                <p className="text-gray-700 mb-8">
+                <h2 className="text-2xl font-bold mb-8 pt-4">VPN Services for Digital Nomads</h2>
+                <p className="text-gray-700 mb-12">
                   A reliable VPN (Virtual Private Network) is essential for digital nomads, providing security on public WiFi, access to geo-restricted content, and privacy protection while traveling internationally.
                 </p>
 
@@ -1291,8 +1291,8 @@ export default function DigitalNomadToolkit() {
             {/* eSIM Tab */}
             <TabsContent value="esim" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">eSIMs for Digital Nomads</h2>
-                <p className="text-gray-700 mb-6">
+                <h2 className="text-2xl font-bold mb-8 pt-4">eSIMs for Digital Nomads</h2>
+                <p className="text-gray-700 mb-12">
                   eSIMs (embedded SIM cards) have revolutionized how digital nomads stay connected while traveling. These digital SIM cards eliminate the need to purchase physical local SIM cards in each country you visit, saving time and reducing hassle at borders.
                 </p>
                 
@@ -1524,8 +1524,8 @@ export default function DigitalNomadToolkit() {
             {/* Resume Builder Tab */}
             <TabsContent value="resume" className="space-y-10">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Resume & Profile Building Tools</h2>
-                <p className="text-gray-700 mb-6">
+                <h2 className="text-2xl font-bold mb-8 pt-4">Resume & Profile Building Tools</h2>
+                <p className="text-gray-700 mb-12">
                   As a digital nomad, having a standout resume and professional online presence is crucial for landing remote opportunities. These tools will help you create impressive resumes and build your professional brand.
                 </p>
                 <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-8">
