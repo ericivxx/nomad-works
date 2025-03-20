@@ -408,9 +408,15 @@ export class MemStorage implements IStorage {
       id,
       email: userData.email,
       password: hashedPassword,
+      username: userData.username || userData.email.split('@')[0],
       fullName: userData.fullName || null,
       gender: userData.gender || null,
       location: userData.location || null,
+      savedJobs: [],
+      savedSearches: [],
+      bio: null,
+      role: 'user', // Default role is 'user'
+      isVerified: false,
       lastLogin: new Date(),
       createdAt: new Date()
     };
