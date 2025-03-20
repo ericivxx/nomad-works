@@ -56,6 +56,13 @@ router.post("/register", (req: Request, res: Response) => {
   }
 });
 
+router.post("/check-email", (req: Request, res: Response) => {
+  const { email } = req.body;
+  const normalizedEmail = email.toLowerCase().trim();
+  const exists = users.has(normalizedEmail);
+  res.json({ exists });
+});
+
 router.post("/login", (req: Request, res: Response) => {
   const { email, password } = req.body;
 
