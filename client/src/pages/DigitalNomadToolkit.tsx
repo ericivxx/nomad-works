@@ -105,45 +105,71 @@ export default function DigitalNomadToolkit() {
           </div>
 
           {/* Categories Tabs */}
-          <Tabs defaultValue="productivity" className="mb-12">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-2 mb-8">
-              <TabsTrigger value="productivity" className="flex-force">
-                <Laptop className="h-4 w-4 tab-icon" />
-                <span>Productivity</span>
-              </TabsTrigger>
-              <TabsTrigger value="vpn" className="flex-force">
-                <div style={{ display: 'inline-block', minWidth: '16px', marginRight: '4px' }}>
-                  <WifiIcon />
-                </div>
-                <span>VPN Services</span>
-              </TabsTrigger>
-              <TabsTrigger value="esim" className="flex-force">
-                <Globe className="h-4 w-4 tab-icon" />
-                <span>eSIM Cards</span>
-              </TabsTrigger>
-              <TabsTrigger value="insurance" className="flex-force">
-                <HeartPulse className="h-4 w-4 tab-icon" />
-                <span>Insurance</span>
-              </TabsTrigger>
-              <TabsTrigger value="resume" className="flex-force">
-                <div style={{ display: 'inline-block', minWidth: '16px', marginRight: '4px' }}>
-                  <FileIcon />
-                </div>
-                <span>Resume Tools</span>
-              </TabsTrigger>
-              <TabsTrigger value="security" className="flex-force">
-                <Shield className="h-4 w-4 tab-icon" />
-                <span>Security</span>
-              </TabsTrigger>
-              <TabsTrigger value="learning" className="flex-force">
-                <Book className="h-4 w-4 tab-icon" />
-                <span>Learning</span>
-              </TabsTrigger>
-              <TabsTrigger value="finance" className="flex-force">
-                <CreditCard className="h-4 w-4 tab-icon" />
-                <span>Finance</span>
-              </TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="productivity" className="mb-20">
+            <div className="border-b border-gray-200 mb-10">
+              <TabsList className="flex w-full flex-wrap overflow-visible justify-center h-auto bg-transparent p-0 border-none">
+                <TabsTrigger 
+                  value="productivity" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <Laptop className="h-4 w-4 flex-shrink-0" />
+                  <span>Productivity</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="vpn" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <div className="flex-shrink-0">
+                    <WifiIcon />
+                  </div>
+                  <span>VPN Services</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="esim" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <Globe className="h-4 w-4 flex-shrink-0" />
+                  <span>eSIM Cards</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="insurance" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <HeartPulse className="h-4 w-4 flex-shrink-0" />
+                  <span>Insurance</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="resume" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <div className="flex-shrink-0">
+                    <FileIcon />
+                  </div>
+                  <span>Resume Tools</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="security" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <Shield className="h-4 w-4 flex-shrink-0" />
+                  <span>Security</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="learning" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <Book className="h-4 w-4 flex-shrink-0" />
+                  <span>Learning</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="finance" 
+                  className="flex items-center gap-2 data-[state=active]:bg-blue-50 data-[state=active]:text-blue-700 data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none px-4 py-3 h-auto"
+                >
+                  <CreditCard className="h-4 w-4 flex-shrink-0" />
+                  <span>Finance</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             {/* Productivity Tab */}
             <TabsContent value="productivity" className="space-y-10">
