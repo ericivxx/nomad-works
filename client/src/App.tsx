@@ -34,7 +34,8 @@ function Router() {
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
         <Route path="/profile" component={Profile} />
-        <Route path="/register" component={Register} /> {/* Added Register route */}
+        <Route path="/register" component={Register} />
+        <Route path="/saved-jobs" component={SavedJobs} />
         <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
       </Switch>
