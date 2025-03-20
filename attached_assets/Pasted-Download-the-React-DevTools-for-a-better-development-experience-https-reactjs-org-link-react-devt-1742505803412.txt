@@ -1,0 +1,48 @@
+Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+injected.js:1 
+            
+            
+           GET https://nomadworksnow.com/api/auth/session 401 (Unauthorized)
+value @ injected.js:1
+apiRequest @ queryClient.ts:19
+checkSession @ useAuth.ts:33
+(anonymous) @ useAuth.ts:48
+commitHookEffectListMount @ chunk-RPCDYKBN.js?v=65a15383:16915
+commitPassiveMountOnFiber @ chunk-RPCDYKBN.js?v=65a15383:18156
+commitPassiveMountEffects_complete @ chunk-RPCDYKBN.js?v=65a15383:18129
+commitPassiveMountEffects_begin @ chunk-RPCDYKBN.js?v=65a15383:18119
+commitPassiveMountEffects @ chunk-RPCDYKBN.js?v=65a15383:18109
+flushPassiveEffectsImpl @ chunk-RPCDYKBN.js?v=65a15383:19490
+flushPassiveEffects @ chunk-RPCDYKBN.js?v=65a15383:19447
+performSyncWorkOnRoot @ chunk-RPCDYKBN.js?v=65a15383:18868
+flushSyncCallbacks @ chunk-RPCDYKBN.js?v=65a15383:9119
+commitRootImpl @ chunk-RPCDYKBN.js?v=65a15383:19432
+commitRoot @ chunk-RPCDYKBN.js?v=65a15383:19277
+finishConcurrentRender @ chunk-RPCDYKBN.js?v=65a15383:18805
+performConcurrentWorkOnRoot @ chunk-RPCDYKBN.js?v=65a15383:18718
+workLoop @ chunk-RPCDYKBN.js?v=65a15383:197
+flushWork @ chunk-RPCDYKBN.js?v=65a15383:176
+performWorkUntilDeadline @ chunk-RPCDYKBN.js?v=65a15383:384Understand this errorAI
+queryClient.ts:41 API request error: {status: 401, message: '{"error":"Not authenticated"}', toString: ƒ}message: "{\"error\":\"Not authenticated\"}"status: 401toString: () => `${res.status}: ${text}`[[Prototype]]: Object
+apiRequest @ queryClient.ts:41
+await in apiRequest
+checkSession @ useAuth.ts:33
+(anonymous) @ useAuth.ts:48
+commitHookEffectListMount @ chunk-RPCDYKBN.js?v=65a15383:16915
+commitPassiveMountOnFiber @ chunk-RPCDYKBN.js?v=65a15383:18156
+commitPassiveMountEffects_complete @ chunk-RPCDYKBN.js?v=65a15383:18129
+commitPassiveMountEffects_begin @ chunk-RPCDYKBN.js?v=65a15383:18119
+commitPassiveMountEffects @ chunk-RPCDYKBN.js?v=65a15383:18109
+flushPassiveEffectsImpl @ chunk-RPCDYKBN.js?v=65a15383:19490
+flushPassiveEffects @ chunk-RPCDYKBN.js?v=65a15383:19447
+performSyncWorkOnRoot @ chunk-RPCDYKBN.js?v=65a15383:18868
+flushSyncCallbacks @ chunk-RPCDYKBN.js?v=65a15383:9119
+commitRootImpl @ chunk-RPCDYKBN.js?v=65a15383:19432
+commitRoot @ chunk-RPCDYKBN.js?v=65a15383:19277
+finishConcurrentRender @ chunk-RPCDYKBN.js?v=65a15383:18805
+performConcurrentWorkOnRoot @ chunk-RPCDYKBN.js?v=65a15383:18718
+workLoop @ chunk-RPCDYKBN.js?v=65a15383:197
+flushWork @ chunk-RPCDYKBN.js?v=65a15383:176
+performWorkUntilDeadline @ chunk-RPCDYKBN.js?v=65a15383:384Understand this errorAI
+useAuth.ts:42 No active session
+main.js:2414 2025-03-20T21:23:04.283Z: Animation end
