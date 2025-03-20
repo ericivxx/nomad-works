@@ -21,7 +21,7 @@ export default function Register() {
         location: (form.location as HTMLInputElement).value,
       });
       setError('Registration successful! Redirecting...');
-      setTimeout(() => setLocation('/'), 1500);
+      setTimeout(() => setLocation('/search'), 1500);
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || err.message;
       if (errorMessage.includes('already exists')) {
