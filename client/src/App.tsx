@@ -17,7 +17,8 @@ import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
 import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
 import IconTest from "@/components/IconTest";
-import Register from "@/pages/Register"; // Added import for Register component
+import Register from "@/pages/Register";
+import SavedJobs from "@/pages/SavedJobs";
 
 function Router() {
   return (
