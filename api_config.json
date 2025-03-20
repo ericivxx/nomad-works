@@ -1,0 +1,23 @@
+{
+  "remoteok": {
+    "enabled": false,
+    "apiUrl": "https://remoteok.com/api"
+  },
+  "adzuna": {
+    "enabled": false,
+    "apiKey": "d40dcbe2531c419391fc107cbc5f85f8",
+    "apiUrl": "https://api.adzuna.com/v1/api/jobs",
+    "options": {
+      "appId": "9368961c",
+      "country": "gb"
+    }
+  },
+  "rapidapi": {
+    "enabled": false,
+    "apiKey": "360fc013c4msh5c150fdc907ea52p115aa7jsnaacc6adaeaff",
+    "apiUrl": "https://jsearch.p.rapidapi.com/search",
+    "options": {
+      "host": "jsearch.p.rapidapi.com"
+    }
+  }
+}
