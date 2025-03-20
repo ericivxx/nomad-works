@@ -5,51 +5,35 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
 import { Briefcase, Loader2 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { JobWithRelations } from "@shared/schema";
 
+interface SavedJobsResponse {
+  jobs: JobWithRelations[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
 export default function SavedJobs() {
   const { user, isAuthenticated } = useUser();
-  const [savedJobs, setSavedJobs] = useState<JobWithRelations[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  // Fetch all jobs
-  const { data: allJobs } = useQuery<JobWithRelations[]>({
-    queryKey: ['/api/jobs'],
-    enabled: isAuthenticated && user?.savedJobs && user.savedJobs.length > 0,
+  // Fetch saved jobs directly from our new API endpoint
+  const { 
+    data: savedJobsData,
+    isLoading,
+    isError 
+  } = useQuery<SavedJobsResponse>({
+    queryKey: ['/api/saved-jobs'],
+    enabled: isAuthenticated,
+    retry: 1
   });
 
-  useEffect(() => {
-    const fetchSavedJobs = async () => {
-      if (!isAuthenticated || !user?.savedJobs || user.savedJobs.length === 0) {
-        setSavedJobs([]);
-        return;
-      }
-
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        // Filter all jobs to get only the saved ones
-        if (allJobs) {
-          const jobs = allJobs.filter(job => 
-            user.savedJobs!.includes(job.slug)
-          );
-          setSavedJobs(jobs);
-        }
-      } catch (err) {
-        console.error("Error fetching saved jobs:", err);
-        setError("Failed to load your saved jobs. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchSavedJobs();
-  }, [isAuthenticated, user?.savedJobs, allJobs]);
+  const savedJobs = savedJobsData?.jobs || [];
 
   if (!isAuthenticated) {
     return (
@@ -81,10 +65,10 @@ export default function SavedJobs() {
           <div className="flex justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
-        ) : error ? (
+        ) : isError ? (
           <div className="bg-red-50 border border-red-200 p-6 rounded-lg">
             <h2 className="text-xl font-bold text-red-800 mb-2">Error</h2>
-            <p className="text-red-600 mb-4">{error}</p>
+            <p className="text-red-600 mb-4">Failed to load your saved jobs. Please try again.</p>
             <Button onClick={() => window.location.reload()}>Try Again</Button>
           </div>
         ) : savedJobs.length > 0 ? (
