@@ -71,9 +71,11 @@ router.post("/register", async (req: Request, res: Response) => {
 // Check if an email exists
 router.post("/check-email", async (req: Request, res: Response) => {
   try {
+    console.log('Check email request received:', req.body);
     const validationResult = checkEmailSchema.safeParse(req.body);
 
     if (!validationResult.success) {
+      console.log('Email validation failed:', validationResult.error.errors);
       return res.status(400).json({ 
         error: "Invalid email format", 
         details: validationResult.error.errors 
@@ -81,7 +83,9 @@ router.post("/check-email", async (req: Request, res: Response) => {
     }
 
     const { email } = validationResult.data;
+    console.log('Checking if email exists:', email);
     const exists = await storage.checkEmailExists(email);
+    console.log('Email exists result:', exists);
 
     res.json({ exists });
   } catch (err) {
