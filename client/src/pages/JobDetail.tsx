@@ -88,6 +88,7 @@ type ApplicationFormValues = z.infer<typeof applicationSchema>;
 export default function JobDetail() {
   const { slug } = useParams();
   const { toast } = useToast();
+  const { isAuthenticated, saveJob, unsaveJob, isJobSaved } = useUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
   
@@ -210,6 +211,49 @@ export default function JobDetail() {
   const postedDate = new Date(typedJob.postedAt);
   const postedAgo = formatDistanceToNow(postedDate, { addSuffix: true });
   const formattedDate = format(postedDate, "MMMM d, yyyy");
+  
+  const isSaved = isJobSaved(typedJob.slug);
+  
+  const handleSaveClick = async () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to save jobs",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (isSaved) {
+      const success = await unsaveJob(typedJob.slug);
+      if (success) {
+        toast({
+          title: "Job unsaved",
+          description: "Job removed from your saved list"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to unsave job. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } else {
+      const success = await saveJob(typedJob.slug);
+      if (success) {
+        toast({
+          title: "Job saved",
+          description: "Job added to your saved list"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to save job. Please try again.",
+          variant: "destructive",
+        });
+      }
+    }
+  };
 
   return (
     <>
@@ -233,27 +277,39 @@ export default function JobDetail() {
           <div className="lg:col-span-2">
             {/* Job Header */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <div className="flex items-start">
-                <div className="w-16 h-16 rounded-md bg-gray-200 flex items-center justify-center mr-4 overflow-hidden flex-shrink-0">
-                  <svg className="h-10 w-10 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900 mb-1">{typedJob.title}</h1>
-                  <p className="text-lg text-gray-700 mb-2">{typedJob.company.name}</p>
-                  <div className="flex flex-wrap items-center text-sm text-gray-500 gap-x-4 gap-y-2">
-                    <span className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span>Posted {postedAgo}</span>
-                    </span>
-                    {typedJob.featured && (
-                      <span className="inline-flex px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                        Featured
+              <div className="flex items-start justify-between">
+                <div className="flex items-start">
+                  <div className="w-16 h-16 rounded-md bg-gray-200 flex items-center justify-center mr-4 overflow-hidden flex-shrink-0">
+                    <svg className="h-10 w-10 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-1">{typedJob.title}</h1>
+                    <p className="text-lg text-gray-700 mb-2">{typedJob.company.name}</p>
+                    <div className="flex flex-wrap items-center text-sm text-gray-500 gap-x-4 gap-y-2">
+                      <span className="flex items-center">
+                        <Calendar className="h-4 w-4 mr-1" />
+                        <span>Posted {postedAgo}</span>
                       </span>
-                    )}
+                      {typedJob.featured && (
+                        <span className="inline-flex px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                          Featured
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
+                
+                <Button 
+                  variant={isSaved ? "outline" : "secondary"} 
+                  size="sm" 
+                  className={`flex items-center gap-1 ${isSaved ? 'text-red-500 border-red-200' : 'bg-gray-100'}`}
+                  onClick={handleSaveClick}
+                >
+                  <Heart className={`h-4.5 w-4.5 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
+                  <span>{isSaved ? 'Saved' : 'Save Job'}</span>
+                </Button>
               </div>
               
               {/* Job Details Grid */}
