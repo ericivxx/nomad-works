@@ -17,18 +17,19 @@ router.post("/register", (req, res) => {
   const { email, password, fullName, gender, location } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required" });
+    return res.status(400).json({ message: "Email and password are required" });
   }
 
-  // Check if user already exists
-  if (users.has(email)) {
-    return res.status(409).json({ error: "An account with this email already exists. Please login instead." });
+  // Check if user already exists - case insensitive check
+  const normalizedEmail = email.toLowerCase();
+  if (Array.from(users.values()).some(user => user.email.toLowerCase() === normalizedEmail)) {
+    return res.status(409).json({ message: "An account with this email already exists. Please login instead." });
   }
 
   // Create new user
   const id = Math.random().toString(36).substring(2);
-  const user = { id, email, password, fullName, gender, location };
-  users.set(email, user);
+  const user = { id, email: normalizedEmail, password, fullName, gender, location };
+  users.set(normalizedEmail, user);
 
   // Return user without password
   const { password: _, ...userWithoutPassword } = user;
