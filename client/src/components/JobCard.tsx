@@ -11,21 +11,21 @@ interface JobCardProps {
 
 export default function JobCard({ job }: JobCardProps) {
   const formattedDate = formatDistanceToNow(new Date(job.postedAt), { addSuffix: true });
-  
+
   // Format salary range
   const formatSalary = () => {
     const min = job.salaryMin;
     const max = job.salaryMax;
-    
+
     if (!min && !max) return "Not specified";
-    
+
     const formatNumber = (num: number) => {
       if (num >= 1000) {
         return `$${Math.floor(num / 1000)}k`;
       }
       return `$${num}`;
     };
-    
+
     if (min && max) {
       return `${formatNumber(min)} - ${formatNumber(max)}`;
     } else if (min) {
@@ -33,14 +33,14 @@ export default function JobCard({ job }: JobCardProps) {
     } else if (max) {
       return `Up to ${formatNumber(max)}`;
     }
-    
+
     return "Not specified";
   };
-  
+
   const salary = formatSalary();
-  
+
   return (
-    <div className="bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 p-6">
+    <div className="bg-white shadow rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer" onClick={() => window.location.href = `/jobs/${job.slug}`}>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <div className="flex items-start">
           <div className="w-12 h-12 rounded-md bg-gray-200 flex items-center justify-center mr-4 overflow-hidden flex-shrink-0">
