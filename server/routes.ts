@@ -9,6 +9,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth Routes
   app.use("/api/auth", authRoutes);
   
+  // Saved Jobs API
+  app.get("/api/saved-jobs", async (req: Request, res: Response) => {
+    // Check if user is authenticated
+    const user = req.session?.user;
+    if (!user) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+    
+    try {
+      // Get user with saved jobs from storage
+      const userData = await storage.getUserById(user.id);
+      if (!userData || !userData.savedJobs || userData.savedJobs.length === 0) {
+        return res.json({ jobs: [] });
+      }
+      
+      // Fetch each job by slug
+      const savedJobs = [];
+      for (const jobSlug of userData.savedJobs) {
+        const job = await storage.getJobBySlug(jobSlug);
+        if (job) {
+          savedJobs.push(job);
+        }
+      }
+      
+      return res.json({ 
+        jobs: savedJobs,
+        pagination: {
+          total: savedJobs.length,
+          page: 1,
+          limit: savedJobs.length,
+          totalPages: 1
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching saved jobs:', error);
+      return res.status(500).json({ error: 'Failed to fetch saved jobs' });
+    }
+  });
+  
   // API Routes
   app.get("/api/jobs", async (req: Request, res: Response) => {
     try {
