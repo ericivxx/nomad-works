@@ -15,6 +15,7 @@ const users = new Map<string, User & { password: string }>();
 
 router.post("/register", (req, res) => {
   try {
+    console.log('Current users:', Array.from(users.entries()));
     const { email, password, fullName, gender, location } = req.body;
 
     if (!email || !password) {
@@ -23,10 +24,12 @@ router.post("/register", (req, res) => {
 
     // Normalize email and check for existing user
     const normalizedEmail = email.toLowerCase().trim();
+    console.log('Checking for existing user with email:', normalizedEmail);
     const existingUser = Array.from(users.values()).find(u => u.email.toLowerCase().trim() === normalizedEmail);
     
     if (existingUser) {
-      return res.status(409).json({ error: "An account with this email already exists" });
+      console.log('User already exists:', existingUser);
+      return res.status(409).json({ error: "An account with this email already exists. Please login instead." });
     }
 
     // Create new user
