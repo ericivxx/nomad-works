@@ -1,16 +1,65 @@
 import { Link } from "wouter";
-import { Briefcase, MapPin, DollarSign } from "lucide-react";
+import { Briefcase, MapPin, DollarSign, Heart } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { JobWithRelations } from "@shared/schema";
 import { stripHtml } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/contexts/UserContext"; 
+import { useToast } from "@/hooks/use-toast";
 
 interface JobCardProps {
   job: JobWithRelations;
 }
 
 export default function JobCard({ job }: JobCardProps) {
+  const { isAuthenticated, saveJob, unsaveJob, isJobSaved } = useUser();
+  const { toast } = useToast();
   const formattedDate = formatDistanceToNow(new Date(job.postedAt), { addSuffix: true });
+  
+  const isSaved = isJobSaved(job.slug);
+  
+  const handleSaveClick = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent the job card click from triggering
+    
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to save jobs",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (isSaved) {
+      const success = await unsaveJob(job.slug);
+      if (success) {
+        toast({
+          title: "Job unsaved",
+          description: "Job removed from your saved list"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to unsave job. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } else {
+      const success = await saveJob(job.slug);
+      if (success) {
+        toast({
+          title: "Job saved",
+          description: "Job added to your saved list"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to save job. Please try again.",
+          variant: "destructive",
+        });
+      }
+    }
+  };
 
   // Format salary range
   const formatSalary = () => {
@@ -88,8 +137,18 @@ export default function JobCard({ job }: JobCardProps) {
           </span>
         ))}
       </div>
-      <div className="mt-5 flex justify-end">
-        <Link href={`/jobs/${job.slug}`}>
+      <div className="mt-5 flex justify-between items-center">
+        <Button 
+          variant={isSaved ? "outline" : "ghost"} 
+          size="sm" 
+          className={`flex items-center gap-1 ${isSaved ? 'text-red-500 border-red-200' : 'text-gray-500'}`}
+          onClick={handleSaveClick}
+        >
+          <Heart className={`h-4 w-4 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
+          {isSaved ? 'Saved' : 'Save Job'}
+        </Button>
+        
+        <Link href={`/jobs/${job.slug}`} onClick={(e) => e.stopPropagation()}>
           <Button className="bg-gradient-to-r from-blue-500 to-indigo-600">
             View Job Details
           </Button>
