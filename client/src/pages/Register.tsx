@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useUser } from '@/contexts/UserContext';
 import { z } from 'zod';
@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -24,8 +25,10 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function Register() {
   const [, navigate] = useLocation();
-  const { register, loading } = useUser();
+  const { register, loading, checkEmailExists } = useUser();
   const [authError, setAuthError] = useState('');
+  const [checkingEmail, setCheckingEmail] = useState(true);
+  const { toast } = useToast();
   const emailFromUrl = new URLSearchParams(window.location.search).get('email') || '';
 
   const form = useForm<FormValues>({
@@ -39,9 +42,50 @@ export default function Register() {
       location: '',
     },
   });
+  
+  // Check if email exists when component mounts or email changes
+  useEffect(() => {
+    const email = emailFromUrl;
+    if (email) {
+      setCheckingEmail(true);
+      checkEmailExists(email).then(exists => {
+        if (exists) {
+          // Email exists, redirect to login page
+          toast({
+            title: "Account already exists",
+            description: "An account with this email already exists. Redirecting to login page...",
+            variant: "default",
+          });
+          setTimeout(() => {
+            navigate(`/login?email=${encodeURIComponent(email)}`);
+          }, 1500);
+        }
+        setCheckingEmail(false);
+      }).catch(() => {
+        setCheckingEmail(false);
+      });
+    } else {
+      setCheckingEmail(false);
+    }
+  }, [emailFromUrl, checkEmailExists, navigate, toast]);
 
   const onSubmit = async (values: FormValues) => {
     setAuthError('');
+    
+    // Double-check if email exists before registration
+    const exists = await checkEmailExists(values.email);
+    if (exists) {
+      toast({
+        title: "Account already exists",
+        description: "An account with this email already exists. Redirecting to login page...",
+        variant: "default",
+      });
+      setTimeout(() => {
+        navigate(`/login?email=${encodeURIComponent(values.email)}`);
+      }, 1500);
+      return;
+    }
+    
     const success = await register(values);
     
     if (!success) {
@@ -185,12 +229,17 @@ export default function Register() {
                 <Button 
                   type="submit" 
                   className="w-full" 
-                  disabled={loading}
+                  disabled={loading || checkingEmail}
                 >
                   {loading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Creating account...
+                    </>
+                  ) : checkingEmail ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Checking email...
                     </>
                   ) : (
                     'Create Account'
