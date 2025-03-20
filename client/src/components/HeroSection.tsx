@@ -37,6 +37,7 @@ export default function HeroSection() {
                     
                     try {
                       // Check if user exists
+                      console.log("Checking email:", email);
                       const response = await fetch('/api/auth/check-email', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -44,12 +45,15 @@ export default function HeroSection() {
                       });
                       
                       const data = await response.json();
+                      console.log("Email check response:", data);
                       
                       if (data.exists) {
                         // User exists - redirect to login
+                        console.log("Email exists, redirecting to login");
                         window.location.href = `/login?email=${encodeURIComponent(email)}`;
                       } else {
                         // New user - redirect to register
+                        console.log("Email is new, redirecting to register");
                         window.location.href = `/register?email=${encodeURIComponent(email)}`;
                       }
                     } catch (error) {
