@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Home } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import AuthButton from "./AuthButton";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -47,9 +48,14 @@ export default function Header() {
           </Link>
         </div>
         
+        {/* Auth Button (Always visible) */}
+        <div className="flex items-center">
+          <AuthButton />
+        </div>
+        
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none"
+          className="md:hidden ml-4 text-gray-500 hover:text-gray-700 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle mobile menu"
         >
@@ -76,6 +82,9 @@ export default function Header() {
           </Link>
           <Link href="/digital-nomad-toolkit" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/digital-nomad-toolkit') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Toolkit
+          </Link>
+          <Link href="/auth" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/auth') || location.startsWith('/login') || location.startsWith('/register') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
+            Sign In / Register
           </Link>
         </div>
       </div>

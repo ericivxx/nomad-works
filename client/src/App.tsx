@@ -20,6 +20,7 @@ import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";
 import SavedJobs from "@/pages/SavedJobs";
 import Login from "@/pages/Login";
+import AuthGateway from "@/components/AuthGateway";
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function Router() {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/saved-jobs" component={SavedJobs} />
+        <Route path="/auth" component={AuthGateway} />
         <Route path="/icon-test" component={IconTest} />
         <Route component={NotFound} />
       </Switch>
