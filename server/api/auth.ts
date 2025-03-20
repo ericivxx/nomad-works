@@ -13,6 +13,7 @@ declare module 'express-session' {
       fullName?: string | null;
       gender?: string | null;
       location?: string | null;
+      savedJobs?: string[];
     };
   }
 }

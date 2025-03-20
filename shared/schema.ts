@@ -13,6 +13,7 @@ export const users = pgTable("users", {
   location: text("location"),
   bio: text("bio"),
   savedSearches: text("saved_searches").array(),
+  savedJobs: text("saved_jobs").array(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   lastLogin: timestamp("last_login"),
   role: text("role").default("user").notNull(), // 'user', 'admin', etc.
