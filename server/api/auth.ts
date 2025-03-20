@@ -25,7 +25,7 @@ router.post("/register", (req, res) => {
     // Normalize email and check for existing user
     const normalizedEmail = email.toLowerCase().trim();
     console.log('Checking for existing user with email:', normalizedEmail);
-    const existingUser = Array.from(users.values()).find(u => u.email.toLowerCase().trim() === normalizedEmail);
+    const existingUser = users.get(normalizedEmail);
     
     if (existingUser) {
       console.log('User already exists:', existingUser);
@@ -36,7 +36,8 @@ router.post("/register", (req, res) => {
     const id = Math.random().toString(36).substring(2);
     const user = { id, email: normalizedEmail, password, fullName, gender, location };
     users.set(normalizedEmail, user);
-
+    
+    console.log('All users after registration:', Array.from(users.entries()));
     // Return user without password
     const { password: _, ...userWithoutPassword } = user;
   console.log('User registered:', normalizedEmail);
