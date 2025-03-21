@@ -33,7 +33,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Loader2, User as UserIcon, MapPin, Calendar, FileText, Bookmark } from "lucide-react";
+import { Loader2, User as UserIcon, MapPin, Calendar, FileText, Bookmark, Shield, KeyRound } from "lucide-react";
+import ChangePasswordForm from "@/components/ChangePasswordForm";
 
 const profileSchema = z.object({
   fullName: z.string().optional(),
@@ -119,8 +120,9 @@ export default function Profile() {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
         <Tabs defaultValue="profile" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="profile">Profile</TabsTrigger>
+            <TabsTrigger value="security">Security</TabsTrigger>
             <TabsTrigger value="saved">Saved Jobs</TabsTrigger>
             <TabsTrigger value="applications">Applications</TabsTrigger>
           </TabsList>
@@ -309,6 +311,34 @@ export default function Profile() {
                   </>
                 )}
               </CardFooter>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="security">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-4">
+                  <Shield className="h-10 w-10 text-primary/70" />
+                  <div>
+                    <CardTitle>Security Settings</CardTitle>
+                    <CardDescription>
+                      Manage your account security and update your password
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-2">
+                      <KeyRound className="h-5 w-5 text-muted-foreground" />
+                      <h3 className="text-lg font-medium">Password Management</h3>
+                    </div>
+                    
+                    <ChangePasswordForm />
+                  </div>
+                </div>
+              </CardContent>
             </Card>
           </TabsContent>
           
