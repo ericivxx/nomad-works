@@ -3,6 +3,7 @@ import config, { JobProvidersConfig } from './jobProviders/config';
 import { remoteOkProvider } from './jobProviders/remoteOkProvider';
 import { adzunaProvider } from './jobProviders/adzunaProvider';
 import { rapidApiProvider } from './jobProviders/rapidApiProvider';
+import { jobProviderManager } from './jobProviders';
 import fs from 'fs';
 import path from 'path';
 

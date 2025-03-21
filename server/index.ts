@@ -6,9 +6,9 @@ import session from 'express-session';
 import MemoryStore from 'memorystore';
 import cors from 'cors';
 
-// Disable external job providers to save API credits
-process.env.USE_JOB_PROVIDERS = 'false';
-console.log('Using in-memory job data only (API providers disabled to save credits)')
+// Enable or disable job providers based on configuration
+// The actual enabled/disabled state is controlled in api_config.json
+// and managed through the admin panel
 
 const app = express();
 app.use(cors());
