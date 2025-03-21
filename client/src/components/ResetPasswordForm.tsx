@@ -35,8 +35,16 @@ export default function ResetPasswordForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Extract token from URL query parameter
-  const token = new URLSearchParams(location.split("?")[1]).get("token");
+  // Extract token from URL query parameter with better error handling
+  const token = (() => {
+    try {
+      const queryString = location.split("?")[1] || "";
+      return new URLSearchParams(queryString).get("token");
+    } catch (e) {
+      console.error("Error parsing token from URL:", e);
+      return null;
+    }
+  })();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
