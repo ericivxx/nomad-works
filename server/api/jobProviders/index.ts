@@ -9,6 +9,16 @@ class JobProviderManager {
   private providers: JobProvider[] = [];
 
   constructor() {
+    this.initializeProviders();
+  }
+
+  /**
+   * Initialize providers based on current configuration
+   */
+  private initializeProviders() {
+    // Clear any existing providers
+    this.providers = [];
+    
     // Initialize with configured providers
     if (config.remoteok.enabled) {
       this.registerProvider(remoteOkProvider);
@@ -19,6 +29,16 @@ class JobProviderManager {
     if (config.rapidapi.enabled) {
       this.registerProvider(rapidApiProvider);
     }
+
+    console.log(`Initialized job providers: ${this.providers.map(p => p.name).join(', ') || 'none'}`);
+  }
+
+  /**
+   * Reinitialize providers based on updated configuration
+   * Called when configuration changes in admin panel
+   */
+  reinitializeProviders() {
+    this.initializeProviders();
   }
 
   registerProvider(provider: JobProvider) {

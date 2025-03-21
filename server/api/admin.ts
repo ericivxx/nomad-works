@@ -107,6 +107,12 @@ router.post('/api-config', (req: Request, res: Response) => {
     Object.assign(config.rapidapi, updatedConfig.rapidapi);
     Object.assign(config.adzuna, updatedConfig.adzuna);
     
+    // Reinitialize the job provider manager with updated configuration
+    // This allows providers to be added/removed based on config changes
+    jobProviderManager.reinitializeProviders();
+    
+    console.log('Job providers reinitialized with updated configuration');
+    
     res.json({ 
       success: true, 
       message: 'API configurations updated successfully',
