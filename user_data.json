@@ -2,7 +2,7 @@
   {
     "id": 1,
     "email": "test@example.com",
-    "password": "$2b$10$26gVUVJaNNn1L.ym..kt2OqYY8sqZhCoWsZn1wANPrWRKICgQR01C",
+    "password": "$2b$10$JTPN/OAaCGuISnPoQvFraOLjBUkAhPW7A2akfe9b4.HG7aKmBx5q6",
     "fullName": "Test User",
     "gender": null,
     "location": null,
@@ -21,7 +21,7 @@
   {
     "id": 2,
     "email": "admin@example.com",
-    "password": "$2b$10$kb6c0jaOZSoQ73tBua9D6.iXpvOC75t.Jp/1TbmCHTqVWGz9aFEJy",
+    "password": "$2b$10$1ZXt/AZo9NHdc1hCUBIWLeFnyZhlq906RW5kfnhhaIcqULZCokpum",
     "fullName": "Admin User",
     "gender": null,
     "location": null,
