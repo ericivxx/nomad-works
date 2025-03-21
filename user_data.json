@@ -33,5 +33,21 @@
     "bio": null,
     "savedSearches": [],
     "isVerified": true
+  },
+  {
+    "id": 3,
+    "email": "ivxx215@nomadworks.com",
+    "password": "$2b$10$TRhHNU8sWyHNI0J7EzJTPeL3sW1YzmW9/EX9duRnBFyofXWhHmI96",
+    "fullName": "Custom Admin",
+    "gender": null,
+    "location": null,
+    "lastLogin": "2025-03-21T13:10:25.637Z",
+    "createdAt": "2025-03-21T13:10:25.637Z",
+    "savedJobs": [],
+    "username": "ivxx215",
+    "role": "admin",
+    "bio": null,
+    "savedSearches": [],
+    "isVerified": true
   }
 ]

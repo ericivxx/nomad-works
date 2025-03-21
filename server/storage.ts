@@ -52,6 +52,12 @@ export interface IStorage {
   updateUserLastLogin(userId: number): Promise<void>;
   saveUserJob(userId: number, jobSlug: string): Promise<User | null>;
   unsaveUserJob(userId: number, jobSlug: string): Promise<User | null>;
+  
+  // Password Management
+  changePassword(userId: number, currentPassword: string, newPassword: string): Promise<boolean>;
+  createPasswordResetToken(email: string): Promise<string | null>;
+  validatePasswordResetToken(token: string): Promise<number | null>;
+  resetPassword(userId: number, newPassword: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
