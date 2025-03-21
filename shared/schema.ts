@@ -171,6 +171,31 @@ export const checkEmailSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
 });
 
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(6, "Current password must be at least 6 characters"),
+  newPassword: z.string().min(6, "New password must be at least 6 characters"),
+  confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters"),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
+export const resetPasswordRequestSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+
+export const resetPasswordSchema = z.object({
+  token: z.string(),
+  newPassword: z.string().min(6, "New password must be at least 6 characters"),
+  confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters"),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
 export type LoginCredentials = z.infer<typeof loginSchema>;
 export type RegisterData = z.infer<typeof registerSchema>;
 export type CheckEmailRequest = z.infer<typeof checkEmailSchema>;
+export type ChangePasswordRequest = z.infer<typeof changePasswordSchema>;
+export type ResetPasswordRequestData = z.infer<typeof resetPasswordRequestSchema>;
+export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
