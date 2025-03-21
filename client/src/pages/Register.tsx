@@ -16,9 +16,13 @@ const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   username: z.string().min(3, 'Username must be at least 3 characters'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string().min(1, 'Please confirm your password'),
   fullName: z.string().optional(),
   gender: z.string().optional(),
   location: z.string().optional(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -37,6 +41,7 @@ export default function Register() {
       email: emailFromUrl || '',
       username: '',
       password: '',
+      confirmPassword: '',
       fullName: '',
       gender: '',
       location: '',
@@ -86,7 +91,10 @@ export default function Register() {
       return;
     }
     
-    const success = await register(values);
+    // Exclude confirmPassword field before sending to server
+    const { confirmPassword, ...registrationData } = values;
+    
+    const success = await register(registrationData);
     
     if (!success) {
       setAuthError('Registration failed. Please try again or use a different email.');
@@ -151,6 +159,24 @@ export default function Register() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input 
+                          type="password" 
+                          placeholder="••••••••" 
+                          {...field}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
                         <Input 
                           type="password" 
