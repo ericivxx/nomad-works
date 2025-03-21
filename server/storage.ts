@@ -494,6 +494,118 @@ export class MemStorage implements IStorage {
     return user;
   }
   
+  // Password Management
+  
+  // Token storage for password reset (Would use a database table in a real app)
+  private passwordResetTokens: Map<string, { userId: number, expiresAt: Date }> = new Map();
+  
+  // Change user password
+  async changePassword(userId: number, currentPassword: string, newPassword: string): Promise<boolean> {
+    try {
+      const user = await this.getUserById(userId);
+      if (!user) {
+        console.log('User not found when changing password:', userId);
+        return false;
+      }
+
+      // Verify current password
+      const valid = await bcrypt.compare(currentPassword, user.password);
+      if (!valid) {
+        console.log('Invalid current password for user:', userId);
+        return false;
+      }
+
+      // Hash and update the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      this.usersData.set(userId, user);
+      this.saveUserData(); // Save to file after password change
+      
+      return true;
+    } catch (error) {
+      console.error('Error changing password:', error);
+      return false;
+    }
+  }
+
+  // Create a password reset token
+  async createPasswordResetToken(email: string): Promise<string | null> {
+    try {
+      const user = await this.getUserByEmail(email);
+      if (!user) {
+        console.log('User not found when creating reset token:', email);
+        return null;
+      }
+
+      // Generate a random token
+      const token = Math.random().toString(36).substring(2, 15) + 
+                   Math.random().toString(36).substring(2, 15);
+      
+      // Token expires in 1 hour
+      const expiresAt = new Date();
+      expiresAt.setHours(expiresAt.getHours() + 1);
+
+      // Store the token
+      this.passwordResetTokens.set(token, {
+        userId: user.id,
+        expiresAt
+      });
+
+      return token;
+    } catch (error) {
+      console.error('Error creating password reset token:', error);
+      return null;
+    }
+  }
+
+  // Validate a password reset token
+  async validatePasswordResetToken(token: string): Promise<number | null> {
+    const tokenData = this.passwordResetTokens.get(token);
+    
+    if (!tokenData) {
+      console.log('Reset token not found:', token);
+      return null;
+    }
+
+    // Check if token has expired
+    if (new Date() > tokenData.expiresAt) {
+      console.log('Reset token expired:', token);
+      this.passwordResetTokens.delete(token);
+      return null;
+    }
+
+    return tokenData.userId;
+  }
+
+  // Reset password using a reset token
+  async resetPassword(userId: number, newPassword: string): Promise<boolean> {
+    try {
+      const user = await this.getUserById(userId);
+      if (!user) {
+        console.log('User not found when resetting password:', userId);
+        return false;
+      }
+
+      // Hash and update the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      this.usersData.set(userId, user);
+      this.saveUserData(); // Save to file after password reset
+
+      // Remove any tokens associated with this user
+      for (const [token, data] of this.passwordResetTokens.entries()) {
+        if (data.userId === userId) {
+          this.passwordResetTokens.delete(token);
+        }
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      return false;
+    }
+  }
+  
   private buildJobWithRelations(job: Job): JobWithRelations | undefined {
     const company = this.companiesData.get(job.companyId);
     const category = this.categoriesData.get(job.categoryId);
