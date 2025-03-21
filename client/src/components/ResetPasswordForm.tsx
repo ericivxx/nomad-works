@@ -28,15 +28,19 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function ResetPasswordForm() {
+interface ResetPasswordFormProps {
+  token?: string | null;
+}
+
+export default function ResetPasswordForm({ token: propToken }: ResetPasswordFormProps) {
   const { resetPassword } = useUser();
   const [location] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Extract token from URL query parameter with better error handling
-  const token = (() => {
+  // Use the token from props or extract from URL as fallback
+  const urlToken = (() => {
     try {
       const queryString = location.split("?")[1] || "";
       return new URLSearchParams(queryString).get("token");
@@ -45,6 +49,9 @@ export default function ResetPasswordForm() {
       return null;
     }
   })();
+  
+  // Use propToken if provided, otherwise use urlToken
+  const token = propToken !== undefined ? propToken : urlToken;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
