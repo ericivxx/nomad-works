@@ -39,19 +39,9 @@ export default function ResetPasswordForm({ token: propToken }: ResetPasswordFor
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Use the token from props or extract from URL as fallback
-  const urlToken = (() => {
-    try {
-      const queryString = location.split("?")[1] || "";
-      return new URLSearchParams(queryString).get("token");
-    } catch (e) {
-      console.error("Error parsing token from URL:", e);
-      return null;
-    }
-  })();
-  
-  // Use propToken if provided, otherwise use urlToken
-  const token = propToken !== undefined ? propToken : urlToken;
+  // Just use the token from props - we've already extracted it in the ResetPassword page
+  const token = propToken;
+  console.log("Token received by ResetPasswordForm component:", token);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),

@@ -86,11 +86,11 @@ export default function RequestPasswordResetForm() {
                   {resetToken}
                 </p>
                 <div className="mt-4">
-                  <Link href={`/reset-password?token=${encodeURIComponent(resetToken)}`}>
+                  <a href={`/reset-password?token=${encodeURIComponent(resetToken)}`}>
                     <Button className="w-full">
                       Continue to Reset Password
                     </Button>
-                  </Link>
+                  </a>
                 </div>
               </div>
             )}

@@ -11,8 +11,12 @@ export default function ResetPassword() {
   // Extract token from URL to pass it via props
   const getToken = () => {
     try {
-      const queryString = location.split("?")[1] || "";
-      return new URLSearchParams(queryString).get("token");
+      console.log("Current location:", location);
+      const queryString = window.location.search;
+      console.log("Window location search:", queryString);
+      const token = new URLSearchParams(queryString).get("token");
+      console.log("Extracted token from window.location:", token);
+      return token;
     } catch (e) {
       console.error("Error parsing token from URL:", e);
       return null;
