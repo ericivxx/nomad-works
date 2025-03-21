@@ -2,7 +2,7 @@
   {
     "id": 1,
     "email": "test@example.com",
-    "password": "$2b$10$kkAbkSuLCj/91gXb5FUTLumiTBZiZrb/Isms6Ww/npARhKBTHyUO2",
+    "password": "$2b$10$26gVUVJaNNn1L.ym..kt2OqYY8sqZhCoWsZn1wANPrWRKICgQR01C",
     "fullName": "Test User",
     "gender": null,
     "location": null,
