@@ -20,6 +20,8 @@ import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";
 import SavedJobs from "@/pages/SavedJobs";
 import Login from "@/pages/Login";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 import AdminPanel from "@/pages/AdminPanel";
 import AuthGateway from "@/components/AuthGateway";
 import { useUser } from "@/contexts/UserContext";
@@ -62,6 +64,8 @@ function Router() {
         <Route path="/profile" component={Profile} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/reset-password" component={ResetPassword} />
         <Route path="/saved-jobs" component={SavedJobs} />
         <Route path="/auth" component={AuthGateway} />
         <Route path="/admin">

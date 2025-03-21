@@ -47,6 +47,7 @@
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node-fetch": "^2.6.12",
+    "@types/react-helmet": "^6.1.11",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
