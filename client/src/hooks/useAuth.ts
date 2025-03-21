@@ -21,6 +21,22 @@ interface CheckEmailResponse {
   exists: boolean;
 }
 
+interface PasswordResetRequestResponse {
+  success: boolean;
+  message: string;
+  token?: string; // Only for demo purposes
+}
+
+interface PasswordResetResponse {
+  success: boolean;
+  message: string;
+}
+
+interface ChangePasswordResponse {
+  success: boolean;
+  message: string;
+}
+
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -167,6 +183,131 @@ export function useAuth() {
     }
   };
 
+  // Change password function
+  const changePassword = async (currentPassword: string, newPassword: string, confirmPassword: string) => {
+    try {
+      // Client-side validation
+      if (newPassword !== confirmPassword) {
+        toast({
+          title: "Password mismatch",
+          description: "New password and confirmation do not match.",
+          variant: "destructive",
+        });
+        return false;
+      }
+
+      const response = await apiRequest<ChangePasswordResponse>('/api/auth/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ currentPassword, newPassword, confirmPassword }),
+      });
+      
+      if (response && response.success) {
+        toast({
+          title: "Password changed",
+          description: response.message || "Your password has been updated successfully.",
+        });
+        return true;
+      } else {
+        toast({
+          title: "Failed to change password",
+          description: "Please check your current password and try again.",
+          variant: "destructive",
+        });
+        return false;
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to change password. Please try again later.",
+        variant: "destructive",
+      });
+      return false;
+    }
+  };
+
+  // Request password reset
+  const requestPasswordReset = async (email: string) => {
+    try {
+      const response = await apiRequest<PasswordResetRequestResponse>('/api/auth/reset-password-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      
+      if (response && response.success) {
+        toast({
+          title: "Reset link sent",
+          description: response.message || "If your email exists in our system, you will receive a password reset link.",
+        });
+        return { success: true, token: response.token }; // token is only for demo
+      } else {
+        toast({
+          title: "Failed to send reset link",
+          description: "Please try again later.",
+          variant: "destructive",
+        });
+        return { success: false };
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to request password reset. Please try again later.",
+        variant: "destructive",
+      });
+      return { success: false };
+    }
+  };
+
+  // Reset password with token
+  const resetPassword = async (token: string, newPassword: string, confirmPassword: string) => {
+    try {
+      // Client-side validation
+      if (newPassword !== confirmPassword) {
+        toast({
+          title: "Password mismatch",
+          description: "New password and confirmation do not match.",
+          variant: "destructive",
+        });
+        return false;
+      }
+
+      const response = await apiRequest<PasswordResetResponse>('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, newPassword, confirmPassword }),
+      });
+      
+      if (response && response.success) {
+        toast({
+          title: "Password reset",
+          description: response.message || "Your password has been reset successfully. You can now login with your new password.",
+        });
+        return true;
+      } else {
+        toast({
+          title: "Failed to reset password",
+          description: "The reset link may have expired. Please request a new one.",
+          variant: "destructive",
+        });
+        return false;
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to reset password. Please try again later.",
+        variant: "destructive",
+      });
+      return false;
+    }
+  };
+
   return { 
     user, 
     setUser,
@@ -175,6 +316,9 @@ export function useAuth() {
     login, 
     register, 
     logout, 
-    checkEmailExists 
+    checkEmailExists,
+    changePassword,
+    requestPasswordReset,
+    resetPassword
   };
 }

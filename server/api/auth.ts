@@ -1,6 +1,14 @@
 import { Router, Request, Response } from "express";
 import { storage } from "../storage";
-import { loginSchema, registerSchema, checkEmailSchema, User } from "@shared/schema";
+import { 
+  loginSchema, 
+  registerSchema, 
+  checkEmailSchema, 
+  changePasswordSchema,
+  resetPasswordRequestSchema,
+  resetPasswordSchema,
+  User 
+} from "@shared/schema";
 import { z } from "zod";
 import 'express-session';
 
@@ -253,6 +261,132 @@ router.post('/unsave-job', async (req: Request, res: Response) => {
   } catch (err) {
     console.error('Error unsaving job:', err);
     res.status(500).json({ error: 'Failed to unsave job' });
+  }
+});
+
+// Change password route
+router.post('/change-password', async (req: Request, res: Response) => {
+  try {
+    // Check if user is authenticated
+    if (!req.session.user) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    // Validate input data
+    const validationResult = changePasswordSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: "Invalid input data", 
+        details: validationResult.error.errors 
+      });
+    }
+
+    const { currentPassword, newPassword } = validationResult.data;
+    
+    // Change the password
+    const success = await storage.changePassword(
+      req.session.user.id, 
+      currentPassword, 
+      newPassword
+    );
+
+    if (!success) {
+      return res.status(400).json({ error: 'Failed to change password. Please verify your current password.' });
+    }
+
+    res.json({ success: true, message: 'Password changed successfully' });
+  } catch (err) {
+    console.error('Error changing password:', err);
+    res.status(500).json({ error: 'Failed to change password' });
+  }
+});
+
+// Request password reset
+router.post('/reset-password-request', async (req: Request, res: Response) => {
+  try {
+    // Validate input data
+    const validationResult = resetPasswordRequestSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: "Invalid email format", 
+        details: validationResult.error.errors 
+      });
+    }
+
+    const { email } = validationResult.data;
+    
+    // Check if the user exists
+    const exists = await storage.checkEmailExists(email);
+    if (!exists) {
+      // For security reasons, don't reveal that the email doesn't exist
+      // Just return success to prevent email enumeration attacks
+      return res.json({ 
+        success: true, 
+        message: 'If an account with this email exists, a password reset link has been sent.' 
+      });
+    }
+    
+    // Create a password reset token
+    const token = await storage.createPasswordResetToken(email);
+    
+    if (!token) {
+      return res.status(500).json({ error: 'Failed to create password reset token' });
+    }
+    
+    // In a real application, send an email with the reset link
+    // For this example, we'll just return the token in the response
+    // NOTE: In production, you would NOT return the token, but email it instead!
+    
+    console.log(`Reset token created for ${email}: ${token}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'If an account with this email exists, a password reset link has been sent.',
+      token: token // Only for demonstration - would not be returned in production
+    });
+  } catch (err) {
+    console.error('Error requesting password reset:', err);
+    res.status(500).json({ error: 'Failed to process password reset request' });
+  }
+});
+
+// Reset password with token
+router.post('/reset-password', async (req: Request, res: Response) => {
+  try {
+    // Validate input data
+    const validationResult = resetPasswordSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      return res.status(400).json({ 
+        error: "Invalid input data", 
+        details: validationResult.error.errors 
+      });
+    }
+
+    const { token, newPassword } = validationResult.data;
+    
+    // Validate the token and get the user ID
+    const userId = await storage.validatePasswordResetToken(token);
+    
+    if (!userId) {
+      return res.status(400).json({ 
+        error: 'Invalid or expired reset token. Please request a new password reset link.' 
+      });
+    }
+    
+    // Reset the password
+    const success = await storage.resetPassword(userId, newPassword);
+    
+    if (!success) {
+      return res.status(500).json({ error: 'Failed to reset password' });
+    }
+    
+    res.json({ 
+      success: true, 
+      message: 'Password has been reset successfully. You can now log in with your new password.' 
+    });
+  } catch (err) {
+    console.error('Error resetting password:', err);
+    res.status(500).json({ error: 'Failed to reset password' });
   }
 });
 

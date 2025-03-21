@@ -31,6 +31,9 @@ interface UserContextType {
   saveJob: (jobSlug: string) => Promise<boolean>;
   unsaveJob: (jobSlug: string) => Promise<boolean>;
   isJobSaved: (jobSlug: string) => boolean;
+  changePassword: (currentPassword: string, newPassword: string, confirmPassword: string) => Promise<boolean>;
+  requestPasswordReset: (email: string) => Promise<{ success: boolean; token?: string }>;
+  resetPassword: (token: string, newPassword: string, confirmPassword: string) => Promise<boolean>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -149,6 +152,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         saveJob,
         unsaveJob,
         isJobSaved,
+        changePassword: auth.changePassword,
+        requestPasswordReset: auth.requestPasswordReset,
+        resetPassword: auth.resetPassword,
       }}
     >
       {children}
