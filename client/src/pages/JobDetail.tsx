@@ -302,12 +302,16 @@ export default function JobDetail() {
                 </div>
                 
                 <Button 
-                  variant={isSaved ? "outline" : "secondary"} 
-                  size="sm" 
-                  className={`flex items-center gap-1 ${isSaved ? 'text-red-500 border-red-200' : 'bg-gray-100'}`}
+                  variant={isSaved ? "outline" : "default"} 
+                  size="md" 
+                  className={`flex items-center gap-2 font-medium ${
+                    isSaved 
+                      ? 'text-red-500 border-red-300 hover:bg-red-50 hover:border-red-400' 
+                      : 'bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-200'
+                  }`}
                   onClick={handleSaveClick}
                 >
-                  <Heart className={`h-4.5 w-4.5 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
+                  <Heart className={`h-5 w-5 ${isSaved ? 'fill-red-500 text-red-500' : 'text-blue-600'}`} />
                   <span>{isSaved ? 'Saved' : 'Save Job'}</span>
                 </Button>
               </div>
