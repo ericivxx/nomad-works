@@ -139,12 +139,15 @@ export default function JobCard({ job }: JobCardProps) {
       </div>
       <div className="mt-5 flex justify-between items-center">
         <Button 
-          variant={isSaved ? "outline" : "ghost"} 
+          variant={isSaved ? "outline" : "default"} 
           size="sm" 
-          className={`flex items-center gap-1 ${isSaved ? 'text-red-500 border-red-200' : 'text-gray-500'}`}
+          className={`flex items-center gap-1 ${isSaved 
+            ? 'text-red-500 border-red-200 hover:bg-red-50 hover:border-red-300 font-medium' 
+            : 'bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-200 font-medium'
+          }`}
           onClick={handleSaveClick}
         >
-          <Heart className={`h-4 w-4 ${isSaved ? 'fill-red-500 text-red-500' : ''}`} />
+          <Heart className={`h-4 w-4 ${isSaved ? 'fill-red-500 text-red-500' : 'text-blue-600'}`} />
           {isSaved ? 'Saved' : 'Save Job'}
         </Button>
         
