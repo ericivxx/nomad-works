@@ -62,9 +62,12 @@ export default function BlogListing() {
       />
 
       <div className="container mx-auto py-16 px-4 md:px-6">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Nomad Blog</h1>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 relative inline-block">
+            <span className="relative z-10">Nomad Blog</span>
+            <span className="absolute bottom-0 left-0 w-full h-3 bg-purple-100/70 -z-10 transform -rotate-1"></span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Expert advice, product recommendations, and guides for digital nomads and remote workers around the world.
           </p>
         </div>
@@ -72,11 +75,11 @@ export default function BlogListing() {
         {/* Featured Posts Section */}
         {featuredPosts.length > 0 && (
           <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6">Featured Articles</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 border-b pb-3 border-gray-100">Featured Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {featuredPosts.map(post => (
-                <Card key={post.id} className="overflow-hidden flex flex-col h-full">
-                  <div className="relative h-48">
+                <Card key={post.id} className="overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow">
+                  <div className="relative h-52 md:h-56">
                     {post.coverImage ? (
                       <img 
                         src={window.location.origin + post.coverImage} 
@@ -88,34 +91,34 @@ export default function BlogListing() {
                         <span className="text-gray-400">No Image</span>
                       </div>
                     )}
-                    <div className="absolute top-2 right-2">
-                      <Badge variant="secondary">Featured</Badge>
+                    <div className="absolute top-3 right-3">
+                      <Badge variant="secondary" className="px-3 py-1">Featured</Badge>
                     </div>
                   </div>
-                  <CardContent className="flex-grow p-4">
-                    <div className="flex items-center mb-2 text-sm text-gray-500">
+                  <CardContent className="flex-grow p-5 md:p-6">
+                    <div className="flex items-center mb-3 text-sm text-gray-500">
                       {post.category && (
-                        <Badge variant="outline" className="mr-2">
+                        <Badge variant="outline" className="mr-3 px-2.5 py-0.5">
                           {post.category.name}
                         </Badge>
                       )}
                       <div className="flex items-center">
-                        <CalendarIcon className="w-4 h-4 mr-1" />
+                        <CalendarIcon className="w-4 h-4 mr-1.5" />
                         <span>{format(new Date(post.publishedAt), 'MMM d, yyyy')}</span>
                       </div>
                     </div>
-                    <Link href={`/blog/post/${post.slug}`} className="hover:underline">
-                      <CardTitle className="mb-2">{post.title}</CardTitle>
+                    <Link href={`/blog/post/${post.slug}`} className="hover:underline block">
+                      <CardTitle className="mb-3 text-xl md:text-2xl leading-tight">{post.title}</CardTitle>
                     </Link>
-                    <p className="text-gray-500 line-clamp-2">{post.excerpt}</p>
+                    <p className="text-gray-600 line-clamp-2 mb-4 text-base">{post.excerpt}</p>
                   </CardContent>
-                  <CardFooter className="pt-0 pb-4 px-4">
+                  <CardFooter className="pt-0 pb-5 px-5 md:px-6 border-t border-gray-100">
                     <div className="flex items-center">
-                      <Avatar className="h-8 w-8">
+                      <Avatar className="h-9 w-9">
                         <AvatarImage src={`https://ui-avatars.com/api/?name=${encodeURIComponent(post.author.fullName || 'Unknown')}`} />
                         <AvatarFallback>{(post.author.fullName || 'U')[0]}</AvatarFallback>
                       </Avatar>
-                      <span className="ml-2 text-sm">{post.author.fullName || 'Anonymous'}</span>
+                      <span className="ml-2.5 text-sm font-medium text-gray-700">{post.author.fullName || 'Anonymous'}</span>
                     </div>
                   </CardFooter>
                 </Card>
@@ -126,18 +129,28 @@ export default function BlogListing() {
 
         {/* All Posts Section */}
         <section>
-          <h2 className="text-2xl font-bold mb-6">Latest Articles</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 border-b pb-3 border-gray-100">Latest Articles</h2>
           
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {[1, 2, 3, 4, 5, 6].map(i => (
-                <Card key={i} className="overflow-hidden">
-                  <div className="h-48 bg-gray-200 animate-pulse"></div>
-                  <CardContent className="p-4">
-                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-1"></div>
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+                <Card key={i} className="overflow-hidden shadow-md">
+                  <div className="h-52 md:h-56 bg-gray-200 animate-pulse"></div>
+                  <CardContent className="p-5 md:p-6">
+                    <div className="flex items-center mb-3">
+                      <div className="h-6 w-20 bg-gray-200 rounded animate-pulse mr-3"></div>
+                      <div className="h-6 w-28 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                    <div className="h-7 bg-gray-200 rounded animate-pulse mb-3"></div>
+                    <div className="h-5 bg-gray-200 rounded animate-pulse mb-2"></div>
+                    <div className="h-5 bg-gray-200 rounded animate-pulse w-3/4 mb-4"></div>
                   </CardContent>
+                  <div className="pt-0 pb-5 px-5 md:px-6 border-t border-gray-100">
+                    <div className="flex items-center">
+                      <div className="h-9 w-9 rounded-full bg-gray-200 animate-pulse"></div>
+                      <div className="ml-2.5 h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                  </div>
                 </Card>
               ))}
             </div>
@@ -152,8 +165,8 @@ export default function BlogListing() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {posts.map(post => (
-                <Card key={post.id} className="overflow-hidden flex flex-col h-full">
-                  <div className="h-48">
+                <Card key={post.id} className="overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow">
+                  <div className="h-52 md:h-56">
                     {post.coverImage ? (
                       <img 
                         src={window.location.origin + post.coverImage} 
@@ -166,30 +179,30 @@ export default function BlogListing() {
                       </div>
                     )}
                   </div>
-                  <CardContent className="flex-grow p-4">
-                    <div className="flex items-center mb-2 text-sm text-gray-500">
+                  <CardContent className="flex-grow p-5 md:p-6">
+                    <div className="flex items-center mb-3 text-sm text-gray-500">
                       {post.category && (
-                        <Badge variant="outline" className="mr-2">
+                        <Badge variant="outline" className="mr-3 px-2.5 py-0.5">
                           {post.category.name}
                         </Badge>
                       )}
                       <div className="flex items-center">
-                        <CalendarIcon className="w-4 h-4 mr-1" />
+                        <CalendarIcon className="w-4 h-4 mr-1.5" />
                         <span>{format(new Date(post.publishedAt), 'MMM d, yyyy')}</span>
                       </div>
                     </div>
-                    <Link href={`/blog/post/${post.slug}`} className="hover:underline">
-                      <CardTitle className="mb-2">{post.title}</CardTitle>
+                    <Link href={`/blog/post/${post.slug}`} className="hover:underline block">
+                      <CardTitle className="mb-3 text-xl md:text-2xl leading-tight">{post.title}</CardTitle>
                     </Link>
-                    <p className="text-gray-500 line-clamp-2">{post.excerpt}</p>
+                    <p className="text-gray-600 line-clamp-2 mb-4 text-base">{post.excerpt}</p>
                   </CardContent>
-                  <CardFooter className="pt-0 pb-4 px-4">
+                  <CardFooter className="pt-0 pb-5 px-5 md:px-6 border-t border-gray-100">
                     <div className="flex items-center">
-                      <Avatar className="h-8 w-8">
+                      <Avatar className="h-9 w-9">
                         <AvatarImage src={`https://ui-avatars.com/api/?name=${encodeURIComponent(post.author.fullName || 'Unknown')}`} />
                         <AvatarFallback>{(post.author.fullName || 'U')[0]}</AvatarFallback>
                       </Avatar>
-                      <span className="ml-2 text-sm">{post.author.fullName || 'Anonymous'}</span>
+                      <span className="ml-2.5 text-sm font-medium text-gray-700">{post.author.fullName || 'Anonymous'}</span>
                     </div>
                   </CardFooter>
                 </Card>
