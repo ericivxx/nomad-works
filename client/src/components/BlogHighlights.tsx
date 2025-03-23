@@ -62,7 +62,7 @@ export default function BlogHighlights() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
             <PenTool className="h-5 w-5 text-purple-500" />
-            <h2 className="text-2xl font-bold tracking-tight">Blog & Resources</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Nomad Blog</h2>
           </div>
           
           <Link href="/blog">
@@ -76,7 +76,7 @@ export default function BlogHighlights() {
           <div className="absolute -top-4 -left-4 lg:-top-6 lg:-left-6">
             <Badge variant="outline" className="bg-purple-100 text-purple-700 border-purple-200 px-3 py-1.5 text-xs font-medium rounded-full flex items-center gap-1.5 rotate-[-3deg] shadow-sm">
               <Sparkles className="h-3.5 w-3.5" />
-              <span>Resources for Remote Workers</span>
+              <span>Tips, Gear Reviews & Special Deals</span>
             </Badge>
           </div>
         </div>
