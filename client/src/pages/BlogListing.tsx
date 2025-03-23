@@ -41,6 +41,14 @@ interface BlogResponse {
 }
 
 export default function BlogListing() {
+  // Scroll to top on component mount
+  React.useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+  }, []);
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['/api/blog/posts'],
     queryFn: async () => {

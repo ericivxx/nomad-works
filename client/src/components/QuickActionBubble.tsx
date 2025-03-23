@@ -101,7 +101,11 @@ export default function QuickActionBubble() {
             size="sm"
             variant="secondary"
             className="rounded-full px-4 py-2 shadow-md flex items-center gap-2 bg-gradient-to-r from-rose-400 to-pink-500 text-white border border-pink-300 hover:from-rose-500 hover:to-pink-600"
-            onClick={() => { setOpen(false); }}
+            onClick={() => { 
+              setOpen(false);
+              // This will ensure scroll to top when user navigates to another page
+              setTimeout(() => window.scrollTo(0, 0), 100);
+            }}
             asChild
           >
             <Link href="/blog">
