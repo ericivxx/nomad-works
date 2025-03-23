@@ -2,7 +2,10 @@ import {
   Job, JobWithRelations, Company, Category, Location, Skill, 
   InsertJob, InsertCompany, InsertCategory, InsertLocation, InsertSkill, 
   User, InsertUser, RegisterData,
-  jobs, companies, categories, locations, skills, jobSkills, users
+  BlogPost, InsertBlogPost, BlogPostWithRelations,
+  AffiliateLink, InsertAffiliateLink, BlogPostAffiliateLink, InsertBlogPostAffiliateLink,
+  jobs, companies, categories, locations, skills, jobSkills, users,
+  blogPosts, affiliateLinks, blogPostAffiliateLinks
 } from "@shared/schema";
 import bcrypt from 'bcryptjs';
 import fs from 'fs';
@@ -88,6 +91,9 @@ export class MemStorage implements IStorage {
   private skillsData: Map<number, Skill>;
   private jobSkillsData: Map<string, number[]>;
   private usersData: Map<number, User>;
+  private blogPostsData: Map<number, BlogPost>;
+  private affiliateLinksData: Map<number, AffiliateLink>;
+  private blogPostAffiliateLinksData: Map<string, number[]>;
   
   private currentJobId = 1;
   private currentCompanyId = 1;
@@ -111,6 +117,9 @@ export class MemStorage implements IStorage {
     this.skillsData = new Map();
     this.jobSkillsData = new Map();
     this.usersData = new Map();
+    this.blogPostsData = new Map();
+    this.affiliateLinksData = new Map();
+    this.blogPostAffiliateLinksData = new Map();
     
     this.currentJobId = 1;
     this.currentCompanyId = 1;
@@ -118,12 +127,18 @@ export class MemStorage implements IStorage {
     this.currentLocationId = 1;
     this.currentSkillId = 1;
     this.currentUserId = 1;
+    this.currentBlogPostId = 1;
+    this.currentAffiliateLinkId = 1;
+    this.currentBlogPostAffiliateLinkId = 1;
     
     // Load persisted data if available
     this.loadPersistedData();
     
     // Initialize with seed data
     this.seedData();
+    
+    // Initialize blog posts and affiliate links with provided affiliate data
+    this.seedBlogData();
   }
   
   // Load data from files if they exist
