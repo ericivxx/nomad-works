@@ -74,7 +74,7 @@ export default function BlogListing() {
                   <div className="relative h-48">
                     {post.coverImage ? (
                       <img 
-                        src={post.coverImage} 
+                        src={window.location.origin + post.coverImage} 
                         alt={post.title} 
                         className="w-full h-full object-cover"
                       />
@@ -151,7 +151,7 @@ export default function BlogListing() {
                   <div className="h-48">
                     {post.coverImage ? (
                       <img 
-                        src={post.coverImage} 
+                        src={window.location.origin + post.coverImage} 
                         alt={post.title} 
                         className="w-full h-full object-cover"
                       />
