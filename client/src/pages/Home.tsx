@@ -36,22 +36,22 @@ export default function Home() {
         {/* Floating Blog Preview Teaser - appears on top of hero */}
         <div className="absolute bottom-0 left-0 right-0 transform translate-y-1/2 z-10 pointer-events-none">
           <div className="container mx-auto px-4 pointer-events-auto">
-            <div className="bg-white rounded-xl shadow-xl border border-purple-100 p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-purple-600 flex items-center justify-center">
-                  <BookOpen className="h-5 w-5 text-white" />
+            <Link href="/blog" className="block">
+              <div className="bg-white rounded-xl shadow-xl border border-purple-100 p-4 flex items-center justify-between transition-all duration-200 hover:bg-purple-50 hover:shadow-2xl hover:scale-[1.01]">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-purple-600 flex items-center justify-center">
+                    <BookOpen className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-purple-700">Nomad Blog</h3>
+                    <p className="text-sm text-gray-600">Tips, gear reviews, and affiliate deals</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-purple-700">Nomad Blog</h3>
-                  <p className="text-sm text-gray-600">Tips, gear reviews, and affiliate deals</p>
-                </div>
-              </div>
-              <Link href="/blog">
                 <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white">
                   Read Blog
                 </Button>
-              </Link>
-            </div>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
