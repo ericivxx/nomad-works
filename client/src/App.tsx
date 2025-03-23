@@ -16,6 +16,7 @@ import SearchResults from "@/pages/SearchResults";
 import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
 import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
+import CareerPathVisualization from "@/pages/CareerPathVisualization";
 import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";
 import SavedJobs from "@/pages/SavedJobs";
@@ -63,6 +64,7 @@ function Router() {
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
+        <Route path="/career-paths" component={CareerPathVisualization} />
         <Route path="/blog" component={BlogListing} />
         <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/profile" component={Profile} />
