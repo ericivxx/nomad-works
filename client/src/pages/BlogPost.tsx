@@ -106,30 +106,40 @@ export default function BlogPost() {
     
     // Add proper formatting to the content by adding paragraphs and headings
     if (content) {
-      // Check if content contains markdown formatting
+      // Remove the first heading that duplicates the title
+      content = content.replace(/^#\s+([^\n]+)(\n|$)/, ''); 
+      
+      // Check if content contains remaining markdown formatting
       const hasMarkdown = content.includes('#') || content.includes('**') || content.includes('__');
       
-      if (!hasMarkdown) {
-        // Add paragraph tags for better formatting if not already formatted
-        content = content.split('\n\n').map((para: string) => 
-          para.trim() ? `<p>${para.trim()}</p>` : ''
-        ).join('');
+      // Split into paragraphs and process
+      content = content.split('\n\n').map((para: string) => {
+        para = para.trim();
+        if (!para) return '';
         
         // Format headings (lines starting with # or ##)
-        content = content.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-        content = content.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-        content = content.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        if (para.startsWith('# ')) {
+          return `<h1>${para.substring(2)}</h1>`;
+        } else if (para.startsWith('## ')) {
+          return `<h2>${para.substring(3)}</h2>`;
+        } else if (para.startsWith('### ')) {
+          return `<h3>${para.substring(4)}</h3>`;
+        } 
         
         // Format lists
-        content = content.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-        content = content.replace(/^- (.+)$/gm, '<li>$1</li>');
+        if (para.includes('\n- ')) {
+          const listItems = para.split('\n- ');
+          const firstLine = listItems.shift() || '';
+          const formattedList = `<ul>${listItems.map((item: string) => `<li>${item}</li>`).join('')}</ul>`;
+          return firstLine ? `<p>${firstLine}</p>${formattedList}` : formattedList;
+        }
         
-        // Wrap consecutive list items in ul/ol tags
-        content = content.replace(/(<li>.+<\/li>\n)+/g, (match: string) => `<ul>${match}</ul>`);
+        // Format links in paragraphs
+        para = para.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
         
-        // Format links
-        content = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-      }
+        // Standard paragraph
+        return `<p>${para}</p>`;
+      }).join('');
     }
     
     return (
