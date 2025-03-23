@@ -672,6 +672,434 @@ export class MemStorage implements IStorage {
     };
   }
   
+  // Blog Posts Methods
+  async getAllBlogPosts(): Promise<BlogPostWithRelations[]> {
+    const allBlogPosts: BlogPostWithRelations[] = [];
+    
+    for (const blogPost of this.blogPostsData.values()) {
+      const blogPostWithRelations = await this.buildBlogPostWithRelations(blogPost);
+      if (blogPostWithRelations) {
+        allBlogPosts.push(blogPostWithRelations);
+      }
+    }
+    
+    return allBlogPosts.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    });
+  }
+  
+  async getFeaturedBlogPosts(limit = 3): Promise<BlogPostWithRelations[]> {
+    const featuredPosts = (await this.getAllBlogPosts())
+      .filter(post => post.featured)
+      .slice(0, limit);
+      
+    return featuredPosts;
+  }
+  
+  async getBlogPostsByCategory(categorySlug: string): Promise<BlogPostWithRelations[]> {
+    let categoryId: number | undefined;
+    
+    for (const category of this.categoriesData.values()) {
+      if (category.slug === categorySlug) {
+        categoryId = category.id;
+        break;
+      }
+    }
+    
+    if (!categoryId) return [];
+    
+    const categoryPosts: BlogPostWithRelations[] = [];
+    
+    for (const blogPost of this.blogPostsData.values()) {
+      if (blogPost.categoryId === categoryId) {
+        const blogPostWithRelations = await this.buildBlogPostWithRelations(blogPost);
+        if (blogPostWithRelations) {
+          categoryPosts.push(blogPostWithRelations);
+        }
+      }
+    }
+    
+    return categoryPosts.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    });
+  }
+  
+  async getBlogPostBySlug(slug: string): Promise<BlogPostWithRelations | undefined> {
+    for (const blogPost of this.blogPostsData.values()) {
+      if (blogPost.slug === slug) {
+        return this.buildBlogPostWithRelations(blogPost);
+      }
+    }
+    return undefined;
+  }
+  
+  async createBlogPost(blogPost: InsertBlogPost): Promise<BlogPost> {
+    const id = this.currentBlogPostId++;
+    const newBlogPost: BlogPost = { id, ...blogPost };
+    
+    this.blogPostsData.set(id, newBlogPost);
+    
+    return newBlogPost;
+  }
+  
+  async updateBlogPost(id: number, blogPost: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
+    const existingBlogPost = this.blogPostsData.get(id);
+    if (!existingBlogPost) return undefined;
+    
+    const updatedBlogPost: BlogPost = { 
+      ...existingBlogPost,
+      ...blogPost,
+      updatedAt: new Date()
+    };
+    
+    this.blogPostsData.set(id, updatedBlogPost);
+    
+    return updatedBlogPost;
+  }
+  
+  async deleteBlogPost(id: number): Promise<boolean> {
+    return this.blogPostsData.delete(id);
+  }
+  
+  async getBlogPostCount(): Promise<number> {
+    return this.blogPostsData.size;
+  }
+  
+  // Affiliate Links Methods
+  async getAllAffiliateLinks(): Promise<AffiliateLink[]> {
+    return Array.from(this.affiliateLinksData.values());
+  }
+  
+  async getAffiliateLinkById(id: number): Promise<AffiliateLink | undefined> {
+    return this.affiliateLinksData.get(id);
+  }
+  
+  async createAffiliateLink(affiliateLink: InsertAffiliateLink): Promise<AffiliateLink> {
+    const id = this.currentAffiliateLinkId++;
+    const newAffiliateLink: AffiliateLink = { id, ...affiliateLink };
+    
+    this.affiliateLinksData.set(id, newAffiliateLink);
+    
+    return newAffiliateLink;
+  }
+  
+  async updateAffiliateLink(id: number, affiliateLink: Partial<InsertAffiliateLink>): Promise<AffiliateLink | undefined> {
+    const existingAffiliateLink = this.affiliateLinksData.get(id);
+    if (!existingAffiliateLink) return undefined;
+    
+    const updatedAffiliateLink: AffiliateLink = { 
+      ...existingAffiliateLink,
+      ...affiliateLink,
+      updatedAt: new Date()
+    };
+    
+    this.affiliateLinksData.set(id, updatedAffiliateLink);
+    
+    return updatedAffiliateLink;
+  }
+  
+  async deleteAffiliateLink(id: number): Promise<boolean> {
+    return this.affiliateLinksData.delete(id);
+  }
+  
+  async getAffiliateLinksByBlogPost(blogPostId: number): Promise<AffiliateLink[]> {
+    const affiliateLinkIds = this.blogPostAffiliateLinksData.get(`blog-${blogPostId}`) || [];
+    
+    const affiliateLinks: AffiliateLink[] = [];
+    for (const affiliateLinkId of affiliateLinkIds) {
+      const affiliateLink = this.affiliateLinksData.get(affiliateLinkId);
+      if (affiliateLink) {
+        affiliateLinks.push(affiliateLink);
+      }
+    }
+    
+    return affiliateLinks;
+  }
+  
+  async addAffiliateLinkToBlogPost(blogPostId: number, affiliateLinkId: number): Promise<boolean> {
+    const blogPost = this.blogPostsData.get(blogPostId);
+    const affiliateLink = this.affiliateLinksData.get(affiliateLinkId);
+    
+    if (!blogPost || !affiliateLink) return false;
+    
+    const key = `blog-${blogPostId}`;
+    const affiliateLinkIds = this.blogPostAffiliateLinksData.get(key) || [];
+    
+    if (!affiliateLinkIds.includes(affiliateLinkId)) {
+      affiliateLinkIds.push(affiliateLinkId);
+      this.blogPostAffiliateLinksData.set(key, affiliateLinkIds);
+    }
+    
+    return true;
+  }
+  
+  async removeAffiliateLinkFromBlogPost(blogPostId: number, affiliateLinkId: number): Promise<boolean> {
+    const key = `blog-${blogPostId}`;
+    const affiliateLinkIds = this.blogPostAffiliateLinksData.get(key);
+    
+    if (!affiliateLinkIds) return false;
+    
+    const updatedIds = affiliateLinkIds.filter(id => id !== affiliateLinkId);
+    this.blogPostAffiliateLinksData.set(key, updatedIds);
+    
+    return true;
+  }
+  
+  // Helper method to build a BlogPostWithRelations object
+  private async buildBlogPostWithRelations(blogPost: BlogPost): Promise<BlogPostWithRelations | undefined> {
+    const category = blogPost.categoryId ? this.categoriesData.get(blogPost.categoryId) : undefined;
+    const author = this.usersData.get(blogPost.authorId);
+    
+    if (!author) return undefined;
+    
+    const affiliateLinks = await this.getAffiliateLinksByBlogPost(blogPost.id);
+    
+    return {
+      ...blogPost,
+      category,
+      author,
+      affiliateLinks
+    };
+  }
+  
+  // Seed blog posts and affiliate links with initial data
+  private seedBlogData() {
+    // Create affiliate links
+    const laptopStand = this.createAffiliateLinkImpl({
+      title: "Laptop Stand",
+      description: "Ergonomic portable laptop stand for digital nomads",
+      affiliateUrl: "https://amzn.to/41NOHQx",
+      productImage: "https://m.media-amazon.com/images/I/71Jz-qQEHIL._AC_SL1500_.jpg",
+      productPrice: "$25.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const tripleMonitor = this.createAffiliateLinkImpl({
+      title: "Triple Monitor Setup",
+      description: "Ultimate productivity with triple monitor mount",
+      affiliateUrl: "https://amzn.to/4kV0Fka",
+      productImage: "https://m.media-amazon.com/images/I/61QLCXwdQqL._AC_SL1500_.jpg",
+      productPrice: "$89.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const portableMonitor = this.createAffiliateLinkImpl({
+      title: "Single Portable Monitor",
+      description: "Travel-friendly 15.6\" portable monitor",
+      affiliateUrl: "https://amzn.to/4kOCTWP",
+      productImage: "https://m.media-amazon.com/images/I/712WghSyJqL._AC_SL1500_.jpg",
+      productPrice: "$119.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const powerBank = this.createAffiliateLinkImpl({
+      title: "Power Bank (20,000mAh+)",
+      description: "High-capacity power bank for all your devices",
+      affiliateUrl: "https://amzn.to/4kQLIPW",
+      productImage: "https://m.media-amazon.com/images/I/71UkCzCQgcL._AC_SL1500_.jpg",
+      productPrice: "$39.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const travelAdapter = this.createAffiliateLinkImpl({
+      title: "Global Travel Adapter",
+      description: "All-in-one travel adapter for worldwide use",
+      affiliateUrl: "https://amzn.to/4bPEE21",
+      productImage: "https://m.media-amazon.com/images/I/61EgbXoJ-4L._AC_SL1500_.jpg",
+      productPrice: "$22.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const airpods = this.createAffiliateLinkImpl({
+      title: "AirPods (Noise-Canceling)",
+      description: "Premium wireless earbuds with noise cancellation",
+      affiliateUrl: "https://amzn.to/4iw5LBJ",
+      productImage: "https://m.media-amazon.com/images/I/61SUj2aKoEL._AC_SL1500_.jpg",
+      productPrice: "$199.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const overEarHeadphones = this.createAffiliateLinkImpl({
+      title: "Over-Ear Headphones",
+      description: "Comfortable over-ear headphones with noise isolation",
+      affiliateUrl: "https://amzn.to/4hDTry3",
+      productImage: "https://m.media-amazon.com/images/I/616+L67uUBL._AC_SL1500_.jpg",
+      productPrice: "$59.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const webcam = this.createAffiliateLinkImpl({
+      title: "Webcam with Privacy Shutter",
+      description: "HD webcam with privacy shutter for secure remote work",
+      affiliateUrl: "https://amzn.to/4iSXQOE",
+      productImage: "https://m.media-amazon.com/images/I/61OQP2+yqML._AC_SL1500_.jpg",
+      productPrice: "$49.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const budgetLaptop = this.createAffiliateLinkImpl({
+      title: "Lightweight Laptop under $1K",
+      description: "Budget-friendly laptop for digital nomads",
+      affiliateUrl: "https://amzn.to/4hJdb3q",
+      productImage: "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg", 
+      productPrice: "$699.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    const macbookAir = this.createAffiliateLinkImpl({
+      title: "MacBook Air 13\"",
+      description: "Ultra-lightweight MacBook Air for maximum portability",
+      affiliateUrl: "https://amzn.to/4iUMKIZ",
+      productImage: "https://m.media-amazon.com/images/I/71S4sIPFvBL._AC_SL1500_.jpg",
+      productPrice: "$999.99",
+      platform: "amazon",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    // Create a blog post
+    const mobileOfficePost = this.createBlogPostImpl({
+      title: "The Ultimate Digital Nomad Mobile Office Setup",
+      slug: "ultimate-digital-nomad-mobile-office-setup",
+      excerpt: "Build the perfect mobile workstation for your digital nomad lifestyle with our essential gear checklist - from laptops and monitors to noise-canceling headphones and power accessories.",
+      content: `
+# The Ultimate Digital Nomad Mobile Office Setup
+
+As remote work continues to rise in popularity, more professionals are embracing the digital nomad lifestyle, working from anywhere in the world. But to be truly productive on the go, you need a reliable mobile office setup. Whether you're working from a café in Bali, a co-working space in Lisbon, or your Airbnb in Mexico City, having the right gear makes all the difference.
+
+## Essential Gear for Your Mobile Office
+
+### 1. Lightweight, Powerful Laptop
+
+The foundation of any mobile office is a quality laptop. You need something powerful enough to handle your workload but light enough to carry comfortably.
+
+**Budget-Friendly Option:** If you're looking for a [lightweight laptop under $1,000](https://amzn.to/4hJdb3q), there are many Windows and Chromebook options that offer excellent performance without breaking the bank.
+
+**Premium Option:** The [MacBook Air 13"](https://amzn.to/4iUMKIZ) remains a favorite among digital nomads for its perfect balance of performance, battery life (up to 18 hours!), and incredibly thin and light design.
+
+### 2. Ergonomic Workspace Accessories
+
+Working hunched over a laptop for hours leads to neck and back pain. Improve your posture with these essentials:
+
+- **Portable Laptop Stand:** A [foldable laptop stand](https://amzn.to/41NOHQx) elevates your screen to eye level, improving your posture instantly. Look for one that's lightweight and compact when folded.
+
+- **External Monitor Setup:** For maximum productivity, consider a [portable monitor](https://amzn.to/4kOCTWP) that can easily slip into your backpack. If you have a dedicated workspace, a [triple monitor setup](https://amzn.to/4kV0Fka) can transform your productivity.
+
+### 3. Audio Equipment for Calls and Focus
+
+Clear communication and the ability to focus in noisy environments are crucial for remote workers:
+
+- **Noise-Canceling Earbuds:** [AirPods Pro](https://amzn.to/4iw5LBJ) offer excellent noise cancellation in a tiny package, perfect for travelers.
+
+- **Over-Ear Headphones:** For longer work sessions, [comfortable over-ear headphones](https://amzn.to/4hDTry3) provide better comfort and typically longer battery life.
+
+### 4. Power Solutions
+
+Never run out of battery with these power essentials:
+
+- **High-Capacity Power Bank:** A [20,000+ mAh power bank](https://amzn.to/4kQLIPW) can recharge your laptop and phone multiple times.
+
+- **Global Travel Adapter:** A [universal travel adapter](https://amzn.to/4bPEE21) ensures you can plug in anywhere in the world.
+
+### 5. Video Conferencing Gear
+
+Make the right impression on video calls:
+
+- **HD Webcam:** Many laptops have poor built-in cameras. A [separate webcam with privacy shutter](https://amzn.to/4iSXQOE) offers better video quality and security.
+
+## Software Essentials
+
+Hardware is only part of the equation. These software tools complete your digital nomad toolkit:
+
+- **Notion:** The ultimate all-in-one workspace for notes, tasks, and project management
+- **Loom:** Record and share screen recordings easily with this video messaging tool
+
+## Final Thoughts
+
+Building your mobile office doesn't happen overnight. Start with the essentials—a good laptop, ergonomic stand, and reliable headphones—then add components as your budget allows and as you learn what works best for your specific work style.
+
+Remember that the perfect setup varies depending on your profession and personal preferences. A graphic designer might prioritize a high-quality external monitor, while a content writer might invest more in comfortable peripherals for long typing sessions.
+
+What's your essential piece of mobile office equipment? Let us know in the comments!
+      `,
+      coverImage: "https://images.unsplash.com/photo-1545239351-cefa43af60f3?q=80&w=1000&auto=format&fit=crop",
+      categoryId: 1, // Development category
+      authorId: 1, // First user
+      publishedAt: new Date(),
+      updatedAt: new Date(),
+      featured: true,
+      metaTitle: "Ultimate Digital Nomad Mobile Office Setup | Essential Gear Guide",
+      metaDescription: "Create your perfect mobile workstation with our digital nomad gear guide. From laptops to portable monitors, we cover everything you need for productive remote work.",
+    });
+    
+    // Associate affiliate links with the blog post
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, laptopStand.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, tripleMonitor.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, portableMonitor.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, powerBank.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, travelAdapter.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, airpods.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, overEarHeadphones.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, webcam.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, budgetLaptop.id);
+    this.addAffiliateLinkToBlogPostImpl(mobileOfficePost.id, macbookAir.id);
+  }
+  
+  // Internal sync implementation of affiliate link creation
+  private createAffiliateLinkImpl(affiliateLink: InsertAffiliateLink): AffiliateLink {
+    const id = this.currentAffiliateLinkId++;
+    const newAffiliateLink: AffiliateLink = { id, ...affiliateLink };
+    
+    this.affiliateLinksData.set(id, newAffiliateLink);
+    
+    return newAffiliateLink;
+  }
+  
+  // Internal sync implementation of blog post creation
+  private createBlogPostImpl(blogPost: InsertBlogPost): BlogPost {
+    const id = this.currentBlogPostId++;
+    const newBlogPost: BlogPost = { id, ...blogPost };
+    
+    this.blogPostsData.set(id, newBlogPost);
+    
+    return newBlogPost;
+  }
+  
+  // Internal sync implementation of associating affiliate link with blog post
+  private addAffiliateLinkToBlogPostImpl(blogPostId: number, affiliateLinkId: number): boolean {
+    const key = `blog-${blogPostId}`;
+    const affiliateLinkIds = this.blogPostAffiliateLinksData.get(key) || [];
+    
+    if (!affiliateLinkIds.includes(affiliateLinkId)) {
+      affiliateLinkIds.push(affiliateLinkId);
+      this.blogPostAffiliateLinksData.set(key, affiliateLinkIds);
+    }
+    
+    return true;
+  }
+  
   private seedData() {
     // Seed categories
     const developmentCategory = this.seedCategory("Development", "development");
