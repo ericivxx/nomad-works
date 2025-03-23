@@ -12,6 +12,26 @@
   }
 }
 
+/* Homepage specific styles */
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-page > header {
+  flex-shrink: 0;
+}
+
+.home-page > div {
+  flex: 1;
+  margin-bottom: 10rem; /* Adds space between content and footer for the floating blog bar */
+}
+
+.home-page > footer {
+  margin-top: auto;
+}
+
 /* Blog content styles */
 .blog-content {
   @apply text-base leading-relaxed;

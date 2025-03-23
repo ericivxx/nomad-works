@@ -14,7 +14,6 @@ export default function Newsletter() {
       toast({
         title: "Error",
         description: "Please enter a valid email address",
-        variant: "destructive",
       });
       return;
     }
@@ -33,8 +32,7 @@ export default function Newsletter() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to subscribe. Please try again later.",
-        variant: "destructive",
+        description: "Failed to subscribe. Please try again later."
       });
     } finally {
       setIsSubmitting(false);
