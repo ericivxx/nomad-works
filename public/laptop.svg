@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#f8f9fa"/>
+  <g transform="translate(20, 40)">
+    <!-- Laptop Base -->
+    <rect x="20" y="90" width="140" height="10" rx="2" fill="#888"/>
+    <path d="M17,90 L163,90 L170,100 L10,100 Z" fill="#777"/>
+    <!-- Laptop Screen -->
+    <rect x="30" y="30" width="120" height="60" rx="5" fill="#555"/>
+    <rect x="35" y="35" width="110" height="50" rx="2" fill="#80b4e6"/>
+    <!-- Keyboard Hints -->
+    <rect x="45" y="90" width="90" height="2" rx="1" fill="#999"/>
+  </g>
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Laptop</text>
+</svg>

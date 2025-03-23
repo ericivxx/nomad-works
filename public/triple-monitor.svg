@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#f8f9fa"/>
+  <g transform="translate(20, 50)">
+    <!-- Left Monitor -->
+    <rect x="10" y="10" width="40" height="30" rx="2" fill="#333" stroke="#000"/>
+    <rect x="12" y="12" width="36" height="26" rx="1" fill="#80b4e6"/>
+    <!-- Stand -->
+    <rect x="25" y="40" width="10" height="10" rx="1" fill="#555"/>
+    <rect x="20" y="50" width="20" height="3" rx="1" fill="#444"/>
+    
+    <!-- Center Monitor -->
+    <rect x="60" y="10" width="40" height="30" rx="2" fill="#333" stroke="#000"/>
+    <rect x="62" y="12" width="36" height="26" rx="1" fill="#80b4e6"/>
+    <!-- Stand -->
+    <rect x="75" y="40" width="10" height="10" rx="1" fill="#555"/>
+    <rect x="70" y="50" width="20" height="3" rx="1" fill="#444"/>
+    
+    <!-- Right Monitor -->
+    <rect x="110" y="10" width="40" height="30" rx="2" fill="#333" stroke="#000"/>
+    <rect x="112" y="12" width="36" height="26" rx="1" fill="#80b4e6"/>
+    <!-- Stand -->
+    <rect x="125" y="40" width="10" height="10" rx="1" fill="#555"/>
+    <rect x="120" y="50" width="20" height="3" rx="1" fill="#444"/>
+  </g>
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Triple Monitor Setup</text>
+</svg>
