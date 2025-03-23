@@ -1044,7 +1044,7 @@ Remember that the perfect setup varies depending on your profession and personal
 
 What's your essential piece of mobile office equipment? Let us know in the comments!
       `,
-      coverImage: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1000&auto=format&fit=crop",
+      coverImage: "https://images.unsplash.com/photo-1605565348518-bef3e7d6fed8?q=80&w=1000&auto=format&fit=crop",
       categoryId: 1, // Development category
       authorId: 1, // First user
       publishedAt: new Date(),
