@@ -156,7 +156,7 @@ export default function BlogPost() {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead 
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt}
@@ -226,11 +226,17 @@ export default function BlogPost() {
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
                         {link.productImage && (
-                          <img 
-                            src={link.productImage} 
-                            alt={link.title} 
-                            className="w-24 h-24 object-contain rounded"
-                          />
+                          <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                            <img 
+                              src={link.productImage} 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                              onError={(e) => {
+                                // If image fails to load, set a default image or hide
+                                (e.target as HTMLImageElement).src = 'https://placehold.co/96x96?text=Product';
+                              }}
+                            />
+                          </div>
                         )}
                         <div className="flex-1">
                           <h3 className="font-bold">{link.title}</h3>
@@ -261,6 +267,6 @@ export default function BlogPost() {
           )}
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
