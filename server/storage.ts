@@ -895,7 +895,7 @@ export class MemStorage implements IStorage {
       title: "Single Portable Monitor",
       description: "Travel-friendly 15.6\" portable monitor",
       affiliateUrl: "https://amzn.to/4kOCTWP",
-      productImage: "https://m.media-amazon.com/images/I/712WghSyJqL._AC_SL1500_.jpg",
+      productImage: "https://m.media-amazon.com/images/I/71V2xD9pQ+L._AC_SL1500_.jpg",
       productPrice: "$119.99",
       platform: "amazon",
       createdAt: new Date(),
@@ -1044,7 +1044,7 @@ Remember that the perfect setup varies depending on your profession and personal
 
 What's your essential piece of mobile office equipment? Let us know in the comments!
       `,
-      coverImage: "https://images.unsplash.com/photo-1545239351-cefa43af60f3?q=80&w=1000&auto=format&fit=crop",
+      coverImage: "https://images.unsplash.com/photo-1593642634443-44adaa06623a?q=80&w=1000&auto=format&fit=crop",
       categoryId: 1, // Development category
       authorId: 1, // First user
       publishedAt: new Date(),
