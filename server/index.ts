@@ -4,6 +4,7 @@ import { setupVite, serveStatic, log } from "./vite";
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MemoryStore from 'memorystore';
+import path from 'path';
 import cors from 'cors';
 
 // Enable or disable job providers based on configuration
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
 
 // Create memory store for session
 const SessionStore = MemoryStore(session);
