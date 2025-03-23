@@ -57,7 +57,13 @@ export default function BlogPost() {
 
   const { data, isLoading, error } = useQuery<{ success: boolean; post: BlogPost }>({
     queryKey: ['/api/blog/post', slug],
-    queryFn: () => apiRequest(`/api/blog/post/${slug}`),
+    queryFn: async () => {
+      const result = await apiRequest(`/api/blog/post/${slug}`);
+      if (!result) {
+        throw new Error('Failed to fetch blog post');
+      }
+      return result;
+    },
     enabled: !!slug
   });
 
@@ -86,7 +92,9 @@ export default function BlogPost() {
         <div className="container mx-auto py-8">
           <h1 className="text-3xl font-bold mb-4">Blog Post Not Found</h1>
           <p>Sorry, the blog post you're looking for could not be found.</p>
-          <Button className="mt-4" href="/blog">Return to Blog</Button>
+          <Button className="mt-4" asChild>
+            <a href="/blog">Return to Blog</a>
+          </Button>
         </div>
       </Layout>
     );
@@ -95,7 +103,35 @@ export default function BlogPost() {
   // Function to render markdown content with affiliate link processing
   const renderContent = () => {
     let content = post.content;
-    // Process markdown content here if needed
+    
+    // Add proper formatting to the content by adding paragraphs and headings
+    if (content) {
+      // Check if content contains markdown formatting
+      const hasMarkdown = content.includes('#') || content.includes('**') || content.includes('__');
+      
+      if (!hasMarkdown) {
+        // Add paragraph tags for better formatting if not already formatted
+        content = content.split('\n\n').map((para: string) => 
+          para.trim() ? `<p>${para.trim()}</p>` : ''
+        ).join('');
+        
+        // Format headings (lines starting with # or ##)
+        content = content.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+        content = content.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        content = content.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        
+        // Format lists
+        content = content.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+        content = content.replace(/^- (.+)$/gm, '<li>$1</li>');
+        
+        // Wrap consecutive list items in ul/ol tags
+        content = content.replace(/(<li>.+<\/li>\n)+/g, (match: string) => `<ul>${match}</ul>`);
+        
+        // Format links
+        content = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      }
+    }
+    
     return (
       <div 
         className="prose prose-lg max-w-none dark:prose-invert"
@@ -159,7 +195,7 @@ export default function BlogPost() {
           )}
           
           {/* Content */}
-          <div className="mb-10">
+          <div className="mb-10 blog-content">
             {renderContent()}
           </div>
           
@@ -170,7 +206,7 @@ export default function BlogPost() {
             <div className="my-10">
               <h2 className="text-2xl font-bold mb-6">Recommended Products</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {post.affiliateLinks.map(link => (
+                {post.affiliateLinks.map((link: AffiliateLink) => (
                   <Card key={link.id} className="overflow-hidden flex flex-col h-full">
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
