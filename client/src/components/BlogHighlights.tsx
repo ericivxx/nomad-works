@@ -57,31 +57,31 @@ export default function BlogHighlights() {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center gap-3">
-            <PenTool className="h-6 w-6 text-purple-500" />
-            <h2 className="text-3xl font-bold tracking-tight">Nomad Blog</h2>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-8 md:mb-12">
+          <div className="flex items-center gap-2 md:gap-3">
+            <PenTool className="h-5 w-5 md:h-6 md:w-6 text-purple-500" />
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Nomad Blog</h2>
           </div>
           
           <Link href="/blog">
-            <Button variant="link" className="gap-2 text-purple-600 hover:text-purple-700 text-base">
-              View all posts <ChevronRight className="h-5 w-5" />
+            <Button variant="link" className="gap-1 md:gap-2 text-purple-600 hover:text-purple-700 text-sm md:text-base">
+              View all posts <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
             </Button>
           </Link>
         </div>
         
-        <div className="relative mb-16">
-          <div className="absolute -top-4 -left-4 lg:-top-6 lg:-left-6">
-            <Badge variant="outline" className="bg-purple-100 text-purple-700 border-purple-200 px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 rotate-[-3deg] shadow-sm">
-              <Sparkles className="h-4 w-4" />
+        <div className="relative mb-10 md:mb-16">
+          <div className="absolute -top-3 -left-2 md:-top-4 md:-left-4 lg:-top-6 lg:-left-6">
+            <Badge variant="outline" className="bg-purple-100 text-purple-700 border-purple-200 px-2 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium rounded-full flex items-center gap-1.5 md:gap-2 rotate-[-3deg] shadow-sm">
+              <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
               <span>Tips, Gear Reviews & Special Deals</span>
             </Badge>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {isLoading ? (
             // Skeleton loaders while fetching data
             Array(3).fill(0).map((_, index) => (

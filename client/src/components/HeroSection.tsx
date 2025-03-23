@@ -8,23 +8,23 @@ export default function HeroSection() {
   const { register } = useUser();
   const [formState, setFormState] = useState({ status: '', message: '' });
   return (
-    <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-20 md:py-28">
+    <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-14 md:py-20 lg:py-28">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-8">
-            Join the Thousands of Digital Nomads Already Living Their Dream Life! Get Started Now!
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8">
+            Join the Thousands of Digital Nomads Already Living Their Dream Life!
           </h1>
-          <p className="text-lg md:text-xl text-blue-100 mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-6 md:mb-8">
             Browse thousands of remote opportunities and work from anywhere
           </p>
-          <div className="max-w-md mx-auto mb-8">
-            <p className="text-base font-semibold text-white mb-4">Enter your email to save jobs and get alerts</p>
+          <div className="max-w-md mx-auto mb-6 md:mb-8">
+            <p className="text-sm sm:text-base font-semibold text-white mb-3 md:mb-4">Enter your email to save jobs and get alerts</p>
             <div className="flex flex-col gap-3">
               <input
                 id="emailInput"
                 type="email"
                 placeholder="Your email address"
-                className="px-4 py-3 rounded-lg text-gray-900"
+                className="px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-gray-900 w-full"
               />
               <div className="flex gap-3">
                 <button 
@@ -97,35 +97,35 @@ export default function HeroSection() {
                       }
                     }
                   }}
-                  className="flex-1 bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors"
+                  className="flex-1 bg-amber-500 hover:bg-amber-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-colors"
                 >
                   Continue
                 </button>
               </div>
             </div>
-            <p className="text-sm font-semibold text-blue-100 mt-4">
+            <p className="text-xs sm:text-sm font-semibold text-blue-100 mt-3 md:mt-4">
               ✨ Get exclusive remote job alerts and digital nomad deals
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6 md:mt-8">
             <Link 
               href="/search"
-              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold text-base hover:bg-blue-50 transition-colors"
+              className="bg-white text-blue-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-blue-50 transition-colors"
             >
               Browse Remote Jobs
             </Link>
             <Link
               href="/career-paths"
-              className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold text-base hover:bg-green-600 transition-colors"
+              className="bg-green-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-green-600 transition-colors"
             >
               Explore Career Paths
             </Link>
             <Link
               href="/digital-nomad-toolkit"
-              className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-6 py-3 rounded-lg font-semibold text-base hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl animate-pulse"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl"
             >
-              <Globe className="h-5 w-5" />
-              Digital Nomad Tools
+              <Globe className="h-4 w-4 md:h-5 md:w-5" />
+              <span className="whitespace-nowrap">Nomad Tools</span>
             </Link>
           </div>
         </div>
