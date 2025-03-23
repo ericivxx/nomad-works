@@ -199,3 +199,65 @@ export type CheckEmailRequest = z.infer<typeof checkEmailSchema>;
 export type ChangePasswordRequest = z.infer<typeof changePasswordSchema>;
 export type ResetPasswordRequestData = z.infer<typeof resetPasswordRequestSchema>;
 export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
+
+// Blog & Affiliate schemas
+export const blogPosts = pgTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  excerpt: text("excerpt").notNull(),
+  content: text("content").notNull(),
+  coverImage: text("cover_image"),
+  categoryId: integer("category_id").references(() => categories.id),
+  authorId: integer("author_id").references(() => users.id).notNull(),
+  publishedAt: timestamp("published_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+  featured: boolean("featured").default(false),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+});
+
+export const affiliateLinks = pgTable("affiliate_links", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  affiliateUrl: text("affiliate_url").notNull(),
+  productImage: text("product_image"),
+  productPrice: text("product_price"),
+  platform: text("platform").notNull(), // e.g., "amazon", "nordvpn", etc.
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const blogPostAffiliateLinks = pgTable("blog_post_affiliate_links", {
+  id: serial("id").primaryKey(), 
+  blogPostId: integer("blog_post_id").references(() => blogPosts.id).notNull(),
+  affiliateLinkId: integer("affiliate_link_id").references(() => affiliateLinks.id).notNull(),
+});
+
+export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
+  id: true,
+});
+
+export const insertAffiliateLinkSchema = createInsertSchema(affiliateLinks).omit({
+  id: true,
+});
+
+export const insertBlogPostAffiliateLinkSchema = createInsertSchema(blogPostAffiliateLinks).omit({
+  id: true,
+});
+
+export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+export type BlogPost = typeof blogPosts.$inferSelect;
+
+export type InsertAffiliateLink = z.infer<typeof insertAffiliateLinkSchema>;
+export type AffiliateLink = typeof affiliateLinks.$inferSelect;
+
+export type InsertBlogPostAffiliateLink = z.infer<typeof insertBlogPostAffiliateLinkSchema>;
+export type BlogPostAffiliateLink = typeof blogPostAffiliateLinks.$inferSelect;
+
+export type BlogPostWithRelations = BlogPost & {
+  category?: Category;
+  author: User;
+  affiliateLinks?: AffiliateLink[];
+};
