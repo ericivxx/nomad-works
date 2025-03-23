@@ -42,13 +42,13 @@ export default function Home() {
                   <BookOpen className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-purple-700">Digital Nomad Resources</h3>
-                  <p className="text-sm text-gray-600">Essential guides, tools, and affiliate deals</p>
+                  <h3 className="font-bold text-purple-700">Nomad Blog</h3>
+                  <p className="text-sm text-gray-600">Tips, gear reviews, and affiliate deals</p>
                 </div>
               </div>
               <Link href="/blog">
                 <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white">
-                  Explore Resources
+                  Read Blog
                 </Button>
               </Link>
             </div>
