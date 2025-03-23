@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#f8f9fa"/>
+  <g transform="translate(40, 40)">
+    <!-- Webcam Body -->
+    <rect x="25" y="25" width="70" height="40" rx="5" fill="#333"/>
+    <!-- Lens -->
+    <circle cx="60" cy="45" r="15" fill="#222"/>
+    <circle cx="60" cy="45" r="10" fill="#111"/>
+    <circle cx="60" cy="45" r="5" fill="#000"/>
+    <circle cx="57" cy="42" r="2" fill="#fff" opacity="0.7"/>
+    <!-- Privacy Shutter -->
+    <rect x="25" y="35" width="35" height="20" rx="3" fill="#555" opacity="0.8"/>
+    <!-- Stand/Clip -->
+    <path d="M40,65 L80,65 L90,90 L30,90 Z" fill="#444"/>
+  </g>
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Webcam with Privacy Shutter</text>
+</svg>
