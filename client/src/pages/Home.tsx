@@ -44,7 +44,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-bold text-purple-700">Nomad Blog</h3>
-                    <p className="text-sm text-gray-600">Tips, gear reviews, and affiliate deals</p>
+                    <p className="text-sm text-gray-600">Tips, gear reviews, and special deals</p>
                   </div>
                 </div>
                 <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white">

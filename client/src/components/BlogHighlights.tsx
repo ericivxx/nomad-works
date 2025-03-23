@@ -159,7 +159,7 @@ export default function BlogHighlights() {
                       <div className="bg-purple-100 text-purple-600 p-1 rounded-full">
                         <ExternalLink className="h-3.5 w-3.5" />
                       </div>
-                      <span className="text-xs text-purple-600 font-medium">Affiliate Products</span>
+                      <span className="text-xs text-purple-600 font-medium">Special Deals</span>
                     </div>
                     <Button variant="ghost" size="sm" className="text-sm">
                       Read more
