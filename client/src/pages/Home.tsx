@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/HeroSection";
 import BlogHighlights from "@/components/BlogHighlights";
-import { Rss } from "lucide-react";
+import { Rss, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   // SEO structured data for the homepage
@@ -26,7 +28,36 @@ export default function Home() {
         description="Find the best remote jobs for digital nomads, along with tools, resources, and guides for location-independent professionals."
         structuredData={structuredData}
       />
-      <HeroSection />
+      
+      {/* Top section with hero and blog preview */}
+      <div className="relative">
+        <HeroSection />
+        
+        {/* Floating Blog Preview Teaser - appears on top of hero */}
+        <div className="absolute bottom-0 left-0 right-0 transform translate-y-1/2 z-10 pointer-events-none">
+          <div className="container mx-auto px-4 pointer-events-auto">
+            <div className="bg-white rounded-xl shadow-xl border border-purple-100 p-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-purple-600 flex items-center justify-center">
+                  <BookOpen className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-purple-700">Digital Nomad Resources</h3>
+                  <p className="text-sm text-gray-600">Essential guides, tools, and affiliate deals</p>
+                </div>
+              </div>
+              <Link href="/blog">
+                <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white">
+                  Explore Resources
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Add some space before the blog section */}
+      <div className="h-24"></div>
       
       {/* Blog Highlights Section */}
       <BlogHighlights />
