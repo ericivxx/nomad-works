@@ -52,35 +52,165 @@ function AdminRoute({ component: Component, ...rest }: { component: React.Compon
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/jobs/:slug" component={JobDetail} />
-        <Route path="/categories" component={CategoriesListPage} />
-        <Route path="/categories/:slug" component={CategoryPage} />
-        <Route path="/locations" component={LocationsListPage} />
-        <Route path="/locations/:slug" component={LocationPage} />
-        <Route path="/search" component={SearchResults} />
-        <Route path="/keywords/:keyword" component={KeywordLandingPage} />
-        <Route path="/sitemap" component={SitemapPage} />
-        <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
-        <Route path="/career-paths" component={CareerPathVisualization} />
-        <Route path="/blog" component={BlogListing} />
-        <Route path="/blog/post/:slug" component={BlogPost} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
-        <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password" component={ResetPassword} />
-        <Route path="/saved-jobs" component={SavedJobs} />
-        <Route path="/auth" component={AuthGateway} />
-        <Route path="/admin">
-          {(params) => <AdminRoute component={AdminPanel} path="/admin" />}
-        </Route>
-        <Route path="/icon-test" component={IconTest} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <Switch>
+      <Route path="/">
+        {() => (
+          <Layout>
+            <Home />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/jobs/:slug">
+        {(params) => (
+          <Layout>
+            <JobDetail />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/categories">
+        {() => (
+          <Layout>
+            <CategoriesListPage />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/categories/:slug">
+        {(params) => (
+          <Layout>
+            <CategoryPage />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/locations">
+        {() => (
+          <Layout>
+            <LocationsListPage />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/locations/:slug">
+        {(params) => (
+          <Layout>
+            <LocationPage />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/search">
+        {() => (
+          <Layout>
+            <SearchResults />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/keywords/:keyword">
+        {(params) => (
+          <Layout>
+            <KeywordLandingPage />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/sitemap">
+        {() => (
+          <Layout>
+            <SitemapPage />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/digital-nomad-toolkit">
+        {() => (
+          <Layout>
+            <DigitalNomadToolkit />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/career-paths">
+        {() => (
+          <Layout>
+            <CareerPathVisualization />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/blog">
+        {() => (
+          <Layout>
+            <BlogListing />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/blog/post/:slug">
+        {(params) => (
+          <Layout>
+            <BlogPost />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/profile">
+        {() => (
+          <Layout>
+            <Profile />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/register">
+        {() => (
+          <Layout>
+            <Register />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/login">
+        {() => (
+          <Layout>
+            <Login />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/forgot-password">
+        {() => (
+          <Layout>
+            <ForgotPassword />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/reset-password">
+        {() => (
+          <Layout>
+            <ResetPassword />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/saved-jobs">
+        {() => (
+          <Layout>
+            <SavedJobs />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/auth">
+        {() => (
+          <Layout>
+            <AuthGateway />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/admin">
+        {(params) => <AdminRoute component={AdminPanel} path="/admin" />}
+      </Route>
+      <Route path="/icon-test">
+        {() => (
+          <Layout>
+            <IconTest />
+          </Layout>
+        )}
+      </Route>
+      <Route>
+        {() => (
+          <Layout>
+            <NotFound />
+          </Layout>
+        )}
+      </Route>
+    </Switch>
   );
 }
 
