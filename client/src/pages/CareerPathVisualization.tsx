@@ -251,9 +251,9 @@ export default function CareerPathVisualization() {
     return (
       <span 
         key={skill.id} 
-        className={`inline-block px-2 py-1 rounded text-xs font-medium mr-2 mb-2 ${levelColors[skill.level]}`}
+        className={`inline-block px-1.5 py-0.5 rounded text-xs font-medium mr-1.5 mb-1.5 ${levelColors[skill.level]}`}
       >
-        {skill.name} • {skill.level.charAt(0).toUpperCase() + skill.level.slice(1)}
+        {skill.name} • {skill.level.charAt(0).toUpperCase()}
       </span>
     );
   };
@@ -267,16 +267,16 @@ export default function CareerPathVisualization() {
   // Function to render the career path visualization
   const renderCareerPath = (path: CareerPath) => {
     return (
-      <div className="mt-6">
-        <h2 className="text-2xl font-bold mb-4">{path.name}</h2>
-        <p className="text-gray-600 mb-6">{path.description}</p>
+      <div className="mt-3">
+        <h2 className="text-xl font-bold mb-2">{path.name}</h2>
+        <p className="text-gray-600 mb-3 text-sm">{path.description}</p>
         
         <div className="relative">
           {/* Career path progression line */}
-          <div className="absolute left-6 top-10 h-[calc(100%-50px)] w-0.5 bg-gray-200"></div>
+          <div className="absolute left-6 top-8 h-[calc(100%-40px)] w-0.5 bg-gray-200"></div>
           
           {/* Job roles */}
-          <div className="space-y-8">
+          <div className="space-y-3">
             {path.roles.map((role, index) => (
               <div key={role.id} className={`relative`}>
                 <Card 
@@ -287,28 +287,28 @@ export default function CareerPathVisualization() {
                   `}
                   onClick={() => setSelectedRole(role.id)}
                 >
-                  <CardHeader className="py-4 px-4">
+                  <CardHeader className="py-2 px-3">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 z-10">
+                      <div className="flex-shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-3 z-10">
                         {role.icon}
                       </div>
                       <div>
-                        <CardTitle className="text-lg">{role.title}</CardTitle>
-                        <div className="text-sm text-gray-500">
+                        <CardTitle className="text-base">{role.title}</CardTitle>
+                        <div className="text-xs text-gray-500">
                           {role.salaryRange} • Remote Score: {Array(5).fill(0).map((_, i) => (
                             <span key={i} className={`inline-block ${i < role.remoteScore ? 'text-primary' : 'text-gray-300'}`}>★</span>
                           ))}
                         </div>
                       </div>
-                      <ChevronRight className="ml-auto text-gray-400" />
+                      <ChevronRight className="ml-auto text-gray-400" size={16} />
                     </div>
                   </CardHeader>
                 </Card>
                 
                 {/* Show arrow connectors between roles */}
                 {index < path.roles.length - 1 && (
-                  <div className="absolute left-6 top-full mt-2 h-4 flex items-center justify-center z-0">
-                    <div className="h-4 w-0.5 bg-gray-200"></div>
+                  <div className="absolute left-6 top-full mt-1 h-2 flex items-center justify-center z-0">
+                    <div className="h-2 w-0.5 bg-gray-200"></div>
                   </div>
                 )}
               </div>
@@ -322,29 +322,29 @@ export default function CareerPathVisualization() {
   // Function to render detailed role information
   const renderRoleDetails = (role: JobRole) => {
     return (
-      <Card className="mt-6">
-        <CardHeader className="pb-2">
-          <div className="flex items-center mb-2">
-            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+      <Card className="mt-3">
+        <CardHeader className="pb-1 pt-3">
+          <div className="flex items-center mb-1">
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
               {role.icon}
             </div>
-            <CardTitle>{role.title}</CardTitle>
+            <CardTitle className="text-base">{role.title}</CardTitle>
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-xs text-gray-500">
             {role.salaryRange} • Remote Compatibility: {role.remoteScore}/5
           </div>
         </CardHeader>
-        <CardContent>
-          <h3 className="font-semibold mb-2">Role Description</h3>
-          <p className="text-gray-700 mb-4">{role.description}</p>
+        <CardContent className="pt-1 pb-3">
+          <h3 className="font-semibold mb-1 text-sm">Role Description</h3>
+          <p className="text-gray-700 mb-3 text-sm">{role.description}</p>
           
-          <h3 className="font-semibold mb-2">Key Skills</h3>
-          <div className="mb-4">
+          <h3 className="font-semibold mb-1 text-sm">Key Skills</h3>
+          <div className="mb-3">
             {role.skills.map(skill => renderSkill(skill))}
           </div>
           
-          <h3 className="font-semibold mb-2">Related Job Opportunities</h3>
-          <div className="mt-2">
+          <h3 className="font-semibold mb-1 text-sm">Related Job Opportunities</h3>
+          <div className="mt-1">
             <Button asChild variant="outline" size="sm">
               <Link href={`/search?q=${encodeURIComponent(role.title)}`}>
                 Browse Related Jobs
@@ -363,17 +363,17 @@ export default function CareerPathVisualization() {
         description="Explore potential career paths for remote workers and digital nomads. Find the right progression path for your skills and interests."
       />
       
-      <div className="container mx-auto py-8 px-4">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4">Digital Nomad Career Paths</h1>
-          <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+      <div className="container mx-auto py-4 px-4">
+        <div className="text-center mb-4">
+          <h1 className="text-3xl font-bold mb-2">Digital Nomad Career Paths</h1>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
             Explore potential remote-friendly career paths and progression opportunities for digital nomads
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <Tabs value={selectedPath} onValueChange={setSelectedPath} className="mb-6">
+            <Tabs value={selectedPath} onValueChange={setSelectedPath} className="mb-4">
               <TabsList className="grid grid-cols-3">
                 <TabsTrigger value="tech" className="flex items-center gap-2">
                   <Code size={16} /> Technology
@@ -405,39 +405,39 @@ export default function CareerPathVisualization() {
               renderRoleDetails(selectedRoleData)
             ) : (
               <Card className="bg-gray-50">
-                <CardContent className="p-6 text-center flex flex-col items-center">
-                  <Globe className="h-16 w-16 text-gray-300 mb-4" />
-                  <h3 className="text-lg font-medium text-gray-700 mb-2">Select a Role</h3>
-                  <p className="text-gray-500 text-sm">
-                    Click on any role in the career path to view details about the position, required skills, and related job listings.
+                <CardContent className="p-3 text-center flex flex-col items-center">
+                  <Globe className="h-12 w-12 text-gray-300 mb-2" />
+                  <h3 className="text-base font-medium text-gray-700 mb-1">Select a Role</h3>
+                  <p className="text-gray-500 text-xs">
+                    Click on any role to view details about the position, skills, and related jobs.
                   </p>
                 </CardContent>
               </Card>
             )}
             
-            <Card className="mt-6 bg-blue-50">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-medium text-blue-800 mb-3">Why Choose Remote Work?</h3>
-                <ul className="space-y-2 text-blue-700">
+            <Card className="mt-4 bg-blue-50">
+              <CardContent className="p-3">
+                <h3 className="text-base font-medium text-blue-800 mb-2">Why Choose Remote Work?</h3>
+                <ul className="space-y-1 text-blue-700 text-sm">
                   <li className="flex items-start">
-                    <span className="mr-2">🌍</span> Work from anywhere in the world
+                    <span className="mr-1">🌍</span> Work from anywhere in the world
                   </li>
                   <li className="flex items-start">
-                    <span className="mr-2">⏰</span> Flexible work schedule
+                    <span className="mr-1">⏰</span> Flexible work schedule
                   </li>
                   <li className="flex items-start">
-                    <span className="mr-2">💰</span> Reduced commuting costs
+                    <span className="mr-1">💰</span> Reduced commuting costs
                   </li>
                   <li className="flex items-start">
-                    <span className="mr-2">🏡</span> Better work-life balance
+                    <span className="mr-1">🏡</span> Better work-life balance
                   </li>
                   <li className="flex items-start">
-                    <span className="mr-2">📈</span> Access to global opportunities
+                    <span className="mr-1">📈</span> Access to global opportunities
                   </li>
                 </ul>
                 
-                <div className="mt-4">
-                  <Button asChild size="sm" variant="outline" className="bg-white">
+                <div className="mt-3">
+                  <Button asChild size="sm" variant="outline" className="bg-white text-xs">
                     <Link href="/digital-nomad-toolkit">
                       Explore Digital Nomad Toolkit
                     </Link>
