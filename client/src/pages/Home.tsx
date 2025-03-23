@@ -5,7 +5,6 @@ import HeroSection from "@/components/HeroSection";
 import BlogHighlights from "@/components/BlogHighlights";
 import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Layout from "@/components/Layout";
 
 export default function Home() {
   // SEO structured data for the homepage
@@ -23,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead 
         title="NomadWorks - Remote Jobs for Digital Nomads" 
         description="Find the best remote jobs for digital nomads, along with tools, resources, and guides for location-independent professionals."
@@ -56,6 +55,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </Layout>
+      
+      {/* Blog Highlights */}
+      <BlogHighlights />
+    </>
   );
 }
