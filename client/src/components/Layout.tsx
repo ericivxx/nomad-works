@@ -17,11 +17,14 @@ export default function Layout({ children }: LayoutProps) {
   // We may want to hide it on certain pages
   const showQuickActions = !location.includes('/admin');
   
-  // Don't show newsletter on homepage
+  // Show newsletter on all pages except homepage
   const showNewsletter = location !== '/' && location !== '/home';
   
+  // Determine classes based on page
+  const isHomePage = location === '/' || location === '/home';
+  
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 font-sans text-gray-800">
+    <div className={`flex flex-col min-h-screen bg-gray-50 font-sans text-gray-800 ${isHomePage ? 'home-page' : ''}`}>
       <Header />
       {children}
       {showNewsletter && <Newsletter />}
