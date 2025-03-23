@@ -115,6 +115,12 @@ export default function HeroSection() {
               Browse Remote Jobs
             </Link>
             <Link
+              href="/career-paths"
+              className="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition-colors"
+            >
+              Explore Career Paths
+            </Link>
+            <Link
               href="/digital-nomad-toolkit"
               className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl animate-pulse"
             >

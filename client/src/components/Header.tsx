@@ -46,6 +46,9 @@ export default function Header() {
           <Link href="/digital-nomad-toolkit" className={`font-medium ${location.startsWith('/digital-nomad-toolkit') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Toolkit
           </Link>
+          <Link href="/career-paths" className={`font-medium ${location.startsWith('/career-paths') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
+            Career Paths
+          </Link>
           <Link href="/blog" className={`font-medium ${location.startsWith('/blog') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Blog
           </Link>
@@ -85,6 +88,9 @@ export default function Header() {
           </Link>
           <Link href="/digital-nomad-toolkit" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/digital-nomad-toolkit') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Toolkit
+          </Link>
+          <Link href="/career-paths" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/career-paths') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
+            Career Paths
           </Link>
           <Link href="/blog" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/blog') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Blog
