@@ -17,11 +17,14 @@ export default function Layout({ children }: LayoutProps) {
   // We may want to hide it on certain pages
   const showQuickActions = !location.includes('/admin');
   
+  // Don't show newsletter on homepage because we already have a similar CTA
+  const showNewsletter = location !== '/' && location !== '/home';
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 font-sans text-gray-800">
       <Header />
       {children}
-      <Newsletter />
+      {showNewsletter && <Newsletter />}
       <Footer />
       
       {/* Quick Action Floating Navigation Bubble */}
