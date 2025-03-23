@@ -8,23 +8,23 @@ export default function HeroSection() {
   const { register } = useUser();
   const [formState, setFormState] = useState({ status: '', message: '' });
   return (
-    <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-10 md:py-16">
+    <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-20 md:py-28">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold mb-8">
             Join the Thousands of Digital Nomads Already Living Their Dream Life! Get Started Now!
           </h1>
-          <p className="text-lg md:text-xl text-blue-100 mb-4">
+          <p className="text-lg md:text-xl text-blue-100 mb-8">
             Browse thousands of remote opportunities and work from anywhere
           </p>
-          <div className="max-w-md mx-auto mb-4">
-            <p className="text-base font-semibold text-white mb-2">Enter your email to save jobs and get alerts</p>
-            <div className="flex flex-col gap-2">
+          <div className="max-w-md mx-auto mb-8">
+            <p className="text-base font-semibold text-white mb-4">Enter your email to save jobs and get alerts</p>
+            <div className="flex flex-col gap-3">
               <input
                 id="emailInput"
                 type="email"
                 placeholder="Your email address"
-                className="px-4 py-2 rounded-lg text-gray-900"
+                className="px-4 py-3 rounded-lg text-gray-900"
               />
               <div className="flex gap-3">
                 <button 
@@ -103,28 +103,28 @@ export default function HeroSection() {
                 </button>
               </div>
             </div>
-            <p className="text-sm font-semibold text-blue-100 mt-2">
+            <p className="text-sm font-semibold text-blue-100 mt-4">
               ✨ Get exclusive remote job alerts and digital nomad deals
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
             <Link 
               href="/search"
-              className="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold text-base hover:bg-blue-50 transition-colors"
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold text-base hover:bg-blue-50 transition-colors"
             >
               Browse Remote Jobs
             </Link>
             <Link
               href="/career-paths"
-              className="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold text-base hover:bg-green-600 transition-colors"
+              className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold text-base hover:bg-green-600 transition-colors"
             >
               Explore Career Paths
             </Link>
             <Link
               href="/digital-nomad-toolkit"
-              className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-6 py-2 rounded-lg font-semibold text-base hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl animate-pulse"
+              className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-6 py-3 rounded-lg font-semibold text-base hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl animate-pulse"
             >
-              <Globe className="h-4 w-4" />
+              <Globe className="h-5 w-5" />
               Digital Nomad Tools
             </Link>
           </div>
