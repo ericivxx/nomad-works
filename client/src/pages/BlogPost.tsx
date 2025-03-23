@@ -56,10 +56,15 @@ export default function BlogPost() {
 
   // Scroll to top when the component mounts or slug changes
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant' // Use 'instant' instead of 'smooth' to avoid any transition
-    });
+    // Use timeout to ensure this happens after rendering is complete
+    const timeoutId = setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant' // Use 'instant' instead of 'smooth' to avoid any transition
+      });
+    }, 0);
+    
+    return () => clearTimeout(timeoutId);
   }, [slug]);
 
   const { data, isLoading, error } = useQuery<{ success: boolean; post: BlogPost }>({

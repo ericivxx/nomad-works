@@ -49,7 +49,14 @@ export default function Header() {
           <Link href="/career-paths" className={`font-medium ${location.startsWith('/career-paths') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Career Paths
           </Link>
-          <Link href="/blog" className={`font-medium ${location.startsWith('/blog') ? 'text-purple-700' : 'text-purple-600'} hover:text-purple-800 transition-colors flex items-center gap-1 relative`}>
+          <Link 
+            href="/blog" 
+            className={`font-medium ${location.startsWith('/blog') ? 'text-purple-700' : 'text-purple-600'} hover:text-purple-800 transition-colors flex items-center gap-1 relative`}
+            onClick={() => {
+              // Ensure scroll to top when navigating to blog pages
+              setTimeout(() => window.scrollTo(0, 0), 100);
+            }}
+          >
             <BookOpen className="h-4 w-4" />
             <span>Blog</span>
             <span className="absolute -top-1 -right-4 flex h-2 w-2">
@@ -97,7 +104,14 @@ export default function Header() {
           <Link href="/career-paths" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/career-paths') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Career Paths
           </Link>
-          <Link href="/blog" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/blog') ? 'bg-purple-100' : ''} text-purple-700 hover:bg-purple-50 flex items-center gap-2`}>
+          <Link 
+            href="/blog" 
+            className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/blog') ? 'bg-purple-100' : ''} text-purple-700 hover:bg-purple-50 flex items-center gap-2`}
+            onClick={() => {
+              // Ensure scroll to top when navigating to blog pages
+              setTimeout(() => window.scrollTo(0, 0), 100);
+            }}
+          >
             <BookOpen className="h-4 w-4" />
             <span className="relative">
               Blog
