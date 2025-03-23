@@ -4,7 +4,6 @@ import { apiRequest } from '@/lib/queryClient';
 import { Link } from 'wouter';
 import { format } from 'date-fns';
 
-import Layout from '@/components/Layout';
 import SEOHead from '@/components/SEOHead';
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -35,22 +34,28 @@ interface BlogPost {
   featured: boolean;
 }
 
+interface BlogResponse {
+  success: boolean;
+  posts: BlogPost[];
+  count: number;
+}
+
 export default function BlogListing() {
-  const { data, isLoading, error } = useQuery<{ success: boolean; posts: BlogPost[]; count: number }>({
+  const { data, isLoading, error } = useQuery<BlogResponse>({
     queryKey: ['/api/blog/posts'],
-    queryFn: () => apiRequest('/api/blog/posts')
+    queryFn: () => apiRequest<BlogResponse>('/api/blog/posts')
   });
 
-  const featuredPostsQuery = useQuery<{ success: boolean; posts: BlogPost[]; count: number }>({
+  const featuredPostsQuery = useQuery<BlogResponse>({
     queryKey: ['/api/blog/featured'],
-    queryFn: () => apiRequest('/api/blog/featured')
+    queryFn: () => apiRequest<BlogResponse>('/api/blog/featured')
   });
 
   const posts = data?.posts || [];
   const featuredPosts = featuredPostsQuery.data?.posts || [];
 
   return (
-    <Layout>
+    <>
       <SEOHead 
         title="The Digital Nomad Blog | NomadWorks" 
         description="Expert tips, guides, and resources for digital nomads and remote workers. Learn about the best gear, destinations, and strategies for location-independent work."
@@ -193,6 +198,6 @@ export default function BlogListing() {
           )}
         </section>
       </div>
-    </Layout>
+    </>
   );
 }
