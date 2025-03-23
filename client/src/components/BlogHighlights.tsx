@@ -57,31 +57,31 @@ export default function BlogHighlights() {
   };
 
   return (
-    <section className="py-12 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-2">
-            <PenTool className="h-5 w-5 text-purple-500" />
-            <h2 className="text-2xl font-bold tracking-tight">Nomad Blog</h2>
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center gap-3">
+            <PenTool className="h-6 w-6 text-purple-500" />
+            <h2 className="text-3xl font-bold tracking-tight">Nomad Blog</h2>
           </div>
           
           <Link href="/blog">
-            <Button variant="link" className="gap-1 text-purple-600 hover:text-purple-700">
-              View all posts <ChevronRight className="h-4 w-4" />
+            <Button variant="link" className="gap-2 text-purple-600 hover:text-purple-700 text-base">
+              View all posts <ChevronRight className="h-5 w-5" />
             </Button>
           </Link>
         </div>
         
-        <div className="relative mb-12">
+        <div className="relative mb-16">
           <div className="absolute -top-4 -left-4 lg:-top-6 lg:-left-6">
-            <Badge variant="outline" className="bg-purple-100 text-purple-700 border-purple-200 px-3 py-1.5 text-xs font-medium rounded-full flex items-center gap-1.5 rotate-[-3deg] shadow-sm">
-              <Sparkles className="h-3.5 w-3.5" />
+            <Badge variant="outline" className="bg-purple-100 text-purple-700 border-purple-200 px-4 py-2 text-sm font-medium rounded-full flex items-center gap-2 rotate-[-3deg] shadow-sm">
+              <Sparkles className="h-4 w-4" />
               <span>Tips, Gear Reviews & Special Deals</span>
             </Badge>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {isLoading ? (
             // Skeleton loaders while fetching data
             Array(3).fill(0).map((_, index) => (
@@ -105,8 +105,8 @@ export default function BlogHighlights() {
             // Render actual blog posts
             featuredPosts?.posts.map((post) => (
               <Link key={post.id} href={`/blog/post/${post.slug}`}>
-                <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col cursor-pointer">
-                  <div className="relative h-48 overflow-hidden bg-gray-100">
+                <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-lg transition-shadow h-full flex flex-col cursor-pointer">
+                  <div className="relative h-56 overflow-hidden bg-gray-100">
                     {post.coverImage ? (
                       <img 
                         src={post.coverImage} 
@@ -115,53 +115,53 @@ export default function BlogHighlights() {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-gradient-to-r from-purple-100 to-blue-100">
-                        <PenTool className="h-10 w-10 text-purple-300" />
+                        <PenTool className="h-12 w-12 text-purple-300" />
                       </div>
                     )}
                     
                     {post.featured && (
-                      <div className="absolute top-3 right-3">
-                        <Badge className="bg-amber-500 text-white border-0">
+                      <div className="absolute top-4 right-4">
+                        <Badge className="bg-amber-500 text-white border-0 px-3 py-1.5 text-sm font-medium">
                           Featured
                         </Badge>
                       </div>
                     )}
                     
                     {post.category && (
-                      <div className="absolute bottom-3 left-3">
-                        <Badge variant="outline" className="bg-white/80 backdrop-blur-sm border-0">
+                      <div className="absolute bottom-4 left-4">
+                        <Badge variant="outline" className="bg-white/80 backdrop-blur-sm border-0 text-sm px-3 py-1">
                           {post.category.name}
                         </Badge>
                       </div>
                     )}
                   </div>
                   
-                  <CardHeader className="pb-2">
-                    <div className="flex justify-between items-center mb-1">
-                      <p className="text-xs text-gray-500">
+                  <CardHeader className="pb-2 pt-5">
+                    <div className="flex justify-between items-center mb-2">
+                      <p className="text-sm text-gray-500">
                         {formatDate(post.publishedAt)}
                       </p>
-                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-100 text-xs">
+                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-100 text-sm px-3 py-1">
                         Gear Guide
                       </Badge>
                     </div>
-                    <CardTitle className="text-lg font-bold line-clamp-2">{post.title}</CardTitle>
+                    <CardTitle className="text-xl font-bold line-clamp-2 mb-1">{post.title}</CardTitle>
                   </CardHeader>
                   
-                  <CardContent className="pb-4 flex-grow">
-                    <CardDescription className="text-sm text-gray-600 line-clamp-3">
+                  <CardContent className="pb-6 flex-grow">
+                    <CardDescription className="text-base text-gray-600 line-clamp-3">
                       {post.excerpt}
                     </CardDescription>
                   </CardContent>
                   
-                  <CardFooter className="pt-0 border-t border-gray-100 flex justify-between items-center">
+                  <CardFooter className="pt-4 pb-5 border-t border-gray-100 flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                      <div className="bg-purple-100 text-purple-600 p-1 rounded-full">
-                        <ExternalLink className="h-3.5 w-3.5" />
+                      <div className="bg-purple-100 text-purple-600 p-1.5 rounded-full">
+                        <ExternalLink className="h-4 w-4" />
                       </div>
-                      <span className="text-xs text-purple-600 font-medium">Special Deals</span>
+                      <span className="text-sm text-purple-600 font-medium">Special Deals</span>
                     </div>
-                    <Button variant="ghost" size="sm" className="text-sm">
+                    <Button variant="ghost" size="sm" className="text-sm font-medium hover:bg-purple-50">
                       Read more
                     </Button>
                   </CardFooter>
