@@ -1297,6 +1297,40 @@ What's your essential piece of mobile office equipment? Let us know in the comme
       timezone: "UTC -8 to -4",
       experienceLevel: "senior"
     }, [leadershipSkill.id, teamManagementSkill.id, strategySkill.id, projectManagementSkill.id]);
+    
+    // Add a Junior Developer job to match Career Path search
+    const job8 = this.seedJob({
+      title: "Junior Developer",
+      slug: "junior-developer",
+      description: "Looking for a Junior Developer to join our remote team. This is an entry-level position perfect for those with a solid foundation in web development fundamentals. You'll work on real-world projects with mentoring from senior developers.",
+      companyId: worldStackCompany.id,
+      categoryId: developmentCategory.id,
+      locationId: worldwideLocation.id,
+      type: "full-time",
+      salaryMin: 55000,
+      salaryMax: 70000,
+      featured: false,
+      postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+      timezone: "Flexible",
+      experienceLevel: "entry"
+    }, [reactSkill.id, typescriptSkill.id, cssSkill.id, problemSolvingSkill.id]);
+    
+    // Add a Mid-Level Developer job to match Career Path search
+    const job9 = this.seedJob({
+      title: "Mid-Level Developer",
+      slug: "mid-level-developer",
+      description: "Seeking an experienced Mid-Level Developer to join our growing remote team. You'll be responsible for implementing complex features, optimizing code performance, and collaborating with other team members on various projects.",
+      companyId: techCorpCompany.id,
+      categoryId: developmentCategory.id,
+      locationId: euLocation.id,
+      type: "full-time",
+      salaryMin: 80000,
+      salaryMax: 105000,
+      featured: false,
+      postedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+      timezone: "UTC +0 to +3",
+      experienceLevel: "mid"
+    }, [reactSkill.id, typescriptSkill.id, reduxSkill.id, communicationSkill.id]);
   }
   
   private seedCategory(name: string, slug: string): Category {
