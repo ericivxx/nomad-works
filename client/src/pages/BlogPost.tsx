@@ -160,7 +160,7 @@ export default function BlogPost() {
         type="article"
       />
 
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Category and date */}
           <div className="flex items-center mb-4 text-sm text-gray-500">

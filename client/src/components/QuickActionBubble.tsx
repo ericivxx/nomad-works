@@ -50,7 +50,7 @@ export default function QuickActionBubble() {
   };
   
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2 pb-6 mb-4">
       {/* Expanded action buttons - only shown when open */}
       {open && (
         <div className="flex flex-col gap-2 items-end mb-2 animate-in fade-in-50 slide-in-from-right-5 duration-300">
