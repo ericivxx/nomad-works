@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#f8f9fa"/>
+  <g transform="translate(30, 30)">
+    <!-- Portable Monitor -->
+    <rect x="10" y="10" width="120" height="80" rx="2" fill="#333" stroke="#000"/>
+    <rect x="15" y="15" width="110" height="70" rx="1" fill="#80b4e6"/>
+    <!-- Stand -->
+    <path d="M60,90 L80,90 L90,110 L50,110 Z" fill="#555"/>
+    <rect x="45" y="110" width="50" height="5" rx="1" fill="#444"/>
+  </g>
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Portable Monitor</text>
+</svg>

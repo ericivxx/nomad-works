@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#f8f9fa"/>
+  <g transform="translate(40, 40)">
+    <!-- Travel Adapter Body -->
+    <rect x="20" y="20" width="80" height="70" rx="4" fill="#f5f5f5" stroke="#ddd"/>
+    <!-- Plug Prongs -->
+    <rect x="35" y="10" width="10" height="20" rx="2" fill="#ccc" stroke="#bbb"/>
+    <rect x="75" y="10" width="10" height="20" rx="2" fill="#ccc" stroke="#bbb"/>
+    <!-- Socket -->
+    <circle cx="60" cy="55" r="15" fill="#eee" stroke="#ddd"/>
+    <circle cx="60" cy="55" r="10" fill="#f9f9f9"/>
+    <rect x="55" y="45" width="10" height="20" rx="2" fill="#ddd"/>
+    <!-- USB Ports -->
+    <rect x="30" y="80" width="20" height="10" rx="1" fill="#333"/>
+    <rect x="60" y="80" width="20" height="10" rx="1" fill="#333"/>
+  </g>
+  <text x="100" y="160" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Travel Adapter</text>
+</svg>
