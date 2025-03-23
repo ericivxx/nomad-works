@@ -41,7 +41,7 @@ interface BlogResponse {
 }
 
 export default function BlogListing() {
-  const { data, isLoading, error } = useQuery<BlogResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['/api/blog/posts'],
     queryFn: async () => {
       const response = await apiRequest<BlogResponse>('/api/blog/posts');
@@ -52,7 +52,7 @@ export default function BlogListing() {
     }
   });
 
-  const featuredPostsQuery = useQuery<BlogResponse>({
+  const featuredPostsQuery = useQuery({
     queryKey: ['/api/blog/featured'],
     queryFn: async () => {
       const response = await apiRequest<BlogResponse>('/api/blog/featured');
@@ -176,7 +176,7 @@ export default function BlogListing() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-              {posts.map(post => (
+              {posts.map((post: BlogPost) => (
                 <Link key={post.id} href={`/blog/post/${post.slug}`} className="block">
                   <Card className="overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                     <div className="h-52 md:h-56">
