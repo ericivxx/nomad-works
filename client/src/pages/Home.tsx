@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/HeroSection";
-import { Rss, BookOpen } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -55,13 +55,7 @@ export default function Home() {
         </div>
       </div>
       
-      {/* RSS Feed Promotion */}
-      <div className="bg-gray-50 py-3 px-4 text-center mt-12">
-        <a href="/rss" className="text-sm text-gray-600 hover:text-purple-600 inline-flex items-center gap-1 transition-colors">
-          <Rss className="h-3.5 w-3.5" />
-          <span>Subscribe to our RSS feed for the latest remote work tips and tools</span>
-        </a>
-      </div>
+
     </div>
   );
 }
