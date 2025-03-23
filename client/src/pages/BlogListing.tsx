@@ -43,12 +43,24 @@ interface BlogResponse {
 export default function BlogListing() {
   const { data, isLoading, error } = useQuery<BlogResponse>({
     queryKey: ['/api/blog/posts'],
-    queryFn: () => apiRequest<BlogResponse>('/api/blog/posts')
+    queryFn: async () => {
+      const response = await apiRequest<BlogResponse>('/api/blog/posts');
+      if (!response) {
+        throw new Error('Failed to fetch blog posts');
+      }
+      return response;
+    }
   });
 
   const featuredPostsQuery = useQuery<BlogResponse>({
     queryKey: ['/api/blog/featured'],
-    queryFn: () => apiRequest<BlogResponse>('/api/blog/featured')
+    queryFn: async () => {
+      const response = await apiRequest<BlogResponse>('/api/blog/featured');
+      if (!response) {
+        throw new Error('Failed to fetch featured posts');
+      }
+      return response;
+    }
   });
 
   const posts = data?.posts || [];
@@ -77,7 +89,7 @@ export default function BlogListing() {
           <section className="mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-8 border-b pb-3 border-gray-100">Featured Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-              {featuredPosts.map(post => (
+              {featuredPosts.map((post: BlogPost) => (
                 <Card key={post.id} className="overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow">
                   <div className="relative h-52 md:h-56">
                     {post.coverImage ? (
