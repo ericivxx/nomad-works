@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/HeroSection";
+import BlogHighlights from "@/components/BlogHighlights";
 import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -28,25 +29,25 @@ export default function Home() {
         structuredData={structuredData}
       />
       
-      {/* Top section with hero and blog preview */}
-      <div className="relative">
+      {/* Hero section */}
+      <div className="relative mb-16 md:mb-24">
         <HeroSection />
         
         {/* Floating Blog Preview Teaser - appears on top of hero */}
         <div className="absolute bottom-0 left-0 right-0 transform translate-y-1/2 z-10 pointer-events-none">
           <div className="container mx-auto px-4 pointer-events-auto">
             <Link href="/blog" className="block">
-              <div className="bg-white rounded-xl shadow-xl border border-purple-100 p-4 flex items-center justify-between transition-all duration-200 hover:bg-purple-50 hover:shadow-2xl hover:scale-[1.01]">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-purple-600 flex items-center justify-center">
-                    <BookOpen className="h-5 w-5 text-white" />
+              <div className="bg-white rounded-xl shadow-xl border border-purple-100 p-5 flex items-center justify-between transition-all duration-200 hover:bg-purple-50 hover:shadow-2xl hover:scale-[1.01]">
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-full bg-purple-600 flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-purple-700">Nomad Blog</h3>
-                    <p className="text-sm text-gray-600">Tips, gear reviews, and special deals</p>
+                    <h3 className="font-bold text-lg text-purple-700">Nomad Blog</h3>
+                    <p className="text-gray-600">Tips, gear reviews, and special deals</p>
                   </div>
                 </div>
-                <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white">
+                <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white">
                   Read Blog
                 </Button>
               </div>
@@ -55,7 +56,8 @@ export default function Home() {
         </div>
       </div>
       
-
+      {/* Blog Highlights Section */}
+      <BlogHighlights />
     </div>
   );
 }
