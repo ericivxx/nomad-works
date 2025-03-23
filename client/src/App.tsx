@@ -23,6 +23,8 @@ import Login from "@/pages/Login";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ResetPassword from "@/pages/ResetPassword";
 import AdminPanel from "@/pages/AdminPanel";
+import BlogListing from "@/pages/BlogListing";
+import BlogPost from "@/pages/BlogPost";
 import AuthGateway from "@/components/AuthGateway";
 import { useUser } from "@/contexts/UserContext";
 import { useEffect } from "react";
@@ -61,6 +63,8 @@ function Router() {
         <Route path="/keywords/:keyword" component={KeywordLandingPage} />
         <Route path="/sitemap" component={SitemapPage} />
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
+        <Route path="/blog" component={BlogListing} />
+        <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/profile" component={Profile} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />

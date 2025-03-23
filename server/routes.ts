@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import authRoutes from "./api/auth";
 import adminRoutes from "./api/admin";
+import blogRoutes from "./api/blog";
 import { jobProviderManager } from "./api/jobProviders";
 import { getBrandAssets, getBestLogo, getBrandPrimaryColor } from "./api/brandfetch";
 
@@ -12,6 +13,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Admin Routes
   app.use("/api/admin", adminRoutes);
+  
+  // Blog Routes
+  app.use(blogRoutes);
   
   // Saved Jobs API
   app.get("/api/saved-jobs", async (req: Request, res: Response) => {
