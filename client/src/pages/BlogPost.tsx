@@ -228,19 +228,26 @@ export default function BlogPost() {
                   <Card key={link.id} className="overflow-hidden flex flex-col h-full">
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
-                        {link.productImage && (
-                          <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                        <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                          {link.productImage ? (
                             <img 
                               src={link.productImage} 
                               alt={link.title} 
                               className="w-auto h-auto max-w-full max-h-full object-contain"
                               onError={(e) => {
-                                // If image fails to load, set a default image or hide
-                                (e.target as HTMLImageElement).src = 'https://placehold.co/96x96?text=Product';
+                                // If image fails to load, set a default image
+                                (e.target as HTMLImageElement).src = '/product-placeholder.svg';
                               }}
                             />
-                          </div>
-                        )}
+                          ) : (
+                            // Default placeholder when no image is provided
+                            <img 
+                              src="/product-placeholder.svg" 
+                              alt="Product placeholder" 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                        </div>
                         <div className="flex-1">
                           <h3 className="font-bold">{link.title}</h3>
                           {link.description && (
