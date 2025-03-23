@@ -54,6 +54,14 @@ export default function BlogPost() {
   const [, params] = useRoute('/blog/post/:slug');
   const slug = params?.slug;
 
+  // Scroll to top when the component mounts or slug changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant' // Use 'instant' instead of 'smooth' to avoid any transition
+    });
+  }, [slug]);
+
   const { data, isLoading, error } = useQuery<{ success: boolean; post: BlogPost }>({
     queryKey: ['/api/blog/post', slug],
     queryFn: async () => {
