@@ -58,6 +58,26 @@ export interface IStorage {
   createPasswordResetToken(email: string): Promise<string | null>;
   validatePasswordResetToken(token: string): Promise<number | null>;
   resetPassword(userId: number, newPassword: string): Promise<boolean>;
+  
+  // Blog Posts
+  getAllBlogPosts(): Promise<BlogPostWithRelations[]>;
+  getFeaturedBlogPosts(limit?: number): Promise<BlogPostWithRelations[]>;
+  getBlogPostsByCategory(categorySlug: string): Promise<BlogPostWithRelations[]>;
+  getBlogPostBySlug(slug: string): Promise<BlogPostWithRelations | undefined>;
+  createBlogPost(blogPost: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: number, blogPost: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
+  deleteBlogPost(id: number): Promise<boolean>;
+  getBlogPostCount(): Promise<number>;
+  
+  // Affiliate Links
+  getAllAffiliateLinks(): Promise<AffiliateLink[]>;
+  getAffiliateLinkById(id: number): Promise<AffiliateLink | undefined>;
+  createAffiliateLink(affiliateLink: InsertAffiliateLink): Promise<AffiliateLink>;
+  updateAffiliateLink(id: number, affiliateLink: Partial<InsertAffiliateLink>): Promise<AffiliateLink | undefined>;
+  deleteAffiliateLink(id: number): Promise<boolean>;
+  getAffiliateLinksByBlogPost(blogPostId: number): Promise<AffiliateLink[]>;
+  addAffiliateLinkToBlogPost(blogPostId: number, affiliateLinkId: number): Promise<boolean>;
+  removeAffiliateLinkFromBlogPost(blogPostId: number, affiliateLinkId: number): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -75,6 +95,9 @@ export class MemStorage implements IStorage {
   private currentLocationId = 1;
   private currentSkillId = 1;
   private currentUserId = 1;
+  private currentBlogPostId = 1;
+  private currentAffiliateLinkId = 1;
+  private currentBlogPostAffiliateLinkId = 1;
   
   // File to persist user data
   private readonly USER_DATA_FILE = 'user_data.json';
