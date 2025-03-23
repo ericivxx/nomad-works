@@ -8,10 +8,10 @@ export default function HeroSection() {
   const { register } = useUser();
   const [formState, setFormState] = useState({ status: '', message: '' });
   return (
-    <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-14 md:py-20 lg:py-28">
+    <section className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
             Join the Thousands of Digital Nomads Already Living Their Dream Life!
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-6 md:mb-8">
@@ -24,7 +24,7 @@ export default function HeroSection() {
                 id="emailInput"
                 type="email"
                 placeholder="Your email address"
-                className="px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-gray-900 w-full"
+                className="px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-gray-900 w-full shadow-sm"
               />
               <div className="flex gap-3">
                 <button 
@@ -97,7 +97,7 @@ export default function HeroSection() {
                       }
                     }
                   }}
-                  className="flex-1 bg-amber-500 hover:bg-amber-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-colors"
+                  className="flex-1 bg-amber-500 hover:bg-amber-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-colors shadow-sm"
                 >
                   Continue
                 </button>
@@ -110,19 +110,19 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6 md:mt-8">
             <Link 
               href="/search"
-              className="bg-white text-blue-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-blue-50 transition-colors"
+              className="bg-white text-blue-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-blue-50 transition-colors shadow-sm"
             >
               Browse Remote Jobs
             </Link>
             <Link
               href="/career-paths"
-              className="bg-green-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-green-600 transition-colors"
+              className="bg-green-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-green-600 transition-colors shadow-sm"
             >
               Explore Career Paths
             </Link>
             <Link
               href="/digital-nomad-toolkit"
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:from-amber-500 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl"
+              className="flex items-center justify-center gap-1.5 md:gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:from-amber-500 hover:to-amber-600 transition-all shadow-md hover:shadow-lg"
             >
               <Globe className="h-4 w-4 md:h-5 md:w-5" />
               <span className="whitespace-nowrap">Nomad Tools</span>
