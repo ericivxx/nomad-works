@@ -61,7 +61,7 @@ export default function BlogListing() {
         description="Expert tips, guides, and resources for digital nomads and remote workers. Learn about the best gear, destinations, and strategies for location-independent work."
       />
 
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-16 px-4 md:px-6">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Nomad Blog</h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto">
@@ -73,7 +73,7 @@ export default function BlogListing() {
         {featuredPosts.length > 0 && (
           <section className="mb-16">
             <h2 className="text-2xl font-bold mb-6">Featured Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {featuredPosts.map(post => (
                 <Card key={post.id} className="overflow-hidden flex flex-col h-full">
                   <div className="relative h-48">
@@ -129,7 +129,7 @@ export default function BlogListing() {
           <h2 className="text-2xl font-bold mb-6">Latest Articles</h2>
           
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {[1, 2, 3, 4, 5, 6].map(i => (
                 <Card key={i} className="overflow-hidden">
                   <div className="h-48 bg-gray-200 animate-pulse"></div>
@@ -150,7 +150,7 @@ export default function BlogListing() {
               <p className="text-gray-500">No blog posts found.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {posts.map(post => (
                 <Card key={post.id} className="overflow-hidden flex flex-col h-full">
                   <div className="h-48">
