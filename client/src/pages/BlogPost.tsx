@@ -234,11 +234,23 @@ export default function BlogPost() {
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
                         <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                          <img 
-                            src="/product-placeholder.svg" 
-                            alt={link.title || "Product"} 
-                            className="w-auto h-auto max-w-full max-h-full object-contain"
-                          />
+                          {link.productImage ? (
+                            <img 
+                              src={link.productImage} 
+                              alt={link.title || "Product"} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                              onError={(e) => {
+                                // If image fails to load, fallback to placeholder
+                                (e.target as HTMLImageElement).src = "/product-placeholder.svg";
+                              }}
+                            />
+                          ) : (
+                            <img 
+                              src="/product-placeholder.svg" 
+                              alt={link.title || "Product"} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
                         </div>
                         <div className="flex-1">
                           <h3 className="font-bold">{link.title}</h3>
