@@ -305,20 +305,46 @@ export class MemStorage implements IStorage {
     const searchResults: JobWithRelations[] = [];
     
     for (const job of this.jobsData.values()) {
-      if (
-        job.title.toLowerCase().includes(lowerQuery) ||
-        job.description.toLowerCase().includes(lowerQuery)
-      ) {
+      // Extract job title for better matching
+      const jobTitle = job.title.toLowerCase();
+      const jobDesc = job.description.toLowerCase();
+      
+      // Check for exact matches first
+      const isExactMatch = 
+        jobTitle === lowerQuery || 
+        jobTitle.startsWith(lowerQuery + ' ') || 
+        jobTitle.endsWith(' ' + lowerQuery) ||
+        // Check for role titles like "software developer", "backend developer", etc.
+        jobTitle.includes(lowerQuery);
+
+      // Also check for partial matches in title or description
+      const isPartialMatch =
+        jobTitle.includes(lowerQuery) ||
+        jobDesc.includes(lowerQuery);
+        
+      if (isExactMatch || isPartialMatch) {
         const jobWithRelations = this.buildJobWithRelations(job);
         if (jobWithRelations) {
-          searchResults.push(jobWithRelations);
+          // Give higher priority to exact matches
+          searchResults.push({
+            ...jobWithRelations,
+            // Add a priority flag that we'll use for sorting
+            _searchPriority: isExactMatch ? 2 : 1
+          });
         }
       }
     }
     
-    return searchResults.sort((a, b) => {
+    return searchResults.sort((a: any, b: any) => {
+      // First sort by search priority (exact matches first)
+      if ((a._searchPriority || 0) > (b._searchPriority || 0)) return -1;
+      if ((a._searchPriority || 0) < (b._searchPriority || 0)) return 1;
+      
+      // Then sort by featured status
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
+      
+      // Then sort by date
       return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime();
     });
   }

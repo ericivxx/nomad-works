@@ -3,7 +3,6 @@ import { useRoute } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 
-import Layout from '@/components/Layout';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -71,32 +70,28 @@ export default function BlogPost() {
 
   if (isLoading) {
     return (
-      <Layout>
-        <div className="container mx-auto py-8">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/4 mb-10"></div>
-            <div className="h-64 bg-gray-200 rounded w-full mb-6"></div>
-            <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-            <div className="h-4 bg-gray-200 rounded w-5/6 mb-2"></div>
-          </div>
+      <div className="container mx-auto py-8">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/4 mb-10"></div>
+          <div className="h-64 bg-gray-200 rounded w-full mb-6"></div>
+          <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6 mb-2"></div>
         </div>
-      </Layout>
+      </div>
     );
   }
 
   if (error || !post) {
     return (
-      <Layout>
-        <div className="container mx-auto py-8">
-          <h1 className="text-3xl font-bold mb-4">Blog Post Not Found</h1>
-          <p>Sorry, the blog post you're looking for could not be found.</p>
-          <Button className="mt-4" asChild>
-            <a href="/blog">Return to Blog</a>
-          </Button>
-        </div>
-      </Layout>
+      <div className="container mx-auto py-8">
+        <h1 className="text-3xl font-bold mb-4">Blog Post Not Found</h1>
+        <p>Sorry, the blog post you're looking for could not be found.</p>
+        <Button className="mt-4" asChild>
+          <a href="/blog">Return to Blog</a>
+        </Button>
+      </div>
     );
   }
 
