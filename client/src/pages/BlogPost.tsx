@@ -231,18 +231,14 @@ export default function BlogPost() {
                         <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
                           {link.productImage ? (
                             <img 
-                              src={link.productImage} 
+                              src={window.location.origin + '/product-placeholder.svg'} 
                               alt={link.title} 
                               className="w-auto h-auto max-w-full max-h-full object-contain"
-                              onError={(e) => {
-                                // If image fails to load, set a default image
-                                (e.target as HTMLImageElement).src = '/product-placeholder.svg';
-                              }}
                             />
                           ) : (
                             // Default placeholder when no image is provided
                             <img 
-                              src="/product-placeholder.svg" 
+                              src={window.location.origin + '/product-placeholder.svg'} 
                               alt="Product placeholder" 
                               className="w-auto h-auto max-w-full max-h-full object-contain"
                             />
