@@ -66,7 +66,7 @@ function Router() {
         <Route path="/digital-nomad-toolkit" component={DigitalNomadToolkit} />
         <Route path="/career-paths" component={CareerPathVisualization} />
         <Route path="/blog" component={BlogListing} />
-        <Route path="/blog/:slug" component={BlogPost} />
+        <Route path="/blog/post/:slug" component={BlogPost} />
         <Route path="/profile" component={Profile} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
