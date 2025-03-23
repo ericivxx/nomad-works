@@ -5,8 +5,10 @@ import HeroSection from "@/components/HeroSection";
 import BlogHighlights from "@/components/BlogHighlights";
 import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Home() {
+  const isMobile = useIsMobile();
   // SEO structured data for the homepage
   const structuredData = {
     "@context": "https://schema.org",
@@ -56,8 +58,8 @@ export default function Home() {
         </div>
       </div>
       
-      {/* Blog Highlights */}
-      <BlogHighlights />
+      {/* Only show Blog Highlights on desktop */}
+      {!isMobile && <BlogHighlights />}
     </>
   );
 }
