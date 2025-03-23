@@ -106,7 +106,7 @@ export default function QuickActionBubble() {
           >
             <Link href="/blog">
               <BookOpen className="h-4 w-4 text-white" /> 
-              <span className="whitespace-nowrap font-semibold">Blog & Resources</span>
+              <span className="whitespace-nowrap font-semibold">Nomad Blog</span>
             </Link>
           </Button>
           
