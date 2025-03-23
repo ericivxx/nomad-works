@@ -21,7 +21,13 @@ export default function Newsletter() {
     setIsSubmitting(true);
     
     try {
-      await apiRequest("POST", "/api/newsletter", { email });
+      await apiRequest("/api/newsletter", { 
+        method: "POST", 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email }) 
+      });
       
       toast({
         title: "Success!",
