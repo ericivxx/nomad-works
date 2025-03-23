@@ -161,7 +161,7 @@ export default function BlogPost() {
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt}
         canonicalUrl={`${window.location.origin}/blog/${post.slug}`}
-        image={post.coverImage || undefined}
+        image={post.coverImage ? `${window.location.origin}${post.coverImage}` : undefined}
         type="article"
       />
 
@@ -201,7 +201,7 @@ export default function BlogPost() {
           {post.coverImage && (
             <div className="mb-8">
               <img 
-                src={post.coverImage} 
+                src={window.location.origin + post.coverImage} 
                 alt={post.title} 
                 className="w-full h-auto rounded-lg object-cover"
                 style={{ maxHeight: '500px' }}
