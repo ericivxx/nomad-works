@@ -82,13 +82,17 @@ export default function QuickActionBubble() {
           <Button
             size="sm"
             variant="secondary"
-            className="rounded-full px-4 py-2 shadow-md flex items-center gap-2 bg-white text-blue-600 border border-blue-100 hover:bg-blue-50"
+            className="rounded-full px-4 py-2 shadow-md flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white border border-indigo-300 hover:from-purple-600 hover:to-indigo-600 relative"
             onClick={() => { setOpen(false); }}
             asChild
           >
             <Link href="/digital-nomad-toolkit">
-              <CompassIcon className="h-4 w-4" /> 
-              <span className="whitespace-nowrap">Nomad Toolkit</span>
+              <span className="absolute -right-1 -top-1 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-yellow-300"></span>
+              </span>
+              <CompassIcon className="h-4 w-4 text-white" /> 
+              <span className="whitespace-nowrap font-semibold">Nomad Toolkit</span>
             </Link>
           </Button>
           
@@ -123,14 +127,20 @@ export default function QuickActionBubble() {
         variant="default"
         size="icon"
         className={cn(
-          "h-14 w-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 bg-gradient-to-r",
+          "h-14 w-14 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 bg-gradient-to-r border-2",
           open 
-            ? "from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600" 
-            : "from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700",
+            ? "from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 border-orange-300" 
+            : "from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 border-indigo-300",
           showScrollTop && !open ? "animate-bounce" : ""
         )}
         onClick={() => setOpen(!open)}
       >
+        {!open && (
+          <span className="absolute -right-1 -top-1 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-300"></span>
+          </span>
+        )}
         {open ? (
           <X className="h-6 w-6 text-white" />
         ) : (
