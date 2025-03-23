@@ -234,17 +234,79 @@ export default function BlogPost() {
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
                         <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                          {link.productImage ? (
+                          {link.title === "AirPods (Noise-Canceling)" && (
                             <img 
-                              src={link.productImage} 
-                              alt={link.title || "Product"} 
+                              src="/airpods.jpg" 
+                              alt={link.title} 
                               className="w-auto h-auto max-w-full max-h-full object-contain"
-                              onError={(e) => {
-                                // If image fails to load, fallback to placeholder
-                                (e.target as HTMLImageElement).src = "/product-placeholder.svg";
-                              }}
                             />
-                          ) : (
+                          )}
+                          {link.title === "Global Travel Adapter" && (
+                            <img 
+                              src="/travel-adapter.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Single Portable Monitor" && (
+                            <img 
+                              src="/portable-monitor.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Power Bank (20,000mAh+)" && (
+                            <img 
+                              src="/power-bank.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Over-Ear Headphones" && (
+                            <img 
+                              src="/headphones.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Webcam with Privacy Shutter" && (
+                            <img 
+                              src="/webcam.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Laptop Stand" && (
+                            <img 
+                              src="/laptop-stand.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Triple Monitor Setup" && (
+                            <img 
+                              src="/triple-monitor.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "Lightweight Laptop under $1K" && (
+                            <img 
+                              src="/budget-laptop.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {link.title === "MacBook Air 13\"" && (
+                            <img 
+                              src="/macbook-air.jpg" 
+                              alt={link.title} 
+                              className="w-auto h-auto max-w-full max-h-full object-contain"
+                            />
+                          )}
+                          {!["AirPods (Noise-Canceling)", "Global Travel Adapter", "Single Portable Monitor", 
+                             "Power Bank (20,000mAh+)", "Over-Ear Headphones", "Webcam with Privacy Shutter",
+                             "Laptop Stand", "Triple Monitor Setup", "Lightweight Laptop under $1K", "MacBook Air 13\""].includes(link.title) && (
                             <img 
                               src="/product-placeholder.svg" 
                               alt={link.title || "Product"} 
