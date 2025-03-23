@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Newsletter from "./Newsletter";
 import ToolkitButton from "./ToolkitButton";
+import QuickActionBubble from "./QuickActionBubble";
 import { useLocation } from "wouter";
 
 interface LayoutProps {
@@ -10,12 +11,21 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const [location] = useLocation();
+  
+  // Determine if we should show Quick Action Bubble
+  // We may want to hide it on certain pages
+  const showQuickActions = !location.includes('/admin');
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 font-sans text-gray-800">
       <Header />
       {children}
       <Newsletter />
       <Footer />
+      
+      {/* Quick Action Floating Navigation Bubble */}
+      {showQuickActions && <QuickActionBubble />}
     </div>
   );
 }
