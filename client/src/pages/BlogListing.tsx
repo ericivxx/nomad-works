@@ -165,47 +165,49 @@ export default function BlogListing() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {posts.map(post => (
-                <Card key={post.id} className="overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow">
-                  <div className="h-52 md:h-56">
-                    {post.coverImage ? (
-                      <img 
-                        src={window.location.origin + post.coverImage} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-400">No Image</span>
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="flex-grow p-5 md:p-6">
-                    <div className="flex items-center mb-3 text-sm text-gray-500">
-                      {post.category && (
-                        <Badge variant="outline" className="mr-3 px-2.5 py-0.5">
-                          {post.category.name}
-                        </Badge>
+                <Link key={post.id} href={`/blog/post/${post.slug}`} className="block">
+                  <Card className="overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                    <div className="h-52 md:h-56">
+                      {post.coverImage ? (
+                        <img 
+                          src={window.location.origin + post.coverImage} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                          <span className="text-gray-400">No Image</span>
+                        </div>
                       )}
-                      <div className="flex items-center">
-                        <CalendarIcon className="w-4 h-4 mr-1.5" />
-                        <span>{format(new Date(post.publishedAt), 'MMM d, yyyy')}</span>
+                    </div>
+                    <CardContent className="flex-grow p-5 md:p-6">
+                      <div className="flex items-center mb-3 text-sm text-gray-500">
+                        {post.category && (
+                          <Badge variant="outline" className="mr-3 px-2.5 py-0.5">
+                            {post.category.name}
+                          </Badge>
+                        )}
+                        <div className="flex items-center">
+                          <CalendarIcon className="w-4 h-4 mr-1.5" />
+                          <span>{format(new Date(post.publishedAt), 'MMM d, yyyy')}</span>
+                        </div>
                       </div>
-                    </div>
-                    <Link href={`/blog/post/${post.slug}`} className="hover:underline block">
-                      <CardTitle className="mb-3 text-xl md:text-2xl leading-tight">{post.title}</CardTitle>
-                    </Link>
-                    <p className="text-gray-600 line-clamp-2 mb-4 text-base">{post.excerpt}</p>
-                  </CardContent>
-                  <CardFooter className="pt-0 pb-5 px-5 md:px-6 border-t border-gray-100">
-                    <div className="flex items-center">
-                      <Avatar className="h-9 w-9">
-                        <AvatarImage src={`https://ui-avatars.com/api/?name=${encodeURIComponent(post.author.fullName || 'Unknown')}`} />
-                        <AvatarFallback>{(post.author.fullName || 'U')[0]}</AvatarFallback>
-                      </Avatar>
-                      <span className="ml-2.5 text-sm font-medium text-gray-700">{post.author.fullName || 'Anonymous'}</span>
-                    </div>
-                  </CardFooter>
-                </Card>
+                      <div className="group">
+                        <CardTitle className="mb-3 text-xl md:text-2xl leading-tight group-hover:text-purple-600 transition-colors">{post.title}</CardTitle>
+                      </div>
+                      <p className="text-gray-600 line-clamp-2 mb-4 text-base">{post.excerpt}</p>
+                    </CardContent>
+                    <CardFooter className="pt-0 pb-5 px-5 md:px-6 border-t border-gray-100">
+                      <div className="flex items-center">
+                        <Avatar className="h-9 w-9">
+                          <AvatarImage src={`https://ui-avatars.com/api/?name=${encodeURIComponent(post.author.fullName || 'Unknown')}`} />
+                          <AvatarFallback>{(post.author.fullName || 'U')[0]}</AvatarFallback>
+                        </Avatar>
+                        <span className="ml-2.5 text-sm font-medium text-gray-700">{post.author.fullName || 'Anonymous'}</span>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </Link>
               ))}
             </div>
           )}
