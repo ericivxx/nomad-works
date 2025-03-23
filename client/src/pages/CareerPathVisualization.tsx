@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { Link } from 'wouter';
 
-import Layout from '@/components/Layout';
+// Removed Layout import - using Layout from App.tsx
 import SEOHead from '@/components/SEOHead';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -357,7 +357,7 @@ export default function CareerPathVisualization() {
   };
 
   return (
-    <Layout>
+    <>
       <SEOHead 
         title="Interactive Career Paths for Digital Nomads | NomadWorks" 
         description="Explore potential career paths for remote workers and digital nomads. Find the right progression path for your skills and interests."
@@ -448,6 +448,6 @@ export default function CareerPathVisualization() {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }
