@@ -229,20 +229,11 @@ export default function BlogPost() {
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
                         <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                          {link.productImage ? (
-                            <img 
-                              src={window.location.origin + '/product-placeholder.svg'} 
-                              alt={link.title} 
-                              className="w-auto h-auto max-w-full max-h-full object-contain"
-                            />
-                          ) : (
-                            // Default placeholder when no image is provided
-                            <img 
-                              src={window.location.origin + '/product-placeholder.svg'} 
-                              alt="Product placeholder" 
-                              className="w-auto h-auto max-w-full max-h-full object-contain"
-                            />
-                          )}
+                          <img 
+                            src="/product-placeholder.svg" 
+                            alt={link.title || "Product"} 
+                            className="w-auto h-auto max-w-full max-h-full object-contain"
+                          />
                         </div>
                         <div className="flex-1">
                           <h3 className="font-bold">{link.title}</h3>
