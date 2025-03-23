@@ -985,8 +985,6 @@ export class MemStorage implements IStorage {
       slug: "ultimate-digital-nomad-mobile-office-setup",
       excerpt: "Build the perfect mobile workstation for your digital nomad lifestyle with our essential gear checklist - from laptops and monitors to noise-canceling headphones and power accessories.",
       content: `
-# The Ultimate Digital Nomad Mobile Office Setup
-
 As remote work continues to rise in popularity, more professionals are embracing the digital nomad lifestyle, working from anywhere in the world. But to be truly productive on the go, you need a reliable mobile office setup. Whether you're working from a café in Bali, a co-working space in Lisbon, or your Airbnb in Mexico City, having the right gear makes all the difference.
 
 ## Essential Gear for Your Mobile Office
