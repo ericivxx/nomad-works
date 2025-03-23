@@ -109,8 +109,16 @@ export default function BlogPost() {
       // Remove the first heading that duplicates the title
       content = content.replace(/^#\s+([^\n]+)(\n|$)/, ''); 
       
-      // Check if content contains remaining markdown formatting
-      const hasMarkdown = content.includes('#') || content.includes('**') || content.includes('__');
+      // Process bold text and other special formatting
+      const processParagraph = (text: string): string => {
+        // Process bold text
+        text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        // Process italic text
+        text = text.replace(/\_\_([^_]+)\_\_/g, '<em>$1</em>');
+        // Process links
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        return text;
+      };
       
       // Split into paragraphs and process
       content = content.split('\n\n').map((para: string) => {
@@ -119,26 +127,23 @@ export default function BlogPost() {
         
         // Format headings (lines starting with # or ##)
         if (para.startsWith('# ')) {
-          return `<h1>${para.substring(2)}</h1>`;
+          return `<h1>${processParagraph(para.substring(2))}</h1>`;
         } else if (para.startsWith('## ')) {
-          return `<h2>${para.substring(3)}</h2>`;
+          return `<h2>${processParagraph(para.substring(3))}</h2>`;
         } else if (para.startsWith('### ')) {
-          return `<h3>${para.substring(4)}</h3>`;
+          return `<h3>${processParagraph(para.substring(4))}</h3>`;
         } 
         
         // Format lists
         if (para.includes('\n- ')) {
           const listItems = para.split('\n- ');
           const firstLine = listItems.shift() || '';
-          const formattedList = `<ul>${listItems.map((item: string) => `<li>${item}</li>`).join('')}</ul>`;
-          return firstLine ? `<p>${firstLine}</p>${formattedList}` : formattedList;
+          const formattedList = `<ul>${listItems.map((item: string) => `<li>${processParagraph(item)}</li>`).join('')}</ul>`;
+          return firstLine ? `<p>${processParagraph(firstLine)}</p>${formattedList}` : formattedList;
         }
         
-        // Format links in paragraphs
-        para = para.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-        
-        // Standard paragraph
-        return `<p>${para}</p>`;
+        // Standard paragraph with formatting applied
+        return `<p>${processParagraph(para)}</p>`;
       }).join('');
     }
     
