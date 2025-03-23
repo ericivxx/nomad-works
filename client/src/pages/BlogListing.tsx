@@ -104,7 +104,7 @@ export default function BlogListing() {
                         <span>{format(new Date(post.publishedAt), 'MMM d, yyyy')}</span>
                       </div>
                     </div>
-                    <Link href={`/blog/${post.slug}`} className="hover:underline">
+                    <Link href={`/blog/post/${post.slug}`} className="hover:underline">
                       <CardTitle className="mb-2">{post.title}</CardTitle>
                     </Link>
                     <p className="text-gray-500 line-clamp-2">{post.excerpt}</p>
@@ -178,7 +178,7 @@ export default function BlogListing() {
                         <span>{format(new Date(post.publishedAt), 'MMM d, yyyy')}</span>
                       </div>
                     </div>
-                    <Link href={`/blog/${post.slug}`} className="hover:underline">
+                    <Link href={`/blog/post/${post.slug}`} className="hover:underline">
                       <CardTitle className="mb-2">{post.title}</CardTitle>
                     </Link>
                     <p className="text-gray-500 line-clamp-2">{post.excerpt}</p>
