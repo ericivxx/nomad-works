@@ -51,7 +51,7 @@ interface BlogPost {
 }
 
 export default function BlogPost() {
-  const [, params] = useRoute('/blog/:slug');
+  const [, params] = useRoute('/blog/post/:slug');
   const slug = params?.slug;
 
   const { data, isLoading, error } = useQuery<{ success: boolean; post: BlogPost }>({
@@ -155,7 +155,7 @@ export default function BlogPost() {
       <SEOHead 
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt}
-        canonicalUrl={`${window.location.origin}/blog/${post.slug}`}
+        canonicalUrl={`${window.location.origin}/blog/post/${post.slug}`}
         image={post.coverImage ? `${window.location.origin}${post.coverImage}` : undefined}
         type="article"
       />
