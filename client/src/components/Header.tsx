@@ -52,7 +52,7 @@ export default function Header() {
           <Link href="/nomad-guide" 
             className={`font-medium ${location.startsWith('/nomad-guide') ? 'bg-green-100 text-green-700 px-3 py-1 rounded-full' : 'text-green-600'} hover:text-green-800 transition-colors flex items-center gap-1`}>
             <span className="font-semibold">Guide</span>
-            <span className="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full font-medium">$29</span>
+            <span className="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full font-medium">$12.99</span>
           </Link>
           <Link 
             href="/blog" 
