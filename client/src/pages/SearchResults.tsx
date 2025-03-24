@@ -59,8 +59,8 @@ export default function SearchResults() {
   
   // Generate description for SEO
   const description = searchTerm 
-    ? `Find remote ${searchTerm} jobs for digital nomads. Browse remote positions for ${searchTerm} professionals worldwide.`
-    : "Discover remote jobs for digital nomads worldwide. Search thousands of remote positions in development, design, marketing, and more.";
+    ? `Find remote ${searchTerm} jobs for digital nomads. Browse hand-picked remote positions for ${searchTerm} professionals worldwide with detailed requirements and company information.`
+    : "Discover remote jobs for digital nomads worldwide. Search thousands of vetted remote positions in development, design, marketing, customer support, and more for location-independent professionals.";
 
   return (
     <>
