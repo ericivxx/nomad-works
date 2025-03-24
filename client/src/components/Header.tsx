@@ -49,6 +49,11 @@ export default function Header() {
           <Link href="/career-paths" className={`font-medium ${location.startsWith('/career-paths') ? 'text-gray-900' : 'text-gray-500'} hover:text-primary transition-colors`}>
             Career Paths
           </Link>
+          <Link href="/nomad-guide" 
+            className={`font-medium ${location.startsWith('/nomad-guide') ? 'bg-green-100 text-green-700 px-3 py-1 rounded-full' : 'text-green-600'} hover:text-green-800 transition-colors flex items-center gap-1`}>
+            <span className="font-semibold">Guide</span>
+            <span className="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full font-medium">$29</span>
+          </Link>
           <Link 
             href="/blog" 
             className={`font-medium ${location.startsWith('/blog') ? 'text-purple-700' : 'text-purple-600'} hover:text-purple-800 transition-colors flex items-center gap-1 relative`}
@@ -103,6 +108,10 @@ export default function Header() {
           </Link>
           <Link href="/career-paths" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/career-paths') ? 'text-gray-900 bg-gray-100' : 'text-gray-700 hover:bg-gray-100'}`}>
             Career Paths
+          </Link>
+          <Link href="/nomad-guide" className={`block px-3 py-2 rounded-md text-base font-medium ${location.startsWith('/nomad-guide') ? 'bg-green-100 text-green-700' : 'text-green-600 hover:bg-green-50'} flex items-center justify-between`}>
+            <span>Nomad Guide</span>
+            <span className="bg-green-100 text-green-700 text-xs px-1.5 py-0.5 rounded-full font-medium">$29</span>
           </Link>
           <Link 
             href="/blog" 

@@ -16,6 +16,7 @@ import SearchResults from "@/pages/SearchResults";
 import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
 import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
+import DigitalNomadGuide from "@/pages/DigitalNomadGuide"; 
 import CareerPathVisualization from "@/pages/CareerPathVisualization";
 import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";
@@ -127,6 +128,13 @@ function Router() {
         {() => (
           <Layout>
             <CareerPathVisualization />
+          </Layout>
+        )}
+      </Route>
+      <Route path="/nomad-guide">
+        {() => (
+          <Layout>
+            <DigitalNomadGuide />
           </Layout>
         )}
       </Route>
