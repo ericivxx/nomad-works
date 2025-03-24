@@ -62,11 +62,45 @@ export default function SearchResults() {
     ? `Find remote ${searchTerm} jobs for digital nomads. Browse hand-picked remote positions for ${searchTerm} professionals worldwide with detailed requirements and company information.`
     : "Discover remote jobs for digital nomads worldwide. Search thousands of vetted remote positions in development, design, marketing, customer support, and more for location-independent professionals.";
 
+  // Create structured data for JobSearch page
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": title,
+    "description": description,
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "JobPosting",
+            "title": searchTerm ? `${searchTerm} Remote Jobs` : "Remote Jobs for Digital Nomads",
+            "description": `Find the best remote ${searchTerm || ''} jobs for digital nomads.`,
+            "datePosted": new Date().toISOString().split('T')[0],
+            "validThrough": new Date(new Date().setMonth(new Date().getMonth() + 3)).toISOString().split('T')[0],
+            "employmentType": "FULL_TIME",
+            "jobLocationType": "TELECOMMUTE",
+            "applicantLocationRequirements": locationSlug ? {
+              "@type": "Country",
+              "name": locationSlug.replace(/-/g, ' ')
+            } : null
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <>
       <SEOHead 
-        title={`${title} | NomadWorks`}
+        title={`${title} | Remote Jobs for Digital Nomads | NomadWorks`}
         description={description}
+        type="website"
+        keywords={`remote jobs, digital nomad jobs, ${searchTerm || ''} jobs, work remotely, remote career, freelance jobs, location independent work${locationSlug ? `, ${locationSlug.replace(/-/g, ' ')} remote jobs` : ''}`}
+        canonicalUrl={`${window.location.origin}${window.location.pathname}${window.location.search}`}
+        structuredData={structuredData}
       />
       
       {/* Search Hero (Smaller than Home) */}
