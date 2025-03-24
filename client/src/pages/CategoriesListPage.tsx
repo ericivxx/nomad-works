@@ -38,9 +38,12 @@ export default function CategoriesListPage() {
   return (
     <>
       <SEOHead 
-        title="Browse Remote Jobs by Category | NomadWorks"
-        description="Browse and find remote jobs by category. Explore opportunities in development, design, marketing, customer service, and more."
+        title="Browse Remote Jobs by Category | Digital Nomad Careers | NomadWorks"
+        description="Browse and find remote jobs by category. Explore opportunities in development, design, marketing, customer service, and more for digital nomads."
         structuredData={structuredData}
+        keywords="remote jobs by category, digital nomad jobs, remote work categories, remote development jobs, remote design jobs, remote marketing jobs, remote customer service, work from anywhere, remote career categories"
+        type="website"
+        canonicalUrl={`${window.location.origin}/categories`}
       />
       
       {/* Categories Hero */}
