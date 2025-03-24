@@ -139,6 +139,13 @@ function Router() {
           </Layout>
         )}
       </Route>
+      <Route path="/payment-success">
+        {() => (
+          <Layout>
+            <PaymentSuccess />
+          </Layout>
+        )}
+      </Route>
       <Route path="/blog">
         {() => (
           <Layout>

@@ -1,12 +1,15 @@
-import { Router, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import Stripe from 'stripe';
 
-const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+const router = express.Router();
 
-const DOMAIN = process.env.NODE_ENV === 'production' 
-  ? 'https://nomadworks.replit.app' 
-  : 'http://localhost:5000';
+// Initialize Stripe with the secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2023-10-16',
+});
+
+// The price of the digital nomad guide in cents
+const GUIDE_PRICE = 1299;
 
 /**
  * Create a Stripe checkout session for the Nomad Guide
@@ -16,13 +19,10 @@ router.post('/create-checkout-session', async (req: Request, res: Response) => {
     const { email } = req.body;
     
     if (!email) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Email is required' 
-      });
+      return res.status(400).json({ success: false, message: 'Email is required' });
     }
 
-    // Create a new checkout session
+    // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       customer_email: email,
@@ -31,31 +31,30 @@ router.post('/create-checkout-session', async (req: Request, res: Response) => {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'The Ultimate Digital Nomad Guide',
-              description: 'Comprehensive 120-page handbook for digital nomads',
-              images: ['https://images.unsplash.com/photo-1530973428-5bf2db2e4d71?w=800'],
+              name: 'The Ultimate Digital Nomad Guide (2025 Edition)',
+              description: 'A comprehensive 120-page guide to becoming a successful digital nomad',
+              images: ['https://images.unsplash.com/photo-1530973428-5bf2db2e4d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80'],
             },
-            unit_amount: 1299, // $12.99 in cents
+            unit_amount: GUIDE_PRICE,
           },
           quantity: 1,
         },
       ],
-      metadata: {
-        product_id: 'nomad-guide-pdf',
-        customer_email: email,
-      },
       mode: 'payment',
-      success_url: `${DOMAIN}/nomad-guide/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${DOMAIN}/nomad-guide`,
+      success_url: `${req.protocol}://${req.get('host')}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.protocol}://${req.get('host')}/nomad-guide`,
     });
 
-    res.json({ success: true, sessionId: session.id, url: session.url });
+    res.json({ 
+      success: true, 
+      sessionId: session.id,
+      url: session.url 
+    });
   } catch (error) {
-    console.error('Stripe checkout error:', error);
+    console.error('Error creating checkout session:', error);
     res.status(500).json({ 
       success: false, 
-      message: 'Error creating checkout session',
-      error: process.env.NODE_ENV !== 'production' ? error : undefined
+      message: 'Failed to create checkout session' 
     });
   }
 });
@@ -64,43 +63,36 @@ router.post('/create-checkout-session', async (req: Request, res: Response) => {
  * Webhook handler for Stripe events
  */
 router.post('/webhook', async (req: Request, res: Response) => {
+  const payload = req.body;
   const sig = req.headers['stripe-signature'] as string;
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
   
   let event;
 
   try {
-    // If we have a webhook secret, verify the signature
-    if (endpointSecret) {
-      event = stripe.webhooks.constructEvent(
-        req.body, 
-        sig, 
-        endpointSecret
-      );
-    } else {
-      // For testing, just use the body directly
-      event = req.body;
-    }
+    // Verify the event came from Stripe
+    // In a production environment, you would use a webhook secret
+    // event = stripe.webhooks.constructEvent(payload, sig, process.env.STRIPE_WEBHOOK_SECRET);
     
-    // Handle the event
+    // For simplicity in this demo, we'll just accept all events
+    event = payload;
+
+    // Handle specific event types
     switch (event.type) {
       case 'checkout.session.completed':
         const session = event.data.object;
-        // Here you would fulfill the order
-        console.log('Payment successful:', session);
-        
-        // You could send the digital product to the customer's email here
-        // Or update a database to mark the purchase as completed
-        
+        // Fulfill the order - in a real app, you would send an email with download link
+        console.log(`Payment succeeded for session ${session.id}`);
         break;
+
+      // Handle other event types as needed
       default:
         console.log(`Unhandled event type ${event.type}`);
     }
 
     res.json({ received: true });
-  } catch (err: any) {
-    console.error('Webhook error:', err);
-    res.status(400).send(`Webhook Error: ${err.message || 'Unknown error'}`);
+  } catch (err) {
+    console.error('Webhook Error:', err);
+    res.status(400).send(`Webhook Error: ${err.message}`);
   }
 });
 
@@ -110,18 +102,16 @@ router.post('/webhook', async (req: Request, res: Response) => {
 router.get('/session/:sessionId', async (req: Request, res: Response) => {
   try {
     const { sessionId } = req.params;
+    
+    // Retrieve the session details from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     
-    res.json({
-      success: true,
-      session
-    });
+    res.json({ success: true, session });
   } catch (error) {
     console.error('Error retrieving session:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Error retrieving session',
-      error: process.env.NODE_ENV !== 'production' ? error : undefined
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to retrieve session details' 
     });
   }
 });

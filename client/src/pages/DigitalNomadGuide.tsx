@@ -45,7 +45,7 @@ export default function DigitalNomadGuide() {
         }),
       });
 
-      if (response.success && response.url) {
+      if (response && response.success && response.url) {
         // Redirect to Stripe checkout page
         window.location.href = response.url;
       } else {
