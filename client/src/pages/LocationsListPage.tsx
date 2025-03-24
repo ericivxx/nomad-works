@@ -50,9 +50,12 @@ export default function LocationsListPage() {
   return (
     <>
       <SEOHead 
-        title="Remote Jobs by Location | NomadWorks"
-        description="Find remote jobs by location. Work from anywhere and collaborate with companies worldwide. Browse opportunities by region and time zone."
+        title="Remote Jobs by Location | Digital Nomad Destinations | NomadWorks"
+        description="Find remote jobs by location. Work from anywhere and collaborate with companies worldwide. Browse opportunities by region, country, and time zone for digital nomads."
         structuredData={structuredData}
+        keywords="remote jobs by location, digital nomad destinations, remote work locations, work from anywhere, worldwide remote jobs, remote work by timezone, international remote jobs, remote work by country, digital nomad friendly countries"
+        type="website"
+        canonicalUrl={`${window.location.origin}/locations`}
       />
       
       {/* Locations Hero */}

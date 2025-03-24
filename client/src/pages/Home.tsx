@@ -27,12 +27,13 @@ export default function Home() {
   return (
     <>
       <SEOHead 
-        title="NomadWorks - Find Remote Jobs for Digital Nomads & Work from Anywhere" 
-        description="Discover top remote jobs for digital nomads. Access exclusive resources, tools, and guides to build a successful location-independent career worldwide."
+        title="NomadWorks - Top Remote Jobs for Digital Nomads | Work from Anywhere" 
+        description="Discover top remote jobs for digital nomads. Access exclusive resources, tools, and guides to build a successful location-independent career worldwide. Start your digital nomad journey today!"
         structuredData={structuredData}
-        keywords="remote jobs, digital nomad jobs, work from anywhere, remote work, location independent, digital nomad guide, remote career"
+        keywords="remote jobs, digital nomad jobs, work from anywhere, remote work, location independent, digital nomad guide, remote career, digital nomad toolkit, remote job board, nomad lifestyle, best digital nomad jobs, work online jobs, digital nomad resources"
         type="website"
         canonicalUrl={window.location.origin}
+        image={`${window.location.origin}/digital-nomad-toolkit.jpg`}
       />
       
       {/* Hero section */}
