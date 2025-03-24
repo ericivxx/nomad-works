@@ -77,8 +77,40 @@ export default function BlogListing() {
   return (
     <>
       <SEOHead 
-        title="The Digital Nomad Blog | NomadWorks" 
+        title="The Digital Nomad Blog | Remote Work Tips & Gear Reviews | NomadWorks" 
         description="Expert tips, guides, and resources for digital nomads and remote workers. Learn about the best gear, destinations, and strategies for location-independent work."
+        keywords="digital nomad blog, remote work tips, digital nomad gear, remote work tools, nomad lifestyle, remote work resources, location independent, remote work guide"
+        type="website"
+        canonicalUrl={`${window.location.origin}/blog`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "headline": "The Digital Nomad Blog | NomadWorks",
+          "description": "Expert tips, guides, and resources for digital nomads and remote workers.",
+          "url": `${window.location.origin}/blog`,
+          "author": {
+            "@type": "Organization",
+            "name": "NomadWorks"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "NomadWorks",
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${window.location.origin}/logo.png`
+            }
+          },
+          "blogPost": featuredPosts.map(post => ({
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "url": `${window.location.origin}/blog/${post.slug}`,
+            "datePublished": post.publishedAt,
+            "author": {
+              "@type": "Person",
+              "name": post.author.fullName || "NomadWorks Team"
+            }
+          }))
+        }}
       />
 
       <div className="container mx-auto py-16 px-4 md:px-6">
