@@ -221,9 +221,12 @@ export default function LocationPage() {
   return (
     <>
       <SEOHead 
-        title={`Remote Jobs in ${location.name} | NomadWorks`}
+        title={`Remote Jobs in ${location.name} for Digital Nomads | Work from ${location.name === "Worldwide" ? "Anywhere" : location.name}`}
         description={`Find remote jobs in ${location.name} for digital nomads. Browse ${count}+ remote positions available for professionals in ${location.name === "Worldwide" ? "any" : location.name} time zones.`}
         structuredData={structuredData}
+        keywords={`${location.name.toLowerCase()} remote jobs, work from ${location.name.toLowerCase()}, digital nomad ${location.name.toLowerCase()}, remote positions ${location.name.toLowerCase()}, ${location.region.toLowerCase()} remote work, ${location.name.toLowerCase()} jobs`}
+        type="website"
+        canonicalUrl={`${window.location.origin}/location/${location.slug}`}
       />
       
       {/* Location Hero */}

@@ -175,9 +175,12 @@ export default function CategoryPage() {
   return (
     <>
       <SEOHead 
-        title={`${category.name} Remote Jobs for Digital Nomads in ${new Date().getFullYear()}`}
+        title={`${category.name} Remote Jobs for Digital Nomads in ${new Date().getFullYear()} | NomadWorks`}
         description={`Find the best remote ${category.name.toLowerCase()} jobs for digital nomads. Browse ${count}+ positions with top companies hiring ${category.name.toLowerCase()} professionals worldwide.`}
         structuredData={structuredData}
+        keywords={`${category.name.toLowerCase()} jobs, remote ${category.name.toLowerCase()}, ${category.name.toLowerCase()} digital nomad, work from anywhere ${category.name.toLowerCase()}, remote ${category.name.toLowerCase()} career, ${category.name.toLowerCase()} remote positions`}
+        type="website"
+        canonicalUrl={`${window.location.origin}/category/${category.slug}`}
       />
       
       {/* Category Hero */}
