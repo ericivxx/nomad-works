@@ -9,7 +9,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
+  apiVersion: '2025-02-24.acacia',
 });
 
 // The price of the digital nomad guide in cents
@@ -73,12 +73,18 @@ router.post('/webhook', async (req: Request, res: Response) => {
   let event;
 
   try {
-    // Verify the event came from Stripe
-    // In a production environment, you would use a webhook secret
-    // event = stripe.webhooks.constructEvent(payload, sig, process.env.STRIPE_WEBHOOK_SECRET);
-    
-    // For simplicity in this demo, we'll just accept all events
-    event = payload;
+    if (process.env.NODE_ENV === 'production' && process.env.STRIPE_WEBHOOK_SECRET) {
+      // In production, verify the event came from Stripe with webhook secret
+      event = stripe.webhooks.constructEvent(
+        payload, 
+        sig, 
+        process.env.STRIPE_WEBHOOK_SECRET
+      );
+    } else {
+      // For development/testing, we'll accept the payload as is
+      console.log('Warning: Webhook signature verification skipped in non-production environment');
+      event = payload;
+    }
 
     // Handle specific event types
     switch (event.type) {
@@ -94,9 +100,10 @@ router.post('/webhook', async (req: Request, res: Response) => {
     }
 
     res.json({ received: true });
-  } catch (err) {
+  } catch (err: unknown) {
     console.error('Webhook Error:', err);
-    res.status(400).send(`Webhook Error: ${err.message}`);
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+    res.status(400).send(`Webhook Error: ${errorMessage}`);
   }
 });
 
