@@ -234,44 +234,33 @@ export default function BlogPost() {
                     <div className="p-4 flex flex-col h-full">
                       <div className="flex items-start gap-4">
                         <div className="w-24 h-24 relative bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                          {link.title.includes("Monitor") && (
-                            <Monitor size={48} className="text-primary" />
-                          )}
-                          {(link.title.includes("Laptop") || link.title.includes("MacBook")) && (
-                            <Cpu size={48} className="text-primary" />
-                          )}
-                          {link.title.includes("Power Bank") && (
-                            <Battery size={48} className="text-primary" />
-                          )}
-                          {(link.title.includes("Headphones") || link.title.includes("AirPods")) && (
-                            <Headphones size={48} className="text-primary" />
-                          )}
-                          {link.title.includes("Webcam") && (
-                            <Video size={48} className="text-primary" />
-                          )}
-                          {link.title.includes("Travel Adapter") && (
-                            <Plug size={48} className="text-primary" />
-                          )}
-                          {link.title.includes("Global") && !link.title.includes("Travel Adapter") && (
-                            <Globe size={48} className="text-primary" />
-                          )}
-                          {link.title.includes("Stand") && !link.title.includes("Monitor") && (
-                            <Lightbulb size={48} className="text-primary" />
-                          )}
-                          {!link.title.includes("Monitor") && 
-                           !link.title.includes("Laptop") && 
-                           !link.title.includes("MacBook") && 
-                           !link.title.includes("Power Bank") &&
-                           !link.title.includes("Headphones") &&
-                           !link.title.includes("AirPods") &&
-                           !link.title.includes("Webcam") &&
-                           !link.title.includes("Travel Adapter") &&
-                           !link.title.includes("Global") &&
-                           !link.title.includes("Stand") && (
-                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                              <span className="text-primary font-bold text-lg">{link.title.charAt(0)}</span>
-                            </div>
-                          )}
+                          {(() => {
+                            // Use a function to determine which icon to show
+                            if (link.title.includes("Monitor")) {
+                              return <Monitor size={48} className="text-primary" />;
+                            } else if (link.title.includes("Laptop") || link.title.includes("MacBook")) {
+                              return <Cpu size={48} className="text-primary" />;
+                            } else if (link.title.includes("Power Bank")) {
+                              return <Battery size={48} className="text-primary" />;
+                            } else if (link.title.includes("Headphones") || link.title.includes("AirPods")) {
+                              return <Headphones size={48} className="text-primary" />;
+                            } else if (link.title.includes("Webcam")) {
+                              return <Video size={48} className="text-primary" />;
+                            } else if (link.title.includes("Travel Adapter")) {
+                              return <Plug size={48} className="text-primary" />;
+                            } else if (link.title.includes("Global") && !link.title.includes("Travel Adapter")) {
+                              return <Globe size={48} className="text-primary" />;
+                            } else if (link.title.includes("Stand") && !link.title.includes("Monitor")) {
+                              return <Lightbulb size={48} className="text-primary" />;
+                            } else {
+                              // Default fallback
+                              return (
+                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                  <span className="text-primary font-bold text-lg">{link.title.charAt(0)}</span>
+                                </div>
+                              );
+                            }
+                          })()}
                         </div>
                         <div className="flex-1">
                           <h3 className="font-bold">{link.title}</h3>
