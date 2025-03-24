@@ -1,34 +1,39 @@
-# NomadWorks Production Deployment Guide
+# Deployment Guide for NomadWorks
 
-## Prerequisites
+This guide explains how to properly deploy the NomadWorks platform on Replit Deployments.
 
-Before deploying to production, ensure you have:
+## Pre-deployment Checklist
 
-1. Set the `STRIPE_SECRET_KEY` environment variable in your Replit Secrets
-2. Optionally set the `STRIPE_WEBHOOK_SECRET` for secure webhook handling
+Before deploying, make sure you have:
 
-## Deployment Instructions
+1. Set up the required environment secrets:
+   - `STRIPE_SECRET_KEY` - Required for payment processing
+   - `STRIPE_WEBHOOK_SECRET` - Optional but recommended for production webhook verification
 
-1. Set your environment variables in the Replit Secrets panel
-2. Update the deployment command in your Replit deployment settings:
-   - Change `npm run dev` to `npm run start:prod`
-3. Click Deploy in Replit
+## Deployment Configuration
 
-## Environment Variables
+The application needs to run in production mode during deployment. The current deployment configuration in `.replit` is set to run the development server, which is not ideal for production.
 
-| Variable Name | Required | Description |
-|---------------|----------|-------------|
-| STRIPE_SECRET_KEY | Yes | Your Stripe Secret Key for payment processing |
-| STRIPE_WEBHOOK_SECRET | No | Secret for Stripe webhook signature verification |
-| NODE_ENV | Yes* | Set to "production" automatically by deployment script |
+### How to Update Deployment Configuration
+
+When deploying on Replit:
+
+1. In your Replit project, click on the "Deployment" tab
+2. Under "Advanced Settings":
+   - Change the run command from `npm run dev` to `./replit-deploy.sh`
+   - This script handles building the application and starting it in production mode
+
+## Post-deployment Verification
+
+After deployment:
+
+1. Verify that Stripe payment processing works by testing a checkout flow
+2. Check that all environment variables are properly set in the deployed environment
 
 ## Troubleshooting
 
-If deployment fails, check:
-- Secrets are correctly configured
-- You're using the `npm run start:prod` command and not `npm run dev`
-- Build logs for any TypeScript or bundling errors
+If you encounter issues with the deployment:
 
-## Contact
-
-For any deployment issues, please contact support@nomadworks.com
+1. Check that all required environment secrets are properly set in the Replit Secrets tab
+2. Verify that the deployment is using the production build command
+3. Check the deployment logs for any errors
