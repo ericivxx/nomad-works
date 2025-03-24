@@ -49,9 +49,12 @@ export default function SitemapPage() {
   return (
     <>
       <SEOHead 
-        title="Sitemap | NomadWorks - Find Remote Jobs for Digital Nomads"
-        description="Browse all digital nomad job keywords, categories, and locations on our sitemap page. Find the perfect remote job opportunity."
+        title="Sitemap | Complete Index of Remote Jobs for Digital Nomads | NomadWorks"
+        description="Browse our complete sitemap of remote job keywords, categories, locations, and resources. Find the perfect remote job opportunity tailored for digital nomads."
         structuredData={sitemapStructuredData}
+        type="website"
+        keywords="remote jobs sitemap, digital nomad sitemap, remote work index, remote job categories, remote job keywords, digital nomad destinations, remote work resources, remote job listings index"
+        canonicalUrl={`${window.location.origin}/sitemap`}
       />
       
       <div className="container mx-auto px-4 py-10">
