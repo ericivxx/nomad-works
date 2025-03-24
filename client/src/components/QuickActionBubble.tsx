@@ -100,6 +100,25 @@ export default function QuickActionBubble() {
           <Button
             size="sm"
             variant="secondary"
+            className="rounded-full px-4 py-2 shadow-md flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white border border-green-300 hover:from-green-600 hover:to-emerald-600"
+            onClick={() => { 
+              setOpen(false);
+              setTimeout(() => window.scrollTo(0, 0), 100);
+            }}
+            asChild
+          >
+            <Link href="/nomad-guide">
+              <svg className="h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+              <span className="whitespace-nowrap font-semibold">Nomad Guide</span>
+            </Link>
+          </Button>
+          
+          <Button
+            size="sm"
+            variant="secondary"
             className="rounded-full px-4 py-2 shadow-md flex items-center gap-2 bg-gradient-to-r from-rose-400 to-pink-500 text-white border border-pink-300 hover:from-rose-500 hover:to-pink-600"
             onClick={() => { 
               setOpen(false);
