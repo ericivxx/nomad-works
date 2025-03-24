@@ -17,6 +17,7 @@ import KeywordLandingPage from "@/pages/KeywordLandingPage";
 import SitemapPage from "@/pages/SitemapPage";
 import DigitalNomadToolkit from "@/pages/DigitalNomadToolkit";
 import DigitalNomadGuide from "@/pages/DigitalNomadGuide"; 
+import PaymentSuccess from "@/pages/PaymentSuccess";
 import CareerPathVisualization from "@/pages/CareerPathVisualization";
 import IconTest from "@/components/IconTest";
 import Register from "@/pages/Register";

@@ -9,6 +9,7 @@ import { CheckCircle, FileText, ThumbsUp, Zap, MapPin, Compass, Globe, CreditCar
 import SEOHead from '@/components/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { apiRequest } from '@/lib/queryClient';
 
 export default function DigitalNomadGuide() {
   const [email, setEmail] = useState('');
@@ -22,25 +23,41 @@ export default function DigitalNomadGuide() {
     setLoading(true);
 
     try {
-      // Simulate payment processing
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Success message
-      toast({
-        title: "Purchase successful!",
-        description: "Check your email for download instructions.",
-        variant: "default",
+      if (!email) {
+        toast({
+          title: "Email required",
+          description: "Please enter your email address to continue with the purchase.",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
+      // Create a Stripe checkout session
+      const response = await apiRequest<{ success: boolean; sessionId: string; url: string }>('/api/checkout/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email,
+          paymentMethod: 'card' // For Stripe, we'll always use card payment
+        }),
       });
-      
-      // Reset form
-      setEmail('');
+
+      if (response.success && response.url) {
+        // Redirect to Stripe checkout page
+        window.location.href = response.url;
+      } else {
+        throw new Error('Failed to create checkout session');
+      }
     } catch (error) {
+      console.error('Checkout error:', error);
       toast({
-        title: "Purchase failed",
-        description: "There was an error processing your payment. Please try again.",
+        title: "Checkout failed",
+        description: "There was an error starting the checkout process. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setLoading(false);
     }
   };
