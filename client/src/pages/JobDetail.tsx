@@ -258,10 +258,13 @@ export default function JobDetail() {
   return (
     <>
       <SEOHead 
-        title={`${typedJob.title} at ${typedJob.company.name} | NomadWorks`}
-        description={typedJob.description.substring(0, 160)}
+        title={`${typedJob.title} at ${typedJob.company.name} | Remote Job | NomadWorks`}
+        description={typedJob.description.substring(0, 160).replace(/(<([^>]+)>)/gi, '').trim()}
         structuredData={getJobPostingStructuredData()}
         type="article"
+        keywords={`${typedJob.title.toLowerCase()}, ${typedJob.company.name.toLowerCase()}, remote job, ${typedJob.category.name.toLowerCase()} job, work from anywhere, ${typedJob.skills.map(skill => skill.name.toLowerCase()).join(', ')}, ${typedJob.experienceLevel ? typedJob.experienceLevel.toLowerCase() : ''} level, ${typedJob.type.toLowerCase()} position`}
+        canonicalUrl={`${window.location.origin}/job/${typedJob.slug}`}
+        publishedDate={typedJob.postedAt}
       />
       
       <div className="container mx-auto px-4 py-8">

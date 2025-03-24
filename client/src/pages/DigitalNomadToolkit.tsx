@@ -77,6 +77,9 @@ export default function DigitalNomadToolkit() {
         title={`Digital Nomad Toolkit - Essential Resources for Remote Workers (${currentYear})`}
         description={`Discover the essential tools, apps, and services for digital nomads and remote workers in ${currentYear}. From productivity tools to travel resources, find everything you need for location-independent work.`}
         structuredData={structuredData}
+        keywords={`digital nomad toolkit, remote work tools, digital nomad resources, remote work apps, nomad software, travel tools, productivity tools, remote work essentials, vpn for nomads, digital nomad insurance, remote collaboration tools`}
+        type="website"
+        canonicalUrl={`${window.location.origin}/toolkit`}
       />
 
       {/* Hero Section */}

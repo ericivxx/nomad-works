@@ -53,8 +53,25 @@ export default function PaymentSuccess() {
   return (
     <>
       <SEOHead
-        title="Payment Successful | NomadWorks"
-        description="Thank you for purchasing The Ultimate Digital Nomad Guide. Your payment has been processed successfully."
+        title="Payment Successful | Digital Nomad Guide Purchase Complete | NomadWorks"
+        description="Thank you for purchasing The Ultimate Digital Nomad Guide. Your payment has been processed successfully. Your guide is now ready for download."
+        type="website"
+        canonicalUrl={`${window.location.origin}/payment-success`}
+        keywords="digital nomad guide, purchase success, payment confirmation, nomad guide download, remote work resources"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Payment Success - Digital Nomad Guide",
+          "description": "Thank you for purchasing The Ultimate Digital Nomad Guide. Your payment has been processed successfully.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "NomadWorks",
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${window.location.origin}/logo.png`
+            }
+          }
+        }}
       />
       
       <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
