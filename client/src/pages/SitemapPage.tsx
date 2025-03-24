@@ -22,12 +22,25 @@ function groupKeywordsByFirstLetter(keywords: string[]): Record<string, string[]
   return groups;
 }
 
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface Location {
+  id: number;
+  name: string;
+  slug: string;
+  region: string;
+}
+
 export default function SitemapPage() {
-  const { data: categories } = useQuery({
+  const { data: categories } = useQuery<Category[]>({
     queryKey: ['/api/categories'],
   });
   
-  const { data: locations } = useQuery({
+  const { data: locations } = useQuery<Location[]>({
     queryKey: ['/api/locations'],
   });
   
