@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Newsletter from "./Newsletter";
 import ToolkitButton from "./ToolkitButton";
 import QuickActionBubble from "./QuickActionBubble";
+import GoogleAnalytics from "./GoogleAnalytics";
 import { useLocation } from "wouter";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -30,6 +31,9 @@ export default function Layout({ children }: LayoutProps) {
   
   return (
     <div className={`flex flex-col min-h-screen bg-gray-50 font-sans text-gray-800 ${isHomePage ? 'home-page' : ''}`}>
+      {/* Load Google Analytics */}
+      <GoogleAnalytics />
+      
       <Header />
       {children}
       {showNewsletter && <Newsletter />}
