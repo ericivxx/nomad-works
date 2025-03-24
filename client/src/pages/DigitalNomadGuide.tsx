@@ -113,6 +113,34 @@ export default function DigitalNomadGuide() {
       <SEOHead
         title="The Ultimate Digital Nomad Guide 2025 | NomadWorks"
         description="Get our comprehensive 120-page digital nomad guide with actionable strategies, destination profiles, and remote work resources to kickstart your location-independent lifestyle."
+        keywords="digital nomad guide, remote work handbook, location independent lifestyle, digital nomad destinations, nomad tax planning, remote work visa, remote job guide, work from anywhere"
+        type="product"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "The Ultimate Digital Nomad Guide 2025",
+          "description": "A comprehensive 120-page handbook packed with actionable strategies and insider knowledge for digital nomads.",
+          "image": "https://images.unsplash.com/photo-1530973428-5bf2db2e4d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+          "offers": {
+            "@type": "Offer",
+            "price": "12.99",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          },
+          "review": {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Sarah J."
+            },
+            "reviewBody": "This guide helped me land my first remote job within 2 weeks. I'm now working from Bali!"
+          }
+        }}
       />
       
       <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
