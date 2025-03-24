@@ -166,11 +166,40 @@ export default function BlogPost() {
   return (
     <>
       <SEOHead 
-        title={post.metaTitle || post.title}
+        title={post.metaTitle || `${post.title} | NomadWorks Blog`}
         description={post.metaDescription || post.excerpt}
         canonicalUrl={`${window.location.origin}/blog/post/${post.slug}`}
         image={post.coverImage ? `${window.location.origin}${post.coverImage}` : undefined}
         type="article"
+        keywords={`digital nomad, remote work, ${post.category?.name.toLowerCase() || ''}, nomad life, ${post.title.toLowerCase().split(' ').slice(0, 3).join(', ')}`}
+        author={post.author.fullName || "NomadWorks Team"}
+        publishedDate={post.publishedAt}
+        modifiedDate={post.updatedAt || undefined}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `${window.location.origin}/blog/post/${post.slug}`
+          },
+          "headline": post.title,
+          "description": post.excerpt,
+          "image": post.coverImage ? `${window.location.origin}${post.coverImage}` : undefined,
+          "author": {
+            "@type": "Person",
+            "name": post.author.fullName || "NomadWorks Team"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "NomadWorks",
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${window.location.origin}/logo.png`
+            }
+          },
+          "datePublished": post.publishedAt,
+          "dateModified": post.updatedAt || post.publishedAt
+        }}
       />
 
       <div className="container mx-auto py-8 px-4 sm:px-6">
