@@ -31,6 +31,8 @@ export default function Home() {
         description="Discover top remote jobs for digital nomads. Access exclusive resources, tools, and guides to build a successful location-independent career worldwide."
         structuredData={structuredData}
         keywords="remote jobs, digital nomad jobs, work from anywhere, remote work, location independent, digital nomad guide, remote career"
+        type="website"
+        canonicalUrl={window.location.origin}
       />
       
       {/* Hero section */}
