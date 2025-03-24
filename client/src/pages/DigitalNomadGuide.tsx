@@ -146,7 +146,7 @@ export default function DigitalNomadGuide() {
                 className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 rounded-lg"
                 onClick={() => document.getElementById('purchase-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Get the guide for $29
+                Get the guide for $12.99
               </Button>
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function DigitalNomadGuide() {
               className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 rounded-lg"
               onClick={() => document.getElementById('purchase-section')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Get the guide for $29
+              Get the guide for $12.99
             </Button>
           </div>
         </div>
@@ -247,9 +247,9 @@ export default function DigitalNomadGuide() {
               <h3 className="text-2xl font-bold text-gray-900 mb-6">The Ultimate Digital Nomad Guide</h3>
               
               <div className="flex items-center mb-6">
-                <div className="text-3xl font-bold text-gray-900">$29</div>
-                <div className="ml-2 line-through text-gray-500">$49</div>
-                <Badge className="ml-3 bg-green-100 text-green-800 border-none">40% OFF</Badge>
+                <div className="text-3xl font-bold text-gray-900">$12.99</div>
+                <div className="ml-2 line-through text-gray-500">$29.99</div>
+                <Badge className="ml-3 bg-green-100 text-green-800 border-none">56% OFF</Badge>
               </div>
               
               <div className="space-y-4 mb-6">
@@ -324,7 +324,7 @@ export default function DigitalNomadGuide() {
                     className="w-full text-base bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-6 h-auto"
                     disabled={loading}
                   >
-                    {loading ? "Processing..." : "Purchase Now — $29"}
+                    {loading ? "Processing..." : "Purchase Now — $12.99"}
                   </Button>
                   
                   <p className="text-center text-sm text-gray-500">
