@@ -1,33 +1,20 @@
 #!/bin/bash
-# Production deployment script for NomadWorks
+# Deploy script that builds and restarts the application in production mode
 
-echo "Installing production dependencies..."
-npm ci --only=production
+# Stop any running services
+echo "Stopping any running services..."
+pkill -f "node dist/index.js" || true
 
+# Set environment to production
+export NODE_ENV=production
+
+# Build the application
 echo "Building application for production..."
 npm run build
 
-echo "Setting environment to production..."
-export NODE_ENV=production
+# Start the server in production mode
+echo "Starting server in production mode..."
+nohup node dist/index.js > nomadworks.log 2>&1 &
 
-# Clean up development files to reduce deployment size
-rm -rf node_modules/.cache
-
-# Check for required environment variables
-if [ -z "$STRIPE_SECRET_KEY" ]; then
-  echo "Warning: STRIPE_SECRET_KEY environment variable is not set"
-  echo "Checkout functionality will not work in production"
-  echo "Please set this variable in your deployment environment"
-fi
-
-if [ -z "$STRIPE_WEBHOOK_SECRET" ]; then
-  echo "Warning: STRIPE_WEBHOOK_SECRET environment variable is not set"
-  echo "Stripe webhook verification will be disabled"
-  echo "Please set this variable in your deployment environment for secure webhook handling"
-fi
-
-# Create logs directory if it doesn't exist
-mkdir -p logs
-
-echo "Starting production server..."
-npm start
+echo "Deployment complete! Application is running in production mode."
+echo "Check nomadworks.log for output."
