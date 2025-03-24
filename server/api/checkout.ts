@@ -4,6 +4,10 @@ import Stripe from 'stripe';
 const router = express.Router();
 
 // Initialize Stripe with the secret key
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.error('Missing STRIPE_SECRET_KEY environment variable. Checkout functionality will not work.');
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2023-10-16',
 });
