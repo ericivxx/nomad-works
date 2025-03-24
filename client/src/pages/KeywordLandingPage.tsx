@@ -206,6 +206,9 @@ export default function KeywordLandingPage() {
         title={seoContent.title}
         description={seoContent.description}
         structuredData={seoContent.structuredData}
+        type="website"
+        keywords={`${decodedKeyword.replace(/-/g, ' ')}, remote ${decodedKeyword.replace(/-/g, ' ')}, work from anywhere, digital nomad jobs, ${relatedKeywords.join(', ')}`}
+        canonicalUrl={`${window.location.origin}/keywords/${decodedKeyword}`}
       />
       
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-8 md:py-12">
