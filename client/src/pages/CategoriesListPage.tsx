@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
 import ToolkitButton from "@/components/ToolkitButton";
+import GoogleAdUnit from "@/components/GoogleAdUnit";
 import { Loader } from "lucide-react";
 
 interface Category {
@@ -63,6 +64,13 @@ export default function CategoriesListPage() {
       
       {/* Main Content */}
       <div className="container mx-auto px-4 py-10">
+        {/* Ad Unit Above Categories */}
+        <div className="bg-white rounded-lg shadow-md p-4 mb-8">
+          <div className="p-2 bg-gray-50 rounded-lg border border-gray-200">
+            <GoogleAdUnit adFormat="horizontal" fullWidth />
+          </div>
+        </div>
+      
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-2xl font-bold mb-6">All Job Categories</h2>
           
