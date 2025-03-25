@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/HeroSection";
 import BlogHighlights from "@/components/BlogHighlights";
+import GoogleAdUnit from "@/components/GoogleAdUnit";
 import { BookOpen, BookMarked } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -79,6 +80,13 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </div>
+      </div>
+      
+      {/* Ad Banner */}
+      <div className="container mx-auto my-8 px-4">
+        <div className="p-2 bg-gray-50 rounded-lg border border-gray-200">
+          <GoogleAdUnit adFormat="horizontal" />
         </div>
       </div>
       
