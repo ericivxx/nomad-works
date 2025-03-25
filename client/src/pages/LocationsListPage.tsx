@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import SEOHead from "@/components/SEOHead";
 import ToolkitButton from "@/components/ToolkitButton";
+import GoogleAdUnit from "@/components/GoogleAdUnit";
 import { Loader } from "lucide-react";
 
 interface Location {
@@ -97,6 +98,13 @@ export default function LocationsListPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Ad Unit */}
+        <div className="bg-white rounded-lg shadow-md p-4 mb-8">
+          <div className="p-2 bg-gray-50 rounded-lg border border-gray-200">
+            <GoogleAdUnit adFormat="horizontal" fullWidth />
+          </div>
         </div>
         
         {/* Worldwide Benefits */}
