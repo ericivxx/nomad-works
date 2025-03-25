@@ -9,6 +9,7 @@ import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { CalendarIcon } from 'lucide-react';
+import GoogleAdUnit from '@/components/GoogleAdUnit';
 
 interface User {
   id: number;
@@ -179,6 +180,15 @@ export default function BlogListing() {
           </section>
         )}
 
+        {/* Ad Unit Section */}
+        <section className="mb-16">
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <div className="p-2 bg-gray-50 rounded-lg border border-gray-200">
+              <GoogleAdUnit adFormat="horizontal" fullWidth />
+            </div>
+          </div>
+        </section>
+        
         {/* All Posts Section */}
         <section>
           <h2 className="text-2xl md:text-3xl font-bold mb-8 border-b pb-3 border-gray-100">Latest Articles</h2>

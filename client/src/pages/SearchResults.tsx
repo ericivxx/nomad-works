@@ -6,6 +6,7 @@ import SearchForm from "@/components/SearchForm";
 import SEOHead from "@/components/SEOHead";
 import ToolkitSidebar from "@/components/ToolkitSidebar";
 import ToolkitButton from "@/components/ToolkitButton";
+import GoogleAdUnit from "@/components/GoogleAdUnit";
 
 export default function SearchResults() {
   const search = useSearch();
@@ -137,6 +138,13 @@ export default function SearchResults() {
           </div>
           {/* Main Content */}
           <div className="w-full lg:w-3/4">
+            {/* Ad Unit at top of job listings */}
+            <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+              <div className="p-2 bg-gray-50 rounded-lg border border-gray-200">
+                <GoogleAdUnit adFormat="horizontal" fullWidth />
+              </div>
+            </div>
+            
             <JobList endpoint={endpoint} title={title} />
           </div>
         </div>
