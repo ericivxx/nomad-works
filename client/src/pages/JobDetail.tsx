@@ -8,6 +8,7 @@ import { Briefcase, MapPin, DollarSign, Calendar, Globe, BarChart, ArrowLeft, Za
 import { useUser } from "@/contexts/UserContext";
 import { formatDistanceToNow, format } from "date-fns";
 import SEOHead from "@/components/SEOHead";
+import GoogleAdUnit from "@/components/GoogleAdUnit";
 import ToolkitSidebar from "@/components/ToolkitSidebar";
 import ToolkitButton from "@/components/ToolkitButton";
 import { Button } from "@/components/ui/button";
@@ -306,7 +307,7 @@ export default function JobDetail() {
                 
                 <Button 
                   variant={isSaved ? "outline" : "default"} 
-                  size="md" 
+                  size="default" 
                   className={`flex items-center gap-2 font-medium ${
                     isSaved 
                       ? 'text-red-500 border-red-300 hover:bg-red-50 hover:border-red-400' 
@@ -396,6 +397,13 @@ export default function JobDetail() {
                     {skill.name}
                   </span>
                 ))}
+              </div>
+            </div>
+            
+            {/* Ad Unit */}
+            <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+              <div className="p-2 bg-gray-50 rounded-lg border border-gray-200">
+                <GoogleAdUnit adFormat="rectangle" />
               </div>
             </div>
             

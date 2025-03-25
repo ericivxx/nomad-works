@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 
 import SEOHead from '@/components/SEOHead';
+import GoogleAdUnit from '@/components/GoogleAdUnit';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -249,6 +250,11 @@ export default function BlogPost() {
           {/* Content */}
           <div className="mb-10 blog-content">
             {renderContent()}
+          </div>
+          
+          {/* Ad Unit */}
+          <div className="my-8 p-2 bg-gray-50 rounded-lg border border-gray-200">
+            <GoogleAdUnit adFormat="rectangle" />
           </div>
           
           <Separator className="my-10" />
